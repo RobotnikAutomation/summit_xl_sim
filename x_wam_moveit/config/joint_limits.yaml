@@ -1,0 +1,116 @@
+joint_limits:
+  joint_front_right_wheel:
+    has_velocity_limits: true
+    max_velocity: 0.1
+    has_acceleration_limits: true
+    max_acceleration: 0.02
+  joint_back_right_wheel:
+    has_velocity_limits: true
+    max_velocity: 0.1
+    has_acceleration_limits: true
+    max_acceleration: 0.02
+  j33_joint:
+    has_velocity_limits: true
+    max_velocity: 2
+    has_acceleration_limits: true
+    max_acceleration: 0.4
+  j4_joint:
+    has_velocity_limits: true
+    max_velocity: 2
+    has_acceleration_limits: true
+    max_acceleration: 0.4
+  joint_front_right_steer:
+    has_velocity_limits: true
+    max_velocity: 5
+    has_acceleration_limits: true
+    max_acceleration: 1
+  j32_joint:
+    has_velocity_limits: true
+    max_velocity: 2
+    has_acceleration_limits: true
+    max_acceleration: 0.4
+  j5_joint:
+    has_velocity_limits: true
+    max_velocity: 2
+    has_acceleration_limits: true
+    max_acceleration: 0.4
+  joint_back_left_wheel:
+    has_velocity_limits: true
+    max_velocity: 0.1
+    has_acceleration_limits: true
+    max_acceleration: 0.02
+  j13_joint:
+    has_velocity_limits: true
+    max_velocity: 2
+    has_acceleration_limits: true
+    max_acceleration: 0.4
+  j22_joint:
+    has_velocity_limits: true
+    max_velocity: 2
+    has_acceleration_limits: true
+    max_acceleration: 0.4
+  j3_joint:
+    has_velocity_limits: true
+    max_velocity: 2
+    has_acceleration_limits: true
+    max_acceleration: 0.4
+  j11_joint:
+    has_velocity_limits: true
+    max_velocity: 2
+    has_acceleration_limits: true
+    max_acceleration: 0.4
+  joint_front_left_steer:
+    has_velocity_limits: true
+    max_velocity: 5
+    has_acceleration_limits: true
+    max_acceleration: 1
+  j7_joint:
+    has_velocity_limits: true
+    max_velocity: 2
+    has_acceleration_limits: true
+    max_acceleration: 0.4
+  j23_joint:
+    has_velocity_limits: true
+    max_velocity: 2
+    has_acceleration_limits: true
+    max_acceleration: 0.4
+  j1_joint:
+    has_velocity_limits: true
+    max_velocity: 2
+    has_acceleration_limits: true
+    max_acceleration: 0.4
+  joint_front_left_wheel:
+    has_velocity_limits: true
+    max_velocity: 0.1
+    has_acceleration_limits: true
+    max_acceleration: 0.02
+  joint_back_right_steer:
+    has_velocity_limits: true
+    max_velocity: 5
+    has_acceleration_limits: true
+    max_acceleration: 1
+  j6_joint:
+    has_velocity_limits: true
+    max_velocity: 2
+    has_acceleration_limits: true
+    max_acceleration: 0.4
+  joint_back_left_steer:
+    has_velocity_limits: true
+    max_velocity: 5
+    has_acceleration_limits: true
+    max_acceleration: 1
+  j2_joint:
+    has_velocity_limits: true
+    max_velocity: 2
+    has_acceleration_limits: true
+    max_acceleration: 0.4
+  j12_joint:
+    has_velocity_limits: true
+    max_velocity: 2
+    has_acceleration_limits: true
+    max_acceleration: 0.4
+  j21_joint:
+    has_velocity_limits: true
+    max_velocity: 2
+    has_acceleration_limits: true
+    max_acceleration: 0.4

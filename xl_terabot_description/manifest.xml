@@ -1,0 +1,21 @@
+<package>
+  <description brief="xl_terabot_description">
+
+     xl_terabot_description
+
+     URDF description of the mobile manipulator XL + Terabot Arm
+
+  </description>
+  <author>Roberto</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/xl_terabot_description</url>
+  <depend package="roscpp"/>
+  <depend package="std_srvs"/>
+  <depend package="std_msgs"/>
+  <depend package="tf"/>
+  <depend package="gazebo"/>
+
+</package>
+
+

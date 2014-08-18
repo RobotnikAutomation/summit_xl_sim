@@ -1,0 +1,31 @@
+<launch>
+  <master auto="start"/>
+
+  <!-- Run the map server -->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find summit_xl_2dnav)/maps/robotnik/robotnik.yaml"/>
+
+  <!--- Run AMCL -->
+  <include file="$(find summit_xl_2dnav)/navigation_amcl/amcl_summit.launch" />
+  <remap from="cmd_vel" to="summit_xl_ctrl/command" />
+
+  <!--- Run EFK Filter -->
+  <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
+    <param name="output_frame" value="odom"/> <!-- Output topic, in this case, as we define "odom", the topic is published to "/robot_pose_ekf/odom", if we define "/odom" the topic will publish to "/odom" -->
+    <param name="freq" value="50.0"/>
+    <param name="sensor_timeout" value="1.0"/>  
+    <param name="publish_tf" value="true"/>
+    <param name="odom_used" value="true"/>
+    <param name="imu_used" value="true"/>
+    <param name="vo_used" value="false"/>
+    <param name="debug" value="true"/>
+  </node>
+  
+  <!-- Run move_base -->
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find summit_xl_2dnav)/navigation_config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find summit_xl_2dnav)/navigation_config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find summit_xl_2dnav)/navigation_config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find summit_xl_2dnav)/navigation_config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find summit_xl_2dnav)/navigation_config/base_local_planner_params.yaml" command="load" />
+  </node>
+</launch>

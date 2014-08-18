@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<robot name="wam" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
+
+  <!-- Import all Gazebo-customization elements, including Gazebo colors -->
+  <!-- xacro:include filename="$(find wam_description)/urdf/wam.gazebo" /-->
+
+  <!-- Constants for robot dimensions -->
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:property name="joint_damping" value="100.0" />
+  <xacro:property name="joint_friction" value="0.0" />
+  <xacro:property name="joint_effort_limit" value="30.0" />
+  <xacro:property name="joint_velocity_limit" value="2.0" />
+  <xacro:property name="mechanical_reduction" value="1.0" />
+  
+  <!-- Used for fixing robot to Gazebo 'base_link' -->
+  <link name="world"/>
+  <joint name="fwf" type="fixed">
+    <parent link="world"/>
+    <child link="base_footprint"/>
+  </joint>
+
+  <!-- BASE FOOTPRINT -->
+  <!-- base_footprint is a fictitious link(frame) that is on the ground right below base_link origin,
+             navigation stack depends on this frame -->
+  <link name="base_footprint">
+      <visual>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+             <box size="0.001 0.001 0.001" />
+          </geometry>
+      </visual>
+
+      <collision>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>
+            <box size="0.001 0.001 0.001" />
+         </geometry>
+     </collision>
+  </link>
+  
+  
+  <!-- Import Barrett WAM robot xacro file description -->
+  <xacro:include filename="$(find wam_description)/urdf/wam_arm.urdf.xacro" />
+
+  <joint name="base_footprint_wam_joint" type="fixed">
+     <origin xyz="-0.220 0 0.410" rpy="0 0 0" />
+     <parent link="base_footprint"/>
+     <child link="wam_base_link"/>
+     <!-- axis xyz="0 0 0" / -->
+  </joint>  
+  
+
+  <!-- GRIPPER -->
+  <!-- joint name="wam_gripper_joint" type="fixed">
+    <origin rpy="0 0 1.57075" xyz="0 0 0.065"/>
+    <parent link="wam_link7"/>
+    <child link="gripper_base_link"/>
+  </joint -->
+      
+</robot>
+

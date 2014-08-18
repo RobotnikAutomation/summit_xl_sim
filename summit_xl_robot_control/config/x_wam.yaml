@@ -1,0 +1,16 @@
+summit_xl_robot_control:
+
+     model: x_wam
+
+      # kinematic parameters 
+     summit_xl_wheel_diameter: 0.25 
+     summit_xl_d_tracks_m: 1.00
+     
+      # omni L=W for swerve drive simulation !
+      # Length 
+     summit_xl_wheelbase: 0.570
+      # Width 
+     summit_xl_trackwidth: 0.570 
+
+
+     publish_odom_tf: true 

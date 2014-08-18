@@ -1,0 +1,28 @@
+<package>
+  <description brief="summit_xl_waypoints">
+
+     summit_xl_waypoints
+
+  </description>
+  <author>Robotnik</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/summit_xl_waypoints</url>
+  <depend package="move_base_msgs"/>
+  <depend package="actionlib"/>
+  <depend package="roscpp"/>
+  <depend package="nav_msgs"/>
+  <depend package="geometry_msgs"/>
+  <depend package="sensor_msgs"/>
+  <depend package="self_test"/>
+  <depend package="diagnostic_updater"/>
+  <depend package="std_srvs"/>
+  <depend package="robotnik_msgs"/>
+
+  <export>
+     <pr2_controller_interface plugin="${prefix}/controller_plugins.xml" />
+  </export>
+
+</package>
+
+

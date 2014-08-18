@@ -1,0 +1,8 @@
+<stack>
+  <description brief="summit_xl_sim">summit_xl_sim</description>
+  <author>Maintained by Robotnik</author>
+  <license></license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/guardian_sim</url>
+  <depend stack="ros" />
+</stack>

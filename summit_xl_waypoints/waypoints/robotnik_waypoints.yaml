@@ -1,0 +1,39 @@
+#These are the waypoints for the Robotnik ground floor
+
+#Loop the list of goal points, true or false?
+loop: true
+
+#node_groups:
+#  - all: [ n1, n2, n3, n4 ]
+#  - start_end: [ n1, n4 ]
+    
+# don't write 0, write 0.0
+
+waypoints:
+    - {
+     name: 'n1',
+     frame_id: 'odom',
+     position: [10.0, 0.0, 0.0 ]
+     }
+    - {
+     name: 'n2',
+     frame_id: 'odom',
+     position: [10.0, 10.0, 0.0 ]
+     }
+    - {
+     name: 'n3',
+     frame_id: 'odom',
+     position: [20.0, 10.0, 0.0 ]
+     }
+    - {
+     name: 'n4',
+     frame_id: 'odom',
+     position: [20.0, 0.0, 0.0 ] #position: [12.0, 1.0, 0.0 ]
+     }
+    - {
+     name: 'n5',
+     frame_id: 'odom',
+     position: [30.0, 0.0, 0.0 ] #position: [12.0, 1.0, 0.0 ]
+     }
+       
+

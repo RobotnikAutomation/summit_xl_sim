@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<package>
+  <name>summit_xl_2dnav</name>
+  <version>1.0.0</version>
+  <description>
+    This package configures the move_base stack and makes use of the gmapping and amcl algorithms to
+    move the summit_xl robot 
+  </description>
+  <maintainer email="info@robotnik.es">Robotnik</maintainer>
+  <license>BSD</license>
+
+  <url>http://ros.org/wiki/summit_xl_2dnav</url>
+  <author>Robotnik</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>message_runtime</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <!-- build_depend>move_base</build_depend>
+  <build_depend>gmapping</build_depend>
+  <build_depend>amcl</build_depend>
+  <build_depend>summit_xl_odometry</build_depend -->  
+  <run_depend>message_runtime</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <!--run_depend>move_base</run_depend>
+  <run_depend>gmapping</run_depend>
+  <run_depend>amcl</run_depend>
+  <run_depend>summit_xl_odometry</run_depend --> 
+     
+  <export>
+  </export>
+  
+</package>
+
+
+

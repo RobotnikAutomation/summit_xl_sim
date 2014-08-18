@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/summit_xl" args="--namespace=/summit_xl
+                      joint_blw_velocity_controller
+                      joint_brw_velocity_controller
+                      joint_frw_velocity_controller
+                      joint_flw_velocity_controller
+                      joint_blw_position_controller
+                      joint_brw_position_controller
+                      joint_frw_position_controller
+                      joint_flw_position_controller
+                      joint_scissor_position_controller
+					  j1_position_controller
+					  j2_position_controller
+					  j3_position_controller
+					  j4_position_controller
+					  j5_position_controller
+					  j6_position_controller
+					  j7_position_controller
+                      joint_read_state_controller
+                      "/>
+
+					  <!--j11_position_controller
+					  j12_position_controller
+					  j13_position_controller
+					  j21_position_controller
+					  j22_position_controller
+					  j23_position_controller
+					  j32_position_controller
+					  j33_position_controller --> 
+
+
+  <!-- Load joint controller configurations from YAcd .ML file to parameter server -->
+  <rosparam file="$(find summit_xl_control)/config/x_wam_control.yaml" command="load"/>
+
+  <!-- once the joint_state is published, run the robot_state_publisher, the namespace has to be adapted --> 
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="false" output="screen">
+    <remap from="/joint_states" to="/summit_xl/joint_states" />
+  </node>
+
+</launch>
+
+ 

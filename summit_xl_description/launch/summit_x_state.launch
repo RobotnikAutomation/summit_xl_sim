@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- send urdf to param server -->
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find summit_xl_description)/urdf/summit_x.urdf.xacro'" />
+  
+  <!-- publish tfs through the robot_state_publisher -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+  
+  
+
+</launch>

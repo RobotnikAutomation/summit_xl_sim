@@ -1,0 +1,34 @@
+wam:
+  j1_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: j1_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  j2_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: j2_joint
+    pid: {p: 100.0, i: 1.0, d: 10.0}
+  j3_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: j3_joint
+#    pid: {p: 100.0, i: 0.01, d: 10.0}
+    pid: {p: 100.0, i: 1.0, d: 10.0}
+  j4_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: j4_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  j5_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: j5_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  j6_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: j6_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}    
+  j7_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: j7_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}    
+  joint_read_state_controller:
+    type: joint_state_controller/JointStateController 
+    publish_rate: 100.0
+

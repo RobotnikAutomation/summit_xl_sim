@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+  <node name="gps_conv" pkg="gps_common" type="utm_odometry_node">
+    <remap from="odom" to="vo"/>
+    <!-- remap from="fix" to="/gps/fix" / -->  
+    <param name="rot_covariance" value="99999" />
+    <param name="frame_id" value="base_footprint" />
+  </node>
+</launch>

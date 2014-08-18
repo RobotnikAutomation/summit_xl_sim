@@ -1,0 +1,115 @@
+summit_xl:
+  joint_blw_velocity_controller:
+#    type: velocity_controllers/JointVelocityController
+    type: effort_controllers/JointEffortController
+    joint: joint_back_left_wheel
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  joint_brw_velocity_controller:
+#    type: velocity_controllers/JointVelocityController
+    type: effort_controllers/JointEffortController
+    joint: joint_back_right_wheel
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  joint_frw_velocity_controller:
+#    type: velocity_controllers/JointVelocityController
+    type: effort_controllers/JointEffortController
+    joint: joint_front_right_wheel
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  joint_flw_velocity_controller:
+#    type: velocity_controllers/JointVelocityController
+    type: effort_controllers/JointEffortController
+    joint: joint_front_left_wheel
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+# swerve drive just for simulation, the real robot has 4 mecanum wheel omni-drive
+  joint_blw_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: joint_back_left_steer
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  joint_brw_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: joint_back_right_steer
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  joint_frw_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: joint_front_right_steer
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  joint_flw_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: joint_front_left_steer
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+# scissor mechanism linear axis
+  joint_scissor_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: scissor_prismatic_joint
+    pid: {p: 100.0, i: 0.01, d: 100.0}
+    
+  # WAM joints
+  j1_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: j1_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  j2_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: j2_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  j3_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: j3_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  j4_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: j4_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  j5_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: j5_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  j6_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: j6_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}    
+  j7_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: j7_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}    
+  
+  # BH joints
+  #j11_position_controller:
+    #type: effort_controllers/JointPositionController
+    #joint: j11_joint
+    #pid: {p: 100.0, i: 0.01, d: 10.0}    
+  #j12_position_controller:
+    #type: effort_controllers/JointPositionController
+    #joint: j12_joint
+    #pid: {p: 100.0, i: 0.01, d: 10.0}    
+  #j13_position_controller:
+    #type: effort_controllers/JointPositionController
+    #joint: j13_joint
+    #pid: {p: 100.0, i: 0.01, d: 10.0}    
+  #j21_position_controller:
+    #type: effort_controllers/JointPositionController
+    #joint: j21_joint
+    #pid: {p: 100.0, i: 0.01, d: 10.0}    
+   #j22_position_controller:
+    #type: effort_controllers/JointPositionController
+    #joint: j22_joint
+    #pid: {p: 100.0, i: 0.01, d: 10.0}    
+  #j23_position_controller:
+    #type: effort_controllers/JointPositionController
+    #joint: j23_joint
+    #pid: {p: 100.0, i: 0.01, d: 10.0}    
+  #j32_position_controller:
+    #type: effort_controllers/JointPositionController
+    #joint: j32_joint
+    #pid: {p: 100.0, i: 0.01, d: 10.0}    
+  #j33_position_controller:
+    #type: effort_controllers/JointPositionController
+    #joint: j33_joint
+    #pid: {p: 100.0, i: 0.01, d: 10.0}    
+  
+  joint_read_state_controller:
+    type: joint_state_controller/JointStateController 
+    publish_rate: 100.0
+
+

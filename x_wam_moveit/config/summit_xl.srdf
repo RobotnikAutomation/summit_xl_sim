@@ -1,0 +1,368 @@
+<?xml version="1.0" ?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="summit_xl">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+    <group name="summit_x">
+        <joint name="joint_back_left_steer" />
+        <joint name="joint_back_right_steer" />
+        <joint name="joint_front_left_steer" />
+        <joint name="joint_front_right_steer" />
+        <joint name="joint_back_left_wheel" />
+        <joint name="joint_back_right_wheel" />
+        <joint name="joint_front_left_wheel" />
+        <joint name="joint_front_right_wheel" />
+    </group>
+    <group name="wam">
+        <joint name="j1_joint" />
+        <joint name="j2_joint" />
+        <joint name="j3_joint" />
+        <joint name="j4_joint" />
+        <joint name="j5_joint" />
+        <joint name="j6_joint" />
+        <joint name="j7_joint" />
+    </group>
+    <group name="hand">
+        <joint name="j11_joint" />
+        <joint name="j12_joint" />
+        <joint name="j13_joint" />
+        <joint name="j21_joint" />
+        <joint name="j22_joint" />
+        <joint name="j23_joint" />
+        <joint name="j31_joint" />
+        <joint name="j32_joint" />
+        <joint name="j33_joint" />
+    </group>
+    <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
+    <end_effector name="bhand" parent_link="wam_tcp" group="hand" />
+    <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
+    <virtual_joint name="virtual_joint" type="planar" parent_frame="world" child_link="base_link" />
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="back_left_steer_link" link2="back_left_wheel" reason="Adjacent" />
+    <disable_collisions link1="back_left_steer_link" link2="back_right_steer_link" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="back_right_wheel" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="base_link" reason="Adjacent" />
+    <disable_collisions link1="back_left_steer_link" link2="bh_finger_11_link" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="bh_finger_12_link" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="bh_finger_13_link" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="bh_finger_21_link" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="bh_finger_22_link" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="bh_finger_23_link" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="bh_finger_31_link" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="bh_finger_32_link" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="bh_finger_33_link" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="front_left_steer_link" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="front_left_wheel" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="front_right_steer_link" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="front_right_wheel" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="hokuyo_laser_box_link" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="imu_link" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="rover_link" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="wam_base_link" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="wam_link1" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="wam_link3" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="wam_link4" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="wam_link5" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="wam_link6" reason="Never" />
+    <disable_collisions link1="back_left_steer_link" link2="wam_link7" reason="Never" />
+    <disable_collisions link1="back_left_wheel" link2="back_right_steer_link" reason="Never" />
+    <disable_collisions link1="back_left_wheel" link2="back_right_wheel" reason="Never" />
+    <disable_collisions link1="back_left_wheel" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="back_left_wheel" link2="base_link" reason="Default" />
+    <disable_collisions link1="back_left_wheel" link2="front_left_steer_link" reason="Never" />
+    <disable_collisions link1="back_left_wheel" link2="front_left_wheel" reason="Never" />
+    <disable_collisions link1="back_left_wheel" link2="front_right_steer_link" reason="Never" />
+    <disable_collisions link1="back_left_wheel" link2="front_right_wheel" reason="Never" />
+    <disable_collisions link1="back_left_wheel" link2="hokuyo_laser_box_link" reason="Never" />
+    <disable_collisions link1="back_left_wheel" link2="imu_link" reason="Never" />
+    <disable_collisions link1="back_left_wheel" link2="rover_link" reason="Default" />
+    <disable_collisions link1="back_left_wheel" link2="wam_base_link" reason="Never" />
+    <disable_collisions link1="back_left_wheel" link2="wam_link1" reason="Never" />
+    <disable_collisions link1="back_left_wheel" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="back_left_wheel" link2="wam_link3" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="back_right_wheel" reason="Adjacent" />
+    <disable_collisions link1="back_right_steer_link" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="base_link" reason="Adjacent" />
+    <disable_collisions link1="back_right_steer_link" link2="bh_base_link" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="bh_finger_11_link" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="bh_finger_12_link" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="bh_finger_13_link" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="bh_finger_21_link" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="bh_finger_22_link" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="bh_finger_23_link" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="bh_finger_31_link" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="bh_finger_32_link" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="bh_finger_33_link" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="front_left_steer_link" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="front_left_wheel" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="front_right_steer_link" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="front_right_wheel" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="hokuyo_laser_box_link" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="imu_link" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="rover_link" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="wam_base_link" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="wam_link1" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="wam_link3" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="wam_link4" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="wam_link5" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="wam_link6" reason="Never" />
+    <disable_collisions link1="back_right_steer_link" link2="wam_link7" reason="Never" />
+    <disable_collisions link1="back_right_wheel" link2="base_footprint" reason="Never" />
+    <disable_collisions link1="back_right_wheel" link2="base_link" reason="Default" />
+    <disable_collisions link1="back_right_wheel" link2="front_left_steer_link" reason="Never" />
+    <disable_collisions link1="back_right_wheel" link2="front_left_wheel" reason="Never" />
+    <disable_collisions link1="back_right_wheel" link2="front_right_steer_link" reason="Never" />
+    <disable_collisions link1="back_right_wheel" link2="front_right_wheel" reason="Never" />
+    <disable_collisions link1="back_right_wheel" link2="hokuyo_laser_box_link" reason="Never" />
+    <disable_collisions link1="back_right_wheel" link2="imu_link" reason="Never" />
+    <disable_collisions link1="back_right_wheel" link2="rover_link" reason="Default" />
+    <disable_collisions link1="back_right_wheel" link2="wam_base_link" reason="Never" />
+    <disable_collisions link1="back_right_wheel" link2="wam_link1" reason="Never" />
+    <disable_collisions link1="back_right_wheel" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="back_right_wheel" link2="wam_link3" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="base_link" reason="Adjacent" />
+    <disable_collisions link1="base_footprint" link2="bh_base_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="bh_finger_11_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="bh_finger_12_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="bh_finger_13_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="bh_finger_21_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="bh_finger_22_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="bh_finger_23_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="bh_finger_31_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="bh_finger_32_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="bh_finger_33_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="front_left_steer_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="front_left_wheel" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="front_right_steer_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="front_right_wheel" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="hokuyo_laser_box_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="imu_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="rover_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="wam_base_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="wam_link1" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="wam_link3" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="wam_link4" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="wam_link5" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="wam_link6" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="wam_link7" reason="Never" />
+    <disable_collisions link1="base_link" link2="front_left_steer_link" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="front_left_wheel" reason="Default" />
+    <disable_collisions link1="base_link" link2="front_right_steer_link" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="front_right_wheel" reason="Default" />
+    <disable_collisions link1="base_link" link2="hokuyo_laser_box_link" reason="Default" />
+    <disable_collisions link1="base_link" link2="imu_link" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="rover_link" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="wam_base_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="wam_link1" reason="Never" />
+    <disable_collisions link1="base_link" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="base_link" link2="wam_link3" reason="Never" />
+    <disable_collisions link1="bh_base_link" link2="bh_finger_11_link" reason="Adjacent" />
+    <disable_collisions link1="bh_base_link" link2="bh_finger_12_link" reason="Never" />
+    <disable_collisions link1="bh_base_link" link2="bh_finger_21_link" reason="Adjacent" />
+    <disable_collisions link1="bh_base_link" link2="bh_finger_22_link" reason="Never" />
+    <disable_collisions link1="bh_base_link" link2="bh_finger_31_link" reason="Adjacent" />
+    <disable_collisions link1="bh_base_link" link2="bh_finger_32_link" reason="Never" />
+    <disable_collisions link1="bh_base_link" link2="bh_finger_33_link" reason="Never" />
+    <disable_collisions link1="bh_base_link" link2="front_left_steer_link" reason="Never" />
+    <disable_collisions link1="bh_base_link" link2="front_right_steer_link" reason="Never" />
+    <disable_collisions link1="bh_base_link" link2="imu_link" reason="Never" />
+    <disable_collisions link1="bh_base_link" link2="wam_link1" reason="Never" />
+    <disable_collisions link1="bh_base_link" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="bh_base_link" link2="wam_link3" reason="Never" />
+    <disable_collisions link1="bh_base_link" link2="wam_link5" reason="Default" />
+    <disable_collisions link1="bh_base_link" link2="wam_link6" reason="Default" />
+    <disable_collisions link1="bh_base_link" link2="wam_link7" reason="Adjacent" />
+    <disable_collisions link1="bh_finger_11_link" link2="bh_finger_12_link" reason="Adjacent" />
+    <disable_collisions link1="bh_finger_11_link" link2="bh_finger_13_link" reason="Never" />
+    <disable_collisions link1="bh_finger_11_link" link2="bh_finger_21_link" reason="Never" />
+    <disable_collisions link1="bh_finger_11_link" link2="bh_finger_22_link" reason="Never" />
+    <disable_collisions link1="bh_finger_11_link" link2="bh_finger_23_link" reason="Never" />
+    <disable_collisions link1="bh_finger_11_link" link2="bh_finger_31_link" reason="Never" />
+    <disable_collisions link1="bh_finger_11_link" link2="bh_finger_32_link" reason="Never" />
+    <disable_collisions link1="bh_finger_11_link" link2="bh_finger_33_link" reason="Never" />
+    <disable_collisions link1="bh_finger_11_link" link2="front_left_steer_link" reason="Never" />
+    <disable_collisions link1="bh_finger_11_link" link2="front_right_steer_link" reason="Never" />
+    <disable_collisions link1="bh_finger_11_link" link2="imu_link" reason="Never" />
+    <disable_collisions link1="bh_finger_11_link" link2="wam_link1" reason="Never" />
+    <disable_collisions link1="bh_finger_11_link" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="bh_finger_11_link" link2="wam_link3" reason="Never" />
+    <disable_collisions link1="bh_finger_11_link" link2="wam_link4" reason="Never" />
+    <disable_collisions link1="bh_finger_11_link" link2="wam_link5" reason="Never" />
+    <disable_collisions link1="bh_finger_11_link" link2="wam_link6" reason="Never" />
+    <disable_collisions link1="bh_finger_11_link" link2="wam_link7" reason="Default" />
+    <disable_collisions link1="bh_finger_12_link" link2="bh_finger_13_link" reason="Adjacent" />
+    <disable_collisions link1="bh_finger_12_link" link2="bh_finger_21_link" reason="Never" />
+    <disable_collisions link1="bh_finger_12_link" link2="bh_finger_22_link" reason="Never" />
+    <disable_collisions link1="bh_finger_12_link" link2="bh_finger_31_link" reason="Never" />
+    <disable_collisions link1="bh_finger_12_link" link2="bh_finger_32_link" reason="Never" />
+    <disable_collisions link1="bh_finger_12_link" link2="front_left_steer_link" reason="Never" />
+    <disable_collisions link1="bh_finger_12_link" link2="front_right_steer_link" reason="Never" />
+    <disable_collisions link1="bh_finger_12_link" link2="imu_link" reason="Never" />
+    <disable_collisions link1="bh_finger_12_link" link2="wam_link1" reason="Never" />
+    <disable_collisions link1="bh_finger_12_link" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="bh_finger_12_link" link2="wam_link4" reason="Never" />
+    <disable_collisions link1="bh_finger_12_link" link2="wam_link5" reason="Never" />
+    <disable_collisions link1="bh_finger_12_link" link2="wam_link6" reason="Never" />
+    <disable_collisions link1="bh_finger_12_link" link2="wam_link7" reason="Never" />
+    <disable_collisions link1="bh_finger_13_link" link2="bh_finger_21_link" reason="Never" />
+    <disable_collisions link1="bh_finger_13_link" link2="front_left_steer_link" reason="Never" />
+    <disable_collisions link1="bh_finger_13_link" link2="front_right_steer_link" reason="Never" />
+    <disable_collisions link1="bh_finger_13_link" link2="imu_link" reason="Never" />
+    <disable_collisions link1="bh_finger_13_link" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="bh_finger_13_link" link2="wam_link4" reason="Never" />
+    <disable_collisions link1="bh_finger_13_link" link2="wam_link5" reason="Never" />
+    <disable_collisions link1="bh_finger_13_link" link2="wam_link6" reason="Never" />
+    <disable_collisions link1="bh_finger_13_link" link2="wam_link7" reason="Never" />
+    <disable_collisions link1="bh_finger_21_link" link2="bh_finger_22_link" reason="Adjacent" />
+    <disable_collisions link1="bh_finger_21_link" link2="bh_finger_23_link" reason="Never" />
+    <disable_collisions link1="bh_finger_21_link" link2="bh_finger_31_link" reason="Never" />
+    <disable_collisions link1="bh_finger_21_link" link2="bh_finger_32_link" reason="Never" />
+    <disable_collisions link1="bh_finger_21_link" link2="bh_finger_33_link" reason="Never" />
+    <disable_collisions link1="bh_finger_21_link" link2="front_left_steer_link" reason="Never" />
+    <disable_collisions link1="bh_finger_21_link" link2="front_right_steer_link" reason="Never" />
+    <disable_collisions link1="bh_finger_21_link" link2="imu_link" reason="Never" />
+    <disable_collisions link1="bh_finger_21_link" link2="wam_link1" reason="Never" />
+    <disable_collisions link1="bh_finger_21_link" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="bh_finger_21_link" link2="wam_link3" reason="Never" />
+    <disable_collisions link1="bh_finger_21_link" link2="wam_link4" reason="Never" />
+    <disable_collisions link1="bh_finger_21_link" link2="wam_link5" reason="Never" />
+    <disable_collisions link1="bh_finger_21_link" link2="wam_link6" reason="Never" />
+    <disable_collisions link1="bh_finger_21_link" link2="wam_link7" reason="Default" />
+    <disable_collisions link1="bh_finger_22_link" link2="bh_finger_23_link" reason="Adjacent" />
+    <disable_collisions link1="bh_finger_22_link" link2="bh_finger_31_link" reason="Never" />
+    <disable_collisions link1="bh_finger_22_link" link2="bh_finger_32_link" reason="Never" />
+    <disable_collisions link1="bh_finger_22_link" link2="front_left_steer_link" reason="Never" />
+    <disable_collisions link1="bh_finger_22_link" link2="front_right_steer_link" reason="Never" />
+    <disable_collisions link1="bh_finger_22_link" link2="imu_link" reason="Never" />
+    <disable_collisions link1="bh_finger_22_link" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="bh_finger_22_link" link2="wam_link4" reason="Never" />
+    <disable_collisions link1="bh_finger_22_link" link2="wam_link5" reason="Never" />
+    <disable_collisions link1="bh_finger_22_link" link2="wam_link6" reason="Never" />
+    <disable_collisions link1="bh_finger_22_link" link2="wam_link7" reason="Never" />
+    <disable_collisions link1="bh_finger_23_link" link2="front_left_steer_link" reason="Never" />
+    <disable_collisions link1="bh_finger_23_link" link2="front_right_steer_link" reason="Never" />
+    <disable_collisions link1="bh_finger_23_link" link2="imu_link" reason="Never" />
+    <disable_collisions link1="bh_finger_23_link" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="bh_finger_23_link" link2="wam_link4" reason="Never" />
+    <disable_collisions link1="bh_finger_23_link" link2="wam_link5" reason="Never" />
+    <disable_collisions link1="bh_finger_23_link" link2="wam_link6" reason="Never" />
+    <disable_collisions link1="bh_finger_23_link" link2="wam_link7" reason="Never" />
+    <disable_collisions link1="bh_finger_31_link" link2="bh_finger_32_link" reason="Adjacent" />
+    <disable_collisions link1="bh_finger_31_link" link2="bh_finger_33_link" reason="Never" />
+    <disable_collisions link1="bh_finger_31_link" link2="front_left_steer_link" reason="Never" />
+    <disable_collisions link1="bh_finger_31_link" link2="front_right_steer_link" reason="Never" />
+    <disable_collisions link1="bh_finger_31_link" link2="imu_link" reason="Never" />
+    <disable_collisions link1="bh_finger_31_link" link2="wam_link1" reason="Never" />
+    <disable_collisions link1="bh_finger_31_link" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="bh_finger_31_link" link2="wam_link3" reason="Never" />
+    <disable_collisions link1="bh_finger_31_link" link2="wam_link4" reason="Never" />
+    <disable_collisions link1="bh_finger_31_link" link2="wam_link5" reason="Never" />
+    <disable_collisions link1="bh_finger_31_link" link2="wam_link6" reason="Never" />
+    <disable_collisions link1="bh_finger_31_link" link2="wam_link7" reason="Default" />
+    <disable_collisions link1="bh_finger_32_link" link2="bh_finger_33_link" reason="Adjacent" />
+    <disable_collisions link1="bh_finger_32_link" link2="front_left_steer_link" reason="Never" />
+    <disable_collisions link1="bh_finger_32_link" link2="front_right_steer_link" reason="Never" />
+    <disable_collisions link1="bh_finger_32_link" link2="imu_link" reason="Never" />
+    <disable_collisions link1="bh_finger_32_link" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="bh_finger_32_link" link2="wam_link4" reason="Never" />
+    <disable_collisions link1="bh_finger_32_link" link2="wam_link5" reason="Never" />
+    <disable_collisions link1="bh_finger_32_link" link2="wam_link6" reason="Never" />
+    <disable_collisions link1="bh_finger_32_link" link2="wam_link7" reason="Never" />
+    <disable_collisions link1="bh_finger_33_link" link2="front_left_steer_link" reason="Never" />
+    <disable_collisions link1="bh_finger_33_link" link2="front_right_steer_link" reason="Never" />
+    <disable_collisions link1="bh_finger_33_link" link2="imu_link" reason="Never" />
+    <disable_collisions link1="bh_finger_33_link" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="bh_finger_33_link" link2="wam_link4" reason="Never" />
+    <disable_collisions link1="bh_finger_33_link" link2="wam_link5" reason="Never" />
+    <disable_collisions link1="bh_finger_33_link" link2="wam_link6" reason="Never" />
+    <disable_collisions link1="bh_finger_33_link" link2="wam_link7" reason="Never" />
+    <disable_collisions link1="front_left_steer_link" link2="front_left_wheel" reason="Adjacent" />
+    <disable_collisions link1="front_left_steer_link" link2="front_right_steer_link" reason="Never" />
+    <disable_collisions link1="front_left_steer_link" link2="front_right_wheel" reason="Never" />
+    <disable_collisions link1="front_left_steer_link" link2="hokuyo_laser_box_link" reason="Never" />
+    <disable_collisions link1="front_left_steer_link" link2="imu_link" reason="Never" />
+    <disable_collisions link1="front_left_steer_link" link2="rover_link" reason="Never" />
+    <disable_collisions link1="front_left_steer_link" link2="wam_base_link" reason="Never" />
+    <disable_collisions link1="front_left_steer_link" link2="wam_link1" reason="Never" />
+    <disable_collisions link1="front_left_steer_link" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="front_left_steer_link" link2="wam_link3" reason="Never" />
+    <disable_collisions link1="front_left_steer_link" link2="wam_link4" reason="Never" />
+    <disable_collisions link1="front_left_steer_link" link2="wam_link5" reason="Never" />
+    <disable_collisions link1="front_left_steer_link" link2="wam_link6" reason="Never" />
+    <disable_collisions link1="front_left_steer_link" link2="wam_link7" reason="Never" />
+    <disable_collisions link1="front_left_wheel" link2="front_right_steer_link" reason="Never" />
+    <disable_collisions link1="front_left_wheel" link2="front_right_wheel" reason="Never" />
+    <disable_collisions link1="front_left_wheel" link2="hokuyo_laser_box_link" reason="Never" />
+    <disable_collisions link1="front_left_wheel" link2="imu_link" reason="Never" />
+    <disable_collisions link1="front_left_wheel" link2="rover_link" reason="Default" />
+    <disable_collisions link1="front_left_wheel" link2="wam_base_link" reason="Never" />
+    <disable_collisions link1="front_left_wheel" link2="wam_link1" reason="Never" />
+    <disable_collisions link1="front_left_wheel" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="front_left_wheel" link2="wam_link3" reason="Never" />
+    <disable_collisions link1="front_right_steer_link" link2="front_right_wheel" reason="Adjacent" />
+    <disable_collisions link1="front_right_steer_link" link2="hokuyo_laser_box_link" reason="Never" />
+    <disable_collisions link1="front_right_steer_link" link2="imu_link" reason="Never" />
+    <disable_collisions link1="front_right_steer_link" link2="rover_link" reason="Never" />
+    <disable_collisions link1="front_right_steer_link" link2="wam_base_link" reason="Never" />
+    <disable_collisions link1="front_right_steer_link" link2="wam_link1" reason="Never" />
+    <disable_collisions link1="front_right_steer_link" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="front_right_steer_link" link2="wam_link3" reason="Never" />
+    <disable_collisions link1="front_right_steer_link" link2="wam_link4" reason="Never" />
+    <disable_collisions link1="front_right_steer_link" link2="wam_link5" reason="Never" />
+    <disable_collisions link1="front_right_steer_link" link2="wam_link6" reason="Never" />
+    <disable_collisions link1="front_right_steer_link" link2="wam_link7" reason="Never" />
+    <disable_collisions link1="front_right_wheel" link2="hokuyo_laser_box_link" reason="Never" />
+    <disable_collisions link1="front_right_wheel" link2="imu_link" reason="Never" />
+    <disable_collisions link1="front_right_wheel" link2="rover_link" reason="Default" />
+    <disable_collisions link1="front_right_wheel" link2="wam_base_link" reason="Never" />
+    <disable_collisions link1="front_right_wheel" link2="wam_link1" reason="Never" />
+    <disable_collisions link1="front_right_wheel" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="front_right_wheel" link2="wam_link3" reason="Never" />
+    <disable_collisions link1="hokuyo_laser_box_link" link2="imu_link" reason="Never" />
+    <disable_collisions link1="hokuyo_laser_box_link" link2="rover_link" reason="Adjacent" />
+    <disable_collisions link1="hokuyo_laser_box_link" link2="wam_base_link" reason="Never" />
+    <disable_collisions link1="hokuyo_laser_box_link" link2="wam_link1" reason="Never" />
+    <disable_collisions link1="hokuyo_laser_box_link" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="hokuyo_laser_box_link" link2="wam_link3" reason="Never" />
+    <disable_collisions link1="imu_link" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="imu_link" link2="wam_link3" reason="Never" />
+    <disable_collisions link1="imu_link" link2="wam_link4" reason="Never" />
+    <disable_collisions link1="imu_link" link2="wam_link5" reason="Never" />
+    <disable_collisions link1="imu_link" link2="wam_link6" reason="Never" />
+    <disable_collisions link1="imu_link" link2="wam_link7" reason="Never" />
+    <disable_collisions link1="rover_link" link2="wam_base_link" reason="Adjacent" />
+    <disable_collisions link1="rover_link" link2="wam_link1" reason="Default" />
+    <disable_collisions link1="rover_link" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="wam_base_link" link2="wam_link1" reason="Adjacent" />
+    <disable_collisions link1="wam_base_link" link2="wam_link2" reason="Never" />
+    <disable_collisions link1="wam_base_link" link2="wam_link3" reason="Never" />
+    <disable_collisions link1="wam_link1" link2="wam_link2" reason="Adjacent" />
+    <disable_collisions link1="wam_link1" link2="wam_link4" reason="Never" />
+    <disable_collisions link1="wam_link1" link2="wam_link5" reason="Never" />
+    <disable_collisions link1="wam_link1" link2="wam_link6" reason="Never" />
+    <disable_collisions link1="wam_link1" link2="wam_link7" reason="Never" />
+    <disable_collisions link1="wam_link2" link2="wam_link3" reason="Adjacent" />
+    <disable_collisions link1="wam_link2" link2="wam_link4" reason="Never" />
+    <disable_collisions link1="wam_link2" link2="wam_link5" reason="Never" />
+    <disable_collisions link1="wam_link2" link2="wam_link6" reason="Never" />
+    <disable_collisions link1="wam_link2" link2="wam_link7" reason="Never" />
+    <disable_collisions link1="wam_link3" link2="wam_link4" reason="Adjacent" />
+    <disable_collisions link1="wam_link3" link2="wam_link5" reason="Never" />
+    <disable_collisions link1="wam_link3" link2="wam_link6" reason="Never" />
+    <disable_collisions link1="wam_link3" link2="wam_link7" reason="Never" />
+    <disable_collisions link1="wam_link4" link2="wam_link5" reason="Adjacent" />
+    <disable_collisions link1="wam_link4" link2="wam_link7" reason="Never" />
+    <disable_collisions link1="wam_link5" link2="wam_link6" reason="Adjacent" />
+    <disable_collisions link1="wam_link5" link2="wam_link7" reason="Never" />
+    <disable_collisions link1="wam_link6" link2="wam_link7" reason="Adjacent" />
+</robot>

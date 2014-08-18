@@ -1,0 +1,11 @@
+<launch>
+    <node name="logitech_usb_webcam" pkg="usb_cam" type="usb_cam_node" output="screen" >
+        <param name="video_device" value="/dev/video0" />
+        <!-- param name="image_width" value="1600" / -->
+        <!-- param name="image_height" value="1200" / -->
+        <param name="image_width" value="640" />
+        <param name="image_height" value="480" /> 
+        <param name="pixel_format" value="yuyv" />
+        <param name="camera_frame_id" value="webcam" />
+    </node>
+</launch>

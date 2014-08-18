@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<robot>
+  <!-- ros_control plugin -->
+  <gazebo>
+    <plugin name="ros_control" filename="libgazebo_ros_control.so">
+       <robotNamespace>/bh</robotNamespace>
+       <controlPeriod>0.001</controlPeriod>
+	   <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    </plugin>
+  </gazebo>
+
+  <gazebo reference="base_link">
+    <material>Gazebo/White</material>
+    <gravity>true</gravity>
+  </gazebo>
+
+  <gazebo reference="bh_finger_31_link">
+    <material>Gazebo/Grey</material>
+    <gravity>true</gravity>
+  </gazebo>
+
+  <gazebo reference="bh_finger_32_link">
+    <material>Gazebo/Grey</material>
+    <gravity>true</gravity>
+  </gazebo>
+
+  <gazebo reference="bh_finger_33_link">
+    <material>Gazebo/Grey</material>
+    <gravity>true</gravity>
+  </gazebo>
+  
+  <gazebo reference="bh_finger_11_link">
+    <material>Gazebo/Grey</material>
+    <gravity>true</gravity>
+  </gazebo>
+
+  <gazebo reference="bh_finger_12_link">
+    <material>Gazebo/Grey</material>
+    <gravity>true</gravity>
+  </gazebo>
+
+  <gazebo reference="bh_finger_13_link">
+    <material>Gazebo/Grey</material>
+    <gravity>true</gravity>
+  </gazebo>
+
+</robot>

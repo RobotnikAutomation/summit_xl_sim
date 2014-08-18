@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+  <include
+    file="$(find gazebo_worlds)/launch/empty_world.launch" />
+   
+  <node
+    name="tf_footprint_base"
+    pkg="tf"
+    type="static_transform_publisher"
+    args="0 0 0 0 0 0 world terabot 40" />
+  <include
+    file="$(find pr2_controller_manager)/controller_manager.launch" />
+  <node
+    name="fake_joint_calibration"
+    pkg="rostopic"
+    type="rostopic"
+    args="pub /calibrated std_msgs/Bool true" />
+    
+  <!-- send robotnik_terabot.urdf to param server -->
+  <param name="robot_description" textfile="$(find xl_terabot_description)/urdf/xl_terabot.urdf" />
+
+  <!-- push robot_description to factory and spawn robot in gazebo -->
+  <node name="spawn_object" pkg="gazebo" type="spawn_model" args="-urdf -param robot_description -x 0.0 -y 0.0 -z 0.1 -Y 0.0 -model xl_terabot" respawn="false" output="screen" />
+  
+</launch>

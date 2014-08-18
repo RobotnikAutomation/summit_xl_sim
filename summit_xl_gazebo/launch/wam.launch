@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <!-- include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find summit_xl_gazebo)/worlds/summit_xl.world"/>
+  </include -->
+
+  <!-- roslaunch arguments -->
+  <arg name="debug" default="false"/>
+  <arg name="gui" default="true"/>
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find summit_xl_gazebo)/worlds/summit_xl.world"/>
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="headless" value="false"/>
+  </include>
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <!-- this file includes wam_arm.urdf.xacro and has a joint to fix the base to the world in gazebo -->
+  <param name="robot_description"
+         command="$(find xacro)/xacro.py '$(find wam_description)/urdf/wam.urdf.xacro'" />
+  <!-- this file starts with the arm without joint to be fixed to the world -->
+  <!-- param name="robot_description"
+         command="$(find xacro)/xacro.py '$(find wam_description)/urdf/wam_arm.urdf.xacro'" / -->
+
+  <!-- Call a python script to the run a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-urdf -model wam -param robot_description"/>
+
+  <!-- ros_control summit_xl launch file -->
+  <include file="$(find summit_xl_control)/launch/wam_control.launch" />
+
+</launch>
