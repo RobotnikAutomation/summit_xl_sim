@@ -22,9 +22,9 @@
          command="$(find xacro)/xacro.py '$(find summit_xl_description)/urdf/summit_xl.urdf.xacro'" />
 
 
-	<!----------------------------------------------------------------------------------------->
+
 	<!-- Each group defines a summit_xl robot, where group ns must be equal to arg namespace -->
-	<!----------------------------------------------------------------------------------------->
+
 	<group ns="summit_xl_A">
 		<arg name="namespace" value="summit_xl_A"/>
 	  <arg name="model" value="$(arg namespace)"/>
@@ -57,9 +57,9 @@
 	</group>
 	
 	
-	<!----------------------------------------------------------------------------------------->
+
 	<!-- Each group defines a summit_xl robot, where group ns must be equal to arg namespace -->
-	<!----------------------------------------------------------------------------------------->
+
 	<group ns="summit_xl_B">
 		<arg name="namespace" value="summit_xl_B"/>
 	  <arg name="model" value="$(arg namespace)"/>
