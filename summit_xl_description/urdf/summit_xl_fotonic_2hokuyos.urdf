@@ -7,7 +7,6 @@
   <!-- Import all Gazebo-customization elements, including Gazebo colors -->
   <gazebo>
     <plugin filename="libgazebo_ros_control.so" name="ros_control">
-      <robotNamespace>/summit_xl</robotNamespace>
       <controlPeriod>0.001</controlPeriod>
       <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
     </plugin>
@@ -83,7 +82,7 @@
       <plugin filename="libgazebo_ros_camera.so" name="camera_controller">
         <alwaysOn>true</alwaysOn>
         <updateRate>0.0</updateRate>
-        <cameraName>/summit_xl/camera1</cameraName>
+        <cameraName>camera1</cameraName>
         <imageTopicName>image_raw</imageTopicName>
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>camera_link</frameName>
@@ -124,7 +123,7 @@
       </ray>
       <!-- plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_gpu_laser.so" -->
       <plugin filename="libgazebo_ros_laser.so" name="gazebo_ros_head_hokuyo_controller">
-        <topicName>/scan</topicName>
+        <topicName>scan</topicName>
         <frameName>hokuyo_laser_link</frameName>
       </plugin>
     </sensor>
@@ -157,17 +156,16 @@
       </ray>
       <!-- plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_gpu_laser.so" -->
       <plugin filename="libgazebo_ros_laser.so" name="gazebo_ros_head_hokuyo_controller1">
-        <topicName>/scan1</topicName>
+        <topicName>scan1</topicName>
         <frameName>hokuyo_laser_link</frameName>
       </plugin>
     </sensor>
   </gazebo>
   <gazebo>
     <plugin filename="libgazebo_ros_imu.so" name="ros_imu">
-      <robotNamespace>/summit_xl</robotNamespace>
       <topicName>imu_data</topicName>
       <bodyName>imu_link </bodyName>
-      <serviceName>/imu_service</serviceName>
+      <serviceName>imu_service</serviceName>
       <gaussianNoise>0.001</gaussianNoise>
     </plugin>
   </gazebo>
@@ -200,12 +198,12 @@
         <alwaysOn>true</alwaysOn>
         <updateRate>1.0</updateRate>
         <cameraName>fotonic_3dcamera</cameraName>
-        <imageTopicName>/fotonic_3dcamera/image_raw</imageTopicName>
-        <cameraInfoTopicName>/fotonic/depth/camera_info</cameraInfoTopicName>
-        <depthImageTopicName>/fotonic/depth/image_raw</depthImageTopicName>
-        <depthImageInfoTopicName>/fotonic_3dcamera/depth/camera_info</depthImageInfoTopicName>
-        <depthImageCameraInfoTopicName>/fotonic_3dcamera/camera_info</depthImageCameraInfoTopicName>
-        <pointCloudTopicName>/fotonic_3dcamera/depth/points</pointCloudTopicName>
+        <imageTopicName>fotonic_3dcamera/image_raw</imageTopicName>
+        <cameraInfoTopicName>fotonic/depth/camera_info</cameraInfoTopicName>
+        <depthImageTopicName>fotonic/depth/image_raw</depthImageTopicName>
+        <depthImageInfoTopicName>fotonic_3dcamera/depth/camera_info</depthImageInfoTopicName>
+        <depthImageCameraInfoTopicName>fotonic_3dcamera/camera_info</depthImageCameraInfoTopicName>
+        <pointCloudTopicName>fotonic_3dcamera/depth/points</pointCloudTopicName>
         <frameName>kinect_depth_optical_frame</frameName>
         <pointCloudCutoff>0.5</pointCloudCutoff>
         <distortionK1>0.00000001</distortionK1>
