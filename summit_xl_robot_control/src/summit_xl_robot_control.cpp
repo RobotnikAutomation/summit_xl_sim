@@ -140,6 +140,15 @@ public:
 
   // Topic - scissor - position
   std::string scissor_pos_topic_;
+  
+  // Topic - joint state
+  std::string joint_states_topic;
+  
+  // Topic - imu_data
+  std::string imu_data_topic;
+  
+  // Topic - odom
+  std::string odom_topic;
 
   // Joint names - ptz - position
   std::string joint_camera_pan;
@@ -293,6 +302,15 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
   private_node_handle_.param<std::string>("joint_camera_pan", joint_camera_pan, "joint_camera_pan");
   private_node_handle_.param<std::string>("joint_camera_tilt", joint_camera_tilt, "joint_camera_tilt");
 
+	// joint state topic
+  private_node_handle_.param<std::string>("joint_states_topic", joint_states_topic, "summit_xl/joint_states");
+    
+  // Imu data topic
+  private_node_handle_.param<std::string>("imu_data_topic", imu_data_topic, "summit_xl/imu_data");
+  
+  // Odom topic
+  private_node_handle_.param<std::string>("odom_topic", odom_topic, "summit_xl/odom");
+
   // Robot parameters
   if (!private_node_handle_.getParam("summit_xl_wheel_diameter", summit_xl_wheel_diameter_))
     summit_xl_wheel_diameter_ = SUMMIT_XL_WHEEL_DIAMETER;
@@ -339,10 +357,10 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
   srv_SetOdometry_ = summit_xl_robot_control_node_handle.advertiseService("set_odometry",  &SummitXLControllerClass::srvCallback_SetOdometry, this);
 
   // Subscribe to joint states topic
-  joint_state_sub_ = summit_xl_robot_control_node_handle.subscribe<sensor_msgs::JointState>("/summit_xl/joint_states", 1, &SummitXLControllerClass::jointStateCallback, this);
+  joint_state_sub_ = summit_xl_robot_control_node_handle.subscribe<sensor_msgs::JointState>(joint_states_topic, 1, &SummitXLControllerClass::jointStateCallback, this);
 
   // Subscribe to imu data
-  imu_sub_ = summit_xl_robot_control_node_handle.subscribe("/summit_xl/imu_data", 1, &SummitXLControllerClass::imuCallback, this);
+  imu_sub_ = summit_xl_robot_control_node_handle.subscribe(imu_data_topic, 1, &SummitXLControllerClass::imuCallback, this);
 
   // Adevertise reference topics for the controllers 
   ref_vel_frw_ = summit_xl_robot_control_node_handle.advertise<std_msgs::Float64>( frw_vel_topic_, 50);
@@ -372,7 +390,7 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
   
   // TODO odom topic as parameter
   // Publish odometry 
-  odom_pub_ = summit_xl_robot_control_node_handle.advertise<nav_msgs::Odometry>("/summit_xl/odom", 1000);
+  odom_pub_ = summit_xl_robot_control_node_handle.advertise<nav_msgs::Odometry>(odom_topic, 1000);
 
   // Component frequency diagnostics
   diagnostic_.setHardwareID("summit_xl_robot_control - simulation");
@@ -394,7 +412,6 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
 /// Controller startup in realtime
 int starting()
 {
-
   ROS_INFO("SummitXLControllerClass::starting");
 
   //name: ['joint_back_left_wheel', 'joint_back_right_wheel', 'joint_front_left_wheel', 'joint_front_right_wheel']
