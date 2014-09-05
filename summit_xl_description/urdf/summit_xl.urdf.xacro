@@ -155,8 +155,7 @@
   <joint name="joint_back_right_wheel" type="continuous">
     <parent link="base_link"/>
     <child link="back_right_wheel"/>
-    <!-- origin xyz="-${wheel_offset_x} -${wheel_offset_y} 0" rpy="0 0 3.1416" / -->
-    <origin xyz="-${wheel_offset_x} -${wheel_offset_y+wheel_width} 0" rpy="0 0 0" /> 
+    <origin xyz="-${wheel_offset_x} -${wheel_offset_y} 0" rpy="0 0 3.1416" /> 
     <axis xyz="0 1 0" rpy="0 0 0" />
     <limit effort="${wheel_joint_effort_limit}" velocity="${wheel_joint_velocity_limit}"/>
     <joint_properties damping="${wheel_joint_damping}" friction="{wheel_joint_friction}"/>
@@ -248,8 +247,7 @@
   <joint name="joint_front_right_wheel" type="continuous">
     <parent link="base_link"/>
     <child link="front_right_wheel"/>
-    <!-- origin xyz="${wheel_offset_x} -${wheel_offset_y} 0" rpy="0 0 3.1416" / -->
-    <origin xyz="${wheel_offset_x} -${wheel_offset_y+wheel_width} 0" rpy="0 0 0" /> 
+    <origin xyz="${wheel_offset_x} -${wheel_offset_y} 0" rpy="0 0 3.1416" /> 
     <axis xyz="0 1 0" rpy="0 0 0" />
     <limit effort="${wheel_joint_effort_limit}" velocity="${wheel_joint_velocity_limit}"/>
     <joint_properties damping="${wheel_joint_damping}" friction="{wheel_joint_friction}"/>
