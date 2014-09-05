@@ -148,7 +148,7 @@ SummitJoy::SummitJoy():
 
 	// KINEMATIC MODE 
 	nh_.param("button_kinematic_mode", button_kinematic_mode_, button_kinematic_mode_);
-	nh_.param("cmd_service_set_mode", cmd_set_mode_, cmd_set_mode_);
+	nh_.param<std::string>("cmd_service_set_mode", cmd_set_mode_, "summit_xl_robot_control/set_mode");
 	kinematic_mode_ = 1;
 
 

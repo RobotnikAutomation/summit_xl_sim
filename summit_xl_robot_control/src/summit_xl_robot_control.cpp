@@ -517,7 +517,6 @@ void UpdateControl()
 
   // Depending on the robot configuration 
   if (active_kinematic_mode_ == MECANUM_STEERING) {
-
 	  // Speed references for motor control
 	  // double v_left_mps, v_right_mps;
 	  double v_frw_mps, v_flw_mps, v_blw_mps, v_brw_mps; 

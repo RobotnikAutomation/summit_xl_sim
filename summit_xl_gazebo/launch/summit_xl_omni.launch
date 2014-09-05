@@ -25,7 +25,7 @@
 
 	<group ns="summit_xl">
 		<arg name="namespace" value="summit_xl"/>
-	  <arg name="model" value="$(arg namespace)"/>
+	  <arg name="model" value="summit_xl_omni"/>
   
 	  <!-- summit_xl_control launch file -->
 	  <include file="$(find summit_xl_control)/launch/summit_xl_omni_control.launch">

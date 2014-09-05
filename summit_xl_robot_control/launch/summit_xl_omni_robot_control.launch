@@ -2,7 +2,7 @@
 <launch>
 
 	<arg name="namespace" default="summit_xl"/>
-	<arg name="model" default="summit_xl"/>
+	<arg name="model" default="summit_xl_omni"/>
 
   <!-- General control parameter file -->
   <rosparam command="load" file="$(find summit_xl_robot_control)/config/summit_xl_robot_control.yaml" />
@@ -14,6 +14,13 @@
   <param name="summit_xl_robot_control/blw_vel_topic" value="/$(arg namespace)/joint_blw_velocity_controller/command"/>
   <param name="summit_xl_robot_control/frw_vel_topic" value="/$(arg namespace)/joint_frw_velocity_controller/command"/>
   <param name="summit_xl_robot_control/brw_vel_topic" value="/$(arg namespace)/joint_brw_velocity_controller/command"/>
+  
+  Omni Topics
+  <param name="summit_xl_robot_control/flw_pos_topic" value="/$(arg namespace)/joint_flw_position_controller/command"/>
+  <param name="summit_xl_robot_control/blw_pos_topic" value="/$(arg namespace)/joint_blw_position_controller/command"/>
+  <param name="summit_xl_robot_control/frw_pos_topic" value="/$(arg namespace)/joint_frw_position_controller/command"/>
+  <param name="summit_xl_robot_control/brw_pos_topic" value="/$(arg namespace)/joint_brw_position_controller/command"/>
+  
   <param name="summit_xl_robot_control/joint_states_topic" value="/$(arg namespace)/joint_states"/>
   <param name="summit_xl_robot_control/imu_data_topic" value="/$(arg namespace)/imu_data"/>
   <param name="summit_xl_robot_control/model" value="$(arg model)"/>
