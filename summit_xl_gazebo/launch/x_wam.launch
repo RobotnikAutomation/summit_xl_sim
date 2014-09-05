@@ -35,6 +35,7 @@
 	  <!-- summit_xl_robot_control launch file -->
 	  <!-- i.e. if the control is not assumed by the libgazebo_ros_skid_steer_drive plugin -->
 	  <include file="$(find summit_xl_robot_control)/launch/x_wam_robot_control.launch">
+			<arg name="namespace" value="$(arg namespace)"/>
 		</include>
 	
 	  <!-- Include this file only if you wish a the control the robot via joystick, it has to be commented if you want to set goals for autonomous navigation -->
