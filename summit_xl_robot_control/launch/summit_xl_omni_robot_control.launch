@@ -1,11 +1,23 @@
 <?xml version="1.0"?>
 <launch>
 
+	<arg name="namespace" default="summit_xl"/>
+	<arg name="model" default="summit_xl"/>
+
   <!-- General control parameter file -->
   <rosparam command="load" file="$(find summit_xl_robot_control)/config/summit_xl_robot_control.yaml" />
 
   <!-- Model specific parameter file -->
   <rosparam command="load" file="$(find summit_xl_robot_control)/config/summit_xl_omni.yaml"/>
+  
+  <param name="summit_xl_robot_control/flw_vel_topic" value="/$(arg namespace)/joint_flw_velocity_controller/command"/>
+  <param name="summit_xl_robot_control/blw_vel_topic" value="/$(arg namespace)/joint_blw_velocity_controller/command"/>
+  <param name="summit_xl_robot_control/frw_vel_topic" value="/$(arg namespace)/joint_frw_velocity_controller/command"/>
+  <param name="summit_xl_robot_control/brw_vel_topic" value="/$(arg namespace)/joint_brw_velocity_controller/command"/>
+  <param name="summit_xl_robot_control/joint_states_topic" value="/$(arg namespace)/joint_states"/>
+  <param name="summit_xl_robot_control/imu_data_topic" value="/$(arg namespace)/imu_data"/>
+  <param name="summit_xl_robot_control/model" value="$(arg model)"/>
+  <param name="summit_xl_robot_control/odom_topic" value="/$(arg namespace)/odom"/>
 
   <node name="summit_xl_robot_control" pkg="summit_xl_robot_control" type="summit_xl_robot_control" output="screen"/>
   

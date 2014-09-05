@@ -3,7 +3,6 @@
   <!-- ros_control plugin -->
   <gazebo>
     <plugin name="ros_control" filename="libgazebo_ros_control.so">
-       <robotNamespace>/summit_xl</robotNamespace>
        <controlPeriod>0.003</controlPeriod>
 	   <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
     </plugin>
@@ -103,7 +102,7 @@
       <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
         <alwaysOn>true</alwaysOn>
         <updateRate>0.0</updateRate>
-        <cameraName>/summit_xl/camera1</cameraName>
+        <cameraName>camera1</cameraName>
         <imageTopicName>image_raw</imageTopicName>
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>camera_tilt_link</frameName>
@@ -146,7 +145,7 @@
       </ray>
       <!-- plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_gpu_laser.so" -->
       <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-        <topicName>/scan</topicName>
+        <topicName>scan</topicName>
         <frameName>hokuyo_laser_link</frameName>
       </plugin>
     </sensor>
@@ -154,11 +153,10 @@
   
   <gazebo>
     <plugin name="ros_imu" filename="libgazebo_ros_imu.so">
-       <robotNamespace>/summit_xl</robotNamespace>
-       <topicName>imu_data</topicName>
-		<bodyName>imu_link </bodyName>
-		<serviceName>/imu_service</serviceName>
-        <gaussianNoise>0.001</gaussianNoise>		
+      <topicName>imu_data</topicName>
+		  <bodyName>imu_link </bodyName>
+		  <serviceName>imu_service</serviceName>
+      <gaussianNoise>0.001</gaussianNoise>		
     </plugin>
   </gazebo>
 

@@ -8,9 +8,9 @@
   </node>
 
   <!-- Parameters -->
-  <param name="cmd_topic_vel" value="/summit_xl_robot_control/command" type="string"/>
-  <param name="cmd_service_io" value="/modbus_io/write_digital_output" type="string"/>
-  <param name="cmd_topic_ptz" value="/summit_xl_robot_control/command_ptz" type="string"/>
+  <param name="cmd_topic_vel" value="summit_xl_robot_control/command" type="string"/>
+  <param name="cmd_service_io" value="modbus_io/write_digital_output" type="string"/>
+  <param name="cmd_topic_ptz" value="summit_xl_robot_control/command_ptz" type="string"/>
   
   <rosparam command="load" file="$(find summit_xl_joystick)/launch/ps3.yaml" />
   <!-- rosparam command="load" file="$(find summit_xl_joystick)/launch/logitech.yaml" / -->

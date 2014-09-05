@@ -3,7 +3,7 @@
 
   <!-- load the controllers -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" ns="/summit_xl" args="--namespace=/summit_xl
+    output="screen" args="
                       joint_blw_velocity_controller
                       joint_brw_velocity_controller
                       joint_frw_velocity_controller
@@ -13,13 +13,13 @@
                       joint_frw_position_controller
                       joint_flw_position_controller
                       joint_scissor_position_controller
-					  j1_position_controller
-					  j2_position_controller
-					  j3_position_controller
-					  j4_position_controller
-					  j5_position_controller
-					  j6_position_controller
-					  j7_position_controller
+										  j1_position_controller
+										  j2_position_controller
+										  j3_position_controller
+										  j4_position_controller
+										  j5_position_controller
+										  j6_position_controller
+										  j7_position_controller
                       joint_read_state_controller
                       "/>
 
@@ -40,7 +40,9 @@
   <!-- convert joint states to TF transforms for rviz, etc -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
     respawn="false" output="screen">
+<!--
     <remap from="/joint_states" to="/summit_xl/joint_states" />
+-->
   </node>
 
 </launch>
