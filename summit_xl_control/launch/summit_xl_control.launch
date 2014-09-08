@@ -23,9 +23,7 @@
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
     respawn="false" output="screen">
     <param name="~tf_prefix" value="$(arg namespace)" type="str"/>
-<!--
-    <remap from="/joint_states" to="/summit_xl/joint_states" />
--->
+    <remap from="/joint_states" to="$(arg namespace)/joint_states" />
   </node>
 
 </launch>

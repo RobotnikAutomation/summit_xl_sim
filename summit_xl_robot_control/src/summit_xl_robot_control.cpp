@@ -160,6 +160,9 @@ public:
     
   // Joint name - scissor mechanism
   std::string scissor_prismatic_joint;
+  
+  // tf_prefix
+  std::string tf_prefix_;
 
   // Selected operation mode
   int kinematic_modes_;   
@@ -242,15 +245,23 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
   freq_diag_(diagnostic_updater::FrequencyStatusParam(&desired_freq_, &desired_freq_, 0.05)   ),
   command_freq_("Command frequency check", boost::bind(&SummitXLControllerClass::check_command_subscriber, this, _1))
   {
-
+	
   // /summit_xl/joint_blw_velocity_controller/joint
   ROS_INFO("summit_xl_robot_control_node - Init ");
+
+
 
   // 4-Axis Skid Steer Rover
   // 8-Axis Omni-drive as 4-Axis Mecanum drive
   kinematic_modes_ = 1;  
   
   ros::NodeHandle summit_xl_robot_control_node_handle(node_handle_, "summit_xl_robot_control");
+  
+  // testing NodeHandle´s namespaces
+	ROS_WARN("node_handle_ namespace: %s", node_handle_.getNamespace().c_str());
+	ROS_WARN("private_node_handle_ namespace: %s", private_node_handle_.getNamespace().c_str());
+	ROS_WARN("summit_xl_robot_control_node_handle namespace: %s", summit_xl_robot_control_node_handle.getNamespace().c_str());
+	
 
   // Get robot model from the parameters
   if (!private_node_handle_.getParam("model", robot_model_)) {
@@ -323,6 +334,10 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
   if (publish_odom_tf_) ROS_INFO("PUBLISHING odom->base_footprin tf");
   else ROS_INFO("NOT PUBLISHING odom->base_footprint tf");
   
+  // Gets tf_prefix from NodeHandle
+	tf_prefix_ = node_handle_.getNamespace();
+  tf_prefix_.erase(0,1); // deletes first slash of the namespace
+
   // Robot Speeds
   linearSpeedXMps_   = 0.0;
   linearSpeedYMps_   = 0.0;
@@ -657,37 +672,46 @@ void PublishOdometry()
 {
 	ros::Time current_time = ros::Time::now();
 	
-    //first, we'll publish the transform over tf
-    geometry_msgs::TransformStamped odom_trans;
-    odom_trans.header.stamp = current_time;
-    odom_trans.header.frame_id = "odom";
-    odom_trans.child_frame_id = "base_footprint";
+	//first, we'll publish the transform over tf
+	geometry_msgs::TransformStamped odom_trans;
+	odom_trans.header.stamp = current_time;
+	
+	// frame_id will be "tf_prefix/odom"
+	std::string frame_id(tf_prefix_);
+	frame_id += "/odom"; 								
+	odom_trans.header.frame_id = frame_id.c_str();
+	
+	// child_frame_id will be "tf_prefix/base_footprint"
+	std::string child_frame_id(tf_prefix_);
+	child_frame_id += "/base_footprint";
+	odom_trans.child_frame_id = child_frame_id.c_str();
 
-    odom_trans.transform.translation.x = robot_pose_px_;
-    odom_trans.transform.translation.y = robot_pose_py_;
-    odom_trans.transform.translation.z = 0.0;
-    odom_trans.transform.rotation.x = orientation_x_;
+
+	odom_trans.transform.translation.x = robot_pose_px_;
+	odom_trans.transform.translation.y = robot_pose_py_;
+	odom_trans.transform.translation.z = 0.0;
+	odom_trans.transform.rotation.x = orientation_x_;
 	odom_trans.transform.rotation.y = orientation_y_;
 	odom_trans.transform.rotation.z = orientation_z_;
 	odom_trans.transform.rotation.w = orientation_w_;
 	
-    // send the transform over /tf
+	// send the transform over /tf
 	// activate / deactivate with param
 	// this tf in needed when not using robot_pose_ekf
-    if (publish_odom_tf_) odom_broadcaster.sendTransform(odom_trans);  
+	if (publish_odom_tf_) odom_broadcaster.sendTransform(odom_trans);  
         
-    //next, we'll publish the odometry message over ROS
-    nav_msgs::Odometry odom;
-    odom.header.stamp = current_time;
-    odom.header.frame_id = "odom";
+	//next, we'll publish the odometry message over ROS
+	nav_msgs::Odometry odom;
+	odom.header.stamp = current_time;
+	odom.header.frame_id = frame_id.c_str(); // uses odom frame with tf_prefix
 
-    //set the position
+	//set the position
 	// Position
-    odom.pose.pose.position.x = robot_pose_px_;
-    odom.pose.pose.position.y = robot_pose_py_;
-    odom.pose.pose.position.z = 0.0;
+	odom.pose.pose.position.x = robot_pose_px_;
+	odom.pose.pose.position.y = robot_pose_py_;
+	odom.pose.pose.position.z = 0.0;
 	// Orientation
-    odom.pose.pose.orientation.x = orientation_x_;
+	odom.pose.pose.orientation.x = orientation_x_;
 	odom.pose.pose.orientation.y = orientation_y_;
 	odom.pose.pose.orientation.z = orientation_z_;
 	odom.pose.pose.orientation.w = orientation_w_;
@@ -696,7 +720,7 @@ void PublishOdometry()
       		odom.pose.covariance[i*6+i] = 0.1;  // test 0.001
 
     //set the velocity
-    odom.child_frame_id = "base_footprint";
+    odom.child_frame_id = child_frame_id.c_str();  // uses base_footprint frame with tf_prefix
 	// Linear velocities
     odom.twist.twist.linear.x = robot_pose_vx_;
     odom.twist.twist.linear.y = robot_pose_vy_;
