@@ -257,12 +257,7 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
   
   ros::NodeHandle summit_xl_robot_control_node_handle(node_handle_, "summit_xl_robot_control");
   
-  // testing NodeHandle´s namespaces
-	ROS_WARN("node_handle_ namespace: %s", node_handle_.getNamespace().c_str());
-	ROS_WARN("private_node_handle_ namespace: %s", private_node_handle_.getNamespace().c_str());
-	ROS_WARN("summit_xl_robot_control_node_handle namespace: %s", summit_xl_robot_control_node_handle.getNamespace().c_str());
-	
-
+  
   // Get robot model from the parameters
   if (!private_node_handle_.getParam("model", robot_model_)) {
 	  ROS_ERROR("Robot model not defined.");
