@@ -15,9 +15,7 @@
     <arg name="headless" value="false"/>
   </include>
 
-  <!-- Load the URDF into the ROS Parameter Server -->
-  <param name="/robot_description"
-         command="$(find xacro)/xacro.py '$(find summit_xl_description)/urdf/summit_xl_fotonic.urdf.xacro'" />
+
 
 
 
@@ -26,6 +24,10 @@
 	<group ns="summit_xl_A">
 		<arg name="namespace" value="summit_xl_A"/>
 	  <arg name="model" value="$(arg namespace)"/>
+	  
+	  <!-- Load the URDF into the ROS Parameter Server -->
+    <param name="robot_description" 
+			command="$(find xacro)/xacro.py '$(find summit_xl_description)/urdf/summit_xl.urdf.xacro' namespace:=$(arg namespace)"/>
   
 	  <!-- summit_xl_control launch file -->
 	  <include file="$(find summit_xl_control)/launch/summit_xl_control.launch">
@@ -35,45 +37,12 @@
 	  <!-- Include this file only if you wish a the control to be done by the summit_xl_robot_control node -->
 	  <!-- summit_xl_robot_control launch file -->
 	  <!-- i.e. if the control is not assumed by the libgazebo_ros_skid_steer_drive plugin -->
+<!--
 	  <include file="$(find summit_xl_robot_control)/launch/summit_xl_robot_control.launch">
 			<arg name="namespace" value="$(arg namespace)"/>
 			<arg name="model" value="$(arg model)"/>
 		</include>
-	
-	  <!-- Include this file only if you wish a the control the robot via joystick, it has to be commented if you want to set goals for autonomous navigation -->
-	  <!-- summit_xl_joy launch file -->
-	  <!-- for this node to work correctly first you need to succesfully connect the ps3 joystick with:
-			sudo su
-			rosrun ps3joy sixpair
-			rosrun ps3joy ps3joy.py
-	  -->
-	  <!-- include file="$(find summit_xl_joystick)/launch/summit_xl_joy.launch" / -->
-	         
-	  <!-- Call a python script to the run a service call to gazebo_ros to spawn a URDF robot -->
-	  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-	        args="-urdf -model $(arg model) -param /robot_description -robot_namespace $(arg namespace)"/>
-	</group>
-	
-	
-
-	<!-- Each group defines a summit_xl robot, where group ns must be equal to arg namespace -->
-
-	<group ns="summit_xl_B">
-		<arg name="namespace" value="summit_xl_B"/>
-	  <arg name="model" value="$(arg namespace)"/>
-  
-	  <!-- summit_xl_control launch file -->
-	  <include file="$(find summit_xl_control)/launch/summit_xl_control.launch">
-			<arg name="namespace" value="$(arg namespace)"/>
-		</include>
-  
-	  <!-- Include this file only if you wish a the control to be done by the summit_xl_robot_control node -->
-	  <!-- summit_xl_robot_control launch file -->
-	  <!-- i.e. if the control is not assumed by the libgazebo_ros_skid_steer_drive plugin -->
-	  <include file="$(find summit_xl_robot_control)/launch/summit_xl_robot_control.launch">
-			<arg name="namespace" value="$(arg namespace)"/>
-			<arg name="model" value="$(arg model)"/>
-		</include>
+-->
 	
 	  <!-- Include this file only if you wish a the control the robot via joystick, it has to be commented if you want to set goals for autonomous navigation -->
 	  <!-- summit_xl_joy launch file -->
@@ -86,7 +55,60 @@
 	         
 	  <!-- Call a python script to the run a service call to gazebo_ros to spawn a URDF robot -->
 	  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-	        args="-urdf -model $(arg model) -param /robot_description -robot_namespace $(arg namespace) -x 3"/>
+	        args="-urdf -model $(arg model) -param robot_description"/>
+	        
+	  <!-- use static_transform_publisher to define map->odom transform    -->
+	  <!-- only use if you aren´t using a localization algorithm like amcl -->
+	  <node pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)/odom 100" />
 	</group>
+	
+		<!-- Each group defines a summit_xl robot, where group ns must be equal to arg namespace -->
+
+	<group ns="summit_xl_B">
+		<arg name="namespace" value="summit_xl_B"/>
+	  <arg name="model" value="$(arg namespace)"/>
+	  
+	  <!-- Load the URDF into the ROS Parameter Server -->
+    <param name="robot_description" 
+			command="$(find xacro)/xacro.py '$(find summit_xl_description)/urdf/summit_xl.urdf.xacro' namespace:=$(arg namespace)"/>
+  
+	  <!-- summit_xl_control launch file -->
+	  <include file="$(find summit_xl_control)/launch/summit_xl_control.launch">
+			<arg name="namespace" value="$(arg namespace)"/>
+		</include>
+  
+	  <!-- Include this file only if you wish a the control to be done by the summit_xl_robot_control node -->
+	  <!-- summit_xl_robot_control launch file -->
+	  <!-- i.e. if the control is not assumed by the libgazebo_ros_skid_steer_drive plugin -->
+<!--
+	  <include file="$(find summit_xl_robot_control)/launch/summit_xl_robot_control.launch">
+			<arg name="namespace" value="$(arg namespace)"/>
+			<arg name="model" value="$(arg model)"/>
+		</include>
+-->
+	
+	  <!-- Include this file only if you wish a the control the robot via joystick, it has to be commented if you want to set goals for autonomous navigation -->
+	  <!-- summit_xl_joy launch file -->
+	  <!-- for this node to work correctly first you need to succesfully connect the ps3 joystick with:
+			sudo su
+			rosrun ps3joy sixpair
+			rosrun ps3joy ps3joy.py
+	  -->
+<!--
+	  <include file="$(find summit_xl_joystick)/launch/summit_xl_joy.launch"/>
+-->
+	         
+	  <!-- Call a python script to the run a service call to gazebo_ros to spawn a URDF robot -->
+	  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+	        args="-urdf -model $(arg model) -param robot_description -y 2"/>
+	   
+	  <!-- static_transform_publisher to define map->odom transform    -->
+	  <!-- only use if you aren´t using a localization algorithm like amcl -->
+	  <node pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)/odom 100" />
+	</group>
+	
+	
+
+
 
 </launch>

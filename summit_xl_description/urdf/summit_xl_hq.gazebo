@@ -3,8 +3,29 @@
   <!-- ros_control plugin -->
   <gazebo>
     <plugin name="ros_control" filename="libgazebo_ros_control.so">
+       <robotNamespace>$(arg namespace)</robotNamespace>
        <controlPeriod>0.003</controlPeriod>
-	   <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+			 <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    </plugin>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+			<robotNamespace>$(arg namespace)</robotNamespace>
+	    <updateRate>100.0</updateRate>
+	    <leftFrontJoint>joint_front_left_wheel</leftFrontJoint>  
+	    <rightFrontJoint>joint_front_right_wheel</rightFrontJoint>
+	    <leftRearJoint>joint_back_left_wheel</leftRearJoint>
+	    <rightRearJoint>joint_back_right_wheel</rightRearJoint>
+	    <wheelSeparation>0.308</wheelSeparation>
+	    <wheelDiameter>0.125</wheelDiameter>
+	    <robotBaseFrame>$(arg namespace)/base_footprint</robotBaseFrame>
+	    <torque>25</torque>
+	    <topicName>cmd_vel</topicName>
+	    <commandTopic>summit_xl_robot_control/command</commandTopic>
+	    <odometryTopic>odom</odometryTopic>
+	    <odometryFrame>$(arg namespace)/odom</odometryFrame>
+	    <broadcastTF>1</broadcastTF>
     </plugin>
   </gazebo>
 
@@ -81,7 +102,7 @@
         <cameraName>camera1</cameraName>
         <imageTopicName>image_raw</imageTopicName>
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-        <frameName>camera_tilt_link</frameName>
+        <frameName>$(arg namespace)/camera_tilt_link</frameName>
         <hackBaseline>0.07</hackBaseline>
         <distortionK1>0</distortionK1>
         <distortionK2>0</distortionK2>
@@ -126,7 +147,7 @@
       <!-- plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_gpu_laser.so" -->
       <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
         <topicName>scan</topicName>
-        <frameName>hokuyo_laser_link</frameName>
+        <frameName>$(arg namespace)/hokuyo_laser_link</frameName>
       </plugin>
     </sensor>
   </gazebo>
@@ -163,7 +184,7 @@
 		<depthImageInfoTopicName>fotonic_3dcamera/depth/camera_info</depthImageInfoTopicName>
 		<depthImageCameraInfoTopicName>fotonic_3dcamera/camera_info</depthImageCameraInfoTopicName>
 		<pointCloudTopicName>fotonic_3dcamera/depth/points</pointCloudTopicName>
-		<frameName>kinect_depth_optical_frame</frameName>
+		<frameName>$(arg namespace)/kinect_depth_optical_frame</frameName>
 		<pointCloudCutoff>0.5</pointCloudCutoff>
 		<distortionK1>0</distortionK1>
 		<distortionK2>0</distortionK2>
@@ -179,6 +200,7 @@
     </sensor>
   </gazebo>
   
+<!--
   <gazebo>
     <plugin name="ros_imu" filename="libgazebo_ros_imu.so">
       <topicName>imu_data</topicName>
@@ -187,5 +209,6 @@
       <gaussianNoise>0.005</gaussianNoise>		
     </plugin>
   </gazebo>
+-->
   
 </robot>

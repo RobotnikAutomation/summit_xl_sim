@@ -6,12 +6,6 @@
   <!-- load the controllers -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
     output="screen" args="
-                      joint_blw_velocity_controller
-                      joint_brw_velocity_controller
-                      joint_frw_velocity_controller
-                      joint_flw_velocity_controller
-                      joint_pan_position_controller
-                      joint_tilt_position_controller
                       joint_read_state_controller 
                       "/>
 
@@ -29,3 +23,11 @@
 </launch>
 
  
+<!--
+                      joint_blw_velocity_controller
+                      joint_brw_velocity_controller
+                      joint_frw_velocity_controller
+                      joint_flw_velocity_controller
+                      joint_pan_position_controller
+                      joint_tilt_position_controller
+-->
