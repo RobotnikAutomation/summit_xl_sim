@@ -1,9 +1,11 @@
 <?xml version="1.0"?>
 <launch>
 
+	<arg name="namespace" default="summit_xl"/>
+
   <!-- load the controllers -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" ns="/summit_xl" args="--namespace=/summit_xl
+    output="screen" args="
                       joint_blw_velocity_controller
                       joint_brw_velocity_controller
                       joint_frw_velocity_controller
@@ -22,7 +24,10 @@
   <!-- convert joint states to TF transforms for rviz, etc -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
     respawn="false" output="screen">
+    <param name="~tf_prefix" value="$(arg namespace)" type="str"/>
+<!--
     <remap from="/joint_states" to="/summit_xl/joint_states" />
+-->
   </node>
 
 </launch>

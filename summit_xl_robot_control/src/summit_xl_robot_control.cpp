@@ -140,6 +140,15 @@ public:
 
   // Topic - scissor - position
   std::string scissor_pos_topic_;
+  
+  // Topic - joint state
+  std::string joint_states_topic;
+  
+  // Topic - imu_data
+  std::string imu_data_topic;
+  
+  // Topic - odom
+  std::string odom_topic;
 
   // Joint names - ptz - position
   std::string joint_camera_pan;
@@ -151,6 +160,9 @@ public:
     
   // Joint name - scissor mechanism
   std::string scissor_prismatic_joint;
+  
+  // tf_prefix
+  std::string tf_prefix_;
 
   // Selected operation mode
   int kinematic_modes_;   
@@ -233,16 +245,19 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
   freq_diag_(diagnostic_updater::FrequencyStatusParam(&desired_freq_, &desired_freq_, 0.05)   ),
   command_freq_("Command frequency check", boost::bind(&SummitXLControllerClass::check_command_subscriber, this, _1))
   {
-
+	
   // /summit_xl/joint_blw_velocity_controller/joint
   ROS_INFO("summit_xl_robot_control_node - Init ");
+
+
 
   // 4-Axis Skid Steer Rover
   // 8-Axis Omni-drive as 4-Axis Mecanum drive
   kinematic_modes_ = 1;  
   
   ros::NodeHandle summit_xl_robot_control_node_handle(node_handle_, "summit_xl_robot_control");
-
+  
+  
   // Get robot model from the parameters
   if (!private_node_handle_.getParam("model", robot_model_)) {
 	  ROS_ERROR("Robot model not defined.");
@@ -293,6 +308,15 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
   private_node_handle_.param<std::string>("joint_camera_pan", joint_camera_pan, "joint_camera_pan");
   private_node_handle_.param<std::string>("joint_camera_tilt", joint_camera_tilt, "joint_camera_tilt");
 
+	// joint state topic
+  private_node_handle_.param<std::string>("joint_states_topic", joint_states_topic, "summit_xl/joint_states");
+    
+  // Imu data topic
+  private_node_handle_.param<std::string>("imu_data_topic", imu_data_topic, "summit_xl/imu_data");
+  
+  // Odom topic
+  private_node_handle_.param<std::string>("odom_topic", odom_topic, "summit_xl/odom");
+
   // Robot parameters
   if (!private_node_handle_.getParam("summit_xl_wheel_diameter", summit_xl_wheel_diameter_))
     summit_xl_wheel_diameter_ = SUMMIT_XL_WHEEL_DIAMETER;
@@ -305,6 +329,10 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
   if (publish_odom_tf_) ROS_INFO("PUBLISHING odom->base_footprin tf");
   else ROS_INFO("NOT PUBLISHING odom->base_footprint tf");
   
+  // Gets tf_prefix from NodeHandle
+	tf_prefix_ = node_handle_.getNamespace();
+  tf_prefix_.erase(0,1); // deletes first slash of the namespace
+
   // Robot Speeds
   linearSpeedXMps_   = 0.0;
   linearSpeedYMps_   = 0.0;
@@ -339,10 +367,10 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
   srv_SetOdometry_ = summit_xl_robot_control_node_handle.advertiseService("set_odometry",  &SummitXLControllerClass::srvCallback_SetOdometry, this);
 
   // Subscribe to joint states topic
-  joint_state_sub_ = summit_xl_robot_control_node_handle.subscribe<sensor_msgs::JointState>("/summit_xl/joint_states", 1, &SummitXLControllerClass::jointStateCallback, this);
+  joint_state_sub_ = summit_xl_robot_control_node_handle.subscribe<sensor_msgs::JointState>(joint_states_topic, 1, &SummitXLControllerClass::jointStateCallback, this);
 
   // Subscribe to imu data
-  imu_sub_ = summit_xl_robot_control_node_handle.subscribe("/summit_xl/imu_data", 1, &SummitXLControllerClass::imuCallback, this);
+  imu_sub_ = summit_xl_robot_control_node_handle.subscribe(imu_data_topic, 1, &SummitXLControllerClass::imuCallback, this);
 
   // Adevertise reference topics for the controllers 
   ref_vel_frw_ = summit_xl_robot_control_node_handle.advertise<std_msgs::Float64>( frw_vel_topic_, 50);
@@ -372,7 +400,7 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
   
   // TODO odom topic as parameter
   // Publish odometry 
-  odom_pub_ = summit_xl_robot_control_node_handle.advertise<nav_msgs::Odometry>("/summit_xl/odom", 1000);
+  odom_pub_ = summit_xl_robot_control_node_handle.advertise<nav_msgs::Odometry>(odom_topic, 1000);
 
   // Component frequency diagnostics
   diagnostic_.setHardwareID("summit_xl_robot_control - simulation");
@@ -394,7 +422,6 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
 /// Controller startup in realtime
 int starting()
 {
-
   ROS_INFO("SummitXLControllerClass::starting");
 
   //name: ['joint_back_left_wheel', 'joint_back_right_wheel', 'joint_front_left_wheel', 'joint_front_right_wheel']
@@ -500,7 +527,6 @@ void UpdateControl()
 
   // Depending on the robot configuration 
   if (active_kinematic_mode_ == MECANUM_STEERING) {
-
 	  // Speed references for motor control
 	  // double v_left_mps, v_right_mps;
 	  double v_frw_mps, v_flw_mps, v_blw_mps, v_brw_mps; 
@@ -641,37 +667,46 @@ void PublishOdometry()
 {
 	ros::Time current_time = ros::Time::now();
 	
-    //first, we'll publish the transform over tf
-    geometry_msgs::TransformStamped odom_trans;
-    odom_trans.header.stamp = current_time;
-    odom_trans.header.frame_id = "odom";
-    odom_trans.child_frame_id = "base_footprint";
+	//first, we'll publish the transform over tf
+	geometry_msgs::TransformStamped odom_trans;
+	odom_trans.header.stamp = current_time;
+	
+	// frame_id will be "tf_prefix/odom"
+	std::string frame_id(tf_prefix_);
+	frame_id += "/odom"; 								
+	odom_trans.header.frame_id = frame_id.c_str();
+	
+	// child_frame_id will be "tf_prefix/base_footprint"
+	std::string child_frame_id(tf_prefix_);
+	child_frame_id += "/base_footprint";
+	odom_trans.child_frame_id = child_frame_id.c_str();
 
-    odom_trans.transform.translation.x = robot_pose_px_;
-    odom_trans.transform.translation.y = robot_pose_py_;
-    odom_trans.transform.translation.z = 0.0;
-    odom_trans.transform.rotation.x = orientation_x_;
+
+	odom_trans.transform.translation.x = robot_pose_px_;
+	odom_trans.transform.translation.y = robot_pose_py_;
+	odom_trans.transform.translation.z = 0.0;
+	odom_trans.transform.rotation.x = orientation_x_;
 	odom_trans.transform.rotation.y = orientation_y_;
 	odom_trans.transform.rotation.z = orientation_z_;
 	odom_trans.transform.rotation.w = orientation_w_;
 	
-    // send the transform over /tf
+	// send the transform over /tf
 	// activate / deactivate with param
 	// this tf in needed when not using robot_pose_ekf
-    if (publish_odom_tf_) odom_broadcaster.sendTransform(odom_trans);  
+	if (publish_odom_tf_) odom_broadcaster.sendTransform(odom_trans);  
         
-    //next, we'll publish the odometry message over ROS
-    nav_msgs::Odometry odom;
-    odom.header.stamp = current_time;
-    odom.header.frame_id = "odom";
+	//next, we'll publish the odometry message over ROS
+	nav_msgs::Odometry odom;
+	odom.header.stamp = current_time;
+	odom.header.frame_id = frame_id.c_str(); // uses odom frame with tf_prefix
 
-    //set the position
+	//set the position
 	// Position
-    odom.pose.pose.position.x = robot_pose_px_;
-    odom.pose.pose.position.y = robot_pose_py_;
-    odom.pose.pose.position.z = 0.0;
+	odom.pose.pose.position.x = robot_pose_px_;
+	odom.pose.pose.position.y = robot_pose_py_;
+	odom.pose.pose.position.z = 0.0;
 	// Orientation
-    odom.pose.pose.orientation.x = orientation_x_;
+	odom.pose.pose.orientation.x = orientation_x_;
 	odom.pose.pose.orientation.y = orientation_y_;
 	odom.pose.pose.orientation.z = orientation_z_;
 	odom.pose.pose.orientation.w = orientation_w_;
@@ -680,7 +715,7 @@ void PublishOdometry()
       		odom.pose.covariance[i*6+i] = 0.1;  // test 0.001
 
     //set the velocity
-    odom.child_frame_id = "base_footprint";
+    odom.child_frame_id = child_frame_id.c_str();  // uses base_footprint frame with tf_prefix
 	// Linear velocities
     odom.twist.twist.linear.x = robot_pose_vx_;
     odom.twist.twist.linear.y = robot_pose_vy_;

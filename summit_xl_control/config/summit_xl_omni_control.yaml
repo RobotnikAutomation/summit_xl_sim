@@ -1,4 +1,3 @@
-summit_xl:
   joint_blw_velocity_controller:
 #    type: effort_controllers/JointPositionController
 #    type: velocity_controllers/JointVelocityController
