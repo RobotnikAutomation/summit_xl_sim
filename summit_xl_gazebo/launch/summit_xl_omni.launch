@@ -32,9 +32,10 @@
 			<arg name="namespace" value="$(arg namespace)"/>
 		</include>
   
-	  <!-- Include this file only if you wish a the control to be done by the summit_xl_robot_control node -->
-	  <!-- summit_xl_robot_control launch file -->
+  	<!-- summit_xl_robot_control launch file -->
+	  <!-- Include this file only if you wish the control to be done by the summit_xl_robot_control node -->
 	  <!-- i.e. if the control is not assumed by the libgazebo_ros_skid_steer_drive plugin -->
+	  <!-- also you should include it if you want to move the ptz camera with the joystick -->
 	  <include file="$(find summit_xl_robot_control)/launch/summit_xl_omni_robot_control.launch">
 			<arg name="namespace" value="$(arg namespace)"/>
 			<arg name="model" value="$(arg model)"/>

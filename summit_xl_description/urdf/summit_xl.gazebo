@@ -4,8 +4,9 @@
   <gazebo>
     <plugin name="ros_control" filename="libgazebo_ros_control.so">
        <robotNamespace>$(arg namespace)</robotNamespace>
+       <robotParam>$(arg namespace)/robot_description</robotParam>
        <controlPeriod>0.003</controlPeriod>
-	   <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+	     <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
     </plugin>
   </gazebo>
   
