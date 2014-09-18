@@ -8,9 +8,13 @@
 <!-- /launch -->
 
 <launch>
+
     <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
       <!-- remap from="scan" to="/hokuyo_laser_topic"/ -->
-      <remap from="scan" to="scan" />
+      <remap from="scan" to="summit_xl/scan" />
+      <remap from="odom" to="summit_xl/odom" />
+      <param name="base_frame" value="summit_xl/base_footprint"/>
+      <param name="odom_frame" value="summit_xl/odom"/>
       <!-- param name="map_udpate_interval" value="5.0"/ -->
       <param name="map_udpate_interval" value="2.0"/>
       <param name="maxUrange" value="16.0"/>
@@ -44,4 +48,5 @@
       <param name="lasamplerange" value="0.005"/>
       <param name="lasamplestep" value="0.005"/ -->
     </node>
+
 </launch>
