@@ -102,7 +102,7 @@
         <cameraName>camera1</cameraName>
         <imageTopicName>image_raw</imageTopicName>
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-        <frameName>$(arg namespace)/camera_tilt_link</frameName>
+        <frameName>camera_tilt_link</frameName>
         <hackBaseline>0.07</hackBaseline>
         <distortionK1>0</distortionK1>
         <distortionK2>0</distortionK2>
@@ -147,7 +147,7 @@
       <!-- plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_gpu_laser.so" -->
       <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
         <topicName>scan</topicName>
-        <frameName>$(arg namespace)/hokuyo_laser_link</frameName>
+        <frameName>hokuyo_laser_link</frameName>
       </plugin>
     </sensor>
   </gazebo>
@@ -184,7 +184,7 @@
 		<depthImageInfoTopicName>fotonic_3dcamera/depth/camera_info</depthImageInfoTopicName>
 		<depthImageCameraInfoTopicName>fotonic_3dcamera/camera_info</depthImageCameraInfoTopicName>
 		<pointCloudTopicName>fotonic_3dcamera/depth/points</pointCloudTopicName>
-		<frameName>$(arg namespace)/kinect_depth_optical_frame</frameName>
+		<frameName>kinect_depth_optical_frame</frameName>
 		<pointCloudCutoff>0.5</pointCloudCutoff>
 		<distortionK1>0</distortionK1>
 		<distortionK2>0</distortionK2>
