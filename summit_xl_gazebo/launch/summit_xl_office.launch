@@ -61,7 +61,7 @@
 
 		<!-- use static_transform_publisher to define map->odom transform    -->
 		<!-- only use if you aren´t using a localization algorithm like amcl -->
-		<node pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)/odom 100" />
+		<!--node pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)/odom 100" /-->
 	</group>
 	
 </launch>

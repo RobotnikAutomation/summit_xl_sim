@@ -1,16 +1,18 @@
+<?xml version="1.0"?>
 <launch>
   <master auto="start"/>
 
   <!-- Run the map server -->
-  <node name="map_server" pkg="map_server" type="map_server" args="$(find summit_xl_2dnav)/maps/robotnik/robotnik.yaml"/>
+  <!--node name="map_server" pkg="map_server" type="map_server" args="$(find summit_xl_2dnav)/maps/robotnik/robotnik.yaml"/-->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find summit_xl_2dnav)/maps/willow_garage/willow_garage.yaml"/>
 
   <!--- Run AMCL -->
   <include file="$(find summit_xl_2dnav)/navigation_amcl/amcl_summit.launch" />
-  <remap from="cmd_vel" to="summit_xl_ctrl/command" />
+  <remap from="cmd_vel" to="/summit_xl/summit_xl_robot_control/command" />
 
   <!--- Run EFK Filter -->
-  <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
-    <param name="output_frame" value="odom"/> <!-- Output topic, in this case, as we define "odom", the topic is published to "/robot_pose_ekf/odom", if we define "/odom" the topic will publish to "/odom" -->
+  <!---node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
+    <param name="output_frame" value="odom"/> 
     <param name="freq" value="50.0"/>
     <param name="sensor_timeout" value="1.0"/>  
     <param name="publish_tf" value="true"/>
@@ -18,7 +20,7 @@
     <param name="imu_used" value="true"/>
     <param name="vo_used" value="false"/>
     <param name="debug" value="true"/>
-  </node>
+  </node!--->
   
   <!-- Run move_base -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
