@@ -23,7 +23,7 @@
 	<!-- Each group defines a summit_xl robot, where group ns must be equal to arg namespace -->
 	<group ns="summit_xl">
 		<arg name="namespace" value="summit_xl"/>
-	  <arg name="model" value="$(arg namespace)"/>
+	  	<arg name="model" value="$(arg namespace)"/>
 	  
 	  <!-- Load the URDF into the ROS Parameter Server -->
 		<param name="robot_description"

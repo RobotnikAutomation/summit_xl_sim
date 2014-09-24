@@ -5,5 +5,5 @@ inflation_radius: 0.55
 
 observation_sources: hokuyo_laser
 
-hokuyo_laser: {sensor_frame: hokuyo_laser_link, data_type: LaserScan, topic: hokuyo_laser_topic, marking: true, clearing: true}
+hokuyo_laser: {sensor_frame: summit_xl/hokuyo_laser_link, data_type: LaserScan, topic: summit_xl/scan, marking: true, clearing: true}
 

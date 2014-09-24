@@ -6,8 +6,8 @@
 
     <!-- for moving -->
     <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-  	<remap from="scan" to="hokuyo_laser_topic" />
-  	<remap from="cmd_vel" to="summit_xl_robot_control/command" />  	
+  	<remap from="scan" to="summit_xl/scan" />
+  	<remap from="cmd_vel" to="summit_xl/summit_xl_robot_control/command" />  	
         <!-- test for ekf 11/2012 -->
         <!-- remap from="odom" to="robot_pose_ekf/odom" / -->
         <!-- this does not work as it is not exactly the same type of msg -->
