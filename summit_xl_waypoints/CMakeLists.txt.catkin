@@ -107,7 +107,6 @@ add_executable(summit_xl_waypoints src/summit_xl_waypoints.cpp)
 # target_link_libraries(summit_xl_robot_control_node
 target_link_libraries(summit_xl_waypoints
    ${catkin_LIBRARIES}
-   $
  )
 
 #############
