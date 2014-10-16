@@ -1,7 +1,7 @@
 <package>
 
   <name>x_wam_moveit</name>
-  <version>0.2.0</version>
+  <version>1.0.0</version>
   <description>
      An automatically generated package with all the configuration and launch files for using the summit_xl with the MoveIt Motion Planning Framework
   </description>
