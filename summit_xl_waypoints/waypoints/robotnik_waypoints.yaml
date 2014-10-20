@@ -12,27 +12,27 @@ loop: true
 waypoints:
     - {
      name: 'n1',
-     frame_id: 'odom',
+     frame_id: 'summit_xl/odom',
      position: [10.0, 0.0, 0.0 ]
      }
     - {
      name: 'n2',
-     frame_id: 'odom',
+     frame_id: 'summit_xl/odom',
      position: [10.0, 10.0, 0.0 ]
      }
     - {
      name: 'n3',
-     frame_id: 'odom',
+     frame_id: 'summit_xl/odom',
      position: [20.0, 10.0, 0.0 ]
      }
     - {
      name: 'n4',
-     frame_id: 'odom',
+     frame_id: 'summit_xl/odom',
      position: [20.0, 0.0, 0.0 ] #position: [12.0, 1.0, 0.0 ]
      }
     - {
      name: 'n5',
-     frame_id: 'odom',
+     frame_id: 'summit_xl/odom',
      position: [30.0, 0.0, 0.0 ] #position: [12.0, 1.0, 0.0 ]
      }
        
