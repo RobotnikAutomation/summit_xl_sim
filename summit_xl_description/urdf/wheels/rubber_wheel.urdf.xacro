@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<robot name="wheel" xmlns:xacro="http://www.ros.org/wiki/xacro">
+ 
+  <!-- Wheels -->
+  <property name="wheel_radius" value="0.125" /> 
+  <property name="wheel_height" value="0.14" />
+  <property name="wheel_mass" value="2.5" /> <!-- in kg-->
+ 
+  <property name="base_x_origin_to_wheel_origin" value="0.22911" />
+  <property name="base_y_origin_to_wheel_origin" value="0.23350" />
+  <property name="base_z_origin_to_wheel_origin" value="0.0" />
+ 
+  <macro name="cylinder_inertia" params="m r h">
+    <inertia  ixx="${m*(3*r*r+h*h)/12}" ixy = "0" ixz = "0"
+              iyy="${m*(3*r*r+h*h)/12}" iyz = "0"
+              izz="${m*r*r/2}" /> 
+  </macro>
+ 
+  <xacro:macro name="rubber_wheel" params="name parent *origin reflect">
+    <link name="${name}_wheel">
+      <visual>
+		<origin xyz="0 0 0" rpy="${PI*reflect} 0 0" />
+        <geometry>
+          <mesh filename="package://summit_xl_description/meshes/wheels/summit_xl_wheel_right.stl" />
+        </geometry>
+      </visual>
+      <collision>
+		<origin xyz="0 0 0" rpy="0 0 ${PI*reflect}" />
+        <geometry>
+          <cylinder length="${wheel_height}" radius="${wheel_radius}" />
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="${wheel_mass}" />
+        <origin xyz="0 0 0" />
+        <cylinder_inertia  m="${wheel_mass}" r="${wheel_radius}" h="${wheel_height}" />
+      </inertial>
+    </link>
+ 
+
+    <joint name="joint_${name}_wheel" type="continuous">
+      <parent link="${parent}"/>
+      <child link="${name}_wheel"/>
+      <insert_block name="origin" />
+      <axis xyz="0 1 0" rpy="0 0 0" />
+      <limit effort="100" velocity="100"/>
+      <joint_properties damping="0.0" friction="0.0"/>
+    </joint>
+ 
+    <!-- Transmission is important to link the joints and the controller (see summit_xl_control/config/summit_xl_control.yaml)-->
+    <transmission name="${name}_wheel_joint_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="joint_${name}_wheel" />
+      <actuator name="${name}_wheel_joint_motor">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+    
+    <gazebo reference="${name}_wheel">
+		<mu1 value="5.0"/>
+		<mu2 value="0.5"/>
+		<kp value="10000000.0" />
+		<kd value="1.0" />
+		<fdir1 value="1 0 0"/>
+      <material>Gazebo/Gray</material>
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+ 
+  </xacro:macro>
+</robot>
