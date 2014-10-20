@@ -4,13 +4,13 @@
   <!-- Import all Gazebo-customization elements, including Gazebo colors -->
   <xacro:include filename="$(find summit_xl_description)/urdf/summit_xl_hq.gazebo" />
   <xacro:include filename="$(find summit_xl_description)/urdf/bases/summit_xl_base.urdf.xacro" />
-    <xacro:include filename="$(find summit_xl_description)/urdf/wheels/rubber_wheel.urdf.xacro" /> 
-    <xacro:include filename="$(find summit_xl_description)/urdf/sensors/kinect.urdf.xacro" /> 
+  <xacro:include filename="$(find summit_xl_description)/urdf/wheels/rubber_wheel.urdf.xacro" /> 
+  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/kinect.urdf.xacro" /> 
     
   <!-- Robot mechanical and motor parameters -->
   <xacro:property name="PI" value="3.1415926535897931"/>
   <xacro:property name="wheel_offset_x" value="0.223" />    <!-- x,y,z in base_link CS -->
-  <xacro:property name="wheel_offset_y" value="0.154" /> 
+  <xacro:property name="wheel_offset_y" value="0.234" /> 
   <xacro:property name="wheel_offset_z" value="0.0" /> 
   <xacro:property name="wheel_joint_damping" value="0.0" />
   <xacro:property name="wheel_joint_friction" value="0.0" />
@@ -24,7 +24,7 @@
   <xacro:property name="ptz_joint_damping" value="0.1" />
   <xacro:property name="ptz_mechanical_reduction" value="1.0" />
   <xacro:property name="rubber_wheels" value="true" />
-
+  <xacro:property name="rubber_wheels" value="true" />
   
   <summit_xl_base name="summit_xl" />
   
@@ -81,6 +81,9 @@
     <origin xyz="0.33 0 0.33" rpy="0 0 0"/>
   </sensor_kinect>
 
+  <sensor_kinect name="kinect2" parent="base_link">
+    <origin xyz="0.33 0 0.43" rpy="0 0 0"/>
+  </sensor_kinect>
   
 
 </robot>
