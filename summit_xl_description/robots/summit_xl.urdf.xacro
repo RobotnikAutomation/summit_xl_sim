@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<robot name="summit_xl" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
+
+  <!-- Import all Gazebo-customization elements, including Gazebo colors -->
+<!--
+  <xacro:include filename="$(find summit_xl_description)/urdf/summit_xl_hq.gazebo" />
+-->
+  <xacro:include filename="$(find summit_xl_description)/urdf/bases/summit_xl_base.urdf.xacro" />
+  <xacro:include filename="$(find summit_xl_description)/urdf/wheels/rubber_wheel.urdf.xacro" /> 
+  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/kinect.urdf.xacro" />  
+  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/hokuyo.urdf.xacro" />  
+    
+  <!-- Robot mechanical and motor parameters -->
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:property name="wheel_offset_x" value="0.223" />    <!-- x,y,z in base_link CS -->
+  <xacro:property name="wheel_offset_y" value="0.234" /> 
+  <xacro:property name="wheel_offset_z" value="0.0" /> 
+  <xacro:property name="wheel_joint_damping" value="0.0" />
+  <xacro:property name="wheel_joint_friction" value="0.0" />
+  <xacro:property name="wheel_joint_effort_limit" value="100.0" />
+  <xacro:property name="wheel_joint_velocity_limit" value="100.0" />
+  <xacro:property name="wheel_mechanical_reduction" value="1.0" />
+
+  <xacro:property name="ptz_joint_effort_limit" value="100.0" /> 
+  <xacro:property name="ptz_joint_velocity_limit" value="100.0"/>  
+  <xacro:property name="ptz_joint_friction" value="0.1" />
+  <xacro:property name="ptz_joint_damping" value="0.1" />
+  <xacro:property name="ptz_mechanical_reduction" value="1.0" />
+  <xacro:property name="rubber_wheels" value="true" />
+
+  
+  <summit_xl_base name="summit_xl" />
+  
+    <!-- WHEELS -->
+
+  <rubber_wheel name="front_right" parent="base_link" reflect="0">
+    <origin xyz="${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
+  </rubber_wheel>
+  
+  <rubber_wheel name="front_left" parent="base_link" reflect="1">
+    <origin xyz="${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
+  </rubber_wheel>
+  
+  <rubber_wheel name="back_left" parent="base_link" reflect="1">
+    <origin xyz="-${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
+  </rubber_wheel>
+  
+  <rubber_wheel name="back_right" parent="base_link" reflect="0">
+    <origin xyz="-${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
+  </rubber_wheel>
+
+
+
+  <!-- IMU SENSOR -->
+  <joint name="imu_joint" type="fixed">
+      <axis xyz="1 0 0"/> <!-- 0 1 0 -->
+      <origin xyz="0 0 0.2825"/>
+      <parent link="base_link"/>
+      <child link="imu_link"/>
+  </joint>
+
+  <link name="imu_link">
+      <inertial>
+        <mass value="0.001"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
+      </inertial>
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <box size="0.001 0.001 0.001"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <box size=".001 .001 .001"/>
+        </geometry>
+      </collision>
+  </link>
+
+
+  <hokuyo_sensor name="hokuyo" parent="base_link">
+    <origin xyz="0.0 0.0 0.310" rpy="0 0 0"/>
+  </hokuyo_sensor>
+  
+	<gazebo>
+		<plugin name="ros_control" filename="libgazebo_ros_control.so">
+			 <robotNamespace>$(arg namespace)</robotNamespace>
+			 <controlPeriod>0.003</controlPeriod>
+     <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+		</plugin>
+	</gazebo>
+
+	<gazebo>
+		<plugin name="skid_steer_drive_controllerasdasdasd" filename="libgazebo_ros_skid_steer_drive.so">
+  	  <robotNamespace>$(arg namespace)</robotNamespace>
+      <updateRate>100.0</updateRate>
+      <leftFrontJoint>joint_front_left_wheel</leftFrontJoint>  
+      <rightFrontJoint>joint_front_right_wheel</rightFrontJoint>
+      <leftRearJoint>joint_back_left_wheel</leftRearJoint>
+      <rightRearJoint>joint_back_right_wheel</rightRearJoint>
+      <wheelSeparation>0.308</wheelSeparation>
+      <wheelDiameter>0.125</wheelDiameter>
+      <robotBaseFrame>$(arg namespace)/base_footprint</robotBaseFrame>
+      <torque>25</torque>
+      <topicName>cmd_vel</topicName>
+      <commandTopic>summit_xl_steer_drive_controller/command</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>$(arg namespace)/odom</odometryFrame>
+      <broadcastTF>1</broadcastTF>
+		</plugin>
+	</gazebo>
+
+  
+
+</robot>
+
