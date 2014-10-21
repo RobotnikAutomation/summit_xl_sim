@@ -9,6 +9,7 @@
   <xacro:include filename="$(find summit_xl_description)/urdf/wheels/rubber_wheel.urdf.xacro" /> 
   <xacro:include filename="$(find summit_xl_description)/urdf/sensors/kinect.urdf.xacro" />  
   <xacro:include filename="$(find summit_xl_description)/urdf/sensors/hokuyo.urdf.xacro" />  
+  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/fotonic.urdf.xacro" />
     
   <!-- Robot mechanical and motor parameters -->
   <xacro:property name="PI" value="3.1415926535897931"/>
@@ -80,9 +81,18 @@
   </link>
 
 
+
   <hokuyo_sensor name="hokuyo" parent="base_link">
     <origin xyz="0.0 0.0 0.310" rpy="0 0 0"/>
   </hokuyo_sensor>
+  
+  
+  
+  <sensor_fotonic name="fotonic" parent="base_link">
+		<origin xyz="0.275 0 0.260" rpy="0 0 0" />
+  </sensor_fotonic>
+  
+  
   
 	<gazebo>
 		<plugin name="ros_control" filename="libgazebo_ros_control.so">
