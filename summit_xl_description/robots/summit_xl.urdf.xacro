@@ -82,9 +82,9 @@
 
 
 
-  <hokuyo_sensor name="hokuyo" parent="base_link">
+  <sensor_hokuyo name="hokuyo" parent="base_link">
     <origin xyz="0.0 0.0 0.310" rpy="0 0 0"/>
-  </hokuyo_sensor>
+  </sensor_hokuyo>
   
   
   
