@@ -1,10 +1,6 @@
 <?xml version="1.0"?>
 <robot name="summit_xl" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
 
-
-  <!-- Import all Gazebo-customization elements, including Gazebo colors -->
-  <xacro:include filename="$(find summit_xl_description)/urdf/summit_xl.gazebo"/>
-
   
   <xacro:macro name="summit_xl_base" params="name">
 
@@ -26,6 +22,13 @@
   <xacro:property name="ptz_joint_damping" value="0.1" />
   <xacro:property name="ptz_mechanical_reduction" value="1.0" />
 
+	<gazebo reference="base_footprint">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  
+  <gazebo reference="base_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
 
 
   <!-- BASE FOOTPRINT -->

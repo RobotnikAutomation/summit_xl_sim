@@ -82,12 +82,12 @@
     </transmission>
     
     <gazebo reference="${name}_wheel">
-		<mu1 value="5.0"/>
-		<mu2 value="0.5"/>
-		<kp value="10000000.0" />
-		<kd value="1.0" />
-		<fdir1 value="1 0 0"/>
-      <material>Gazebo/Gray</material>
+			<mu1 value="5.0"/>
+			<mu2 value="0.5"/>
+			<kp value="10000000.0" />
+			<kd value="1.0" />
+			<fdir1 value="1 0 0"/>
+      <material>Gazebo/Grey</material>
       <turnGravityOff>false</turnGravityOff>
     </gazebo>
  
