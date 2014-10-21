@@ -10,6 +10,7 @@
   <xacro:include filename="$(find summit_xl_description)/urdf/sensors/kinect.urdf.xacro" />  
   <xacro:include filename="$(find summit_xl_description)/urdf/sensors/hokuyo.urdf.xacro" />  
   <xacro:include filename="$(find summit_xl_description)/urdf/sensors/fotonic.urdf.xacro" />
+  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/axis.urdf.xacro" />
     
   <!-- Robot mechanical and motor parameters -->
   <xacro:property name="PI" value="3.1415926535897931"/>
@@ -22,13 +23,12 @@
   <xacro:property name="wheel_joint_velocity_limit" value="100.0" />
   <xacro:property name="wheel_mechanical_reduction" value="1.0" />
 
-  <xacro:property name="ptz_joint_effort_limit" value="100.0" /> 
-  <xacro:property name="ptz_joint_velocity_limit" value="100.0"/>  
-  <xacro:property name="ptz_joint_friction" value="0.1" />
-  <xacro:property name="ptz_joint_damping" value="0.1" />
-  <xacro:property name="ptz_mechanical_reduction" value="1.0" />
+
   <xacro:property name="rubber_wheels" value="true" />
 
+  
+  
+  
   
   <summit_xl_base name="summit_xl" />
   
@@ -82,17 +82,25 @@
 
 
 
+<!--
   <sensor_hokuyo name="hokuyo" parent="base_link">
     <origin xyz="0.0 0.0 0.310" rpy="0 0 0"/>
   </sensor_hokuyo>
+-->
   
+<!--
   <sensor_kinect name="kinect" parent="base_link">
 		<origin xyz="0.5 0 0.5" rpy="0 0 0"/>
   </sensor_kinect>
+-->
   
   <sensor_fotonic name="fotonic" parent="base_link">
 		<origin xyz="0.275 0 0.260" rpy="0 0 0" />
   </sensor_fotonic>
+  
+  <sensor_axis name="axis" parent="base_link">
+		<origin xyz="0 0 0.2825" rpy="0 0 0"/>
+  </sensor_axis>
   
   
   
