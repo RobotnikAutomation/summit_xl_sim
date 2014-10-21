@@ -86,7 +86,9 @@
     <origin xyz="0.0 0.0 0.310" rpy="0 0 0"/>
   </sensor_hokuyo>
   
-  
+  <sensor_kinect name="kinect" parent="base_link">
+		<origin xyz="0.5 0 0.5" rpy="0 0 0"/>
+  </sensor_kinect>
   
   <sensor_fotonic name="fotonic" parent="base_link">
 		<origin xyz="0.275 0 0.260" rpy="0 0 0" />
