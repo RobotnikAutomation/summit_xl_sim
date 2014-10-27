@@ -1,10 +1,8 @@
 <?xml version="1.0"?>
-<robot name="sensor_hokuyo" xmlns:xacro="http://ros.org/wiki/xacro">
-	
-	<xacro:property name="M_PI" value="3.1415926535897931" />
+<robot name="sensor_hokuyo_utm30lx" xmlns:xacro="http://ros.org/wiki/xacro">
 	
 	
-  <xacro:macro name="hokuyo_sensor" params="name parent *origin">
+  <xacro:macro name="sensor_hokuyo_utm30lx" params="name parent *origin">
      
     <joint name="${name}_laser_joint" type="fixed">
       <!-- FRONT MOUNT --> 
@@ -14,34 +12,34 @@
       <insert_block name="origin" />
       <parent link="${parent}"/>
       <child link="${name}_laser_link"/>
-		</joint>
+	</joint>
 
   
-		<link name="${name}_laser_link">
-			<collision>
-				<origin xyz="0 0 0" rpy="0 0 0"/>
-				<geometry>
-					<box size="0.1 0.1 0.1"/>
-				</geometry>
-			</collision>
+	<link name="${name}_laser_link">
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<box size="0.1 0.1 0.08"/>
+			</geometry>
+		</collision>
 
-			<visual>
-				<origin xyz="0 0 0" rpy="0 0 0"/>
-				<geometry>
-					<mesh filename="package://summit_xl_description/meshes/hokuyo-utm30-lx.dae"/>
-				</geometry>
-			</visual>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+	     		<mesh filename="package://summit_xl_description/meshes/sensors/hokuyo_utm_30lx.dae"/>
+			</geometry>
+		</visual>
 
-			<inertial>
-				<mass value="1e-5" />
-				<origin xyz="0 0 0" rpy="0 0 0"/>
-				<inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
-			</inertial>
-		</link>
+		<inertial>
+			<mass value="1e-5" />
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+		</inertial>
+	</link>
 	
 
-		<!-- Kinect sensor for simulation -->
-		<kinect_sim_3dsensor/>
+	<!-- Hokuyo sensor for simulation -->		
+	<hokuyo_sim_sensor/>
 		
   </xacro:macro>
   
@@ -73,11 +71,11 @@
 					</noise>
 				</ray>
 				<plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-					<topicName>scan</topicName>
+					<topicName>${name}/scan</topicName>
 					<frameName>${name}_laser_link</frameName>
 				</plugin>
 			</sensor>
-		</gazebo>
+	</gazebo>
   </xacro:macro>
   
 </robot>

@@ -1,10 +1,9 @@
 <?xml version="1.0"?>
 <robot name="sensor_kinect" xmlns:xacro="http://ros.org/wiki/xacro">
 	
-	<xacro:property name="M_PI" value="3.1415926535897931" />
+  <xacro:property name="M_PI" value="3.1415926535897931" />
 	
 
-  <!-- Parameterised in part by the values in turtlebot_properties.urdf.xacro -->
   <xacro:macro name="sensor_kinect" params="name parent *origin">
     <joint name="${name}_camera_rgb_joint" type="fixed">
       <insert_block name="origin" />
@@ -99,7 +98,7 @@
   </xacro:macro>
   
   	<xacro:macro name="kinect_sim_3dsensor">
-    <gazebo reference="camera_link">  
+    <gazebo reference="${name}_camera_link">  
       <sensor type="depth" name="camera">
         <always_on>true</always_on>
         <update_rate>20.0</update_rate>

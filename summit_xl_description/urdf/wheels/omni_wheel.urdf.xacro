@@ -1,14 +1,12 @@
 <?xml version="1.0"?>
 <robot name="wheel" xmlns:xacro="http://www.ros.org/wiki/xacro">
- 
+
+  <xacro:property name="M_PI" value="3.1415926535897931" />
   <!-- Wheels -->
-  <property name="wheel_radius" value="0.125" /> 
-  <property name="wheel_height" value="0.14" />
-  <property name="wheel_mass" value="2.5" /> <!-- in kg-->
+  <property name="wheel_radius" value="0.117" /> 
+  <property name="wheel_height" value="0.12" />
+  <property name="wheel_mass" value="6.5" /> <!-- in kg-->
  
-  <property name="base_x_origin_to_wheel_origin" value="0.22911" />
-  <property name="base_y_origin_to_wheel_origin" value="0.23350" />
-  <property name="base_z_origin_to_wheel_origin" value="0.0" />
  
   <macro name="cylinder_inertia" params="m r h">
     <inertia  ixx="${m*(3*r*r+h*h)/12}" ixy = "0" ixz = "0"
@@ -16,23 +14,46 @@
               izz="${m*r*r/2}" /> 
   </macro>
  
-  <xacro:macro name="wheel" params="fb lr parent translateX translateY flipY"> <!--fb : front, back ; lr: left, right -->
-    <link name="${fb}_${lr}_wheel">
+  <xacro:macro name="rubber_wheel" params="name parent *origin reflect hq">
+  
+  
+    <joint name="joint_${name}_wheel" type="continuous">
+      <parent link="${parent}"/>
+      <child link="${name}_wheel"/>
+      <insert_block name="origin" />
+      <axis xyz="0 1 0" rpy="0 0 0" />
+      <limit effort="100" velocity="100"/>
+      <joint_properties damping="0.0" friction="0.0"/>
+    </joint>
+  
+    <link name="${name}_wheel">
       <visual>
-        <origin xyz="0 0 0" rpy="${flipY*M_PI*2} 0 0" /> 
-        <geometry>
-          <mesh filename="package://summit_xl_description/meshes/summit_xl_wheel_hq.stl" />
-        </geometry>
-        <material name="DarkGray" />
+        <xacro:if value="${hq}">
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>     
+            <mesh filename="package://summit_xl_description/meshes/wheels/omni_wheel.stl" />
+          </geometry>          
+        </xacro:if>
+       
+        <xacro:unless value="${hq}">
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <geometry>           
+            <sphere radius="${wheel_radius}" />
+          </geometry>      
+        </xacro:unless>
+
+        <material name="darkgrey">
+           <color rgba="0.2 0.2 0.2 1"/>
+        </material>
       </visual>
+
       <collision>
-        <origin xyz="0 0 0" rpy="${flipY*M_PI/2} 0 0" />
+		<origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <cylinder length="${wheel_height}" radius="${wheel_radius}" />
+          <sphere radius="${wheel_radius}" />
         </geometry>
-        
-        
       </collision>
+      
       <inertial>
         <mass value="${wheel_mass}" />
         <origin xyz="0 0 0" />
@@ -40,34 +61,48 @@
       </inertial>
     </link>
  
-    <gazebo reference="${fb}_${lr}_wheel">
+
+ 
+     <joint name="joint_${name}_wheel_cover" type="fixed">
+      <parent link="${name}_wheel"/>
+      <child link="${name}_wheel_cover"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+     <link name="${name}_wheel_cover">
+      <visual>
+		<origin xyz="0 0 0" rpy="${reflect*PI} 0 0" />
+        <geometry>
+          <mesh filename="package://summit_xl_description/meshes/wheels/rubber_wheel_cover.stl" />
+        </geometry>
+        <material name="white">
+           <color rgba="0.6 0.6 0.6 1"/>
+        </material>
+      </visual>
+     </link>
+ 
+
+
+    
+    <!-- Transmission is important to link the joints and the controller (see summit_xl_control/config/summit_xl_control.yaml)-->
+    <transmission name="${name}_wheel_joint_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="joint_${name}_wheel" />
+      <actuator name="${name}_wheel_joint_motor">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+    
+    <gazebo reference="${name}_wheel">
 		<mu1 value="5.0"/>
 		<mu2 value="0.5"/>
 		<kp value="10000000.0" />
 		<kd value="1.0" />
 		<fdir1 value="1 0 0"/>
-      <material>Gazebo/Grey</material>
+      <material>Gazebo/Gray</material>
       <turnGravityOff>false</turnGravityOff>
     </gazebo>
- 
-    <joint name="joint_${fb}_${lr}_wheel" type="continuous">
-      <parent link="${parent}"/>
-      <child link="${fb}_${lr}_wheel"/>
-      <origin xyz="${translateX * base_x_origin_to_wheel_origin} ${translateY * base_y_origin_to_wheel_origin} ${base_z_origin_to_wheel_origin}" rpy="0 0 0" /> 
-      <axis xyz="0 1 0" rpy="0 0 0" />
-      <limit effort="100" velocity="100"/>
-      <joint_properties damping="0.0" friction="0.0"/>
-    </joint>
- 
-    <!-- Transmission is important to link the joints and the controller (see summit_xl_control/config/summit_xl_control.yaml)-->
-    <transmission name="${fb}_${lr}_wheel_joint_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="joint_${fb}_${lr}_wheel" />
-      <actuator name="${fb}_${lr}_wheel_joint_motor">
-        <hardwareInterface>EffortJointInterface</hardwareInterface>
-        <mechanicalReduction>1</mechanicalReduction>
-      </actuator>
-    </transmission>
  
   </xacro:macro>
 </robot>

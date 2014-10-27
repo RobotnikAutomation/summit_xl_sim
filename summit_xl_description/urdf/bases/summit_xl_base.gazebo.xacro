@@ -1,19 +1,21 @@
 <?xml version="1.0"?>
-<robot>
-  <!-- ros_control plugin -->
-  <gazebo>
-    <plugin name="ros_control" filename="libgazebo_ros_control.so">
-       <robotNamespace>$(arg namespace)</robotNamespace>
-       <robotParam>$(arg namespace)/robot_description</robotParam>
-       <controlPeriod>0.003</controlPeriod>
-	     <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
-    </plugin>
-  </gazebo>
-  
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <gazebo>
-    <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
-			<robotNamespace>$(arg namespace)</robotNamespace>
+
+  <!-- ros_control skid steer plugin -->
+  <xacro:macro name="summit_xl_skid_gazebo">
+    <gazebo>
+      <plugin name="ros_control" filename="libgazebo_ros_control.so">
+        <robotNamespace>$(arg namespace)</robotNamespace>
+        <robotParam>$(arg namespace)/robot_description</robotParam>
+        <controlPeriod>0.003</controlPeriod>
+	    <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      </plugin>
+    </gazebo>
+
+    <gazebo>
+      <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+		<robotNamespace>$(arg namespace)</robotNamespace>
 	    <updateRate>100.0</updateRate>
 	    <leftFrontJoint>joint_front_left_wheel</leftFrontJoint>  
 	    <rightFrontJoint>joint_front_right_wheel</rightFrontJoint>
@@ -28,8 +30,10 @@
 	    <odometryTopic>odom</odometryTopic>
 	    <odometryFrame>$(arg namespace)/odom</odometryFrame>
 	    <broadcastTF>1</broadcastTF>
-    </plugin>
-  </gazebo>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+
 
 
 
@@ -38,38 +42,20 @@
   </gazebo>
   
   <gazebo reference="base_link">
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <gazebo reference="logos_link">
     <material>Gazebo/Red</material>
   </gazebo>
 
-  <gazebo reference="back_left_wheel">
-    <mu1 value="4.0"/> <!-- 2.0 -->
-    <mu2 value="1.0"/> <!-- 0.5 -->
-    <fdir1 value="1 0 0"/>
+  <gazebo reference="covers_link">
     <material>Gazebo/Grey</material>
   </gazebo>
-
-  <gazebo reference="back_right_wheel">
-    <mu1 value="4.0"/> <!-- 2.0 -->
-    <mu2 value="1.0"/> <!-- 0.5 -->
-    <fdir1 value="1 0 0"/>
-    <material>Gazebo/Grey</material>
+  
+  <gazebo reference="back_left_wheel_cover">
+     <material>Gazebo/Red</material>
   </gazebo>
-
-  <gazebo reference="front_left_wheel">
-    <mu1 value="4.0"/> <!-- 2.0 -->
-    <mu2 value="1.0"/> <!-- 0.5 -->
-    <fdir1 value="1 0 0"/>
-    <material>Gazebo/Grey</material>
-  </gazebo>
-
-  <gazebo reference="front_right_wheel">
-    <mu1 value="4.0"/> <!-- 2.0 -->
-    <mu2 value="1.0"/> <!-- 0.5 -->
-    <fdir1 value="1 0 0"/>
-    <material>Gazebo/Grey</material>
-  </gazebo>
-
-
 
   <!-- camera -->
   <!-- gazebo reference="camera_link" -->
@@ -117,45 +103,7 @@
     </sensor>
   </gazebo> 
 
-  <!-- hokuyo -->
-  <gazebo reference="hokuyo_laser_link">
-    <!-- sensor type="gpu_ray" name="head_hokuyo_sensor" -->
-    <sensor type="ray" name="head_hokuyo_sensor">
-      <pose>0 0 0 0 0 0</pose>
-      <visualize>false</visualize>
-      <update_rate>30</update_rate>
-      <ray>
-        <scan>
-          <horizontal>
-            <!-- samples>720</samples>
-            <resolution>1</resolution>
-            <min_angle>-1.570796</min_angle>
-            <max_angle>1.570796</max_angle -->
-           <samples>1081</samples>
-           <resolution>1</resolution>
-           <min_angle>2.35619449</min_angle>  <!-- +/-135 deg -->
-           <max_angle>-2.35619449</max_angle>
-          </horizontal>
-        </scan>
-        <range>
-          <min>0.10</min>
-          <max>30.0</max>
-          <resolution>0.01</resolution>
-        </range>
-        <noise>
-          <type>gaussian</type>
-          <mean>0.0</mean>
-          <stddev>0.01</stddev>
-        </noise>
-      </ray>
-      <!-- plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_gpu_laser.so" -->
-      <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-        <topicName>scan</topicName>
-        <frameName>hokuyo_laser_link</frameName>
-      </plugin>
-    </sensor>
-  </gazebo>
-  
+ 
 <!--
   <gazebo>
     <plugin name="ros_imu" filename="libgazebo_ros_imu.so">
