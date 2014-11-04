@@ -4,45 +4,39 @@
   <!-- Import all Gazebo-customization elements, including Gazebo colors -->
   <xacro:include filename="$(find summit_xl_description)/urdf/bases/summit_xl_base.gazebo.xacro" />
   <xacro:include filename="$(find summit_xl_description)/urdf/bases/summit_xl_base.urdf.xacro" />
-  <xacro:include filename="$(find summit_xl_description)/urdf/wheels/rubber_wheel.urdf.xacro" /> 
-  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/hokuyo_urg04lx.urdf.xacro" />      
-  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/hokuyo_utm30lx.urdf.xacro" />     
-  
+  <xacro:include filename="$(find summit_xl_description)/urdf/wheels/omni_wheel.urdf.xacro" /> 
+
+  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/hokuyo_urg04lx.urdf.xacro" />
+
+      
+      
   <!-- Robot mechanical and motor parameters -->
   <xacro:property name="PI" value="3.1415926535897931"/>
   <xacro:property name="wheel_offset_x" value="0.229" />    <!-- x,y,z in base_link CS -->
   <xacro:property name="wheel_offset_y" value="0.234" />    <!-- y distance between base_link and the center of the wheel -->
   <xacro:property name="wheel_offset_z" value="0.0" />
 
-<!--
-  <xacro:property name="ptz_joint_effort_limit" value="100.0" /> 
-  <xacro:property name="ptz_joint_velocity_limit" value="100.0"/>  
-  <xacro:property name="ptz_joint_friction" value="0.1" />
-  <xacro:property name="ptz_joint_damping" value="0.1" />
-  <xacro:property name="ptz_mechanical_reduction" value="1.0" />
--->
-  
-  <xacro:summit_xl_base name="summit_xl" publish_bf="true" />
+  <xacro:summit_xl_base name="summit_xl" publish_bf="true"/>
   
   <xacro:summit_xl_skid_gazebo/>
   
     <!-- WHEELS -->
 
-  <xacro:rubber_wheel name="front_right" parent="base_link" reflect="0" hq="true">
+  <xacro:omni_wheel name="front_right" parent="base_link" reflect="false" hq="true">
     <origin xyz="${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
-  </xacro:rubber_wheel>
+  </xacro:omni_wheel>
   
-  <xacro:rubber_wheel name="front_left" parent="base_link" reflect="1" hq="true">
+  <xacro:omni_wheel name="front_left" parent="base_link" reflect="true" hq="true">
     <origin xyz="${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
-  </xacro:rubber_wheel>
+  </xacro:omni_wheel>
   
-  <xacro:rubber_wheel name="back_left" parent="base_link" reflect="1" hq="true">
+  <xacro:omni_wheel name="back_left" parent="base_link" reflect="false" hq="true">
     <origin xyz="-${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
-  </xacro:rubber_wheel>
+  </xacro:omni_wheel>
   
-  <xacro:rubber_wheel name="back_right" parent="base_link" reflect="0" hq="true">
+  <xacro:omni_wheel name="back_right" parent="base_link" reflect="true" hq="true">
     <origin xyz="-${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
-  </xacro:rubber_wheel>
+  </xacro:omni_wheel>
 
 
 
@@ -75,14 +69,10 @@
   </link>
 
 
-  
-  <xacro:sensor_hokuyo_urg04lx name="hokuyo1" parent="base_link">
+  <xacro:sensor_hokuyo_utm30lx name="hokuyo" parent="base_link">
     <origin xyz="0.0 0.0 0.36" rpy="0 0 0"/>
-  </xacro:sensor_hokuyo_urg04lx>
-  
-  <xacro:sensor_hokuyo_utm30lx name="hokuyo2" parent="base_link">
-    <origin xyz="0.0 0.0 0.46" rpy="0 0 0"/>
   </xacro:sensor_hokuyo_utm30lx>
+  
 
 </robot>
 

@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <robot name="sensor_hokuyo_utm30lx" xmlns:xacro="http://ros.org/wiki/xacro">
-	
-	
+
+
   <xacro:macro name="sensor_hokuyo_utm30lx" params="name parent *origin">
      
     <joint name="${name}_laser_joint" type="fixed">
-      <!-- FRONT MOUNT --> 
-      <!-- origin xyz="0.29 0 0.1"/ -->
+      <!-- FRONT MOUNT  -->
+      <!-- origin xyz="0.29 0 0.1" -->
       <!-- TOP MOUNT -->
-      <!--<origin xyz="0.0 0.0 0.325"/>-->
+      <!-- origin xyz="0.0 0.0 0.325"-->
       <insert_block name="origin" />
       <parent link="${parent}"/>
       <child link="${name}_laser_link"/>
@@ -39,12 +39,12 @@
 	
 
 	<!-- Hokuyo sensor for simulation -->		
-	<hokuyo_sim_sensor/>
+	<sensor_hokuyo_gazebo/>
 		
   </xacro:macro>
   
     
-  <xacro:macro name="hokuyo_sim_sensor">
+  <xacro:macro name="sensor_hokuyo_gazebo">
     <gazebo reference="${name}_laser_link">
 			<sensor type="ray" name="${name}_sensor">
 				<pose>0 0 0 0 0 0</pose>

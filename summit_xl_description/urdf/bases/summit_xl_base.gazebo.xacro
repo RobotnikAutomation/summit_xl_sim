@@ -53,12 +53,10 @@
     <material>Gazebo/Grey</material>
   </gazebo>
   
-  <gazebo reference="back_left_wheel_cover">
-     <material>Gazebo/Red</material>
-  </gazebo>
 
   <!-- camera -->
   <!-- gazebo reference="camera_link" -->
+<!--
   <gazebo reference="camera_tilt_link">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
@@ -79,9 +77,7 @@
         </clip>
         <noise>
           <type>gaussian</type>
-          <!-- Noise is sampled independently per pixel on each frame.  
-               That pixel's noise value is added to each of its color
-               channels, which at that point lie in the range [0,1]. -->
+
           <mean>0.0</mean>
           <stddev>0.007</stddev>
         </noise>
@@ -102,6 +98,7 @@
       </plugin>
     </sensor>
   </gazebo> 
+-->
 
  
 <!--

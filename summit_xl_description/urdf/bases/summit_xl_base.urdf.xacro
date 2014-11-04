@@ -2,10 +2,19 @@
 <robot name="summit_xl" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
 
   
+
+
   <xacro:macro name="summit_xl_base" params="name publish_bf">
 
+  <!-- Robot mechanical and motor parameters -->
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:property name="wheel_offset_x" value="0.223" />    <!-- x,y,z in base_footprint CS -->
+  <xacro:property name="wheel_offset_y" value="0.154" /> 
+  <xacro:property name="wheel_offset_z" value="0.0" />
+  <xacro:property name="wheel_width" value="0.175" />
+
   <!-- BASE FOOTPRINT -->
-  <xacro:if value="true">
+  <xacro:if value="${publish_bf}">
     <link name="base_footprint">
       <visual>
           <origin xyz="0 0 0" rpy="0 0 0" />
@@ -40,7 +49,7 @@
     <visual>
        <origin xyz="0 0 0" rpy="0 0 0" />
        <geometry>
-	     <mesh filename="package://summit_xl_description/meshes/bases/summit_xl_chassis.stl"/>
+	     <mesh filename="package://summit_xl_description/meshes/bases/summit_xl_chassis_simple.stl"/>
        </geometry>
        <material name="darkgrey">
          <color rgba="0.1 0.1 0.1 1"/>
@@ -49,12 +58,13 @@
     <collision>
        <origin xyz="0 0 0" rpy="0 0 0 " />
        <geometry>
-         <mesh filename="package://summit_xl_description/meshes/bases/summit_xl_chassis.stl"/>
+         <mesh filename="package://summit_xl_description/meshes/bases/summit_xl_chassis_simple.stl"/>
        </geometry>
     </collision>     
   </link>
 
   <!-- COVERS AND SUSPENSIONS -->
+<!--
   <joint name="covers_joint" type="fixed">
      <origin xyz="0 0 0" rpy="0 0 0" />
      <parent link="base_link"/>
@@ -72,6 +82,7 @@
        </material>
     </visual>      
   </link>
+-->
   
   <!-- LOGOS -->
   <joint name="logos_joint" type="fixed">
