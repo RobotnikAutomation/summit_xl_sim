@@ -22,7 +22,7 @@
   <xacro:property name="ptz_mechanical_reduction" value="1.0" />
 -->
   
-  <xacro:summit_xl_base name="summit_xl" publish_bf="true" />
+  <xacro:summit_xl_base name="summit_xl" publish_bf="false" hq="true" />
   
   <xacro:summit_xl_skid_gazebo/>
   
@@ -76,9 +76,11 @@
 
 
   
+<!--
   <xacro:sensor_hokuyo_urg04lx name="hokuyo1" parent="base_link">
     <origin xyz="0.0 0.0 0.36" rpy="0 0 0"/>
   </xacro:sensor_hokuyo_urg04lx>
+-->
   
   <xacro:sensor_hokuyo_utm30lx name="hokuyo2" parent="base_link">
     <origin xyz="0.0 0.0 0.46" rpy="0 0 0"/>
