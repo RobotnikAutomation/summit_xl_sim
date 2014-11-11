@@ -1,11 +1,7 @@
 summit_xl_sim
 =============
 
-Packages for the simulation of the Summit XL, Summit XL HL and Summit-X (including X-WAM) robots
-
-<h2>bh262_description</h2>
-
-Contains the description of the Barrett Hand: urdf and meshes. This Hand is mounted on the WAM arm and is the end effector used by the X-WAM mobile manipulator.
+Packages for the simulation of the Summit XL
 
 <h2>summit_xl_2dnav</h2>
 
