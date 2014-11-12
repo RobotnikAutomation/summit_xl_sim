@@ -6,7 +6,8 @@
   <xacro:include filename="$(find summit_xl_description)/urdf/bases/summit_xl_base.urdf.xacro" />
   <xacro:include filename="$(find summit_xl_description)/urdf/wheels/rubber_wheel.urdf.xacro" /> 
   <xacro:include filename="$(find summit_xl_description)/urdf/sensors/hokuyo_urg04lx.urdf.xacro" />      
-  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/hokuyo_utm30lx.urdf.xacro" />     
+  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/hokuyo_utm30lx.urdf.xacro" />    
+  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/axis.urdf.xacro" />  
   
   <!-- Robot mechanical and motor parameters -->
   <xacro:property name="PI" value="3.1415926535897931"/>
@@ -85,6 +86,10 @@
   <xacro:sensor_hokuyo_utm30lx name="hokuyo2" parent="base_link">
     <origin xyz="0.0 0.0 0.46" rpy="0 0 0"/>
   </xacro:sensor_hokuyo_utm30lx>
+  
+  <xacro:sensor_axis name="camera" parent="base_link">
+		<origin xyz="0.19 0 0.17" rpy="0 ${15*PI/180} 0"/>
+  </xacro:sensor_axis>
 
 </robot>
 

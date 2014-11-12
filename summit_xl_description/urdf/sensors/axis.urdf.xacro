@@ -17,10 +17,10 @@
 -->
 				<insert_block name="origin"/>
 	      <parent link="${parent}"/>
-	      <child link="${name}_base_link"/>
+	      <child link="${name}_link"/>
 	  </joint>
     
-    <link name="${name}_base_link">
+    <link name="${name}_link">
       <inertial>
 				<origin xyz="0.03 0.0 -0.3" rpy="0 0 0"/>
         <mass value="0.1" />
@@ -29,23 +29,27 @@
       </inertial>
       <visual>
 	      <origin xyz="0.03 0.0 -0.3" rpy="0 0 0"/> <!-- to center the axis model -->
+	      <material name="axis_color">
+           <color rgba="0.1 0.1 0.1 1"/>
+        </material>
 	      <geometry>
-					<mesh filename= "package://summit_xl_description/meshes/xl_fotonic/axis_p5512.dae" scale="1.0 1.0 1.0"/>
+					<mesh filename= "package://summit_xl_description/meshes/xl_fotonic/axis_p5512.stl" scale="1.0 1.0 1.0"/>
 	      </geometry>
+        
 	    </visual>
 	    <collision>
 	      <origin xyz="0.03 0.0 -0.3" rpy="0 0 0"/>
 	      <geometry>
-	        <mesh filename= "package://summit_xl_description/meshes/xl_fotonic/axis_p5512.dae" scale="1.0 1.0 1.0"/>
+	        <mesh filename= "package://summit_xl_description/meshes/xl_fotonic/axis_p5512.stl" scale="1.0 1.0 1.0"/>
 	      </geometry>
 	    </collision>
     </link>
 	  
   
-	  <joint name="${name}_pan_joint" type="continuous">
+	  <joint name="joint_${name}_pan" type="continuous">
 	     <axis xyz="0 0 1" />
-	     <origin xyz="0.0 0.0 0.15"/>
-	     <parent link="${name}_base_link"/>
+	     <origin xyz="0.0 0.0 0.1"/>
+	     <parent link="${name}_link"/>
 	     <child link="${name}_pan_link"/>
 	     <limit effort="${ptz_joint_effort_limit}" velocity="${ptz_joint_velocity_limit}" lower="-3.1416" upper="3.1416"/>
 	     <joint_properties damping="${ptz_joint_damping}" friction="{ptz_joint_friction}"/>
@@ -61,7 +65,7 @@
 	  
 	  <transmission name="${name}_pan_trans">
 		 <type>transmission_interface/SimpleTransmission</type>
-	     <joint name="${name}_pan_joint" />
+	     <joint name="joint_${name}_pan" />
 	     <actuator name="pan_motor">
 			   <hardwareInterface>EffortJointInterface</hardwareInterface>
 	       <mechanicalReduction>${ptz_mechanical_reduction}</mechanicalReduction>
@@ -69,7 +73,7 @@
 	  </transmission>
 	
 	
-	  <joint name="${name}_tilt_joint" type="continuous">
+	  <joint name="joint_${name}_tilt" type="continuous">
 	     <axis xyz="0 1 0" />
 	     <origin xyz="0.0 0.0 0.0"/>
 	     <parent link="${name}_pan_link"/>
@@ -88,13 +92,16 @@
 	  
 	  <transmission name="${name}_tilt_trans">
 		 <type>transmission_interface/SimpleTransmission</type>
-	     <joint name="${name}_tilt_joint" />
+	     <joint name="joint_${name}_tilt" />
 	     <actuator name="tilt_motor">
 				 <hardwareInterface>EffortJointInterface</hardwareInterface>
 				 <mechanicalReduction>${ptz_mechanical_reduction}</mechanicalReduction>
 	     </actuator>
 	  </transmission>
 	
+	  <gazebo reference="${name}_link">
+      <material>Gazebo/FlatBlack</material>
+    </gazebo>
 
 		<!-- Axis sensor for simulation -->
 		<sensor_axis_gazebo/>
@@ -117,7 +124,7 @@
 	          <format>R8G8B8</format>
 	        </image>
 	        <clip>
-	          <near>0.02</near>
+	          <near>0.03</near>
 	          <far>300</far>
 	        </clip>
 	        <noise>
@@ -142,6 +149,8 @@
 	      </plugin>
 	    </sensor>
 	  </gazebo>
+	  
+
 	  
   </xacro:macro>
   
