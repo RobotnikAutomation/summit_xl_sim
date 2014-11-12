@@ -33,14 +33,14 @@
            <color rgba="0.1 0.1 0.1 1"/>
         </material>
 	      <geometry>
-					<mesh filename= "package://summit_xl_description/meshes/xl_fotonic/axis_p5512.stl" scale="1.0 1.0 1.0"/>
+					<mesh filename= "package://summit_xl_description/meshes/sensors/axis_p5512.stl" scale="1.0 1.0 1.0"/>
 	      </geometry>
         
 	    </visual>
 	    <collision>
 	      <origin xyz="0.03 0.0 -0.3" rpy="0 0 0"/>
 	      <geometry>
-	        <mesh filename= "package://summit_xl_description/meshes/xl_fotonic/axis_p5512.stl" scale="1.0 1.0 1.0"/>
+	        <mesh filename= "package://summit_xl_description/meshes/sensors/axis_p5512.stl" scale="1.0 1.0 1.0"/>
 	      </geometry>
 	    </collision>
     </link>
