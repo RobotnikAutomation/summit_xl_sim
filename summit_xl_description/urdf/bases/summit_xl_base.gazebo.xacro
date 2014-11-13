@@ -2,8 +2,8 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
 
-  <!-- ros_control skid steer plugin -->
-  <xacro:macro name="summit_xl_skid_gazebo">
+  <!-- ros control plugin -->
+  <xacro:macro name="ros_control">
     <gazebo>
       <plugin name="ros_control" filename="libgazebo_ros_control.so">
         <robotNamespace>/summit_xl</robotNamespace>
@@ -12,7 +12,10 @@
 	    <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
       </plugin>
     </gazebo>
-
+	</xacro:macro>
+	
+	<!-- skid steering plugin -->
+	<xacro:macro name="skid_steering">
     <gazebo>
       <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
 			<robotNamespace>/summit_xl</robotNamespace>
@@ -32,6 +35,18 @@
 	    <broadcastTF>true</broadcastTF>
       </plugin>
     </gazebo>
+  </xacro:macro>
+  
+  <xacro:macro name="omni_steering">
+		<gazebo>
+	    <plugin name="omni_steering" filename="libgazebo_ros_planar_move.so">
+	      <commandTopic>/summit_xl/robot_control/command</commandTopic>
+	      <odometryTopic>/summit_xl/odom</odometryTopic>
+	      <odometryFrame>odom</odometryFrame>
+	      <odometryRate>20.0</odometryRate>
+	      <robotBaseFrame>base_footprint</robotBaseFrame>
+	    </plugin>
+	  </gazebo>
   </xacro:macro>
 
 
