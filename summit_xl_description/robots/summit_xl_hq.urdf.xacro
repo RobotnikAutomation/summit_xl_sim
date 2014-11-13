@@ -16,14 +16,7 @@
   <xacro:property name="wheel_offset_y" value="0.234" />    <!-- y distance between base_link and the center of the wheel -->
   <xacro:property name="wheel_offset_z" value="0.0" />
 
-<!--
-  <xacro:property name="ptz_joint_effort_limit" value="100.0" /> 
-  <xacro:property name="ptz_joint_velocity_limit" value="100.0"/>  
-  <xacro:property name="ptz_joint_friction" value="0.1" />
-  <xacro:property name="ptz_joint_damping" value="0.1" />
-  <xacro:property name="ptz_mechanical_reduction" value="1.0" />
--->
-  
+
   <xacro:summit_xl_base name="summit_xl" publish_bf="true" hq="true" />
   
   <xacro:summit_xl_skid_gazebo/>
@@ -51,16 +44,17 @@
 
 	<!-- SENSORS -->
   
+  
+  <xacro:sensor_hokuyo_utm30lx name="hokuyo" parent="base_link">
+    <origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
+  </xacro:sensor_hokuyo_utm30lx>
+  
 <!--
   <xacro:sensor_hokuyo_urg04lx name="hokuyo1" parent="base_link">
     <origin xyz="0.0 0.0 0.36" rpy="0 0 0"/>
   </xacro:sensor_hokuyo_urg04lx>
 -->
-  
-  <xacro:sensor_hokuyo_utm30lx name="hokuyo2" parent="base_link">
-    <origin xyz="0.0 0.0 0.46" rpy="0 0 0"/>
-  </xacro:sensor_hokuyo_utm30lx>
-  
+    
   <xacro:sensor_axis name="camera" parent="base_link">
 		<origin xyz="0.19 0 0.17" rpy="0 ${15*PI/180} 0"/>
   </xacro:sensor_axis>
