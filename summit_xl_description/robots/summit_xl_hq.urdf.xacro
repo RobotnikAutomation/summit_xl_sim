@@ -8,6 +8,7 @@
   <xacro:include filename="$(find summit_xl_description)/urdf/sensors/hokuyo_urg04lx.urdf.xacro" />      
   <xacro:include filename="$(find summit_xl_description)/urdf/sensors/hokuyo_utm30lx.urdf.xacro" />    
   <xacro:include filename="$(find summit_xl_description)/urdf/sensors/axis.urdf.xacro" />  
+  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/imu.urdf.xacro" />  
   
   <!-- Robot mechanical and motor parameters -->
   <xacro:property name="PI" value="3.1415926535897931"/>
@@ -23,11 +24,12 @@
   <xacro:property name="ptz_mechanical_reduction" value="1.0" />
 -->
   
-  <xacro:summit_xl_base name="summit_xl" publish_bf="false" hq="true" />
+  <xacro:summit_xl_base name="summit_xl" publish_bf="true" hq="true" />
   
   <xacro:summit_xl_skid_gazebo/>
   
-    <!-- WHEELS -->
+  
+  <!-- WHEELS -->
 
   <xacro:rubber_wheel name="front_right" parent="base_link" reflect="0" hq="true">
     <origin xyz="${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
@@ -47,35 +49,7 @@
 
 
 
-  <!-- IMU SENSOR -->
-  <joint name="imu_joint" type="fixed">
-      <axis xyz="1 0 0"/> <!-- 0 1 0 -->
-      <origin xyz="0 0 0.2825"/>
-      <parent link="base_link"/>
-      <child link="imu_link"/>
-  </joint>
-
-  <link name="imu_link">
-      <inertial>
-        <mass value="0.001"/>
-        <origin rpy="0 0 0" xyz="0 0 0"/>
-        <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
-      </inertial>
-      <visual>
-        <origin rpy="0 0 0" xyz="0 0 0"/>
-        <geometry>
-          <box size="0.001 0.001 0.001"/>
-        </geometry>
-      </visual>
-      <collision>
-        <origin rpy="0 0 0" xyz="0 0 0"/>
-        <geometry>
-          <box size=".001 .001 .001"/>
-        </geometry>
-      </collision>
-  </link>
-
-
+	<!-- SENSORS -->
   
 <!--
   <xacro:sensor_hokuyo_urg04lx name="hokuyo1" parent="base_link">
@@ -90,6 +64,10 @@
   <xacro:sensor_axis name="camera" parent="base_link">
 		<origin xyz="0.19 0 0.17" rpy="0 ${15*PI/180} 0"/>
   </xacro:sensor_axis>
+  
+  <xacro:sensor_imu name="imu" parent="base_link">
+		<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
+  </xacro:sensor_imu>
 
 </robot>
 
