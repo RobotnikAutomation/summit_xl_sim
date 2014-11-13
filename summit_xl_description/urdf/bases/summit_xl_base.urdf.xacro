@@ -8,9 +8,6 @@
 
   <!-- Robot mechanical and motor parameters -->
   <xacro:property name="PI" value="3.1415926535897931"/>
-  <xacro:property name="wheel_offset_x" value="0.223" />    <!-- x,y,z in base_footprint CS -->
-  <xacro:property name="wheel_offset_y" value="0.154" /> 
-  <xacro:property name="wheel_offset_z" value="0.0" />
   <xacro:property name="wheel_width" value="0.175" />
 
   <!-- BASE FOOTPRINT -->
