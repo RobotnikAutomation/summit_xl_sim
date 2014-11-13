@@ -1,27 +1,45 @@
 <?xml version="1.0"?>
 <robot name="summit_xl" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
 
-  <!-- Import all Gazebo-customization elements, including Gazebo colors -->
-  <xacro:include filename="$(find summit_xl_description)/urdf/bases/summit_xl_base.gazebo.xacro" />
+
+	<!-- First we import all posible elements defined in the urdf.xacro files. All these elements are defined as macro:xacros -->
+	<!-------------------------------------------------------------------------------------------------------------------------->
+
+  <!-- Import summit XL base elements -->
   <xacro:include filename="$(find summit_xl_description)/urdf/bases/summit_xl_base.urdf.xacro" />
-  <xacro:include filename="$(find summit_xl_description)/urdf/wheels/rubber_wheel.urdf.xacro" /> 
-  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/hokuyo_urg04lx.urdf.xacro" />      
-  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/hokuyo_utm30lx.urdf.xacro" />    
-  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/axis.urdf.xacro" />  
-  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/imu.urdf.xacro" />  
-  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/gps.urdf.xacro" />  
   
-  <!-- Robot mechanical and motor parameters -->
+  <!-- Import summit XL wheels -->
+  <xacro:include filename="$(find summit_xl_description)/urdf/wheels/rubber_wheel.urdf.xacro" />
+    
+  <!-- Import all available sensors -->
+  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/all_sensors.urdf.xacro" />
+  
+  
+  
+  
+  <!-- Global parameters -->
+  <!----------------------->
+  
   <xacro:property name="PI" value="3.1415926535897931"/>
-  <xacro:property name="wheel_offset_x" value="0.229" />    <!-- x,y,z in base_link CS -->
-  <xacro:property name="wheel_offset_y" value="0.234" />    <!-- y distance between base_link and the center of the wheel -->
+  
+  <!-- Wheel parameters -->
+  <xacro:property name="wheel_offset_x" value="0.229" />    <!-- x,y,z in translation from base_link to the center of the wheel -->
+  <xacro:property name="wheel_offset_y" value="0.234" />    
   <xacro:property name="wheel_offset_z" value="0.0" />
 
 	<!-- Flag to select the high or low quality model -->
   <xacro:property name="hq" value="true" />
 
+
+	<!-- Elements -->
+	<!-------------->
+
+	<!-- Here we create the robot elements using the xacro:macros imported at the beggining of this file -->
+
+	<!-- Summit XL base -->
   <xacro:summit_xl_base name="summit_xl" publish_bf="true" hq="${hq}" />
   
+  <!-- Summit XL movement pluggins -->
   <xacro:summit_xl_skid_gazebo/>
   
   
@@ -46,15 +64,14 @@
 
 
 	<!-- SENSORS -->
-  
-  
+    
   <xacro:sensor_hokuyo_utm30lx name="hokuyo" parent="base_link">
     <origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
   </xacro:sensor_hokuyo_utm30lx>
   
 <!--
   <xacro:sensor_hokuyo_urg04lx name="hokuyo1" parent="base_link">
-    <origin xyz="0.0 0.0 0.36" rpy="0 0 0"/>
+    <origin xyz="-0.1 0.0 0.33" rpy="0 0 0"/>
   </xacro:sensor_hokuyo_urg04lx>
 -->
     
