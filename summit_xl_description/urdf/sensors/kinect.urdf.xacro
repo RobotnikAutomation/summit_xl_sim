@@ -6,41 +6,12 @@
 
   <xacro:macro name="sensor_kinect" params="name parent *origin">
     
-    <joint name="${name}_camera_rgb_joint" type="fixed">
-      <insert_block name="origin" />
-      <parent link="${parent}"/>
-      <child link="${name}_camera_rgb_frame" />
-    </joint>
-    <link name="${name}_camera_rgb_frame">
-      <inertial>
-        <mass value="0.001" />
-        <origin xyz="0 0 0" />
-        <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
-                 iyy="0.0001" iyz="0.0"
-                 izz="0.0001" />
-      </inertial>
-    </link>
-    <joint name="${name}_camera_rgb_optical_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
-      <parent link="${name}_camera_rgb_frame" />
-      <child link="${name}_camera_rgb_optical_frame" />
-    </joint>
-    <link name="${name}_camera_rgb_optical_frame">
-      <inertial>
-        <mass value="0.001" />
-        <origin xyz="0 0 0" />
-        <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
-                 iyy="0.0001" iyz="0.0"
-                 izz="0.0001" />
-      </inertial>
-    </link>
-
-	  <joint name="${name}_camera_joint" type="fixed">
-	    <origin xyz="-0.031 0.0125 -0.016" rpy="0 0 0"/>
-	    <parent link="${name}_camera_rgb_frame"/>
-	    <child link="${name}_camera_link"/>
+    <joint name="${name}_cam_joint" type="fixed">
+	    <insert_block name="origin" />
+	    <parent link="${parent}"/>
+	    <child link="${name}_cam_link"/>
 	  </joint>  
-	    <link name="${name}_camera_link">
+	  <link name="${name}_cam_link">
 	    <visual>
 	     <origin xyz="0 0 0" rpy="0 0 ${M_PI/2}"/>
 	      <geometry>
@@ -61,16 +32,48 @@
 	               izz="0.0001" />
 	    </inertial>
 	  </link>
+    
+    <joint name="${name}_cam_rgb_joint" type="fixed">
+      <origin xyz="0.031 -0.0125 0.016" rpy="0 0 0"/>
+      <parent link="${name}_cam_link"/>
+      <child link="${name}_cam_rgb_frame" />
+    </joint>
+    <link name="${name}_cam_rgb_frame">
+      <inertial>
+        <mass value="0.001" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                 iyy="0.0001" iyz="0.0"
+                 izz="0.0001" />
+      </inertial>
+    </link>
+    
+    <joint name="${name}_cam_rgb_optical_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+      <parent link="${name}_cam_rgb_frame" />
+      <child link="${name}_cam_rgb_optical_frame" />
+    </joint>
+    <link name="${name}_cam_rgb_optical_frame">
+      <inertial>
+        <mass value="0.001" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                 iyy="0.0001" iyz="0.0"
+                 izz="0.0001" />
+      </inertial>
+    </link>
+
+	 
 	  
 	  <!-- The fixed joints & links below are usually published by static_transformers launched by the OpenNi launch 
 	       files. However, for Gazebo simulation we need them, so we add them here.
 	       (Hence, don't publish them additionally!) -->
-		<joint name="${name}_camera_depth_joint" type="fixed">
+		<joint name="${name}_cam_depth_joint" type="fixed">
 		  <origin xyz="0 0.025 0" rpy="0 0 0" />
-		  <parent link="${name}_camera_rgb_frame" />
-		  <child link="${name}_camera_depth_frame" />
+		  <parent link="${name}_cam_rgb_frame" />
+		  <child link="${name}_cam_depth_frame" />
 		</joint>
-		<link name="${name}_camera_depth_frame">
+		<link name="${name}_cam_depth_frame">
 	    <inertial>
 	      <mass value="0.001" />
 	      <origin xyz="0 0 0" />
@@ -79,12 +82,12 @@
 	               izz="0.0001" />
 	    </inertial>
 		</link>
-		<joint name="${name}_camera_depth_optical_joint" type="fixed">
+		<joint name="${name}_cam_depth_optical_joint" type="fixed">
 		  <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
-		  <parent link="${name}_camera_depth_frame" />
-		  <child link="${name}_camera_depth_optical_frame" />
+		  <parent link="${name}_cam_depth_frame" />
+		  <child link="${name}_cam_depth_optical_frame" />
 		</joint>
-		<link name="${name}_camera_depth_optical_frame">
+		<link name="${name}_cam_depth_optical_frame">
 	    <inertial>
 	      <mass value="0.001" />
 	      <origin xyz="0 0 0" />
@@ -98,17 +101,12 @@
 	  <sensor_kinect_gazebo/>
   
   </xacro:macro>
-  
-<<<<<<< HEAD
-  	<xacro:macro name="kinect_sim_3dsensor">
-    <gazebo reference="${name}_camera_link">  
-=======
-  
+
+
   <xacro:macro name="sensor_kinect_gazebo">
   
-    <gazebo reference="${name}_camera_depth_frame">  
->>>>>>> 3458c358f882804e39b6f09caff537bf7e09d839
-      <sensor type="depth" name="camera">
+    <gazebo reference="${name}_cam_depth_frame">  
+      <sensor type="depth" name="cam">
         <always_on>true</always_on>
         <update_rate>20.0</update_rate>
         <camera>
@@ -123,7 +121,7 @@
             <far>8.0</far>
           </clip>
         </camera>
-        <plugin name="kinect_camera_controller" filename="libgazebo_ros_openni_kinect.so">
+        <plugin name="kinect_cam_controller" filename="libgazebo_ros_openni_kinect.so">
           <cameraName>${name}</cameraName>
           <alwaysOn>true</alwaysOn>
           <updateRate>10</updateRate>
@@ -132,7 +130,7 @@
           <pointCloudTopicName>depth/points</pointCloudTopicName>
           <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
           <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
-          <frameName>${name}_camera_depth_optical_frame</frameName>
+          <frameName>${name}_cam_depth_optical_frame</frameName>
           <baseline>0.1</baseline>
           <distortion_k1>0.0</distortion_k1>
           <distortion_k2>0.0</distortion_k2>

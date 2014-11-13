@@ -69,6 +69,7 @@
 
 
 	<!-- SENSORS -->
+
     
   <xacro:sensor_hokuyo_utm30lx name="hokuyo" parent="base_link">
     <origin xyz="0.0 0.0 0.33" rpy="0 0 0"/>
@@ -91,6 +92,14 @@
   <xacro:sensor_gps name="gps" parent="base_link">
 		<origin xyz="-0.22 0 0.275" rpy="0 0 0"/>
 	</xacro:sensor_gps>
+    
+<!--
+  <xacro:sensor_kinect name="kinect" parent="base_link">
+    <origin xyz="0.3 0.0 0.16" rpy="0 0 0"/> 
+  </xacro:sensor_kinect>  
+-->
+	
+
   
 </robot>
 

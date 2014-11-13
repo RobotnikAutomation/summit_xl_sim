@@ -2,6 +2,15 @@
 <robot name="all_sensors" xmlns:xacro="http://ros.org/wiki/xacro">
 	
 	<!-- This file unifies all sensors that can be used on simulation, defined as xacro:macros -->
+
+  <!-- Axis p5512 -->  
+  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/axis.urdf.xacro" />  
+	
+	<!-- Fotonic -->
+  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/fotonic.urdf.xacro" /> 
+	
+	<!-- GPS -->
+  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/gps.urdf.xacro" /> 
 	
 	<!-- Hokuyo urg04lx -->
 	<xacro:include filename="$(find summit_xl_description)/urdf/sensors/hokuyo_urg04lx.urdf.xacro" />      
@@ -9,13 +18,10 @@
 	<!-- Hokuyo utm30lx -->
   <xacro:include filename="$(find summit_xl_description)/urdf/sensors/hokuyo_utm30lx.urdf.xacro" />  
   
-  <!-- Axis p5512 -->  
-  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/axis.urdf.xacro" />  
-  
   <!-- Imu -->
   <xacro:include filename="$(find summit_xl_description)/urdf/sensors/imu.urdf.xacro" />  
+    
+  <!-- Kinect -->
+  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/kinect.urdf.xacro" /> 
   
-  <!-- GPS -->
-  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/gps.urdf.xacro" /> 
-	
 </robot>
