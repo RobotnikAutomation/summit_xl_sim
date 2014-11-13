@@ -9,6 +9,7 @@
   <xacro:include filename="$(find summit_xl_description)/urdf/sensors/hokuyo_utm30lx.urdf.xacro" />    
   <xacro:include filename="$(find summit_xl_description)/urdf/sensors/axis.urdf.xacro" />  
   <xacro:include filename="$(find summit_xl_description)/urdf/sensors/imu.urdf.xacro" />  
+  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/gps.urdf.xacro" />  
   
   <!-- Robot mechanical and motor parameters -->
   <xacro:property name="PI" value="3.1415926535897931"/>
@@ -64,6 +65,10 @@
   <xacro:sensor_imu name="imu" parent="base_link">
 		<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
   </xacro:sensor_imu>
-
+  
+  <xacro:sensor_gps name="gps" parent="base_link">
+		<origin xyz="-0.22 0 0.275" rpy="0 0 0"/>
+	</xacro:sensor_gps>
+  
 </robot>
 
