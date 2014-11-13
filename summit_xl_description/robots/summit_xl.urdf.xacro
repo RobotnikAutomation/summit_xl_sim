@@ -2,8 +2,11 @@
 <robot name="summit_xl" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
 
 
+	<!-- ***************** -->
+	<!-- Imported elements -->
+	<!-- ***************** -->
+	
 	<!-- First we import all posible elements defined in the urdf.xacro files. All these elements are defined as macro:xacros -->
-	<!-------------------------------------------------------------------------------------------------------------------------->
 
   <!-- Import summit XL base elements -->
   <xacro:include filename="$(find summit_xl_description)/urdf/bases/summit_xl_base.urdf.xacro" />
@@ -16,9 +19,9 @@
   
   
   
-  
+	<!-- ***************** -->
   <!-- Global parameters -->
-  <!----------------------->
+	<!-- ***************** -->
   
   <xacro:property name="PI" value="3.1415926535897931"/>
   
@@ -31,8 +34,10 @@
   <xacro:property name="hq" value="true" />
 
 
-	<!-- Elements -->
-	<!-------------->
+
+	<!-- *************** -->
+	<!-- Robots Elements -->
+	<!-- *************** -->
 
 	<!-- Here we create the robot elements using the xacro:macros imported at the beggining of this file -->
 
