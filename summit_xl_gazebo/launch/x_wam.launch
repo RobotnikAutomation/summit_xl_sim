@@ -5,6 +5,16 @@
     <arg name="world_name" value="$(find summit_xl_gazebo)/worlds/summit_xl.world"/>
   </include -->
 
+	<!-- Include this file only if you wish a the control the robot via joystick, it has to be commented if you want to set goals for autonomous navigation -->
+  <!-- summit_xl_joy launch file -->
+  <!-- for this node to work correctly first you need to succesfully connect the ps3 joystick with:
+		sudo su
+		rosrun ps3joy sixpair
+		rosrun ps3joy ps3joy.py
+  -->
+  <include file="$(find summit_xl_joystick)/launch/summit_xl_joy.launch" />
+
+
   <!-- roslaunch arguments -->
   <arg name="debug" default="false"/>
   <arg name="gui" default="true"/>
@@ -21,11 +31,11 @@
 
   <!-- Load the URDF into the ROS Parameter Server -->
   <param name="robot_description"
-         command="$(find xacro)/xacro.py '$(find summit_xl_description)/urdf/x_wam.urdf.xacro'" />
+         command="$(find xacro)/xacro.py '$(find summit_xl_description)/robots/summit_x.urdf.xacro'" />
 
   <!-- Call a python script to the run a service call to gazebo_ros to spawn a URDF robot -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-        args="-urdf -model summit_xl -param robot_description -z 0.15"/>
+        args="-urdf -model summit_xl -param robot_description"/>
 
   <!-- ros_control summit_xl launch file -->
   <include file="$(find summit_xl_control)/launch/x_wam_control.launch" />

@@ -2,7 +2,7 @@
 <robot name="summit_xl" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
 
   <!-- Import all Gazebo-customization elements, including Gazebo colors -->
-  <xacro:include filename="$(find summit_xl_description)/urdf/x_wam.gazebo" />
+  <xacro:include filename="$(find summit_xl_description)/urdf/deprecated/x_wam.gazebo" />
 
   <!-- Constants for robot dimensions -->
   <xacro:property name="PI" value="3.1415926535897931"/>
