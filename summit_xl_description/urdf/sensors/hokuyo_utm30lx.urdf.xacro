@@ -75,7 +75,7 @@
 					<frameName>${name}_laser_link</frameName>
 				</plugin>
 			</sensor>
-	</gazebo>
+		</gazebo>
   </xacro:macro>
   
 </robot>
