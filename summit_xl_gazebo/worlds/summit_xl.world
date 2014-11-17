@@ -15,7 +15,7 @@
           <sor>1.0</sor -->
           <type>quick</type>
           <!--dt>0.001</dt-->
-          <iters>200</iters>
+          <iters>20</iters>
           <sor>1.0</sor>
         </solver>
         <constraints>
