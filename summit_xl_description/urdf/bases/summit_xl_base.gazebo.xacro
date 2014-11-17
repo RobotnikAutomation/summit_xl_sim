@@ -18,21 +18,21 @@
 	<xacro:macro name="skid_steering">
     <gazebo>
       <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
-			<robotNamespace>/summit_xl</robotNamespace>
-	    <updateRate>100.0</updateRate>
-	    <leftFrontJoint>joint_front_left_wheel</leftFrontJoint>  
-	    <rightFrontJoint>joint_front_right_wheel</rightFrontJoint>
-	    <leftRearJoint>joint_back_left_wheel</leftRearJoint>
-	    <rightRearJoint>joint_back_right_wheel</rightRearJoint>
-	    <wheelSeparation>0.468</wheelSeparation>
-	    <wheelDiameter>0.234</wheelDiameter>
-	    <robotBaseFrame>base_footprint</robotBaseFrame>
-	    <torque>25</torque>
-	    <topicName>cmd_vel</topicName>
-	    <commandTopic>robot_control/command</commandTopic>
-	    <odometryTopic>odom</odometryTopic>
-	    <odometryFrame>/odom</odometryFrame>
-	    <broadcastTF>true</broadcastTF>
+				<robotNamespace>/summit_xl</robotNamespace>
+		    <updateRate>100.0</updateRate>
+		    <leftFrontJoint>joint_front_left_wheel</leftFrontJoint>  
+		    <rightFrontJoint>joint_front_right_wheel</rightFrontJoint>
+		    <leftRearJoint>joint_back_left_wheel</leftRearJoint>
+		    <rightRearJoint>joint_back_right_wheel</rightRearJoint>
+		    <wheelSeparation>0.468</wheelSeparation>
+		    <wheelDiameter>0.234</wheelDiameter>
+		    <robotBaseFrame>base_footprint</robotBaseFrame>
+		    <torque>25</torque>
+		    <topicName>cmd_vel</topicName>
+		    <commandTopic>robot_control/command</commandTopic>
+		    <odometryTopic>odom</odometryTopic>
+		    <odometryFrame>/odom</odometryFrame>
+		    <broadcastTF>1</broadcastTF>
       </plugin>
     </gazebo>
   </xacro:macro>
