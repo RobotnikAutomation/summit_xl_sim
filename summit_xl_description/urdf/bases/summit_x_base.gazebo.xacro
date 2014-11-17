@@ -60,13 +60,9 @@
     <material>Gazebo/Grey</material>
   </gazebo>
 
-  <gazebo reference="logos_link">
-    <material>Gazebo/Red</material>
+  <gazebo reference="rover_link">
+    <material>Gazebo/FlatBlack</material>
   </gazebo>
 
-  <gazebo reference="covers_link">
-    <material>Gazebo/Grey</material>
-  </gazebo>
-  
 
 </robot>
