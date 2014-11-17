@@ -1,9 +1,12 @@
+<?xml version="1.0"?>
 <launch>
 <node pkg="amcl" type="amcl" name="amcl" output="screen">
 
-  <remap from="scan" to="hokuyo_laser_topic" />
-  <remap from="cmd_vel" to="summit_xl_ctrl/command" />
-
+  <!-- remap from="scan" to="hokuyo_laser_topic" / -->
+  <remap from="scan" to="scan" />
+  <!-- remap from="cmd_vel" to="summit_xl_ctrl/command" / -->
+  <remap from="cmd_vel" to="summit_xl_robot_control/command" />
+  
   <!-- Publish scans from best pose at a max of 10 Hz -->
   <param name="odom_model_type" value="diff"/>
   <param name="odom_alpha5" value="0.1"/>
