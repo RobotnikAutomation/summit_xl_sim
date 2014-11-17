@@ -42,6 +42,7 @@
 	<!-- Here we create the robot elements using the xacro:macros imported at the beggining of this file -->
 
 	<!-- Summit XL base -->
+	<!-- this base already includes the Axis camera and Hokuyo laser sensors -->
 	<xacro:summit_x_base name="summit_xl" publish_bf="true" />
   
 	<!-- Gazebo ros control pluggins -->
@@ -97,11 +98,9 @@
 	</xacro:sensor_axis>
 -->
   
-<!--
-	<xacro:sensor_imu name="imu" parent="base_link">
-		<origin xyz="-0.18 0.0 0.170" rpy="0 0 0"/>
+	<xacro:sensor_imu name="imu" parent="rover_link">
+		<origin xyz="-0.30 0.0 0.1" rpy="0 0 0"/>
 	</xacro:sensor_imu>
--->
   
 <!--
 	<xacro:sensor_gps name="gps" parent="base_link">
