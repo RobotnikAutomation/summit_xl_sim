@@ -3,6 +3,13 @@
 
 	<xacro:include filename="$(find summit_xl_description)/urdf/bases/summit_x_base.gazebo.xacro" />
   
+  <macro name="box_inertia" params="m x y z">
+		<inertia  ixx="${m*(y*y+z*z)/12}" ixy = "0" ixz = "0"
+			iyy="${m*(x*x+z*z)/12}" iyz = "0"
+			izz="${m*(x*x+z*z)/12}"
+		/>
+	</macro>
+  
 	<xacro:macro name="summit_x_base" params="name publish_bf">
 
 	<!-- Robot mechanical and motor parameters -->
@@ -51,9 +58,86 @@
 				</geometry>
 		</collision>     
 	</link>
+	
+	  <!-- ***************************** --> 
+  <!-- ROVER PART - UP SCISSOR MECH  --> 
+  <!-- ***************************** --> 
+  <link name="rover_link">
+    <inertial>
+      <mass value="1.0" /> <!-- 20.0 -->
+      <origin xyz="0 0 0" />
+      <inertia  ixx="0.2185" ixy="0.0"  ixz="-0.001"  iyy="0.33677"  iyz="0.0"  izz="0.20511" />
+    </inertial>
+    <visual>
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <geometry>
+	   <mesh filename="package://summit_xl_description/meshes/x_wam/chassis_xwam_up.dae"/>
+       </geometry>
+    </visual>
+    <collision>
+       <origin xyz="0 0 0" rpy="0 0 0 " />
+       <geometry>
+       <mesh filename="package://summit_xl_description/meshes/x_wam/chassis_xwam_up.dae"/>
+       </geometry>
+    </collision>     
+  </link>
+
+  <joint name="scissor_prismatic_joint" type="prismatic">
+    <parent link="base_link"/>
+    <child link="rover_link"/>
+    <limit effort="100000.0" velocity="1000.0" lower="0.0" upper="0.5"/> <!-- lower="0.1" upper="0.5" -->
+    <origin rpy="0 0 0" xyz="0.261 0 -0.038"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <transmission name="joint_scissor_trans">
+	 <type>transmission_interface/SimpleTransmission</type>
+     <joint name="scissor_prismatic_joint" />
+     <actuator name="scissor_motor">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+		<mechanicalReduction>1</mechanicalReduction>
+	 </actuator>
+  </transmission>
 
   
   
+  <!-- ***************************** --> 
+  <!-- SCISSOR MECHANISM PART 1      --> 
+  <!-- ***************************** -->
+  
+<!--
+  <joint name="scissor_bars1_joint" type="continuous">
+    <parent link="rover_link"/>
+    <child link="scissor_bars1_link"/>
+    <origin xyz="0 0 0" rpy="0.0 0.0 0.0"/>
+    <limit effort="300" velocity="10.0" lower="-20.2" upper="20.7" />
+    <mimic joint="scissor_prismatic_joint" multiplier="5" offset="0.0" /> 
+    <axis xyz="0 1 0" />
+  </joint>
+  
+	<link name="scissor_bars1_link">
+    <inertial>
+      <mass value="1" />
+      <origin xyz="0 0 0" rpy="0 -3.1415 0"/>
+			<box_inertia m="1" x="0.5" y="0.2" z="0.05"/>
+    </inertial>
+    <visual>
+       <origin xyz="0 0 0" rpy="0 -3.1415 0" />
+       <geometry>
+					<mesh filename="package://summit_xl_description/meshes/x_wam/scissor_bars_1.stl"/>
+					<box x="0.2" y="0.1" z="0.1"/>
+       </geometry>
+    </visual>
+    <collision>
+       <origin xyz="0 0 0" rpy="0 -3.1415 0" />
+       <geometry>
+				<mesh filename="package://summit_xl_description/meshes/x_wam/scissor_bars_1.stl"/>
+				<box x="0.2" y="0.1" z="0.1"/>
+       </geometry>
+    </collision>     
+  </link>
+-->
+
 	</xacro:macro>
 </robot>
 
