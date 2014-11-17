@@ -102,44 +102,85 @@
 	 </actuator>
   </transmission>
 
+
+	<!-- Axis camera -->
+	<xacro:property name="ptz_joint_effort_limit" value="100.0" /> 
+  <xacro:property name="ptz_joint_velocity_limit" value="100.0"/>  
+  <xacro:property name="ptz_joint_friction" value="0.1" />
+  <xacro:property name="ptz_joint_damping" value="0.1" />
+  <xacro:property name="ptz_mechanical_reduction" value="1.0" />	
   
+	<joint name="camera_joint" type="fixed">
+			<axis xyz="0 1 0" />
+			<origin xyz="0.0 0.0 0.13" rpy="0.0 ${PI/4} 0.0"/>
+      <parent link="rover_link"/>
+      <child link="camera_link"/>
+  </joint>
+	
+	<link name="camera_link">
+		<inertial>
+			<origin xyz="0.03 0.0 -0.3" rpy="0 0 0"/>
+			<mass value="0.1" />
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1" />
+		</inertial>
+	</link>
   
-  <!-- ***************************** --> 
-  <!-- SCISSOR MECHANISM PART 1      --> 
-  <!-- ***************************** -->
+
+  <joint name="joint_camera_pan" type="continuous">
+     <axis xyz="0 0 1" />
+     <origin xyz="0.0 0.0 0.1"/>
+     <parent link="camera_link"/>
+     <child link="camera_pan_link"/>
+     <limit effort="${ptz_joint_effort_limit}" velocity="${ptz_joint_velocity_limit}" lower="-3.1416" upper="3.1416"/>
+     <joint_properties damping="${ptz_joint_damping}" friction="{ptz_joint_friction}"/>
+  </joint>  
   
-<!--
-  <joint name="scissor_bars1_joint" type="continuous">
-    <parent link="rover_link"/>
-    <child link="scissor_bars1_link"/>
-    <origin xyz="0 0 0" rpy="0.0 0.0 0.0"/>
-    <limit effort="300" velocity="10.0" lower="-20.2" upper="20.7" />
-    <mimic joint="scissor_prismatic_joint" multiplier="5" offset="0.0" /> 
-    <axis xyz="0 1 0" />
+  <link name="camera_pan_link">
+     <inertial>
+       <mass value="0.1" />
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1" />
+    </inertial>
+  </link>
+  
+  <transmission name="camera_pan_trans">
+	 <type>transmission_interface/SimpleTransmission</type>
+     <joint name="joint_camera_pan" />
+     <actuator name="pan_motor">
+		   <hardwareInterface>EffortJointInterface</hardwareInterface>
+       <mechanicalReduction>${ptz_mechanical_reduction}</mechanicalReduction>
+     </actuator>
+  </transmission>
+
+
+  <joint name="joint_camera_tilt" type="continuous">
+     <axis xyz="0 1 0" />
+     <origin xyz="0.0 0.0 0.0"/>
+     <parent link="camera_pan_link"/>
+     <child link="camera_tilt_link"/>
+     <limit effort="${ptz_joint_effort_limit}" velocity="${ptz_joint_velocity_limit}" lower="-1.5708" upper="1.5708"/>
+     <joint_properties damping="${ptz_joint_damping}" friction="{ptz_joint_friction}"/>
   </joint>
   
-	<link name="scissor_bars1_link">
-    <inertial>
-      <mass value="1" />
-      <origin xyz="0 0 0" rpy="0 -3.1415 0"/>
-			<box_inertia m="1" x="0.5" y="0.2" z="0.05"/>
+  <link name="camera_tilt_link">
+     <inertial>
+       <mass value="0.1" />
+       <origin xyz="0 0 0" rpy="0 0 0" />
+       <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1" />
     </inertial>
-    <visual>
-       <origin xyz="0 0 0" rpy="0 -3.1415 0" />
-       <geometry>
-					<mesh filename="package://summit_xl_description/meshes/x_wam/scissor_bars_1.stl"/>
-					<box x="0.2" y="0.1" z="0.1"/>
-       </geometry>
-    </visual>
-    <collision>
-       <origin xyz="0 0 0" rpy="0 -3.1415 0" />
-       <geometry>
-				<mesh filename="package://summit_xl_description/meshes/x_wam/scissor_bars_1.stl"/>
-				<box x="0.2" y="0.1" z="0.1"/>
-       </geometry>
-    </collision>     
   </link>
--->
+  
+  <transmission name="camera_tilt_trans">
+	 <type>transmission_interface/SimpleTransmission</type>
+     <joint name="joint_camera_tilt" />
+     <actuator name="tilt_motor">
+			 <hardwareInterface>EffortJointInterface</hardwareInterface>
+			 <mechanicalReduction>${ptz_mechanical_reduction}</mechanicalReduction>
+     </actuator>
+  </transmission>
+
+
 
 	</xacro:macro>
 </robot>
