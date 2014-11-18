@@ -3,7 +3,6 @@
 <node pkg="amcl" type="amcl" name="amcl" output="screen">
 
   <remap from="scan" to="hokuyo/scan" />
-  <remap from="cmd_vel" to="summit_xl/robot_control/command" />
 
   <!-- Publish scans from best pose at a max of 10 Hz -->
   <param name="odom_model_type" value="diff"/>
