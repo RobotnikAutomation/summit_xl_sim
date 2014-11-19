@@ -4,7 +4,7 @@
   <version>1.0.0</version>
   <description>
     This package includes the urdf, sdf, and meshes for the kinematic description of the 
-    summit_xl product range : summit_xl summit_xl_omni and x_wam
+    summit_xl product range : summit_xl, summit_xl_omni and x_wam
   </description>
   <maintainer email="info@robotnik.es">Robotnik</maintainer>
   <license>BSD</license>
@@ -13,26 +13,18 @@
   <author>Robotnik</author>
 
   <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>message_runtime</build_depend>
-  <build_depend>std_msgs</build_depend>
   
-  <build_depend>roscpp</build_depend> 
-  <build_depend>std_srvs</build_depend>
-  <build_depend>std_msgs</build_depend>
-  <build_depend>tf</build_depend>
-  <build_depend>gazebo_ros</build_depend>
-
   <run_depend>message_runtime</run_depend>
   <run_depend>std_msgs</run_depend>
-
-  <run_depend>roscpp</run_depend> 
   <run_depend>std_srvs</run_depend>
   <run_depend>std_msgs</run_depend>
   <run_depend>tf</run_depend>
   <run_depend>gazebo_ros</run_depend>
-     
-  <export>
-  </export>
+  <run_depend>joint_state_publisher</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>rviz</run_depend>
+  <run_depend>xacro</run_depend>
+  <run_depend>hector_gazebo_plugins</run_depend>
   
 </package>
 

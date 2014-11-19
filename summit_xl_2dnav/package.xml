@@ -13,22 +13,19 @@
   <author>Robotnik</author>
 
   <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>message_runtime</build_depend>
-  <build_depend>std_msgs</build_depend>
-  <!-- build_depend>move_base</build_depend>
-  <build_depend>gmapping</build_depend>
-  <build_depend>amcl</build_depend>
-  <build_depend>summit_xl_odometry</build_depend -->  
+  
+  
   <run_depend>message_runtime</run_depend>
   <run_depend>std_msgs</run_depend>
-  <!--run_depend>move_base</run_depend>
+  <run_depend>move_base</run_depend>
   <run_depend>gmapping</run_depend>
   <run_depend>amcl</run_depend>
-  <run_depend>summit_xl_odometry</run_depend --> 
+  <run_depend>robot_pose_efk</run_depend>
+  <run_depend>map_server</run_depend>
+  <run_depend>rviz</run_depend>
+  <run_depend>topic_tools</run_depend>
+  <run_depend>tf</run_depend>
      
-  <export>
-  </export>
-  
 </package>
 
 
