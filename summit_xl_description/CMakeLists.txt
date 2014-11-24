@@ -7,15 +7,11 @@ project(summit_xl_description)
 find_package(catkin REQUIRED COMPONENTS 
 	message_runtime 
 	std_msgs 
-#	move_base
-#	gmapping
-#	amcl
-#	summit_xl_odometry
-    roscpp
-    std_srvs
-    std_msgs
-    tf
-#    gazebo_ros
+  roscpp
+  std_srvs
+  std_msgs
+  tf
+  gazebo_ros
 )
 
 

@@ -1,8 +1,0 @@
-roslaunch gazebo_worlds empty_world.launch
-roslaunch summit_xl_description summit_xl.launch
-roscd summit_xl_2dnav
-roslaunch summit_xl_2dnav summit_xl_configuration.launch
-roslaunch summit_xl_2dnav summit_xl_gmapping.launch
-roslaunch summit_xl_2dnav move_base_local.launch
-
-

@@ -1,19 +1,23 @@
 <?xml version="1.0"?>
 <package>
   <name>summit_xl_robot_control</name>
-  <version>0.0.0</version>
-  <description>The summit_xl_robot_control package</description>
+  <version>1.0.0</version>
+  <description>
+	  Control the robot joints in all kinematic configurations, publishes odom topic and, 
+	  if configured, also tf odom to base_link. Usually takes as input joystick commands 
+	  and generates as outputs references for the gazebo controllers defined in summit_xl_control.
+  </description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->
   <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
-  <maintainer email="trurl@todo.todo">trurl</maintainer>
+  <maintainer email="info@robotnik.es">Robotnik</maintainer>
 
 
   <!-- One license tag required, multiple allowed, one license per tag -->
   <!-- Commonly used license strings: -->
   <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
-  <license>TODO</license>
+  <license>BSD</license>
 
 
   <!-- Url tags are optional, but mutiple are allowed, one per tag -->
@@ -39,19 +43,26 @@
   <!--   <run_depend>message_runtime</run_depend> -->
   <!-- Use test_depend for packages you need only for testing: -->
   <!--   <test_depend>gtest</test_depend> -->
+  
   <buildtool_depend>catkin</buildtool_depend>
+  
   <build_depend>robotnik_msgs</build_depend>
   <build_depend>nav_msgs</build_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>sensor_msgs</build_depend>
   <build_depend>geometry_msgs</build_depend>
   <build_depend>tf</build_depend>
+  <build_depend>diagnostic_msgs</build_depend>
+  <build_depend>diagnostic_updater</build_depend>
+  
   <run_depend>robotnik_msgs</run_depend>
   <run_depend>nav_msgs</run_depend>
   <run_depend>roscpp</run_depend>
   <run_depend>sensor_msgs</run_depend>
   <run_depend>geometry_msgs</run_depend>
   <run_depend>tf</run_depend>
+  <run_depend>diagnostic_msgs</run_depend>
+  <run_depend>diagnostic_updater</run_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->
