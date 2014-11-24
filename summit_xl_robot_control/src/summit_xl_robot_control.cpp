@@ -364,10 +364,10 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
   ref_pos_tilt_ = summit_xl_robot_control_node_handle.advertise<std_msgs::Float64>( tilt_pos_topic_, 50);
 
   // Subscribe to command topic
-  cmd_sub_ = summit_xl_robot_control_node_handle.subscribe<geometry_msgs::Twist>("command", 1, &SummitXLControllerClass::commandCallback, this);
+  cmd_sub_ = summit_xl_robot_control_node_handle.subscribe<geometry_msgs::Twist>("/summit_xl/robot_control/command", 1, &SummitXLControllerClass::commandCallback, this);
 
   // Subscribe to ptz command topic
-  ptz_sub_ = summit_xl_robot_control_node_handle.subscribe<robotnik_msgs::ptz>("command_ptz", 1, &SummitXLControllerClass::command_ptzCallback, this);
+  ptz_sub_ = summit_xl_robot_control_node_handle.subscribe<robotnik_msgs::ptz>("/summit_xl/robot_control/command_ptz", 1, &SummitXLControllerClass::command_ptzCallback, this);
   // /summit_xl_robot_control/command_ptz
   
   // TODO odom topic as parameter

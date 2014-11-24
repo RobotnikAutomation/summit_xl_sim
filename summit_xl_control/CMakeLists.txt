@@ -5,7 +5,6 @@ project(summit_xl_control)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 
-#Robotnik hack - in this version ros_control and ros_controllers are rosbuild
 #find_package(catkin REQUIRED COMPONENTS ros_control ros_controllers)
 
 ## System dependencies are found with CMake's conventions
