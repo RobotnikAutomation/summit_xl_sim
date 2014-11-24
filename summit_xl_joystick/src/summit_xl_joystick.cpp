@@ -148,7 +148,7 @@ SummitJoy::SummitJoy():
 
 	// KINEMATIC MODE 
 	nh_.param("button_kinematic_mode", button_kinematic_mode_, button_kinematic_mode_);
-	nh_.param("cmd_service_set_mode", cmd_set_mode_, cmd_set_mode_);
+	nh_.param<std::string>("cmd_service_set_mode", cmd_set_mode_, "summit_xl_robot_control/set_mode");
 	kinematic_mode_ = 1;
 
 
@@ -312,7 +312,7 @@ void SummitJoy::joyCallback(const sensor_msgs::Joy::ConstPtr& joy)
 		// PAN-MOVEMENTS (RELATIVE POS)
 		if (joy->buttons[ptz_pan_left_] == 1) {			
 			if(!bRegisteredButtonEvent[ptz_pan_left_]){
-				ptz.pan = -pan_increment_;
+				ptz.pan = pan_increment_;
 				//ROS_INFO("SummitXLPad::padCallback: PAN LEFT");
 				bRegisteredButtonEvent[ptz_pan_left_] = true;
 				ptzEvent = true;
@@ -323,7 +323,7 @@ void SummitJoy::joyCallback(const sensor_msgs::Joy::ConstPtr& joy)
 
 		if (joy->buttons[ptz_pan_right_] == 1) {
 			if(!bRegisteredButtonEvent[ptz_pan_right_]){
-			  	ptz.pan = pan_increment_;
+			  	ptz.pan = -pan_increment_;
 				//ROS_INFO("SummitXLPad::padCallback: PAN RIGHT");
 				bRegisteredButtonEvent[ptz_pan_right_] = true;
 				ptzEvent = true;

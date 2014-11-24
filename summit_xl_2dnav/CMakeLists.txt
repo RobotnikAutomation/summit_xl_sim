@@ -7,10 +7,9 @@ project(summit_xl_2dnav)
 find_package(catkin REQUIRED COMPONENTS 
 	message_runtime 
 	std_msgs 
-#	move_base
-#	gmapping
-#	amcl
-#	summit_xl_odometry
+	move_base
+	gmapping
+	amcl
 	)
 
 

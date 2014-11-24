@@ -295,8 +295,8 @@ int main(int argc, char** argv){
 	summit_waypoints.SendGoal( iCurrentWaypoint );
   
 	// Check if waypoint has been reached 
-	//if (summit_waypoints.Control( iCurrentWaypoint ) )
-	//	iCurrentWaypoint++;
+	if (summit_waypoints.Control( iCurrentWaypoint ) )
+		iCurrentWaypoint++;
 
 	ros::spinOnce();
 	r.sleep();

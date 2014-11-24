@@ -4,15 +4,18 @@
   <!-- roslaunch arguments -->
   <arg name="debug" default="false"/>
   <arg name="gui" default="true"/>
+
   <!-- summit_xl_control launch file -->
-  <include file="$(find summit_xl_control)/launch/summit_xl_omni_control.launch" />
+  <include file="$(find summit_xl_control)/launch/summit_xl_control.launch" />
 
+  
   <!-- summit_xl_robot_control launch file -->
-  <!-- Change to Kinematic mode 2 (omnidirectional) pressing R1+R2 -->
-  <include file="$(find summit_xl_robot_control)/launch/summit_xl_omni_robot_control.launch" />
+	<!-- summit_xl_robot_control will provide control for the PTZ camera and the height of the Summit-X robot -->
+  <!-- include file="$(find summit_xl_robot_control)/launch/summit_xl_robot_control.launch" / -->
 
-
+  
   <!-- summit_xl_joy launch file -->
+  <!-- Include this file only if you wish a the control the robot via joystick, it has to be commented if you want to set goals for autonomous navigation -->
   <!-- for this node to work correctly first you need to succesfully connect the ps3 joystick with:
 		sudo su
 		rosrun ps3joy sixpair
@@ -34,8 +37,8 @@
   <!-- param name="robot_description"
          command="$(find xacro)/xacro.py '$(find summit_xl_description)/urdf/summit_xl.urdf'" / -->
   <param name="robot_description"
-         command="$(find xacro)/xacro.py '$(find summit_xl_description)/urdf/summit_xl_omni.urdf.xacro'" />
-
+         command="$(find xacro)/xacro.py '$(find summit_xl_description)/robots/summit_xl_omni.urdf.xacro'" />
+         
   <!-- Call a python script to the run a service call to gazebo_ros to spawn a URDF robot -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
         args="-urdf -model summit_xl -param robot_description"/>
