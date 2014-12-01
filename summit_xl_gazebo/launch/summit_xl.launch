@@ -21,7 +21,7 @@
 		rosrun ps3joy sixpair
 		rosrun ps3joy ps3joy.py
   -->
-  <include file="$(find summit_xl_joystick)/launch/summit_xl_joy.launch" />
+  <!-- include file="$(find summit_xl_joystick)/launch/summit_xl_joy.launch" / -->
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">

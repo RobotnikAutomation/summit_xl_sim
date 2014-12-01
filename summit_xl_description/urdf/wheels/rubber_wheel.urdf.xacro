@@ -32,7 +32,7 @@
         <xacro:if value="${hq}">
           <origin xyz="0 0 0" rpy="0 0 0" />
           <geometry>     
-            <mesh filename="package://summit_xl_description/meshes/wheels/rubber_wheel.stl" />
+            <mesh filename="package://summit_xl_description/meshes/wheels/rubber_wheel.dae" />
           </geometry>         
         </xacro:if>
        <!-- LOW RESOLUTION WHEELS -->
@@ -43,9 +43,11 @@
           </geometry>      
         </xacro:unless>
 
+<!--
         <material name="darkgrey">
            <color rgba="0.2 0.2 0.2 1"/>
         </material>
+-->
       </visual>
       <collision>
 		<origin xyz="0 0 0" rpy="${M_PI/2} 0 0" />
@@ -72,11 +74,13 @@
       <visual>
 		<origin xyz="0 0 0" rpy="${reflect*PI} 0 0" />
         <geometry>
-          <mesh filename="package://summit_xl_description/meshes/wheels/rubber_wheel_cover.stl" />
+          <mesh filename="package://summit_xl_description/meshes/wheels/rubber_wheel_cover.dae" />
         </geometry>
+<!--
         <material name="lightgrey">
            <color rgba="0.6 0.6 0.6 1"/>
         </material>
+-->
       </visual>    
 <!-- MOTOR VISUAL -->
  

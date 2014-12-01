@@ -149,8 +149,10 @@
       <camera name="fotonic">
         <horizontal_fov>1.221730476</horizontal_fov>  <!-- 70 deg -->
         <image>
-          <width>800</width>  <!-- 160 -->
-          <height>600</height> <!-- 120 -->
+          <!-- width>800</width -->  <!-- 160 -->
+          <!-- height>600</height --> <!-- 120 -->
+          <width>160</width>  <!-- 160 -->
+          <height>120</height> <!-- 120 -->
           <format>R8G8B8</format>
         </image>
         <clip>
