@@ -62,7 +62,7 @@
     <collision>
        <origin xyz="0 0 0" rpy="0 0 0 " />
        <geometry>
-         <mesh filename="package://summit_xl_description/meshes/bases/summit_xl_chassis_simple.stl"/>
+         <mesh filename="package://summit_xl_description/meshes/bases/summit_xl_chassis_collision.dae"/>
        </geometry>
     </collision>     
   </link>
