@@ -56,19 +56,5 @@
     <material>Gazebo/Green</material>
   </gazebo>
   
-<!--
-  <gazebo reference="base_link">
-    <material>Gazebo/Black</material>
-  </gazebo>
-
-  <gazebo reference="logos_link">
-    <material>Gazebo/Red</material>
-  </gazebo>
-
-  <gazebo reference="covers_link">
-    <material>Gazebo/Grey</material>
-  </gazebo>
--->
-  
 
 </robot>
