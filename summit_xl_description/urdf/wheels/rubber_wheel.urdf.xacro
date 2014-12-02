@@ -32,7 +32,12 @@
         <xacro:if value="${hq}">
           <origin xyz="0 0 0" rpy="0 0 0" />
           <geometry>     
-            <mesh filename="package://summit_xl_description/meshes/wheels/rubber_wheel.dae" />
+						<xacro:if value="${reflect}">
+							<mesh filename="package://summit_xl_description/meshes/wheels/rubber_wheel_left.dae" />
+						</xacro:if>
+						<xacro:unless value="${reflect}">
+							<mesh filename="package://summit_xl_description/meshes/wheels/rubber_wheel_right.dae" />
+						</xacro:unless>
           </geometry>         
         </xacro:if>
        <!-- LOW RESOLUTION WHEELS -->
@@ -42,15 +47,10 @@
             <cylinder length="${wheel_height}" radius="${wheel_radius}" />
           </geometry>      
         </xacro:unless>
-
-<!--
-        <material name="darkgrey">
-           <color rgba="0.2 0.2 0.2 1"/>
-        </material>
--->
       </visual>
+      
       <collision>
-		<origin xyz="0 0 0" rpy="${M_PI/2} 0 0" />
+				<origin xyz="0 0 0" rpy="${M_PI/2} 0 0" />
         <geometry>
           <cylinder length="${wheel_height}" radius="${wheel_radius}" />
         </geometry>
@@ -61,41 +61,6 @@
         <cylinder_inertia  m="${wheel_mass}" r="${wheel_radius}" h="${wheel_height}" />
       </inertial>
     </link>
- 
-<!-- WHEEL COVERS -->
-
-    <joint name="joint_cover_${name}_wheel" type="fixed">
-      <parent link="${name}_wheel"/>
-      <child link="cover_${name}1_wheel"/>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-    </joint>
-
-     <link name="cover_${name}1_wheel">
-      <visual>
-		<origin xyz="0 0 0" rpy="${reflect*PI} 0 0" />
-        <geometry>
-          <mesh filename="package://summit_xl_description/meshes/wheels/rubber_wheel_cover.dae" />
-        </geometry>
-<!--
-        <material name="lightgrey">
-           <color rgba="0.6 0.6 0.6 1"/>
-        </material>
--->
-      </visual>    
-<!-- MOTOR VISUAL -->
- 
-<!--
-      <visual>
-        <origin xyz="0 0 0" rpy="${M_PI/2} 0 0" />
-        <geometry>
-          <cylinder length="${wheel_height}" radius="0.05" />
-        </geometry>
-      </visual>
--->
-     </link>
-
- 
-
 
     
     <!-- Transmission is important to link the joints and the controller (see summit_xl_control/config/summit_xl_control.yaml)-->
@@ -108,25 +73,17 @@
       </actuator>
     </transmission>
 
+
     <gazebo reference="${name}_wheel">
 			<mu1 value="5.0"/>
 			<mu2 value="0.5"/>
 			<kp value="10000000.0" />
 			<kd value="1.0" />
 			<fdir1 value="1 0 0"/>
-			<material>Gazebo/Black</material>
       <turnGravityOff>false</turnGravityOff>
     </gazebo>
     
-    <gazebo reference="cover_${name}1_wheel">
-      <material>Gazebo/Grey</material>
-    </gazebo>
-    
+   
   </xacro:macro>
-  
 
-
-
-
-    
 </robot>

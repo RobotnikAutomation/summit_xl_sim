@@ -53,19 +53,19 @@
   
 	<!-- WHEELS -->
 
-	<xacro:rubber_wheel name="front_right" parent="base_link" reflect="0" hq="${hq}">
+	<xacro:rubber_wheel name="front_right" parent="base_link" reflect="false" hq="${hq}">
 		<origin xyz="${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
 	</xacro:rubber_wheel>
   
-	<xacro:rubber_wheel name="front_left" parent="base_link" reflect="1" hq="${hq}">
+	<xacro:rubber_wheel name="front_left" parent="base_link" reflect="true" hq="${hq}">
 		<origin xyz="${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
 	</xacro:rubber_wheel>
   
-	<xacro:rubber_wheel name="back_left" parent="base_link" reflect="1" hq="${hq}">
+	<xacro:rubber_wheel name="back_left" parent="base_link" reflect="true" hq="${hq}">
 		<origin xyz="-${wheel_offset_x} ${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
 	</xacro:rubber_wheel>
   
-	<xacro:rubber_wheel name="back_right" parent="base_link" reflect="0" hq="${hq}">
+	<xacro:rubber_wheel name="back_right" parent="base_link" reflect="false" hq="${hq}">
 		<origin xyz="-${wheel_offset_x} -${wheel_offset_y} ${wheel_offset_z}" rpy="0 0 0"/>
 	</xacro:rubber_wheel>
 
