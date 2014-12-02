@@ -140,6 +140,9 @@ public:
 
   // Topic - scissor - position
   std::string scissor_pos_topic_;
+  
+  // Topic - odom
+  std::string odom_topic_;
 
   // Joint names - ptz - position
   std::string joint_camera_pan;
@@ -293,6 +296,9 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
   private_node_handle_.param<std::string>("joint_camera_pan", joint_camera_pan, "joint_camera_pan");
   private_node_handle_.param<std::string>("joint_camera_tilt", joint_camera_tilt, "joint_camera_tilt");
 
+  // Odom topic
+  private_node_handle_.param<std::string>("odom_topic", odom_topic_, "/summit_xl/odom_robot_control");
+  
   // Robot parameters
   if (!private_node_handle_.getParam("summit_xl_wheel_diameter", summit_xl_wheel_diameter_))
     summit_xl_wheel_diameter_ = SUMMIT_XL_WHEEL_DIAMETER;
@@ -370,9 +376,8 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
   ptz_sub_ = summit_xl_robot_control_node_handle.subscribe<robotnik_msgs::ptz>("/summit_xl/robot_control/command_ptz", 1, &SummitXLControllerClass::command_ptzCallback, this);
   // /summit_xl_robot_control/command_ptz
   
-  // TODO odom topic as parameter
   // Publish odometry 
-  odom_pub_ = summit_xl_robot_control_node_handle.advertise<nav_msgs::Odometry>("/summit_xl/odom", 1000);
+  odom_pub_ = summit_xl_robot_control_node_handle.advertise<nav_msgs::Odometry>(odom_topic_, 1000);
 
   // Component frequency diagnostics
   diagnostic_.setHardwareID("summit_xl_robot_control - simulation");
