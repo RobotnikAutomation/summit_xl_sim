@@ -50,7 +50,7 @@
 	
 	<!-- Gazebo skid steering pluggins -->
 <!--
-	<xacro:skid_steering broadcastOdomTF="0"/>
+	<xacro:skid_steering broadcastOdomTF="1"/>
 -->
 
 	<!-- Gazebo omni steering plugin -->
