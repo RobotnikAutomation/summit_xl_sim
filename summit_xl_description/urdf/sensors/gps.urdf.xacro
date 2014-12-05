@@ -10,7 +10,7 @@
 	    <parent link="${parent}"/>
 	    <child link="${name}_link"/>
 	  </joint>
-	  <link name="gps_link">
+	  <link name="${name}_link">
 	    <inertial>
 	      <mass value="0.001"/>
 	      <origin rpy="0 0 0" xyz="0 0 0"/>
