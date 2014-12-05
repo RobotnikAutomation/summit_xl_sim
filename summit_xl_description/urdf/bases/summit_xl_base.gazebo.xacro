@@ -15,7 +15,7 @@
 	</xacro:macro>
 	
 	<!-- skid steering plugin -->
-	<xacro:macro name="skid_steering">
+	<xacro:macro name="skid_steering" params="broadcastOdomTF">
     <gazebo>
       <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
 				<robotNamespace>/summit_xl</robotNamespace>
@@ -32,7 +32,7 @@
 		    <commandTopic>robot_control/command</commandTopic>
 		    <odometryTopic>odom</odometryTopic>
 		    <odometryFrame>/odom</odometryFrame>
-		    <broadcastTF>1</broadcastTF>
+		    <broadcastTF>${broadcastOdomTF}</broadcastTF>
       </plugin>
     </gazebo>
   </xacro:macro>
