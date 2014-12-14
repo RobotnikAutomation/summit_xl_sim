@@ -48,7 +48,7 @@
 	<xacro:ros_control/>
 	
 	<!-- Gazebo skid steering pluggins -->
-	<xacro:skid_steering/>
+	<xacro:skid_steering broadcastOdomTF="1"/>
   
   
 	<!-- WHEELS -->
