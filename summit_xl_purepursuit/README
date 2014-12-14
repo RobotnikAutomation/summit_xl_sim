@@ -1,0 +1,5 @@
+roslaunch summit_xl_gazebo summit_xl.launch
+# only if not using the skid-steer gazebo plugin - roslaunch summit_xl_robot_control summit_xl_robot_control.launch
+roslaunch summit_xl_purepursuit purepursuit.launch
+roslaunch summit_xl_purepursuit purepursuit_marker.launch
+rosrun rviz rviz (add InteractiveMarkers /path_marker/update), click with right button mouse on the first marker for options to add waypoints or start/stop route.
