@@ -95,13 +95,19 @@
 	<xacro:sensor_gps name="gps" parent="base_link">
 		<origin xyz="-0.22 0 0.275" rpy="0 0 0"/>
 	</xacro:sensor_gps>
+	
+<!--
+	<xacro:sensor_asus_xtion_pro name="xtion_pro" parent="base_link">
+		<origin xyz="0.3 0.0 0.3" rpy="0 0 0"/> 
+	</xacro:sensor_asus_xtion_pro>  
+-->
     
 <!--
 	<xacro:sensor_kinect name="kinect" parent="base_link">
 		<origin xyz="0.3 0.0 0.16" rpy="0 0 0"/> 
 	</xacro:sensor_kinect>  
--->
   
+-->
 <!--
 	<xacro:sensor_fotonic name="fotonic" parent="base_link">
 		<origin xyz="0.3 0.0 0.24" rpy="0 0 0"/> 

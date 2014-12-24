@@ -23,5 +23,8 @@
     
   <!-- Kinect -->
   <xacro:include filename="$(find summit_xl_description)/urdf/sensors/kinect.urdf.xacro" /> 
-  
+
+  <!-- Asus Xtion PRO -->
+  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/asus_xtion_pro.urdf.xacro" /> 
+    
 </robot>
