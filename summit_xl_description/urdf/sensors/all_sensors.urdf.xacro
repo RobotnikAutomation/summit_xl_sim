@@ -5,6 +5,9 @@
 
   <!-- Axis p5512 -->  
   <xacro:include filename="$(find summit_xl_description)/urdf/sensors/axis.urdf.xacro" />  
+
+  <!-- Axis m5013 -->  
+  <xacro:include filename="$(find summit_xl_description)/urdf/sensors/axis_m5013.urdf.xacro" />  
 	
 	<!-- Fotonic -->
   <xacro:include filename="$(find summit_xl_description)/urdf/sensors/fotonic.urdf.xacro" /> 
