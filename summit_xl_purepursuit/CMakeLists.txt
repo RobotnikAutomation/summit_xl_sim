@@ -6,7 +6,7 @@ project(summit_xl_purepursuit)
 ## is used, also find other catkin packages
 # find_package(catkin REQUIRED)
 find_package(catkin REQUIRED COMPONENTS 
-	robotnik_pp_planner
+	#robotnik_pp_planner
 )
 
 
