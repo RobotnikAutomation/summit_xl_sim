@@ -111,12 +111,10 @@
 	</xacro:sensor_asus_xtion_pro>  
 -->
     
-<!--
 	<xacro:sensor_kinect name="kinect" parent="base_link">
-		<origin xyz="0.3 0.0 0.16" rpy="0 0 0"/> 
+		<origin xyz="0.325 0.0 0.16" rpy="0 0 0"/> 
 	</xacro:sensor_kinect>  
   
--->
 <!--
 	<xacro:sensor_fotonic name="fotonic" parent="base_link">
 		<origin xyz="0.3 0.0 0.24" rpy="0 0 0"/> 
