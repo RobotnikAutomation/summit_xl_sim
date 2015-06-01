@@ -1,5 +1,5 @@
 <package>
-  <name>summit_xl_gazebo</name>
+  <name>summit_xl_bringup</name>
   <version>1.0.0</version>
   <description>
 		Launch files for Summit XL simulation.
