@@ -348,7 +348,9 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
   joint_state_sub_ = summit_xl_robot_control_node_handle.subscribe<sensor_msgs::JointState>("/summit_xl/joint_states", 1, &SummitXLControllerClass::jointStateCallback, this);
 
   // Subscribe to imu data
-  imu_sub_ = summit_xl_robot_control_node_handle.subscribe("/summit_xl/imu_data", 1, &SummitXLControllerClass::imuCallback, this);
+  // imu_sub_ = summit_xl_robot_control_node_handle.subscribe("/summit_xl/imu_data", 1, &SummitXLControllerClass::imuCallback, this);
+  imu_sub_ = summit_xl_robot_control_node_handle.subscribe("/imu_data", 1, &SummitXLControllerClass::imuCallback, this);
+
 
   // Adevertise reference topics for the controllers 
   ref_vel_frw_ = summit_xl_robot_control_node_handle.advertise<std_msgs::Float64>( frw_vel_topic_, 50);
