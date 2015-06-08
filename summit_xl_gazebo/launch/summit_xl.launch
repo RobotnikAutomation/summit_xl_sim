@@ -37,7 +37,7 @@
   <!-- param name="robot_description"
          command="$(find xacro)/xacro.py '$(find summit_xl_description)/urdf/summit_xl.urdf'" / -->
   <param name="robot_description"
-         command="$(find xacro)/xacro.py '$(find summit_xl_description)/robots/summit_xl_standalone.urdf.xacro'" />
+         command="$(find xacro)/xacro.py '$(find summit_xl_description)/robots/summit_xl.urdf.xacro'" />
          
   <!-- Call a python script to the run a service call to gazebo_ros to spawn a URDF robot -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
