@@ -8,20 +8,13 @@
   <!-- summit_xl_control launch file -->
   <include file="$(find summit_xl_control)/launch/summit_xl_control.launch" />
 
+ 
+  <!-- summit_xl_robot_control will provide control for the PTZ camera and the height of the Summit-X robot -->
   
-  <!-- summit_xl_robot_control launch file -->
-	<!-- summit_xl_robot_control will provide control for the PTZ camera and the height of the Summit-X robot -->
-  <!-- include file="$(find summit_xl_robot_control)/launch/summit_xl_robot_control.launch" / -->
+  <!-- <include file="$(find summit_xl_robot_control)/launch/summit_xl_omni_robot_control.launch"/> -->
 
   
-  <!-- summit_xl_joy launch file -->
-  <!-- Include this file only if you wish a the control the robot via joystick, it has to be commented if you want to set goals for autonomous navigation -->
-  <!-- for this node to work correctly first you need to succesfully connect the ps3 joystick with:
-		sudo su
-		rosrun ps3joy sixpair
-		rosrun ps3joy ps3joy.py
-  -->
-  <include file="$(find summit_xl_joystick)/launch/summit_xl_joy.launch" />
+  <include file="$(find summit_xl_pad)/launch/summit_xl_pad.launch" />
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -34,8 +27,6 @@
   </include>
 
   <!-- Load the URDF into the ROS Parameter Server -->
-  <!-- param name="robot_description"
-         command="$(find xacro)/xacro.py '$(find summit_xl_description)/urdf/summit_xl.urdf'" / -->
   <param name="robot_description"
          command="$(find xacro)/xacro.py '$(find summit_xl_description)/robots/summit_xl_omni.urdf.xacro'" />
          
