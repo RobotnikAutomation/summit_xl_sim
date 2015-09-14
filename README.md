@@ -5,16 +5,22 @@ Packages for the simulation of the Summit XL
 
 <h2>summit_xl_control</h2>
 
-New gazebo 1.9 style robot control. Contains the controllers and launch files to start them in gazebo.
+This package contains the launch and configuration files to spawn the joint controllers with the ROS controller_manager. It allows to launch the joint controllers for the Summit XL (4 axes skid steering + 2 axes ptz), Summit XL OMNI (4 axes skid steering, 4 axes swerve drive).
 
-<h2>summit_xl_gazebo</h2>
+The Summit XL simulation stack follows the gazebo_ros controller manager scheme described in
+http://gazebosim.org/wiki/Tutorials/1.9/ROS_Control_with_Gazebo
 
-launch files and world files to start the models in gazebo
+<h2>summit_xl_localization</h2>
 
-<h2>summit_xl_robot_control</h2>
+This package contains launch files to use the EKF of the robot_localization package with the Summit XL robots. It contains a node to subscribe to gps data and publish it as odometry to be used as an additional source for odometry.
 
-<p>control the robot joints in all kinematic configurations, publishes odom topic and, if configured, also tf odom to base_link. Usually takes as input joystick commands and generates as outputs references for the gazebo controllers defined in summit_xl_control. This package permits an alternative way to control the robot motion (4 motorwheels) that by default is carried on by the Gazebo plugin (skid-steer). In the default configuration this package only controls the pan-tilt camera joints.</p>
+<h2>summit_xl_navigation</h2>
 
-<h2>summit_xl_sim_bringup</h2>
+This package contains all the configuration files needed to execute the AMCL and SLAM navigation algorithms in simulation.
 
-launch files that launch the complete simulation of the robot
+<h2>summit_xl_pad</h2>
+
+This package contains the node that subscribes to /joy messages and publishes command messages for the robot platform. The joystick output is feed to a mux (http://wiki.ros.org/twist_mux) so that the final command to the robot can be set by different components (move_base, etc.)
+
+
+
