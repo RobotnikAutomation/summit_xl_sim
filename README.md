@@ -3,6 +3,8 @@ summit_xl_sim
 
 Packages for the simulation of the Summit XL
 
+![Image of Summit XL](http://www.robotnik.es/web/wp-content/uploads/2014/03/summit-xl-robots-moviles-robotnik_s01.jpg)
+
 <h2>summit_xl_control</h2>
 
 New gazebo 1.9 style robot control. Contains the controllers and launch files to start them in gazebo.
