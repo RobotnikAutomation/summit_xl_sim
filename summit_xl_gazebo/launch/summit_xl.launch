@@ -8,6 +8,8 @@
   <!-- summit_xl_control launch file -->
   <include file="$(find summit_xl_control)/launch/summit_xl_control.launch" />
 
+  <!-- launch pad -->
+  <include file="$(find summit_xl_pad)/launch/summit_xl_pad.launch" />
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
