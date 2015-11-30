@@ -6,7 +6,7 @@
 		This package contains the launch files that load the required controller interfaces for simulation in Gazebo.
   </description>
 
-  <maintainer email="dcarbonell@robotnik.es">Dani Carbonell</maintainer>
+  <maintainer email="info@robotnik.es">Robotnik</maintainer>
 
   <license>BSD</license>
   
