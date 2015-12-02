@@ -37,6 +37,31 @@ summit_xl:
     joint: joint_camera_rear_tilt
     pid: {p: 100.0, i: 0.01, d: 50.0}
 
+  joint_ptu1_pan_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: ptu1_joint_1
+    pid: {p: 100.0, i: 0.01, d: 50.0}
+
+  joint_ptu1_tilt_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: ptu1_joint_2
+    pid: {p: 100.0, i: 0.01, d: 50.0}
+
+  joint_ptu2_pan_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: ptu2_joint_1
+    pid: {p: 100.0, i: 0.01, d: 50.0}
+
+  joint_ptu2_tilt_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: ptu2_joint_2
+    pid: {p: 100.0, i: 0.01, d: 50.0}
+
+  joint_rear_tilt_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: joint_camera_rear_tilt
+    pid: {p: 100.0, i: 0.01, d: 50.0}
+
 
   joint_read_state_controller:
     type: joint_state_controller/JointStateController 
