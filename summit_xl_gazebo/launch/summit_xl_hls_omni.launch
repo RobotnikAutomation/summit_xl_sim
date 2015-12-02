@@ -32,4 +32,12 @@
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
         args="-urdf -model summit_xl -param robot_description"/>
 
+  <!-- rosrun topic_tools relay /hokuyo_front/scan /scan -->
+  <!-- node name="relay1" pkg="topic_tools" type="relay" respawn="true" output="screen"
+        args="/hokuyo_front/scan /scan" /> 
+
+  <node name="relay2" pkg="topic_tools" type="relay" respawn="true" output="screen"
+        args="/hokuyo_rear/scan /scan" / --> 
+
+
 </launch>
