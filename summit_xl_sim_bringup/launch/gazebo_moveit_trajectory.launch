@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Simulation. If it's going to operate with Gazebo model -->
+  <arg name="simulation" value="true"/>
+  
+  <!-- summit_xl_mico gazebo -->
+  <include file="$(find summit_xl_gazebo)/launch/summit_xl_hls_omni.launch" />
+
+  <!-- robotnik trajectory control -->
+  <include file="$(find summit_xl_sim_bringup)/launch/robotnik_traj_control/gazebo_trajectory_control.launch" />
+
+  <!-- Moveit config -->
+  <include file="$(find summit_xl_moveit)/launch/demo_rtc.launch" />
+  
+  <!--include file="$(find summit_xl_moveit)/launch/demo_rtc.launch">
+	  <arg name="simulation" value="$(arg simulation)"/>
+  </include -->
+  
+  <!-- Sets the initial value of the joints  -->
+  <!--include file="$(find summit_xl_sim_bringup)/launch/gazebo_set_position.launch" /-->
+
+</launch>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- Launch for the trajectory simulation -->
+<launch>
+	
+	<!-- Configuration of every interface -->
+    <rosparam command="load" file="$(find summit_xl_sim_bringup)/config/robotnik_traj_control/gazebo_interfaces.yaml" />
+    
+    <!-- Combine joint values -->
+	<node name="rt_traj_exe" pkg="robotnik_trajectory_control" type="rt_traj_exe.py" output="screen">
+		<remap from="joint_states" to="/summit_xl/joint_states"/>
+		<param name="error_joint_position" value="0.009"/>
+		<!-- timeout for the recevement of joint_state values (seconds)-->
+		<param name="joint_read_state_timeout" value="0.05"/>
+	</node>
+	
+</launch> 

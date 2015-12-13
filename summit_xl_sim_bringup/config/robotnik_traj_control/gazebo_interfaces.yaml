@@ -1,0 +1,10 @@
+# Configs the mapping of joints with real devices
+# Define the different types of interfaces
+types: [ gazebo_position]
+
+groups: { 
+ ptu1_pan: { name: ptu1_pan, type: gazebo_position, joints: [ptu1_joint_1], command_topic: /summit_xl/joint_ptu1_pan_position_controller/command},
+ ptu1_tilt: { name: ptu1_tilt, type: gazebo_position, joints: [ptu1_joint_2], command_topic: /summit_xl/joint_ptu1_tilt_position_controller/command},
+ ptu2_pan: { name: ptu2_pan, type: gazebo_position, joints: [ptu2_joint_1], command_topic: /summit_xl/joint_ptu2_pan_position_controller/command},
+ ptu2_tilt: { name: ptu2_tilt, type: gazebo_position, joints: [ptu2_joint_2], command_topic: /summit_xl/joint_ptu2_tilt_position_controller/command},
+}
