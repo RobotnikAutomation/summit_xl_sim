@@ -62,7 +62,28 @@ summit_xl:
     joint: joint_camera_rear_tilt
     pid: {p: 100.0, i: 0.01, d: 50.0}
 
-
   joint_read_state_controller:
     type: joint_state_controller/JointStateController 
     publish_rate: 100.0
+
+  ptu_controller:
+    type: position_controllers/JointTrajectoryController
+    joints:
+     - ptu1_joint_1
+     - ptu1_joint_2
+     - ptu2_joint_1
+     - ptu2_joint_2
+  constraints:
+      goal_time: 0.6
+      stopped_velocity_tolerance: 0.05
+      ptu1_joint_1: {trajectory: 0.1, goal: 0.1}
+      ptu1_joint_2: {trajectory: 0.1, goal: 0.1}
+      ptu2_joint_1: {trajectory: 0.1, goal: 0.1}
+      ptu2_joint_2: {trajectory: 0.1, goal: 0.1}
+  stop_trajectory_duration: 0.5
+  state_publish_rate:  25
+  action_monitor_rate: 10
+
+
+
+
