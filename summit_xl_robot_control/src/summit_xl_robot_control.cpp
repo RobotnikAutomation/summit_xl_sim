@@ -449,8 +449,8 @@ void UpdateControl()
 	  linearSpeedXMps_ = (v_right_mps + v_left_mps) / 2.0;                       // m/s
 	  angularSpeedRads_ = (v_right_mps - v_left_mps) / summit_xl_d_tracks_m_;    // rad/s
 
-	  ROS_INFO("vleft=%5.2f   vright=%5.2f    linearSpeedXMps=%5.2f, linearSpeedYMps=%5.2f, angularSpeedRads=%5.4f", v_left_mps, v_right_mps,
-			linearSpeedXMps_, linearSpeedYMps_, angularSpeedRads_); 
+	  //ROS_INFO("vleft=%5.2f   vright=%5.2f    linearSpeedXMps=%5.2f, linearSpeedYMps=%5.2f, angularSpeedRads=%5.4f", v_left_mps, v_right_mps,
+			//linearSpeedXMps_, linearSpeedYMps_, angularSpeedRads_); 
 
 	  // Current controllers close this loop allowing (v,w) references.
 	  double epv=0.0;
@@ -468,7 +468,7 @@ void UpdateControl()
 	  // State feedback error
 	  epv = v_ref_x_ - linearSpeedXMps_;
 	  epw = w_ref_ - angularSpeedRads_;
-	   ROS_INFO("v_ref_x_=%5.2f, linearSpeedXMps_=%5.2f w_ref_=%5.2f angularSpeedRads_=%5.2f", v_ref_x_, linearSpeedXMps_, w_ref_, angularSpeedRads_);
+	   //ROS_INFO("v_ref_x_=%5.2f, linearSpeedXMps_=%5.2f w_ref_=%5.2f angularSpeedRads_=%5.2f", v_ref_x_, linearSpeedXMps_, w_ref_, angularSpeedRads_);
 
 	  // Compute state control actions
 	  double uv= kpv * epv + kdv * (epv - epvant);
