@@ -28,7 +28,7 @@
 
   <node pkg="twist_mux" type="twist_mux" name="twist_mux">
     <rosparam command="load" file="$(find summit_xl_control)/config/twist_mux.yaml" />
-    <remap from="cmd_vel_out" to="/summit_xl_control/cmd_vel"/>
+    <remap from="cmd_vel_out" to="/summit_xl/robot_control/command"/>
   </node>
   
 </launch>
