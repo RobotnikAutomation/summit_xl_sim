@@ -26,3 +26,18 @@ When used as main controller of the simulated robot, this node also computes the
 <h2>summit_xl_sim_bringup</h2>
 
 launch files that launch the complete simulation of the robot
+
+
+
+
+<h2>Simulating Summit XL</h2>
+
+1) Install the following dependencies:
+  - summit_xl_common [link](https://github.com/RobotnikAutomation/summit_xl_common)
+  - robotnik_msgs [link](https://github.com/RobotnikAutomation/robotnik_msgs)
+  - robotnik_sensors [link](https://github.com/RobotnikAutomation/robotnik_sensors)
+
+2) Launch Summit XL simulation with: <br>
+  - roslaunch summit_xl_sim_bringup summit_xl_complete.launch
+  
+3) Enjoy! You can use the topic "/summit_xl_control/cmd_vel" to control the Summit XL robot.
