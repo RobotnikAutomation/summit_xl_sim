@@ -39,7 +39,8 @@
   <node name="relay2" pkg="topic_tools" type="relay" respawn="true" output="screen"
         args="/hokuyo_rear/scan /scan" / --> 
 
+  <!-- DOES NOT START IN THE SAME LAUNCH ??? -->
   <!-- laser scan multi merger -->
-  <include file="$(find summit_xl_gazebo)/launch/laserscan_multi_merger.launch" />
+  <!-- include file="$(find summit_xl_gazebo)/launch/laserscan_multi_merger.launch" / -->
 
 </launch>
