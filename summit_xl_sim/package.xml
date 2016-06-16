@@ -40,7 +40,10 @@
   <!-- Use test_depend for packages you need only for testing: -->
   <!--   <test_depend>gtest</test_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
-
+  <run_depend>summit_xl_control</run_depend>
+  <run_depend>summit_xl_gazebo</run_depend>
+  <run_depend>summit_xl_robot_control</run_depend>
+  <run_depend>summit_xl_sim_bringup</run_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
