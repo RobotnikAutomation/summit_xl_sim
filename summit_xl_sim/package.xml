@@ -15,7 +15,8 @@
   <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
   <license>BSD</license>
 
-
+  <url type="website">http://ros.org/wiki/summit_xl_sim/url>
+  <url type="bugtracker">https://github.com/RobotnikAutomation/summit_xl_sim/issues</url>
   <!-- Url tags are optional, but mutiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->
@@ -26,6 +27,10 @@
   <!-- Authors do not have to be maintianers, but could be -->
   <!-- Example: -->
   <!-- <author email="jane.doe@example.com">Jane Doe</author> -->
+  <author email="rguzman@robotnik.es">Roberto Guzmán</author>
+  <author email="rnavarro@robotnik.es">Román Navarro</author>
+  <author email="jarino@robotnik.es">Jorge Ariño</author>
+  <author email="dcarbonell@robotnik.es">Dani Carbonell</author>
 
 
   <!-- The *_depend tags are used to specify dependencies -->
