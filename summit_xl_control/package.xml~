@@ -13,7 +13,7 @@
   <author email="jarino@robotnik.es">Jorge Ariño</author>
 
   <license>BSD</license>
-  <url type="website">http://ros.org/wiki/summit_xl_control</url>
+  <url type="website">http://ros.org/wiki/summit_xl_sim</url>
   <url type="repository">https://github.com/RobotnikAutomation/summit_xl_sim.git</url>
   <url type="bugtracker">https://github.com/RobotnikAutomation/summit_xl_sim/issues</url>
   <buildtool_depend>catkin</buildtool_depend>

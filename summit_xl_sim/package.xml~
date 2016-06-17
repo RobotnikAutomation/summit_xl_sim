@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <package>
   <name>summit_xl_sim</name>
   <version>1.0.0</version>
@@ -6,7 +7,7 @@
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->
   <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
-  <maintainer email="info@robotnik.es">Robotnik</maintainer>
+  <maintainer email="cvillar@robotnik.es">Carlos Villar</maintainer>
 
 
   <!-- One license tag required, multiple allowed, one license per tag -->
@@ -14,7 +15,7 @@
   <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
   <license>BSD</license>
 
-  <url type="website">http://ros.org/wiki/summit_xl_sim/url>
+  <url type="website">http://ros.org/wiki/summit_xl_sim</url>
   <url type="bugtracker">https://github.com/RobotnikAutomation/summit_xl_sim/issues</url>
   <!-- Url tags are optional, but mutiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->

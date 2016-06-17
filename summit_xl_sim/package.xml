@@ -7,7 +7,7 @@
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->
   <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
-  <maintainer email="info@robotnik.es">Robotnik</maintainer>
+  <maintainer email="cvillar@robotnik.es">Carlos Villar</maintainer>
 
 
   <!-- One license tag required, multiple allowed, one license per tag -->
@@ -16,6 +16,7 @@
   <license>BSD</license>
 
   <url type="website">http://ros.org/wiki/summit_xl_sim</url>
+  <url type="repository">https://github.com/RobotnikAutomation/summit_xl_sim.git</url>
   <url type="bugtracker">https://github.com/RobotnikAutomation/summit_xl_sim/issues</url>
   <!-- Url tags are optional, but mutiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->

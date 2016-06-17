@@ -7,7 +7,7 @@
   <maintainer email="cvillar@robotnik.es">Carlos Villar</maintainer>
 
   <license>BSD</license>
-  <url type="website">http://ros.org/wiki/summit_xl_sim_bringup</url>
+  <url type="website">http://ros.org/wiki/summit_xl_sim</url>
   <url type="repository">https://github.com/RobotnikAutomation/summit_xl_sim.git</url>
   <url type="bugtracker">https://github.com/RobotnikAutomation/summit_xl_sim/issues</url>
 
