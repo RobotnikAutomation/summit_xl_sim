@@ -8,6 +8,11 @@
   <!-- Example:  -->
   <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
   <maintainer email="cvillar@robotnik.es">Carlos Villar</maintainer>
+<<<<<<< HEAD
+=======
+  <maintainer email="rguzman@robotnik.es">Roberto Guzmán</maintainer>
+  <maintainer email="rnavarro@robotnik.es">Román Navarro</maintainer>
+>>>>>>> bd8b66cbe3777ed62d324b13257430a7c3219c2a
 
 
   <!-- One license tag required, multiple allowed, one license per tag -->
@@ -16,6 +21,7 @@
   <license>BSD</license>
 
   <url type="website">http://ros.org/wiki/summit_xl_sim</url>
+  <url type="repository">https://github.com/RobotnikAutomation/summit_xl_sim.git</url>
   <url type="bugtracker">https://github.com/RobotnikAutomation/summit_xl_sim/issues</url>
   <!-- Url tags are optional, but mutiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
