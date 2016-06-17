@@ -140,7 +140,10 @@ target_link_libraries(summit_xl_robot_control_vrep
 #   # myfile2
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
-
+install(
+  TARGETS summit_xl_robot_control
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 #############
 ## Testing ##
 #############

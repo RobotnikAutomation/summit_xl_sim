@@ -8,11 +8,8 @@
   <!-- Example:  -->
   <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
   <maintainer email="cvillar@robotnik.es">Carlos Villar</maintainer>
-<<<<<<< HEAD
-=======
   <maintainer email="rguzman@robotnik.es">Roberto Guzmán</maintainer>
   <maintainer email="rnavarro@robotnik.es">Román Navarro</maintainer>
->>>>>>> bd8b66cbe3777ed62d324b13257430a7c3219c2a
 
 
   <!-- One license tag required, multiple allowed, one license per tag -->
