@@ -4,6 +4,21 @@ Changelog for package summit_xl_sim
 
 Forthcoming
 -----------
+* Modified authors from package.xml
+* Some spring cleaning
+* fixed merge
+* modified CMakeLists.txt and added urls and maintainers to package files
+* Added maintainers
+* Changed maintainer
+* minor changes
+* minor changes
+* added authors, website and bugtracker
+* Added dependencies to summit_xl_sim meta package
+* fixing package dependencies
+* 1.0.0
+* Deleting summit_xl_joint_state. Creating summit_xl_sim metapackage
+* Contributors: JorgeArino, carlos3dx, mcantero
+
 * fixing package dependencies
 * 1.0.0
 * Deleting summit_xl_joint_state. Creating summit_xl_sim metapackage
