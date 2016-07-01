@@ -24,8 +24,6 @@
   <run_depend>summit_xl_control</run_depend>  
   <run_depend>summit_xl_robot_control</run_depend>  
   <run_depend>summit_xl_description</run_depend> 
-  <run_depend>summit_xl_joystick</run_depend>   
-  <run_depend>wam_description</run_depend> 
   <run_depend>xacro</run_depend> 
 
   <export>
