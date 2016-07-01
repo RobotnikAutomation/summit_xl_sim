@@ -2,6 +2,11 @@
 Changelog for package summit_xl_control
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* modified CMakelists
+* Contributors: carlos3dx
+
 1.0.4 (2016-07-01)
 ------------------
 
