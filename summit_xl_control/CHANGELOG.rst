@@ -2,6 +2,9 @@
 Changelog for package summit_xl_control
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 1.0.2 (2016-07-01)
 ------------------
 
