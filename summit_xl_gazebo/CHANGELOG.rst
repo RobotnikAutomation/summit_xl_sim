@@ -2,6 +2,9 @@
 Changelog for package summit_xl_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 1.0.1 (2016-06-28)
 ------------------
 * Some spring cleaning
