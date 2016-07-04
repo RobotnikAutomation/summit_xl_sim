@@ -2,6 +2,11 @@
 Changelog for package summit_xl_sim_bringup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Modified CMakeLists.txt
+* Contributors: carlos3dx
+
 1.0.5 (2016-07-01)
 ------------------
 
