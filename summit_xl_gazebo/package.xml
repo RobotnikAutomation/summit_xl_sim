@@ -1,6 +1,6 @@
 <package>
   <name>summit_xl_gazebo</name>
-  <version>1.0.5</version>
+  <version>1.0.6</version>
   <description>
 		Launch files and world files to start the models in gazebo
 	</description>
