@@ -1,6 +1,6 @@
 <package>
   <name>summit_xl_sim_bringup</name>
-  <version>1.0.7</version>
+  <version>1.0.8</version>
   <description>
 		Launch files for Summit XL simulation.
 	</description>
@@ -21,7 +21,6 @@
   <run_depend>gazebo_ros</run_depend>
   <run_depend>summit_xl_control</run_depend>  
   <run_depend>summit_xl_description</run_depend>
-  <run_depend>summit_xl_pad</run_depend>
-  <run_depend>twist_mux</run_depend>   
+  <run_depend>summit_xl_pad</run_depend>  
 
 </package>
