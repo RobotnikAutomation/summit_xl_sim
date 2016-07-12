@@ -2,6 +2,11 @@
 Changelog for package summit_xl_sim_bringup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* deleted dependency
+* Contributors: carlos3dx
+
 1.0.7 (2016-07-12)
 ------------------
 

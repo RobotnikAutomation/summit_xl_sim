@@ -2,6 +2,9 @@
 Changelog for package summit_xl_robot_control
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 1.0.7 (2016-07-12)
 ------------------
 
