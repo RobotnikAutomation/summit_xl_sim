@@ -1,6 +1,6 @@
 <package>
   <name>summit_xl_sim_bringup</name>
-  <version>1.0.8</version>
+  <version>1.0.9</version>
   <description>
 		Launch files for Summit XL simulation.
 	</description>
