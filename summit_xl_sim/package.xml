@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>summit_xl_sim</name>
-  <version>1.0.8</version>
+  <version>1.0.9</version>
   <description>The summit_xl_sim metapackage</description>
 
   <maintainer email="cvillar@robotnik.es">Carlos Villar</maintainer>
