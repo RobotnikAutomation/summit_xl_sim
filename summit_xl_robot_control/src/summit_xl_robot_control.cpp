@@ -601,12 +601,13 @@ void UpdateControl()
 void UpdateOdometry()
 {
   // Depending on the robot configuration 
+
   if (active_kinematic_mode_ == SKID_STEERING) {
 	  
       // Compute Velocity (linearSpeedXMps_ computed in control
    	  robot_pose_vx_ = linearSpeedXMps_ *  cos(robot_pose_pa_);
       robot_pose_vy_ = linearSpeedXMps_ *  sin(robot_pose_pa_);
-      }
+  }
 		
   // Depending on the robot configuration 
   if (active_kinematic_mode_ == MECANUM_STEERING) {
@@ -633,14 +634,14 @@ void UpdateOdometry()
       // double W = ( (B-A)/summit_xl_wheelbase_ ); // + (D-C)/summit_xl_trackwidth_ ) / 2.0;
       robot_pose_vx_ = (A+B) / 2.0;
       robot_pose_vy_ = (C+D) / 2.0;      	  
-      }
+    }
       
-      // Compute Position
-      double fSamplePeriod = 1.0 / desired_freq_;
-	  robot_pose_pa_ += ang_vel_z_ * fSamplePeriod;  // this velocity comes from IMU callback
-      robot_pose_px_ += robot_pose_vx_ * fSamplePeriod;
-      robot_pose_py_ += robot_pose_vy_ * fSamplePeriod;
-      // ROS_INFO("Odom estimated x=%5.2f  y=%5.2f a=%5.2f", robot_pose_px_, robot_pose_py_, robot_pose_pa_);
+  // Compute Position
+  double fSamplePeriod = 1.0 / desired_freq_;
+  robot_pose_pa_ += ang_vel_z_ * fSamplePeriod;  // this velocity comes from IMU callback
+  robot_pose_px_ += robot_pose_vx_ * fSamplePeriod;
+  robot_pose_py_ += robot_pose_vy_ * fSamplePeriod;
+  // ROS_INFO("Odom estimated x=%5.2f  y=%5.2f a=%5.2f", robot_pose_px_, robot_pose_py_, robot_pose_pa_);
 }
 
 // Publish robot odometry tf and topic depending 
@@ -684,13 +685,23 @@ void PublishOdometry()
 	odom.pose.pose.orientation.w = orientation_w_;
 	// Pose covariance
     for(int i = 0; i < 6; i++)
-      		odom.pose.covariance[i*6+i] = 0.1;  // test 0.001
+      		odom.pose.covariance[i*6+i] = 0.001;  // test 0.001
+    odom.twist.covariance[35] = 0.03;
 
     //set the velocity
     odom.child_frame_id = "base_footprint";
 	// Linear velocities
-    odom.twist.twist.linear.x = robot_pose_vx_;
-    odom.twist.twist.linear.y = robot_pose_vy_;
+//    odom.twist.twist.linear.x = robot_pose_vx_;
+//    odom.twist.twist.linear.y = robot_pose_vy_;
+    if (active_kinematic_mode_ == SKID_STEERING) {
+        odom.twist.twist.linear.x = linearSpeedXMps_; 
+        odom.twist.twist.linear.y = 0;
+    }
+    else if (active_kinematic_mode_ == MECANUM_STEERING) {
+        odom.twist.twist.linear.x = robot_pose_vx_;
+        odom.twist.twist.linear.y = robot_pose_vy_;
+    }
+
 	odom.twist.twist.linear.z = 0.0;
 	// Angular velocities
 	odom.twist.twist.angular.x = ang_vel_x_;
@@ -698,7 +709,8 @@ void PublishOdometry()
     odom.twist.twist.angular.z = ang_vel_z_;
 	// Twist covariance
 	for(int i = 0; i < 6; i++)
-     		odom.twist.covariance[6*i+i] = 0.1;  // test 0.001
+     		odom.twist.covariance[6*i+i] = 0.001; // test 0.001
+    odom.twist.covariance[35] = 0.03;
 
     //publish the message
     odom_pub_.publish(odom);
