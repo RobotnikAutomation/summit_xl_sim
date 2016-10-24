@@ -12,4 +12,6 @@ summit_xl_robot_control:
       # Width
      summit_xl_trackwidth: 0.408 
 
-     publish_odom_tf: true 
+     # set to false because to this date it omni control is not working, and we use the ros_planar plugin
+     publish_odom_tf: false
+     publish_odom_msg: false

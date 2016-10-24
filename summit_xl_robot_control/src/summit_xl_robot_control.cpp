@@ -43,7 +43,7 @@
 #include <robotnik_msgs/get_mode.h>
 #include <robotnik_msgs/set_odometry.h>
 #include <robotnik_msgs/ptz.h>
-
+#include <gazebo_msgs/ModelState.h>
 
 //#include "self_test/self_test.h"
 #include "diagnostic_msgs/DiagnosticStatus.h"
@@ -97,6 +97,8 @@ public:
   ros::Publisher ref_pos_scissor_;
   ros::Publisher ref_pos_pan_;
   ros::Publisher ref_pos_tilt_;
+
+  ros::Publisher gazebo_set_model_;
 
   // Joint states published by the joint_state_controller of the Controller Manager
   ros::Subscriber joint_state_sub_;
@@ -217,6 +219,7 @@ public:
 
   // Parameter that defines if odom tf is published or not
   bool publish_odom_tf_;
+  bool publish_odom_msg_;
 
   ros::Subscriber imu_sub_; 
   
@@ -244,20 +247,18 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
   // 8-Axis Omni-drive as 4-Axis Mecanum drive
   kinematic_modes_ = 1;  
   
-  ros::NodeHandle summit_xl_robot_control_node_handle(node_handle_, "summit_xl_robot_control");
-
   // Get robot model from the parameters
   if (!private_node_handle_.getParam("model", robot_model_)) {
 	  ROS_ERROR("Robot model not defined.");
 	  exit(-1);
-	  }
+  }
   else ROS_INFO("Robot Model : %s", robot_model_.c_str());
 
   // Skid configuration - topics
-  private_node_handle_.param<std::string>("frw_vel_topic", frw_vel_topic_, "/summit_xl/joint_frw_velocity_controller/command");
-  private_node_handle_.param<std::string>("flw_vel_topic", flw_vel_topic_, "/summit_xl/joint_flw_velocity_controller/command");
-  private_node_handle_.param<std::string>("blw_vel_topic", blw_vel_topic_, "/summit_xl/joint_blw_velocity_controller/command");
-  private_node_handle_.param<std::string>("brw_vel_topic", brw_vel_topic_, "/summit_xl/joint_brw_velocity_controller/command");
+  private_node_handle_.param<std::string>("frw_vel_topic", frw_vel_topic_, "joint_frw_velocity_controller/command");
+  private_node_handle_.param<std::string>("flw_vel_topic", flw_vel_topic_, "joint_flw_velocity_controller/command");
+  private_node_handle_.param<std::string>("blw_vel_topic", blw_vel_topic_, "joint_blw_velocity_controller/command");
+  private_node_handle_.param<std::string>("brw_vel_topic", brw_vel_topic_, "joint_brw_velocity_controller/command");
 
   // Skid configuration - Joint names 
   private_node_handle_.param<std::string>("joint_front_right_wheel", joint_front_right_wheel, "joint_front_right_wheel");
@@ -265,51 +266,48 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
   private_node_handle_.param<std::string>("joint_back_left_wheel", joint_back_left_wheel, "joint_back_left_wheel");
   private_node_handle_.param<std::string>("joint_back_right_wheel", joint_back_right_wheel, "joint_back_right_wheel");
 
+  if (!private_node_handle_.getParam("summit_xl_wheelbase", summit_xl_wheelbase_))
+      summit_xl_wheelbase_ = SUMMIT_XL_WHEELBASE;
+  if (!private_node_handle_.getParam("summit_xl_trackwidth", summit_xl_trackwidth_))
+      summit_xl_trackwidth_ = SUMMIT_XL_TRACKWIDTH;
+
   // Omni configuration - topics
   if ((robot_model_=="summit_xl_omni") || (robot_model_=="x_wam")) {
 	kinematic_modes_ = 2;
-    private_node_handle_.param<std::string>("frw_pos_topic", frw_pos_topic_, "/summit_xl/joint_frw_velocity_controller/command");
-    private_node_handle_.param<std::string>("flw_pos_topic", flw_pos_topic_, "/summit_xl/joint_flw_velocity_controller/command");
-    private_node_handle_.param<std::string>("blw_pos_topic", blw_pos_topic_, "/summit_xl/joint_blw_velocity_controller/command");
-    private_node_handle_.param<std::string>("brw_pos_topic", brw_pos_topic_, "/summit_xl/joint_brw_velocity_controller/command");
-
-    private_node_handle_.param<std::string>("joint_front_right_steer", joint_front_right_steer, "joint_front_right_steer");
-    private_node_handle_.param<std::string>("joint_front_left_steer", joint_front_left_steer, "joint_front_left_steer");
-    private_node_handle_.param<std::string>("joint_back_left_steer", joint_back_left_steer, "joint_back_left_steer");
-    private_node_handle_.param<std::string>("joint_back_right_steer", joint_back_right_steer, "joint_back_right_steer");
-
-    if (!private_node_handle_.getParam("summit_xl_wheelbase", summit_xl_wheelbase_))
-        summit_xl_wheelbase_ = SUMMIT_XL_WHEELBASE;
-    if (!private_node_handle_.getParam("summit_xl_trackwidth", summit_xl_trackwidth_))
-        summit_xl_trackwidth_ = SUMMIT_XL_TRACKWIDTH;
-
+    
     // x-wam only configuration
     if (robot_model_=="x_wam") {
-      private_node_handle_.param<std::string>("scissor_pos_topic", scissor_pos_topic_, "/summit_xl/joint_scissor_position_controller/command");		
+      private_node_handle_.param<std::string>("scissor_pos_topic", scissor_pos_topic_, "joint_scissor_position_controller/command");		
 	  private_node_handle_.param<std::string>("scissor_prismatic_joint", scissor_prismatic_joint, "scissor_prismatic_joint");
       } 
     }
 
   // PTZ topics
-  private_node_handle_.param<std::string>("pan_pos_topic", pan_pos_topic_, "/summit_xl/joint_pan_position_controller/command");
-  private_node_handle_.param<std::string>("tilt_pos_topic", tilt_pos_topic_, "/summit_xl/joint_tilt_position_controller/command");
+  private_node_handle_.param<std::string>("pan_pos_topic", pan_pos_topic_, "joint_pan_position_controller/command");
+  private_node_handle_.param<std::string>("tilt_pos_topic", tilt_pos_topic_, "joint_tilt_position_controller/command");
   private_node_handle_.param<std::string>("joint_camera_pan", joint_camera_pan, "joint_camera_pan");
   private_node_handle_.param<std::string>("joint_camera_tilt", joint_camera_tilt, "joint_camera_tilt");
 
   // Odom topic
-  private_node_handle_.param<std::string>("odom_topic", odom_topic_, "/summit_xl/odom_robot_control");
+  node_handle_.param<std::string>("odom_topic", odom_topic_, "/odom"); // to match that from summit_xl_controller (real robot), which uses an absolute defined name (/odom)
   
   // Robot parameters
   if (!private_node_handle_.getParam("summit_xl_wheel_diameter", summit_xl_wheel_diameter_))
     summit_xl_wheel_diameter_ = SUMMIT_XL_WHEEL_DIAMETER;
   if (!private_node_handle_.getParam("summit_xl_d_tracks_m", summit_xl_d_tracks_m_))
     summit_xl_d_tracks_m_ = SUMMIT_XL_D_TRACKS_M;
+
   ROS_INFO("summit_xl_wheel_diameter_ = %5.2f", summit_xl_wheel_diameter_);
   ROS_INFO("summit_xl_d_tracks_m_ = %5.2f", summit_xl_d_tracks_m_);
 
   private_node_handle_.param("publish_odom_tf", publish_odom_tf_, true);
-  if (publish_odom_tf_) ROS_INFO("PUBLISHING odom->base_footprin tf");
+  private_node_handle_.param("publish_odom_msg", publish_odom_msg_, true);
+
+  if (publish_odom_tf_) ROS_INFO("PUBLISHING odom->base_footprint tf");
   else ROS_INFO("NOT PUBLISHING odom->base_footprint tf");
+  
+  if (publish_odom_msg_) ROS_INFO("PUBLISHING odom->base_footprint msg");
+  else ROS_INFO("NOT PUBLISHING odom->base_footprint msg");
   
   // Robot Speeds
   linearSpeedXMps_   = 0.0;
@@ -334,63 +332,58 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
   // Imu variables
   ang_vel_x_ = 0.0; ang_vel_y_ = 0.0; ang_vel_z_ = 0.0;
   lin_acc_x_ = 0.0; lin_acc_y_ = 0.0; lin_acc_z_ = 0.0;
-  orientation_x_ = 0.0; orientation_y_ = 0.0; orientation_z_ = 0.0; orientation_w_ = 0.0;
+  orientation_x_ = 0.0; orientation_y_ = 0.0; orientation_z_ = 0.0; orientation_w_ = 1.0;
 
   // Active kinematic mode
   active_kinematic_mode_ = SKID_STEERING;
 
   // Advertise services
-  srv_SetMode_ = summit_xl_robot_control_node_handle.advertiseService("set_mode", &SummitXLControllerClass::srvCallback_SetMode, this);
-  srv_GetMode_ = summit_xl_robot_control_node_handle.advertiseService("get_mode", &SummitXLControllerClass::srvCallback_GetMode, this);
-  srv_SetOdometry_ = summit_xl_robot_control_node_handle.advertiseService("set_odometry",  &SummitXLControllerClass::srvCallback_SetOdometry, this);
+  srv_SetMode_ = node_handle_.advertiseService("/summit_xl_controller/set_mode", &SummitXLControllerClass::srvCallback_SetMode, this);
+  srv_GetMode_ = node_handle_.advertiseService("get_mode", &SummitXLControllerClass::srvCallback_GetMode, this);
+  srv_SetOdometry_ = node_handle_.advertiseService("set_odometry",  &SummitXLControllerClass::srvCallback_SetOdometry, this);
 
   // Subscribe to joint states topic
-  joint_state_sub_ = summit_xl_robot_control_node_handle.subscribe<sensor_msgs::JointState>("/summit_xl/joint_states", 1, &SummitXLControllerClass::jointStateCallback, this);
+  joint_state_sub_ = node_handle_.subscribe<sensor_msgs::JointState>("/joint_states", 1, &SummitXLControllerClass::jointStateCallback, this); // to match that from summit_xl_controller (real robot), which uses a absolute defined name (/joint_states)
 
   // Subscribe to imu data
-  // imu_sub_ = summit_xl_robot_control_node_handle.subscribe("/summit_xl/imu_data", 1, &SummitXLControllerClass::imuCallback, this);
-  imu_sub_ = summit_xl_robot_control_node_handle.subscribe("/imu_data", 1, &SummitXLControllerClass::imuCallback, this);
+  imu_sub_ = node_handle_.subscribe("/imu/data", 1, &SummitXLControllerClass::imuCallback, this);  // to match that from summit_xl_controller (real robot), which uses a absolute defined name (/imu/data)
 
 
   // Adevertise reference topics for the controllers 
-  ref_vel_frw_ = summit_xl_robot_control_node_handle.advertise<std_msgs::Float64>( frw_vel_topic_, 50);
-  ref_vel_flw_ = summit_xl_robot_control_node_handle.advertise<std_msgs::Float64>( flw_vel_topic_, 50);
-  ref_vel_blw_ = summit_xl_robot_control_node_handle.advertise<std_msgs::Float64>( blw_vel_topic_, 50);
-  ref_vel_brw_ = summit_xl_robot_control_node_handle.advertise<std_msgs::Float64>( brw_vel_topic_, 50);
+  ref_vel_frw_ = node_handle_.advertise<std_msgs::Float64>( frw_vel_topic_, 50);
+  ref_vel_flw_ = node_handle_.advertise<std_msgs::Float64>( flw_vel_topic_, 50);
+  ref_vel_blw_ = node_handle_.advertise<std_msgs::Float64>( blw_vel_topic_, 50);
+  ref_vel_brw_ = node_handle_.advertise<std_msgs::Float64>( brw_vel_topic_, 50);
   
-  if ((robot_model_=="summit_xl_omni")||(robot_model_=="x_wam")) {
-	  ref_pos_frw_ = summit_xl_robot_control_node_handle.advertise<std_msgs::Float64>( frw_pos_topic_, 50);
-	  ref_pos_flw_ = summit_xl_robot_control_node_handle.advertise<std_msgs::Float64>( flw_pos_topic_, 50);
-	  ref_pos_blw_ = summit_xl_robot_control_node_handle.advertise<std_msgs::Float64>( blw_pos_topic_, 50);	  
-	  ref_pos_brw_ = summit_xl_robot_control_node_handle.advertise<std_msgs::Float64>( brw_pos_topic_, 50);
   
-	  if (robot_model_=="x_wam")
-	     ref_pos_scissor_ = summit_xl_robot_control_node_handle.advertise<std_msgs::Float64>( scissor_pos_topic_, 50);	     
-	  }
+  if (robot_model_=="x_wam") {
+      ref_pos_scissor_ = node_handle_.advertise<std_msgs::Float64>( scissor_pos_topic_, 50);	     
+  }
 	  
-  ref_pos_pan_ = summit_xl_robot_control_node_handle.advertise<std_msgs::Float64>( pan_pos_topic_, 50);
-  ref_pos_tilt_ = summit_xl_robot_control_node_handle.advertise<std_msgs::Float64>( tilt_pos_topic_, 50);
+  ref_pos_pan_ = node_handle_.advertise<std_msgs::Float64>( pan_pos_topic_, 50);
+  ref_pos_tilt_ = node_handle_.advertise<std_msgs::Float64>( tilt_pos_topic_, 50);
 
   // Subscribe to command topic
-  cmd_sub_ = summit_xl_robot_control_node_handle.subscribe<geometry_msgs::Twist>("/summit_xl/robot_control/command", 1, &SummitXLControllerClass::commandCallback, this);
+  cmd_sub_ = node_handle_.subscribe<geometry_msgs::Twist>("/summit_xl_control/cmd_vel", 1, &SummitXLControllerClass::commandCallback, this); // to match that from summit_xl_controller (real robot), which publishes through /summit_xl_controller/command, but in the summit_xl_controller is remapped to /summit_xl_control/cmd_vel
 
   // Subscribe to ptz command topic
-  ptz_sub_ = summit_xl_robot_control_node_handle.subscribe<robotnik_msgs::ptz>("/summit_xl/robot_control/command_ptz", 1, &SummitXLControllerClass::command_ptzCallback, this);
-  // /summit_xl_robot_control/command_ptz
+  ptz_sub_ = node_handle_.subscribe<robotnik_msgs::ptz>("/axis_camera/ptz_command", 1, &SummitXLControllerClass::command_ptzCallback, this); // to match that from summit_xl_controller (real robot), which uses a absolute defined name (/imu/data)
   
   // Publish odometry 
-  odom_pub_ = summit_xl_robot_control_node_handle.advertise<nav_msgs::Odometry>(odom_topic_, 1000);
+  odom_pub_ = node_handle_.advertise<nav_msgs::Odometry>(odom_topic_, 1000);
 
   // Component frequency diagnostics
   diagnostic_.setHardwareID("summit_xl_robot_control - simulation");
   diagnostic_.add( freq_diag_ );
   diagnostic_.add( command_freq_ );
     
+  gazebo_set_model_ = node_handle_.advertise<gazebo_msgs::ModelState>("/gazebo/set_model_state", 1);
+
   // Topics freq control 
   // For /summit_xl_robot_control/command
   double min_freq = SUMMIT_XL_MIN_COMMAND_REC_FREQ; // If you update these values, the
   double max_freq = SUMMIT_XL_MAX_COMMAND_REC_FREQ; // HeaderlessTopicDiagnostic will use the new values.
-  subs_command_freq = new diagnostic_updater::HeaderlessTopicDiagnostic("/summit_xl_robot_control/command", diagnostic_,
+  subs_command_freq = new diagnostic_updater::HeaderlessTopicDiagnostic("/summit_xl_control/cmd_vel", diagnostic_, // to match that from summit_xl_controller (real robot), which publishes through /summit_xl_controller/command, but in the summit_xl_controller launch file is remapped to /summit_xl_control/cmd_vel
 	                    diagnostic_updater::FrequencyStatusParam(&min_freq, &max_freq, 0.1, 10));
   subs_command_freq->addTask(&command_freq_); // Adding an additional task to the control
   
@@ -404,10 +397,6 @@ int starting()
 
   ROS_INFO("SummitXLControllerClass::starting");
 
-  //name: ['joint_back_left_wheel', 'joint_back_right_wheel', 'joint_front_left_wheel', 'joint_front_right_wheel']
-  //position: [-0.04246698357387224, 0.053199274627900195, -0.04246671523622059, 0.03126368464965523]
-  //velocity: [-0.0006956167983269147, 0.0004581098383479411, -0.0013794952191663358, 0.00045523862784977847]
-
   // Initialize joint indexes according to joint names 
   if (read_state_) {
     vector<string> joint_names = joint_state_.name;
@@ -415,12 +404,6 @@ int starting()
     flw_vel_ = find (joint_names.begin(),joint_names.end(), string(joint_front_left_wheel)) - joint_names.begin();
     blw_vel_ = find (joint_names.begin(),joint_names.end(), string(joint_back_left_wheel)) - joint_names.begin();
     brw_vel_ = find (joint_names.begin(),joint_names.end(), string(joint_back_right_wheel)) - joint_names.begin();
-    if ((robot_model_=="summit_xl_omni")||(robot_model_=="x_wam")) {
-      frw_pos_ = find (joint_names.begin(),joint_names.end(), string(joint_front_right_steer)) - joint_names.begin();
-      flw_pos_ = find (joint_names.begin(),joint_names.end(), string(joint_front_left_steer)) - joint_names.begin();
-      blw_pos_ = find (joint_names.begin(),joint_names.end(), string(joint_back_left_steer)) - joint_names.begin();
-      brw_pos_ = find (joint_names.begin(),joint_names.end(), string(joint_back_right_steer)) - joint_names.begin();
-	  }
 	if (robot_model_=="x_wam") {
 	  scissor_pos_ = find (joint_names.begin(),joint_names.end(), string(scissor_prismatic_joint)) - joint_names.begin();
 	  }
@@ -438,7 +421,6 @@ void UpdateControl()
 {
   // Depending on the robot configuration 
   if (active_kinematic_mode_ == SKID_STEERING) {
-
   	  double v_left_mps, v_right_mps;
 
 	  // Calculate its own velocities for realize the motor control 
@@ -449,60 +431,21 @@ void UpdateControl()
 	  linearSpeedXMps_ = (v_right_mps + v_left_mps) / 2.0;                       // m/s
 	  angularSpeedRads_ = (v_right_mps - v_left_mps) / summit_xl_d_tracks_m_;    // rad/s
 
-	  //ROS_INFO("vleft=%5.2f   vright=%5.2f    linearSpeedXMps=%5.2f, linearSpeedYMps=%5.2f, angularSpeedRads=%5.4f", v_left_mps, v_right_mps,
-			//linearSpeedXMps_, linearSpeedYMps_, angularSpeedRads_); 
-
-	  // Current controllers close this loop allowing (v,w) references.
-	  double epv=0.0;
-	  double epw=0.0;
-	  static double epvant =0.0;
-	  static double epwant =0.0;
-
-	  // Adjusted for soft indoor office soil
-	  //double kpv=2.5; double kdv=0.0;
-	  //double kpw=2.5;  double kdw=0.0;
-	  // In order to use this controller with the move_base stack note that move_base sets the min rotation ref to 0.4 independantly of the yaml configurations!!!
-	  double kpv=2.5; double kdv=0.0;
-	  double kpw=25.0; double kdw=15.0;
-
-	  // State feedback error
-	  epv = v_ref_x_ - linearSpeedXMps_;
-	  epw = w_ref_ - angularSpeedRads_;
-	   //ROS_INFO("v_ref_x_=%5.2f, linearSpeedXMps_=%5.2f w_ref_=%5.2f angularSpeedRads_=%5.2f", v_ref_x_, linearSpeedXMps_, w_ref_, angularSpeedRads_);
-
-	  // Compute state control actions
-	  double uv= kpv * epv + kdv * (epv - epvant);
-	  double uw= kpw * epw + kdw * (epw - epwant);
-	  epvant = epv;
-	  epwant = epw;
-
-	  // Inverse kinematics
-	  double dUl = uv - 0.5 * summit_xl_d_tracks_m_ * uw;
-          // sign according to urdf (if wheel model is not symetric, should be inverted)
-   	  double dUr = (uv + 0.5 * summit_xl_d_tracks_m_ * uw);  
-
-	  // Motor control actions
-	  double limit = 40.0;
-	  
-	  //ROS_INFO("epv=%5.2f, epw=%5.2f ***  dUl=%5.2f  dUr=%5.2f", epv, epw, dUl, dUr);
-
-	  // Axis are not reversed in the omni (swerve) configuration
       std_msgs::Float64 frw_ref_msg; 
       std_msgs::Float64 flw_ref_msg;
       std_msgs::Float64 blw_ref_msg;
       std_msgs::Float64 brw_ref_msg;
-	  
-      double k1 = 0.5; 
-	  frw_ref_msg.data = saturation( k1 * dUr, -limit, limit);  
-	  flw_ref_msg.data = saturation( k1 * dUl, -limit, limit);
-      blw_ref_msg.data = saturation( k1 * dUl, -limit, limit);
-	  brw_ref_msg.data = saturation( k1 * dUr, -limit, limit);
-	  
+
+	  frw_ref_msg.data = (v_ref_x_ + w_ref_* summit_xl_d_tracks_m_/2.0) / (summit_xl_wheel_diameter_ / 2.0);
+      brw_ref_msg.data = (v_ref_x_ + w_ref_* summit_xl_d_tracks_m_/2.0) / (summit_xl_wheel_diameter_ / 2.0);
+      flw_ref_msg.data = (v_ref_x_ - w_ref_* summit_xl_d_tracks_m_/2.0) / (summit_xl_wheel_diameter_ / 2.0);
+      blw_ref_msg.data = (v_ref_x_ - w_ref_* summit_xl_d_tracks_m_/2.0) / (summit_xl_wheel_diameter_ / 2.0);
+
 	  ref_vel_frw_.publish( frw_ref_msg );
 	  ref_vel_flw_.publish( flw_ref_msg );
 	  ref_vel_blw_.publish( blw_ref_msg );
 	  ref_vel_brw_.publish( brw_ref_msg );
-	  }
+  }
 
 
   // Depending on the robot configuration 
@@ -522,28 +465,12 @@ void UpdateControl()
 	  double L = summit_xl_wheelbase_;   
 	  double W = summit_xl_trackwidth_;
 	  
+      double lab = (SUMMIT_XL_WHEELBASE + SUMMIT_XL_TRACKWIDTH) / 2.0;
+      double q1 = (v_ref_x_ + v_ref_y_ + lab * w_ref_) / (summit_xl_wheel_diameter_ / 2.0);
+      double q2 = (v_ref_x_ - v_ref_y_ - lab * w_ref_) / (summit_xl_wheel_diameter_ / 2.0);
+      double q3 = (v_ref_x_ + v_ref_y_ - lab * w_ref_) / (summit_xl_wheel_diameter_ / 2.0);
+      double q4 = (v_ref_x_ - v_ref_y_ + lab * w_ref_) / (summit_xl_wheel_diameter_ / 2.0);
 
-	  double x1 = L/2.0; double y1 = - W/2.0;
-	  double wx1 = v_ref_x_ - w_ref_ * y1;
-	  double wy1 = v_ref_y_ + w_ref_ * x1;
-	  double q1 = -sqrt( wx1*wx1 + wy1*wy1 );
-	  double a1 = radnorm( atan2( wy1, wx1 ) );
-	  double x2 = L/2.0; double y2 = W/2.0;
-	  double wx2 = v_ref_x_ - w_ref_ * y2;
-	  double wy2 = v_ref_y_ + w_ref_ * x2;
-	  double q2 = sqrt( wx2*wx2 + wy2*wy2 );
-	  double a2 = radnorm( atan2( wy2, wx2 ) );
-	  double x3 = -L/2.0; double y3 = W/2.0;
-	  double wx3 = v_ref_x_ - w_ref_ * y3;
-	  double wy3 = v_ref_y_ + w_ref_ * x3;
-	  double q3 = sqrt( wx3*wx3 + wy3*wy3 );
-	  double a3 = radnorm( atan2( wy3, wx3 ) );
-	  double x4 = -L/2.0; double y4 = -W/2.0;
-	  double wx4 = v_ref_x_ - w_ref_ * y4;
-	  double wy4 = v_ref_y_ + w_ref_ * x4;
-	  double q4 = -sqrt( wx4*wx4 + wy4*wy4 );
-	  double a4 = radnorm( atan2( wy4, wx4 ) );
-	  
       //ROS_INFO("q1234=(%5.2f, %5.2f, %5.2f, %5.2f)   a1234=(%5.2f, %5.2f, %5.2f, %5.2f)", q1,q2,q3,q4, a1,a2,a3,a4);
 	
 	  // Motor control actions
@@ -554,29 +481,17 @@ void UpdateControl()
       std_msgs::Float64 flw_ref_vel_msg;
       std_msgs::Float64 blw_ref_vel_msg;
       std_msgs::Float64 brw_ref_vel_msg;
-	  frw_ref_vel_msg.data = saturation(-1.0 * (joint_state_.velocity[frw_vel_] - q1), -limit, limit);  
-	  flw_ref_vel_msg.data = saturation(-1.0 * (joint_state_.velocity[flw_vel_] - q2), -limit, limit);
-      blw_ref_vel_msg.data = saturation(-1.0 * (joint_state_.velocity[blw_vel_] - q3), -limit, limit);
-	  brw_ref_vel_msg.data = saturation(-1.0 * (joint_state_.velocity[brw_vel_] - q4), -limit, limit);
+	  
+	  frw_ref_vel_msg.data = saturation(q1, -limit, limit);  
+	  flw_ref_vel_msg.data = saturation(q2, -limit, limit);
+      blw_ref_vel_msg.data = saturation(q3, -limit, limit);
+	  brw_ref_vel_msg.data = saturation(q4, -limit, limit);
+	  
 	  ref_vel_frw_.publish( frw_ref_vel_msg );
 	  ref_vel_flw_.publish( flw_ref_vel_msg );
 	  ref_vel_blw_.publish( blw_ref_vel_msg );
 	  ref_vel_brw_.publish( brw_ref_vel_msg );
-	  std_msgs::Float64 frw_ref_pos_msg; 
-      std_msgs::Float64 flw_ref_pos_msg;
-      std_msgs::Float64 blw_ref_pos_msg;
-      std_msgs::Float64 brw_ref_pos_msg;
-	  frw_ref_pos_msg.data = a1; 
-	  flw_ref_pos_msg.data = a2; 
-	  blw_ref_pos_msg.data = a3; 
-	  brw_ref_pos_msg.data = a4;
-	  
-	  ref_pos_frw_.publish( frw_ref_pos_msg);
-	  ref_pos_flw_.publish( flw_ref_pos_msg);
-	  ref_pos_blw_.publish( blw_ref_pos_msg);
-	  ref_pos_brw_.publish( brw_ref_pos_msg);
-	  
-	  }
+	}
 	  
 	// Depending on the robot model 
 	if (robot_model_ == "x_wam") {		
@@ -614,31 +529,29 @@ void UpdateOdometry()
 
       // Linear speed of each wheel
 	  double v1, v2, v3, v4; 
-	  v1 = joint_state_.velocity[frw_vel_]  * (summit_xl_wheel_diameter_ / 2.0);
+	  v1 = joint_state_.velocity[frw_vel_] * (summit_xl_wheel_diameter_ / 2.0);
 	  v2 = joint_state_.velocity[flw_vel_] * (summit_xl_wheel_diameter_ / 2.0);
 	  v3 = joint_state_.velocity[blw_vel_] * (summit_xl_wheel_diameter_ / 2.0);
 	  v4 = joint_state_.velocity[brw_vel_] * (summit_xl_wheel_diameter_ / 2.0);
-      double a1, a2, a3, a4;
-      a1 = radnorm2( joint_state_.position[frw_pos_] );
-      a2 = radnorm2( joint_state_.position[flw_pos_] );
-      a3 = radnorm2( joint_state_.position[blw_pos_] );
-      a4 = radnorm2( joint_state_.position[brw_pos_] );
-      double v1x = -v1 * cos( a1 ); double v1y = -v1 * sin( a1 );
-      double v2x = v2 * cos( a2 ); double v2y = v2 * sin( a2 );
-      double v3x = v3 * cos( a3 ); double v3y = v3 * sin( a3 );
-      double v4x = -v4 * cos( a4 ); double v4y = -v4 * sin( a4 );
-      double C = (v4y + v1y) / 2.0;
-      double B = (v2x + v1x) / 2.0;
-      double D = (v2y + v3y) / 2.0;
-      double A = (v3x + v4x) / 2.0;
-      // double W = ( (B-A)/summit_xl_wheelbase_ ); // + (D-C)/summit_xl_trackwidth_ ) / 2.0;
-      robot_pose_vx_ = (A+B) / 2.0;
-      robot_pose_vy_ = (C+D) / 2.0;      	  
+
+      double lab = (SUMMIT_XL_WHEELBASE + SUMMIT_XL_TRACKWIDTH) / 2.0;
+      
+      double vx = (1 / 4.0) * (v1 + v2 + v3 + v4);
+      double vy = (1 / 4.0) * (v1 - v2 + v3 - v4);
+      double wr = (1 / (4.0 * lab)) * (v1 - v2 - v3 + v4);
+
+      robot_pose_vx_ = vx;
+      robot_pose_vy_ = vy;      	  
     }
       
   // Compute Position
   double fSamplePeriod = 1.0 / desired_freq_;
-  robot_pose_pa_ += ang_vel_z_ * fSamplePeriod;  // this velocity comes from IMU callback
+  //  robot_pose_pa_ += ang_vel_z_ * fSamplePeriod;  // this velocity comes from IMU callback
+  
+  // read the orientation directly from the IMU
+  double roll, pitch, yaw;
+  tf::Matrix3x3(tf::Quaternion(orientation_x_, orientation_y_, orientation_z_, orientation_w_)).getRPY(roll, pitch, yaw);
+  robot_pose_pa_ = yaw;
   robot_pose_px_ += robot_pose_vx_ * fSamplePeriod;
   robot_pose_py_ += robot_pose_vy_ * fSamplePeriod;
   // ROS_INFO("Odom estimated x=%5.2f  y=%5.2f a=%5.2f", robot_pose_px_, robot_pose_py_, robot_pose_pa_);
@@ -666,7 +579,9 @@ void PublishOdometry()
     // send the transform over /tf
 	// activate / deactivate with param
 	// this tf in needed when not using robot_pose_ekf
-    if (publish_odom_tf_) odom_broadcaster.sendTransform(odom_trans);  
+    if (publish_odom_tf_) {
+        odom_broadcaster.sendTransform(odom_trans);
+    }
         
     //next, we'll publish the odometry message over ROS
     nav_msgs::Odometry odom;
@@ -713,7 +628,14 @@ void PublishOdometry()
     odom.twist.covariance[35] = 0.03;
 
     //publish the message
-    odom_pub_.publish(odom);
+    if (publish_odom_msg_)
+        odom_pub_.publish(odom);
+
+//    gazebo_msgs::ModelState model_state;
+//    model_state.model_name = "summit_xl"; //TODO read from params
+//    model_state.pose = odom.pose.pose;
+//    model_state.twist = odom.twist.twist;
+//    gazebo_set_model_.publish(model_state);
 }
 
 /// Controller stopping
@@ -785,10 +707,10 @@ bool srvCallback_GetMode(robotnik_msgs::get_mode::Request& request, robotnik_msg
 // Service SetOdometry 
 bool srvCallback_SetOdometry(robotnik_msgs::set_odometry::Request &request, robotnik_msgs::set_odometry::Response &response )
 {
-	// ROS_INFO("summit_xl_odometry::set_odometry: request -> x = %f, y = %f, a = %f", req.x, req.y, req.orientation);
-	//robot_pose_px_ = req.x;
-	//robot_pose_py_ = req.y;
-	//robot_pose_pa_ = req.orientation;
+	ROS_INFO("summit_xl_odometry::set_odometry: request -> x = %f, y = %f, a = %f", request.x, request.y, request.orientation);
+	robot_pose_px_ = request.x;
+	robot_pose_py_ = request.y;
+	robot_pose_pa_ = request.orientation;
 
 	response.ret = true;
 	return true;
