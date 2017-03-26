@@ -144,7 +144,8 @@ public:
   std::string scissor_pos_topic_;
   
   // Topic - odom
-  std::string odom_topic_;
+  std::string odom_topic_name_;
+  std::string imu_topic_name_;
 
   // Joint names - ptz - position
   std::string joint_camera_pan;
@@ -220,6 +221,9 @@ public:
   // Parameter that defines if odom tf is published or not
   bool publish_odom_tf_;
   bool publish_odom_msg_;
+  // frame names
+  string odom_frame_id_;
+  string base_frame_id_;
 
   ros::Subscriber imu_sub_; 
   
@@ -287,9 +291,10 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
   private_node_handle_.param<std::string>("tilt_pos_topic", tilt_pos_topic_, "joint_tilt_position_controller/command");
   private_node_handle_.param<std::string>("joint_camera_pan", joint_camera_pan, "joint_camera_pan");
   private_node_handle_.param<std::string>("joint_camera_tilt", joint_camera_tilt, "joint_camera_tilt");
-
+ 
   // Odom topic
-  node_handle_.param<std::string>("odom_topic", odom_topic_, "/odom"); // to match that from summit_xl_controller (real robot), which uses an absolute defined name (/odom)
+  private_node_handle_.param<std::string>("odom_topic", odom_topic_name_, "/odom"); // to match that from summit_xl_controller (real robot), which uses an absolute defined name (/odom)
+  private_node_handle_.param<std::string>("imu_topic_name", imu_topic_name_, "/imu/data"); 
   
   // Robot parameters
   if (!private_node_handle_.getParam("summit_xl_wheel_diameter", summit_xl_wheel_diameter_))
@@ -297,17 +302,24 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
   if (!private_node_handle_.getParam("summit_xl_d_tracks_m", summit_xl_d_tracks_m_))
     summit_xl_d_tracks_m_ = SUMMIT_XL_D_TRACKS_M;
 
+  private_node_handle_.param<std::string>("odom_frame_id", odom_frame_id_, "odom");
+  private_node_handle_.param<std::string>("base_frame_id", base_frame_id_, "base_footprint");
+  
   ROS_INFO("summit_xl_wheel_diameter_ = %5.2f", summit_xl_wheel_diameter_);
   ROS_INFO("summit_xl_d_tracks_m_ = %5.2f", summit_xl_d_tracks_m_);
 
   private_node_handle_.param("publish_odom_tf", publish_odom_tf_, true);
   private_node_handle_.param("publish_odom_msg", publish_odom_msg_, true);
 
-  if (publish_odom_tf_) ROS_INFO("PUBLISHING odom->base_footprint tf");
-  else ROS_INFO("NOT PUBLISHING odom->base_footprint tf");
+	if (publish_odom_tf_) 
+		ROS_INFO("PUBLISHING odom->base_footprint tf");
+	else 
+		ROS_INFO("NOT PUBLISHING odom->base_footprint tf");
   
-  if (publish_odom_msg_) ROS_INFO("PUBLISHING odom->base_footprint msg");
-  else ROS_INFO("NOT PUBLISHING odom->base_footprint msg");
+	if (publish_odom_msg_) 
+		ROS_INFO("PUBLISHING odom->base_footprint msg");
+	else 
+		ROS_INFO("NOT PUBLISHING odom->base_footprint msg");
   
   // Robot Speeds
   linearSpeedXMps_   = 0.0;
@@ -338,15 +350,15 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
   active_kinematic_mode_ = SKID_STEERING;
 
   // Advertise services
-  srv_SetMode_ = node_handle_.advertiseService("/summit_xl_controller/set_mode", &SummitXLControllerClass::srvCallback_SetMode, this);
-  srv_GetMode_ = node_handle_.advertiseService("get_mode", &SummitXLControllerClass::srvCallback_GetMode, this);
-  srv_SetOdometry_ = node_handle_.advertiseService("set_odometry",  &SummitXLControllerClass::srvCallback_SetOdometry, this);
+  srv_SetMode_ = private_node_handle_.advertiseService("set_mode", &SummitXLControllerClass::srvCallback_SetMode, this);
+  srv_GetMode_ = private_node_handle_.advertiseService("get_mode", &SummitXLControllerClass::srvCallback_GetMode, this);
+  srv_SetOdometry_ = private_node_handle_.advertiseService("set_odometry",  &SummitXLControllerClass::srvCallback_SetOdometry, this);
 
   // Subscribe to joint states topic
-  joint_state_sub_ = node_handle_.subscribe<sensor_msgs::JointState>("/joint_states", 1, &SummitXLControllerClass::jointStateCallback, this); // to match that from summit_xl_controller (real robot), which uses a absolute defined name (/joint_states)
+  joint_state_sub_ = node_handle_.subscribe<sensor_msgs::JointState>("joint_states", 10, &SummitXLControllerClass::jointStateCallback, this); // to match that from summit_xl_controller (real robot), which uses a absolute defined name (/joint_states)
 
   // Subscribe to imu data
-  imu_sub_ = node_handle_.subscribe("/imu/data", 1, &SummitXLControllerClass::imuCallback, this);  // to match that from summit_xl_controller (real robot), which uses a absolute defined name (/imu/data)
+  imu_sub_ = node_handle_.subscribe(imu_topic_name_, 10, &SummitXLControllerClass::imuCallback, this);  // to match that from summit_xl_controller (real robot), which uses a absolute defined name (/imu/data)
 
 
   // Adevertise reference topics for the controllers 
@@ -364,13 +376,13 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
   ref_pos_tilt_ = node_handle_.advertise<std_msgs::Float64>( tilt_pos_topic_, 50);
 
   // Subscribe to command topic
-  cmd_sub_ = node_handle_.subscribe<geometry_msgs::Twist>("/summit_xl_control/cmd_vel", 1, &SummitXLControllerClass::commandCallback, this); // to match that from summit_xl_controller (real robot), which publishes through /summit_xl_controller/command, but in the summit_xl_controller is remapped to /summit_xl_control/cmd_vel
+  cmd_sub_ = private_node_handle_.subscribe<geometry_msgs::Twist>("cmd_vel", 1, &SummitXLControllerClass::commandCallback, this); // to match that from summit_xl_controller (real robot), which publishes through /summit_xl_controller/command, but in the summit_xl_controller is remapped to /summit_xl_control/cmd_vel
 
   // Subscribe to ptz command topic
-  ptz_sub_ = node_handle_.subscribe<robotnik_msgs::ptz>("/axis_camera/ptz_command", 1, &SummitXLControllerClass::command_ptzCallback, this); // to match that from summit_xl_controller (real robot), which uses a absolute defined name (/imu/data)
+  ptz_sub_ = node_handle_.subscribe<robotnik_msgs::ptz>("axis_camera/ptz_command", 1, &SummitXLControllerClass::command_ptzCallback, this); // to match that from summit_xl_controller (real robot), which uses a absolute defined name (/imu/data)
   
   // Publish odometry 
-  odom_pub_ = node_handle_.advertise<nav_msgs::Odometry>(odom_topic_, 1000);
+  odom_pub_ = node_handle_.advertise<nav_msgs::Odometry>("odom", 100);
 
   // Component frequency diagnostics
   diagnostic_.setHardwareID("summit_xl_robot_control - simulation");
@@ -395,29 +407,34 @@ SummitXLControllerClass(ros::NodeHandle h) : diagnostic_(),
 int starting()
 {
 
-  ROS_INFO("SummitXLControllerClass::starting");
+	ROS_INFO("SummitXLControllerClass::starting");
 
-  // Initialize joint indexes according to joint names 
-  if (read_state_) {
-    vector<string> joint_names = joint_state_.name;
-    frw_vel_ = find (joint_names.begin(),joint_names.end(), string(joint_front_right_wheel)) - joint_names.begin();
-    flw_vel_ = find (joint_names.begin(),joint_names.end(), string(joint_front_left_wheel)) - joint_names.begin();
-    blw_vel_ = find (joint_names.begin(),joint_names.end(), string(joint_back_left_wheel)) - joint_names.begin();
-    brw_vel_ = find (joint_names.begin(),joint_names.end(), string(joint_back_right_wheel)) - joint_names.begin();
-	if (robot_model_=="x_wam") {
-	  scissor_pos_ = find (joint_names.begin(),joint_names.end(), string(scissor_prismatic_joint)) - joint_names.begin();
-	  }
-	// For publishing the ptz joint state   
-	//pan_pos_ = find(joint_names.begin(), joint_names.end(), string(joint_camera_pan)) - joint_names.begin();
-	//tilt_pos_ = find(joint_names.begin(), joint_names.end(), string(joint_camera_tilt)) - joint_names.begin();
-    return 0;
-    }
-  else return -1;
+	// Initialize joint indexes according to joint names 
+	if (read_state_) {
+		vector<string> joint_names = joint_state_.name;
+		frw_vel_ = find (joint_names.begin(),joint_names.end(), string(joint_front_right_wheel)) - joint_names.begin();
+		flw_vel_ = find (joint_names.begin(),joint_names.end(), string(joint_front_left_wheel)) - joint_names.begin();
+		blw_vel_ = find (joint_names.begin(),joint_names.end(), string(joint_back_left_wheel)) - joint_names.begin();
+		brw_vel_ = find (joint_names.begin(),joint_names.end(), string(joint_back_right_wheel)) - joint_names.begin();
+		if (robot_model_=="x_wam") {
+		  scissor_pos_ = find (joint_names.begin(),joint_names.end(), string(scissor_prismatic_joint)) - joint_names.begin();
+		}
+		// For publishing the ptz joint state   
+		//pan_pos_ = find(joint_names.begin(), joint_names.end(), string(joint_camera_pan)) - joint_names.begin();
+		//tilt_pos_ = find(joint_names.begin(), joint_names.end(), string(joint_camera_tilt)) - joint_names.begin();
+		//ROS_INFO("frw_vel_ = %d, flw_vel_ = %d, flw_vel_=%d, blw_vel_=%d", frw_vel_, flw_vel_, brw_vel_, blw_vel_);
+		return 0;
+	}
+	else{
+		ROS_INFO("SummitXLControllerClass::starting: Joint state is not being received correctly");
+		return -1;
+		 
+	 }
 }
 
 
 /// Controller update loop 
-void UpdateControl()
+void updateControl()
 {
   // Depending on the robot configuration 
   if (active_kinematic_mode_ == SKID_STEERING) {
@@ -427,6 +444,7 @@ void UpdateControl()
 	  v_left_mps = ((joint_state_.velocity[blw_vel_] + joint_state_.velocity[flw_vel_]) / 2.0) * (summit_xl_wheel_diameter_ / 2.0);
 	  v_right_mps = ((joint_state_.velocity[brw_vel_] + joint_state_.velocity[frw_vel_]) / 2.0) * (summit_xl_wheel_diameter_ / 2.0); 
 	  // sign according to urdf (if wheel model is not symetric, should be inverted)
+	  //ROS_INFO("updateControl: blw, flw (%.3lf, %.3lf) brw, frw (%.3lf, %.3lf)", joint_state_.velocity[blw_vel_],joint_state_.velocity[flw_vel_],joint_state_.velocity[brw_vel_],joint_state_.velocity[frw_vel_] );
 
 	  linearSpeedXMps_ = (v_right_mps + v_left_mps) / 2.0;                       // m/s
 	  angularSpeedRads_ = (v_right_mps - v_left_mps) / summit_xl_d_tracks_m_;    // rad/s
@@ -513,7 +531,7 @@ void UpdateControl()
 }
 
 // Update robot odometry depending on kinematic configuration
-void UpdateOdometry()
+void updateOdometry()
 {
   // Depending on the robot configuration 
 
@@ -558,15 +576,15 @@ void UpdateOdometry()
 }
 
 // Publish robot odometry tf and topic depending 
-void PublishOdometry()
+void publishOdometry()
 {
 	ros::Time current_time = ros::Time::now();
 	
     //first, we'll publish the transform over tf
     geometry_msgs::TransformStamped odom_trans;
     odom_trans.header.stamp = current_time;
-    odom_trans.header.frame_id = "odom";
-    odom_trans.child_frame_id = "base_footprint";
+    odom_trans.header.frame_id = odom_frame_id_;
+    odom_trans.child_frame_id = base_frame_id_;
 
     odom_trans.transform.translation.x = robot_pose_px_;
     odom_trans.transform.translation.y = robot_pose_py_;
@@ -586,7 +604,7 @@ void PublishOdometry()
     //next, we'll publish the odometry message over ROS
     nav_msgs::Odometry odom;
     odom.header.stamp = current_time;
-    odom.header.frame_id = "odom";
+    odom.header.frame_id = odom_frame_id_;
 
     //set the position
 	// Position
@@ -604,10 +622,9 @@ void PublishOdometry()
     odom.twist.covariance[35] = 0.03;
 
     //set the velocity
-    odom.child_frame_id = "base_footprint";
+    odom.child_frame_id = base_frame_id_;
 	// Linear velocities
-//    odom.twist.twist.linear.x = robot_pose_vx_;
-//    odom.twist.twist.linear.y = robot_pose_vy_;
+
     if (active_kinematic_mode_ == SKID_STEERING) {
         odom.twist.twist.linear.x = linearSpeedXMps_; 
         odom.twist.twist.linear.y = 0;
@@ -790,9 +807,9 @@ bool spin()
       if (starting() == 0)
       {
 	    while(ros::ok() && node_handle_.ok()) {
-          UpdateControl();
-          UpdateOdometry();
-          PublishOdometry();
+          updateControl();
+          updateOdometry();
+          publishOdometry();
           diagnostic_.update();
           ros::spinOnce();
 	      r.sleep();
