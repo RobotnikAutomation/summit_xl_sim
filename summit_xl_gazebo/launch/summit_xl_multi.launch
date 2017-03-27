@@ -4,6 +4,7 @@
   <!-- roslaunch arguments -->
   <arg name="debug" default="false"/>
   <arg name="gui" default="true"/>
+  <arg name="fake_map_transform" default="false"/>
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -56,7 +57,7 @@
 		
 		<!-- use static_transform_publisher to define map->odom transform    -->
 		<!-- only use if you aren´t using a localization algorithm like amcl -->
-		<node pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)odom 100" />
+		<node if="$(arg fake_map_transform)" pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)odom 100" />
 	  
 	</group>
 	
@@ -81,7 +82,7 @@
 			<arg name="namespace" value="$(arg namespace)"/>
 		</include>
 		
-		<node pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 3 0 0 0 0 map $(arg namespace)odom 100" />
+		<node if="$(arg fake_map_transform)" pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 3 0 0 0 0 map $(arg namespace)odom 100" />
 	  
 	</group>
 	
