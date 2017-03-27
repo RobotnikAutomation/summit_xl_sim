@@ -33,7 +33,7 @@ Panels:
     SyncSource: LaserScan_A
   - Class: rviz_plugin_tutorials/Teleop
     Name: Teleop
-    Topic: /summit_xl_b_/summit_xl_controller/cmd_vel
+    Topic: /summit_xl_b_/pad_teleop/cmd_vel
 Visualization Manager:
   Class: ""
   Displays:
@@ -95,6 +95,16 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        summit_xl_a_hokuyo_base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        summit_xl_a_imu_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
       Name: RobotModel_A
       Robot Description: summit_xl_a_/robot_description
       TF Prefix: ""
@@ -137,6 +147,16 @@ Visualization Manager:
           Show Trail: false
           Value: true
         summit_xl_b_front_right_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        summit_xl_b_hokuyo_base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        summit_xl_b_imu_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -244,7 +264,7 @@ Visualization Manager:
       Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
-      Max Intensity: 5.04467e-44
+      Max Intensity: 0
       Min Color: 0; 0; 0
       Min Intensity: 0
       Name: LaserScan_A
@@ -313,7 +333,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 10.4865
+      Distance: 9.17826
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
@@ -325,10 +345,10 @@ Visualization Manager:
         Z: 2.41716
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.704802
+      Pitch: 0.319803
       Target Frame: base_footprint
       Value: Orbit (rviz)
-      Yaw: 0.393719
+      Yaw: 4.91873
     Saved: ~
 Window Geometry:
   Displays:
