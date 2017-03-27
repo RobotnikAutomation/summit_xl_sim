@@ -49,6 +49,11 @@
 			<arg name="namespace" value="$(arg namespace)"/>
 		</include>
 		
+		<!-- pad -->
+		<include file="$(find summit_xl_pad)/launch/summit_xl_pad.launch">
+			<arg name="namespace" value="$(arg namespace)"/>
+		</include>
+		
 		<!-- use static_transform_publisher to define map->odom transform    -->
 		<!-- only use if you aren´t using a localization algorithm like amcl -->
 		<node pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)odom 100" />
