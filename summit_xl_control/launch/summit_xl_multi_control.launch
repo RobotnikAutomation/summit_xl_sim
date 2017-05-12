@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="namespace" default="summit_xl"/>
+  <!--arg name="namespace" default=""/-->
   <arg name="controller_config_file" default="summit_xl_control.yaml"/>
   <!-- load the controllers -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
@@ -21,7 +21,9 @@
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
     respawn="false" output="screen">
     <!--param name="~tf_prefix" value="$(arg namespace)" type="str"/-->
-    <remap from="/joint_states" to="$(arg namespace)/joint_states" />
+    <!--remap from="/joint_states" to="$(arg namespace)/joint_states" /-->
+    <remap from="/joint_states" to="joint_states" />
+
   </node>
 
 

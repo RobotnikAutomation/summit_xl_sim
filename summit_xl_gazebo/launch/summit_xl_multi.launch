@@ -5,6 +5,9 @@
   <arg name="debug" default="false"/>
   <arg name="gui" default="true"/>
   <arg name="fake_map_transform" default="false"/>
+  <!--enumerate here the different robots-->
+  <arg name="robot_a" value="summit_xl_a"/>
+  <arg name="robot_b" value="summit_xl_b"/>
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -18,56 +21,105 @@
 
 
 	<!-- Bug: this global robot_description is needed to load the joint_position_controllers of the ptz camera -->
-	<param name="/robot_description"
-         command="$(find xacro)/xacro.py '$(find summit_xl_description)/robots/summit_xl_multi.urdf.xacro'" />
-
+	<!--param name="/robot_description"
+         command="$(find xacro)/xacro '$(find summit_xl_description)/robots/summit_xl_multi.urdf.xacro' inorder" /-->
 
 	<!-- Each group defines a summit_xl robot, where group ns must be equal to arg namespace -->
 
-	<group ns="summit_xl_a_">
-		<arg name="namespace" value="summit_xl_a_"/>
-		<arg name="model" value="$(arg namespace)"/>
-		<arg name="controller_config_file" value="summit_xl_control_a.yaml"/>
-	  
+	<group ns="$(arg robot_a)">
+		<arg name="prefix_frame" value="$(arg robot_a)_"/>
+		<arg name="model" value="$(arg robot_a)"/>
+		<arg name="controller_config_file" value="$(arg prefix_frame)control.yaml"/>
+		<!-- prefix_topic must to include the last "/" p.e. "summit_xl/"-->
+		<arg name="prefix_topic" value=""/> 
 		  <!-- Load the URDF into the ROS Parameter Server -->
 		<param name="robot_description" 
-				command="$(find xacro)/xacro.py '$(find summit_xl_description)/robots/summit_xl_multi.urdf.xacro' prefix:=$(arg namespace)"/>
-	    <!--param name="robot_description"
-         command="$(find xacro)/xacro.py '$(find summit_xl_description)/robots/summit_xl.urdf.xacro'" /-->
+				command="$(find xacro)/xacro '$(find summit_xl_description)/robots/summit_xl_multi.urdf.xacro' prefix_frame:=$(arg prefix_frame) prefix_topic:=$(arg prefix_topic) --inorder"/>
+
 		<!-- summit_xl_control launch file -->
 		<include file="$(find summit_xl_control)/launch/summit_xl_multi_control.launch">
-			<arg name="namespace" value="$(arg namespace)"/>
 			<arg name="controller_config_file" value="$(arg controller_config_file)"/>
 		</include>
 	
 			 
 		<!-- Call a python script to the run a service call to gazebo_ros to spawn a URDF robot -->
 		<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-			args="-urdf -model $(arg model) -param robot_description"/>
-			
+                        args="-urdf -model $(arg model) -param robot_description"/>
+	
 		<!-- controller --> 	
 		<include file="$(find summit_xl_robot_control)/launch/summit_xl_multi_robot_control.launch">
-			<arg name="namespace" value="$(arg namespace)"/>
+			<arg name="prefix_frame" value="$(arg prefix_frame)"/>
+			<arg name="prefix_topic" value="$(arg prefix_topic)"/>
 		</include>
 		
 		<!-- pad -->
-		<include file="$(find summit_xl_pad)/launch/summit_xl_pad.launch">
-			<arg name="namespace" value="$(arg namespace)"/>
-		</include>
+		<include file="$(find summit_xl_pad)/launch/summit_xl_pad.launch"/>
 		
 		<!-- use static_transform_publisher to define map->odom transform    -->
 		<!-- only use if you aren´t using a localization algorithm like amcl -->
 		<node if="$(arg fake_map_transform)" pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)odom 100" />
+
+		<!-- amcl -->
+		<include file="$(find summit_xl_navigation)/launch/move_base_amcl.launch">
+			<arg name="prefix_frame" value="$(arg prefix_frame)"/>
+		</include>
+		
 	  
 	</group>
+        
+	<group ns="$(arg robot_b)">
+		<arg name="prefix_frame" value="$(arg robot_b)_"/>
+		<arg name="model" value="$(arg robot_b)"/>
+		<arg name="controller_config_file" value="$(arg prefix_frame)control.yaml"/>
+		<!-- prefix_topic must to include the last "/" p.e. "summit_xl/"-->
+		<arg name="prefix_topic" value=""/> 
+		  <!-- Load the URDF into the ROS Parameter Server -->
+		<param name="robot_description" 
+				command="$(find xacro)/xacro '$(find summit_xl_description)/robots/summit_xl_multi.urdf.xacro' prefix_frame:=$(arg prefix_frame) prefix_topic:=$(arg prefix_topic) --inorder"/>
+		
+		<!-- summit_xl_control launch file -->
+		<include file="$(find summit_xl_control)/launch/summit_xl_multi_control.launch">
+			<!--arg name="namespace" value="$(arg namespace)"/-->
+			<arg name="controller_config_file" value="$(arg controller_config_file)"/>
+		</include>
 	
-	<group ns="summit_xl_b_">
+			 
+		<!-- Call a python script to the run a service call to gazebo_ros to spawn a URDF robot -->
+		<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+                args="-urdf -model $(arg model) -param robot_description -y 3"/>
+	
+		<!-- controller --> 	
+		<include file="$(find summit_xl_robot_control)/launch/summit_xl_multi_robot_control.launch">
+			<arg name="prefix_frame" value="$(arg prefix_frame)"/>
+			<arg name="prefix_topic" value="$(arg prefix_topic)"/>
+		</include>
+		
+		<!-- pad -->
+		<include file="$(find summit_xl_pad)/launch/summit_xl_pad.launch"/>
+		
+		<!-- use static_transform_publisher to define map->odom transform    -->
+		<!-- only use if you aren´t using a localization algorithm like amcl -->
+		<node if="$(arg fake_map_transform)" pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)odom 100" />
+
+                <!-- amcl -->
+                <include file="$(find summit_xl_navigation)/launch/move_base_amcl.launch">
+                        <arg name="prefix_frame" value="$(arg prefix_frame)"/>
+                	<!--param name="initial_pose_y" value="30.0"/-->
+		</include>
+		
+	  
+	</group>
+
+
+
+	<!--group ns="summit_xl_b">
 		<arg name="namespace" value="summit_xl_b_"/>
 		<arg name="model" value="$(arg namespace)"/>
 		<arg name="controller_config_file" value="summit_xl_control_b.yaml"/>
+		<arg name="prefix_topic" value="summit_xl"/>
 	  
 		<param name="robot_description" 
-				command="$(find xacro)/xacro.py '$(find summit_xl_description)/robots/summit_xl_multi.urdf.xacro' prefix:=$(arg namespace)"/>
+				command="$(find xacro)/xacro '$(find summit_xl_description)/robots/summit_xl_multi.urdf.xacro' prefix_frame:=$(arg namespace) prefix_topic:=$(arg prefix_topic) inorder" />
 	   <include file="$(find summit_xl_control)/launch/summit_xl_multi_control.launch">
 			<arg name="namespace" value="$(arg namespace)"/>
 			<arg name="controller_config_file" value="$(arg controller_config_file)"/>
@@ -77,14 +129,13 @@
 		<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
 			args="-urdf -model $(arg model) -param robot_description -y 3"/>
 		
-		<!-- controller --> 	
 		<include file="$(find summit_xl_robot_control)/launch/summit_xl_multi_robot_control.launch">
 			<arg name="namespace" value="$(arg namespace)"/>
 		</include>
 		
 		<node if="$(arg fake_map_transform)" pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 3 0 0 0 0 map $(arg namespace)odom 100" />
 	  
-	</group>
+	</group-->
 	
 		<!-- Each group defines a summit_xl robot, where group ns must be equal to arg namespace -->
 
