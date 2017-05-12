@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- roslaunch arguments -->
+  <arg name="debug" default="false"/>
+  <arg name="gui" default="true"/>
+  <arg name="fake_map_transform" default="false"/>
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <!--include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find summit_xl_gazebo)/worlds/summit_xl.world"/>
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="headless" value="false"/>
+  </include-->
+
+
+	<!-- Bug: this global robot_description is needed to load the joint_position_controllers of the ptz camera -->
+	<!--param name="/robot_description"
+         command="$(find xacro)/xacro.py '$(find summit_xl_description)/robots/summit_xl_multi.urdf.xacro'" /-->
+
+
+	<!-- Each group defines a summit_xl robot, where group ns must be equal to arg namespace -->
+
+	<group ns="summit_xl_a_">
+		<arg name="namespace" value="summit_xl_a_"/>
+		<arg name="model" value="$(arg namespace)"/>
+		<arg name="controller_config_file" value="summit_xl_control.yaml"/>
+	  
+		  <!-- Load the URDF into the ROS Parameter Server -->
+		<param name="robot_description" 
+				command="$(find xacro)/xacro.py '$(find summit_xl_description)/robots/summit_xl_multi.urdf.xacro' prefix:=$(arg namespace)"/>
+		<!-- summit_xl_control launch file -->
+		<include file="$(find summit_xl_control)/launch/summit_xl_multi_control.launch">
+			<arg name="namespace" value="$(arg namespace)"/>
+			<arg name="controller_config_file" value="$(arg controller_config_file)"/>
+		</include>
+			
+		<!-- controller --> 	
+		<include file="$(find summit_xl_robot_control)/launch/summit_xl_multi_robot_control.launch">
+			<arg name="namespace" value="$(arg namespace)"/>
+			<param name="publish_odom_tf" value="false"/>
+			<param name="publish_odom_msg" value="false"/>
+		</include>
+		
+		<!-- pad -->
+		<include file="$(find summit_xl_pad)/launch/summit_xl_pad.launch">
+			<arg name="namespace" value="$(arg namespace)"/>
+		</include>
+
+		<!-- amcl -->
+		<!--include file="$(find summit_xl_navigation)/launch/move_base_amcl.launch" -->
+			<!--arg name="namespace" value="$(arg namespace)" -->
+
+		<!--/include -->
+					
+		<!-- use static_transform_publisher to define map->odom transform    -->
+		<!-- only use if you aren´t using a localization algorithm like amcl -->
+		<node if="$(arg fake_map_transform)" pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)odom 100" />
+	  
+	</group>
+	
+			<!-- Each group defines a summit_xl robot, where group ns must be equal to arg namespace -->
+
+	<!--group ns="summit_xl_B">
+		<arg name="namespace" value="summit_xl_B"/>
+		<arg name="model" value="$(arg namespace)"/>
+
+		<param name="robot_description" 
+			command="$(find xacro)/xacro.py '$(find summit_xl_description)/robots/summit_xl.urdf.xacro' namespace:=$(arg namespace)"/>
+
+		<include file="$(find summit_xl_control)/launch/summit_xl_multi_control.launch">
+			<arg name="namespace" value="$(arg namespace)"/>
+		</include>
+		 
+		<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+			args="-urdf -model $(arg model) -param robot_description -y 2"/>
+
+		
+		<node pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)/odom 100" />
+	</group-->
+	
+	<!--group ns="summit_xl_C">
+		<arg name="namespace" value="summit_xl_C"/>
+		<arg name="model" value="$(arg namespace)"/>
+
+		<param name="robot_description" 
+			command="$(find xacro)/xacro.py '$(find summit_xl_description)/robots/summit_xl.urdf.xacro' namespace:=$(arg namespace)"/>
+
+		<include file="$(find summit_xl_control)/launch/summit_xl_multi_control.launch">
+			<arg name="namespace" value="$(arg namespace)"/>
+		</include>
+		 
+		<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+			args="-urdf -model $(arg model) -param robot_description -y 4"/>
+
+	
+		<node pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)/odom 100" />
+	</group-->
+	
+	<!--group ns="summit_xl_D">
+		<arg name="namespace" value="summit_xl_D"/>
+		<arg name="model" value="$(arg namespace)"/>
+
+		<param name="robot_description" 
+			command="$(find xacro)/xacro.py '$(find summit_xl_description)/robots/summit_xl.urdf.xacro' namespace:=$(arg namespace)"/>
+
+		<include file="$(find summit_xl_control)/launch/summit_xl_multi_control.launch">
+			<arg name="namespace" value="$(arg namespace)"/>
+		</include>
+		 
+		<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+			args="-urdf -model $(arg model) -param robot_description -y 6"/>
+
+		<node pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)/odom 100" />
+	</group-->
+	
+	<!--group ns="summit_xl_E">
+		<arg name="namespace" value="summit_xl_E"/>
+		<arg name="model" value="$(arg namespace)"/>
+	  
+		<param name="robot_description" 
+				command="$(find xacro)/xacro.py '$(find summit_xl_description)/robots/summit_xl.urdf.xacro' namespace:=$(arg namespace)"/>
+	  
+		<include file="$(find summit_xl_control)/launch/summit_xl_multi_control.launch">
+			<arg name="namespace" value="$(arg namespace)"/>
+		</include>
+	
+			 
+		<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+			args="-urdf -model $(arg model) -param robot_description -x 2"/>
+
+		<node pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)/odom 100" />
+	  
+	</group-->
+	
+		<!-- Each group defines a summit_xl robot, where group ns must be equal to arg namespace -->
+
+	<!--group ns="summit_xl_F">
+		<arg name="namespace" value="summit_xl_F"/>
+		<arg name="model" value="$(arg namespace)"/>
+
+		<param name="robot_description" 
+			command="$(find xacro)/xacro.py '$(find summit_xl_description)/robots/summit_xl.urdf.xacro' namespace:=$(arg namespace)"/>
+
+		<include file="$(find summit_xl_control)/launch/summit_xl_multi_control.launch">
+			<arg name="namespace" value="$(arg namespace)"/>
+		</include>
+		 
+		<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+			args="-urdf -model $(arg model) -param robot_description -x 2 -y 2"/>
+
+		<node pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)/odom 100" />
+	</group-->
+	
+	<!--group ns="summit_xl_G">
+		<arg name="namespace" value="summit_xl_G"/>
+		<arg name="model" value="$(arg namespace)"/>
+
+		<param name="robot_description" 
+			command="$(find xacro)/xacro.py '$(find summit_xl_description)/robots/summit_xl.urdf.xacro' namespace:=$(arg namespace)"/>
+
+		<include file="$(find summit_xl_control)/launch/summit_xl_multi_control.launch">
+			<arg name="namespace" value="$(arg namespace)"/>
+		</include>
+		 
+		<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+			args="-urdf -model $(arg model) -param robot_description -x 2 -y 4"/>
+
+		<node pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)/odom 100" />
+	</group-->
+	
+	<!--group ns="summit_xl_H">
+		<arg name="namespace" value="summit_xl_H"/>
+		<arg name="model" value="$(arg namespace)"/>
+
+		<param name="robot_description" 
+			command="$(find xacro)/xacro.py '$(find summit_xl_description)/robots/summit_xl.urdf.xacro' namespace:=$(arg namespace)"/>
+
+		<include file="$(find summit_xl_control)/launch/summit_xl_multi_control.launch">
+			<arg name="namespace" value="$(arg namespace)"/>
+		</include>
+		 
+		<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+			args="-urdf -model $(arg model) -param robot_description -x 2 -y 6"/>
+
+		<node pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)/odom 100" />
+	</group-->
+	
+</launch>
