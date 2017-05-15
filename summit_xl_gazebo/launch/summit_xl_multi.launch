@@ -19,7 +19,6 @@
     <arg name="headless" value="false"/>
   </include>
 
-
 	<!-- Bug: this global robot_description is needed to load the joint_position_controllers of the ptz camera -->
 	<!--param name="/robot_description"
          command="$(find xacro)/xacro '$(find summit_xl_description)/robots/summit_xl_multi.urdf.xacro' inorder" /-->
