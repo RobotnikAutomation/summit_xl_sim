@@ -2,10 +2,8 @@
 Changelog for package summit_xl_robot_control
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1.0.10 (2016-08-24)
--------------------
-* Adding install rules
-* Contributors: Jorge Arino
+1.1.1 (2016-08-24)
+------------------
 
 1.0.9 (2016-07-13)
 ------------------
