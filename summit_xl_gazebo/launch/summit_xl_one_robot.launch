@@ -1,37 +1,33 @@
 <?xml version="1.0"?>
 <launch>
 	
-	<arg name="id_robot" default="summit_xl_a"/>
+	<arg name="id_robot" default="summit_xl"/>
 	<arg name="x_init_pose" default="0"/>
 	<arg name="y_init_pose" default="0"/>
 	<arg name="z_init_pose" default="0"/>
 	<arg name="xacro_robot" default="summit_xl_multi.urdf.xacro"/>
-	<arg name="launch_navigation" default="true"/>
+	<arg name="launch_navigation" default="false"/>
   
 	<!-- BEGIN ROBOT-->
 	<group ns="$(arg id_robot)">
 	  
-		<arg name="prefix_frame" value="$(arg id_robot)_"/>
-		<arg name="prefix_topic" value=""/> 
+		<arg name="prefix" value="$(arg id_robot)_"/>
 		  
 		<!-- Load the URDF into the ROS Parameter Server -->
 		<param name="robot_description" 
-		command="$(find xacro)/xacro '$(find summit_xl_description)/robots/$(arg xacro_robot)' prefix_frame:=$(arg prefix_frame) prefix_topic:=$(arg prefix_topic) --inorder"/>
+		command="$(find xacro)/xacro '$(find summit_xl_description)/robots/$(arg xacro_robot)' prefix:=$(arg prefix) --inorder"/>
 
 		<!-- Spawner model into gazebo -->
-		<node name="urdf_spawner_rb1_model" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+		<node name="urdf_spawner_summit_model" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
 		 args="-x $(arg x_init_pose) -y $(arg y_init_pose) -z $(arg z_init_pose) -urdf -param robot_description -model $(arg id_robot)" />
 
 		<!-- Load joint controller configurations from YAcd .ML file to parameter server -->
-		<rosparam file="$(find summit_xl_control)/config/$(arg id_robot)_control.yaml" command="load"/>
+		<rosparam file="$(find summit_xl_gazebo)/config/$(arg id_robot)_control.yaml" command="load"/>
 
 		<!-- load the controllers -->
 		<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
 		   output="screen" ns="/$(arg id_robot)" args="--shutdown-time 1 
-						  joint_blw_velocity_controller
-                      joint_brw_velocity_controller
-                      joint_frw_velocity_controller
-                      joint_flw_velocity_controller
+					  summit_xl_sim_control
                       joint_read_state_controller"/>
 					  
 		<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
@@ -41,11 +37,11 @@
 
 		<node pkg="twist_mux" type="twist_mux" name="twist_mux">
 			<rosparam command="load" file="$(find summit_xl_control)/config/twist_mux.yaml" />
-			<remap from="cmd_vel_out" to="summit_xl_controller/cmd_vel" />
+			<remap from="cmd_vel_out" to="summit_xl_sim_control/cmd_vel" />
 		</node>
 
 		<!-- pad -->
-		<include file="$(find summit_xl_pad)/launch/summit_xl_pad.launch"/>
+		<!--include file="$(find summit_xl_pad)/launch/summit_xl_pad.launch"/-->
 
 		<!-- use static_transform_publisher to define map->odom transform    -->
 		<!-- only use if you aren´t using a localization algorithm like amcl -->
@@ -53,7 +49,7 @@
 
 		<!-- amcl -->
 		<include if="$(arg launch_navigation)" file="$(find summit_xl_navigation)/launch/move_base_amcl.launch">
-			<arg name="prefix_frame" value="$(arg prefix_frame)"/>
+			<arg name="prefix" value="$(arg prefix)"/>
 			<arg name="x_init_pose" value="$(arg x_init_pose)"/>
 			<arg name="y_init_pose" value="$(arg y_init_pose)"/>
 			<arg name="z_init_pose" value="$(arg z_init_pose)"/>
