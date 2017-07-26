@@ -3,7 +3,8 @@
 
 	<!-- arg to config the launch file-->
 	
-	<!--launch_navigation and launch_navigation_nomap args are exclusive-->
+	<!--launch_navigation and launch_navigation_nomap args are exclusive
+	and they are (or not) launched for all robots-->
 	<arg name="launch_navigation" default="false"/> 
 	<arg name="launch_navigation_nomap" default="false"/> 
 	<arg name="launch_rviz" default="true"/>
