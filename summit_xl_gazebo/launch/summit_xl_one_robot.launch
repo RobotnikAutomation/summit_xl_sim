@@ -9,6 +9,7 @@
 	<arg name="launch_localization" default="false"/>
 	<arg name="launch_navigation" default="false"/>
 	<arg name="launch_navigation_nomap" default="false"/>
+	<arg name="launch_gmapping" default="false"/>
   
 	<!-- BEGIN ROBOT-->
 	<group ns="$(arg id_robot)">
@@ -64,6 +65,11 @@
 		
 		<!-- move base-->
 		<include if="$(arg launch_navigation_nomap)" file="$(find summit_xl_navigation)/launch/move_base_amcl_nomap.launch">
+			<arg name="prefix" value="$(arg prefix)"/>
+		</include>
+		
+		<!-- gmapping -->
+		<include if="$(arg launch_gmapping)" file="$(find summit_xl_navigation)/launch/summit_xl_gmapping.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
 		</include>
 
