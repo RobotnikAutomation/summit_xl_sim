@@ -4,13 +4,13 @@
 	<!-- arg to config the launch file-->
 	
 	<!--launch_navigation and launch_navigation_nomap args are exclusive-->
-	<arg name="launch_navigation" default="true"/> 
+	<arg name="launch_navigation" default="false"/> 
 	<arg name="launch_navigation_nomap" default="false"/> 
 	<arg name="launch_rviz" default="true"/>
 	<arg name="load_map" default="empty/map_empty.yaml"/>
 	<arg name="launch_robot_a" default="true"/>
-	<arg name="launch_robot_b" default="true"/>
-	<arg name="launch_robot_c" default="true"/>
+	<arg name="launch_robot_b" default="false"/>
+	<arg name="launch_robot_c" default="false"/>
 	
 
 	<!--params of the different robots-->
@@ -20,6 +20,7 @@
 	<arg name="y_init_pose_robot_a" default="0" />
 	<arg name="z_init_pose_robot_a" default="0" />
 	<arg name="localization_robot_a" default="false"/>
+	<arg name="gmapping_robot_a" default="false"/>
 	<arg name="xacro_robot_a" default="summit_xl_multi.urdf.xacro"/>
 	
 	<!-- robot b -->
@@ -28,6 +29,7 @@
 	<arg name="y_init_pose_robot_b" default="1" />
 	<arg name="z_init_pose_robot_b" default="0" />
 	<arg name="localization_robot_b" default="false"/>
+	<arg name="gmapping_robot_b" default="false"/>
 	<arg name="xacro_robot_b" default="summit_xl_multi.urdf.xacro"/>
 	
 	<!-- robot c -->
@@ -36,6 +38,7 @@
 	<arg name="y_init_pose_robot_c" default="2" />
 	<arg name="z_init_pose_robot_c" default="0" />
 	<arg name="localization_robot_c" default="false"/>
+	<arg name="gmapping_robot_c" default="false"/>
 	<arg name="xacro_robot_c" default="summit_xl_multi.urdf.xacro"/>
 	
 	
@@ -48,6 +51,7 @@
 		<arg name="xacro_robot" value="$(arg xacro_robot_a)"/>
 		<arg name="launch_localization" value="$(arg localization_robot_a)"/>
 		<arg name="launch_navigation" value="$(arg launch_navigation)"/>
+		<arg name="launch_gmapping" default="$(arg gmapping_robot_a)"/>
 		<arg name="launch_navigation_nomap" value="$(arg launch_navigation_nomap)"/>
 	</include>
 	
@@ -60,6 +64,7 @@
 		<arg name="xacro_robot" value="$(arg xacro_robot_b)"/>
 		<arg name="launch_localization" value="$(arg localization_robot_b)"/>
 		<arg name="launch_navigation" value="$(arg launch_navigation)"/>
+		<arg name="launch_gmapping" default="$(arg gmapping_robot_b)"/>
 		<arg name="launch_navigation_nomap" value="$(arg launch_navigation_nomap)"/>
 	</include>
 
@@ -72,6 +77,7 @@
 		<arg name="xacro_robot" value="$(arg xacro_robot_c)"/>
 		<arg name="launch_localization" value="$(arg localization_robot_c)"/>
 		<arg name="launch_navigation" value="$(arg launch_navigation)"/>
+		<arg name="launch_gmapping" default="$(arg gmapping_robot_c)"/>
 		<arg name="launch_navigation_nomap" value="$(arg launch_navigation_nomap)"/>
 	</include>
 
