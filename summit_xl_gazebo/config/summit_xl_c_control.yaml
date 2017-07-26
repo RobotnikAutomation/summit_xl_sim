@@ -18,7 +18,7 @@
 #  type: position_controllers/JointPositionController
 #  joint: joint_camera_tilt
 
-  summit_xl_sim_control:
+  summit_xl_control:
     type        : "diff_drive_controller/DiffDriveController"
     left_wheel  : ['summit_xl_c_front_left_wheel_joint','summit_xl_c_back_left_wheel_joint']
     right_wheel : ['summit_xl_c_front_right_wheel_joint','summit_xl_c_back_right_wheel_joint']

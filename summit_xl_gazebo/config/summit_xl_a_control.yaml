@@ -18,7 +18,7 @@
 #  type: position_controllers/JointPositionController
 #  joint: joint_camera_tilt
 
-  summit_xl_sim_control:
+  summit_xl_control:
     type        : "diff_drive_controller/DiffDriveController"
     left_wheel  : ['summit_xl_a_front_left_wheel_joint','summit_xl_a_back_left_wheel_joint']
     right_wheel : ['summit_xl_a_front_right_wheel_joint','summit_xl_a_back_right_wheel_joint']
@@ -48,17 +48,17 @@
     linear:
       x:
         has_velocity_limits    : true
-        max_velocity           : 1.5 # m/s
-        min_velocity           : -1.5 # m/s
+        max_velocity           : 3.0 #1.5 # m/s
+        min_velocity           : -3.0 #-1.5 # m/s
         has_acceleration_limits: true
-        max_acceleration       : 3.00  # m/s^2
-        min_acceleration       : -3.00 # m/s^2
+        max_acceleration       : 6.0 #3.00  # m/s^2
+        min_acceleration       : -6.0 #-3.00 # m/s^2
     angular:
       z:
         has_velocity_limits    : true
-        max_velocity           : 3.0  # rad/s
+        max_velocity           : 6.0 #3.0  # rad/s
         has_acceleration_limits: true
-        max_acceleration       : 3.0  # rad/s^2
+        max_acceleration       : 6.0 #3.0  # rad/s^2
 
 
   joint_read_state_controller:
