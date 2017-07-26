@@ -1,10 +1,89 @@
 <?xml version="1.0"?>
 <launch>
 
-  <!-- start gazebo simulation -->
-  <include file="$(find summit_xl_gazebo)/launch/summit_xl.launch"/>
+	<!-- arg to config the launch file-->
+	
+	<!--launch_navigation and launch_navigation_nomap args are exclusive-->
+	<arg name="launch_navigation" default="true"/> 
+	<arg name="launch_navigation_nomap" default="false"/> 
+	<arg name="launch_rviz" default="true"/>
+	<arg name="load_map" default="empty/map_empty.yaml"/>
+	<arg name="launch_robot_a" default="true"/>
+	<arg name="launch_robot_b" default="true"/>
+	<arg name="launch_robot_c" default="true"/>
+	
 
-  <!-- robot_localization nodes, publishes transformation world->odom->base_footprint -->
-  <include file="$(find summit_xl_localization)/launch/robot_localization_complete.launch"/>
+	<!--params of the different robots-->
+	<!-- robot a -->
+	<arg name="id_robot_a" default="summit_xl_a"/>
+	<arg name="x_init_pose_robot_a" default="0" />
+	<arg name="y_init_pose_robot_a" default="0" />
+	<arg name="z_init_pose_robot_a" default="0" />
+	<arg name="localization_robot_a" default="false"/>
+	<arg name="xacro_robot_a" default="summit_xl_multi.urdf.xacro"/>
+	
+	<!-- robot b -->
+	<arg name="id_robot_b" default="summit_xl_b"/>
+	<arg name="x_init_pose_robot_b" default="0" />
+	<arg name="y_init_pose_robot_b" default="1" />
+	<arg name="z_init_pose_robot_b" default="0" />
+	<arg name="localization_robot_b" default="false"/>
+	<arg name="xacro_robot_b" default="summit_xl_multi.urdf.xacro"/>
+	
+	<!-- robot c -->
+	<arg name="id_robot_c" default="summit_xl_c"/>
+	<arg name="x_init_pose_robot_c" default="0" />
+	<arg name="y_init_pose_robot_c" default="2" />
+	<arg name="z_init_pose_robot_c" default="0" />
+	<arg name="localization_robot_c" default="false"/>
+	<arg name="xacro_robot_c" default="summit_xl_multi.urdf.xacro"/>
+	
+	
+	<!--BEGIN ROBOT 1-->
+	<include if="$(arg launch_robot_a)" file="$(find summit_xl_gazebo)/launch/summit_xl_one_robot.launch">
+		<arg name="id_robot" value="$(arg id_robot_a)"/>
+		<arg name="x_init_pose" value="$(arg x_init_pose_robot_a)"/>
+		<arg name="y_init_pose" value="$(arg y_init_pose_robot_a)"/>
+		<arg name="z_init_pose" value="$(arg z_init_pose_robot_a)"/>
+		<arg name="xacro_robot" value="$(arg xacro_robot_a)"/>
+		<arg name="launch_localization" value="$(arg localization_robot_a)"/>
+		<arg name="launch_navigation" value="$(arg launch_navigation)"/>
+		<arg name="launch_navigation_nomap" value="$(arg launch_navigation_nomap)"/>
+	</include>
+	
+	<!--BEGIN ROBOT 2-->
+	<include if="$(arg launch_robot_b)" file="$(find summit_xl_gazebo)/launch/summit_xl_one_robot.launch">
+		<arg name="id_robot" value="$(arg id_robot_b)"/>
+		<arg name="x_init_pose" value="$(arg x_init_pose_robot_b)"/>
+		<arg name="y_init_pose" value="$(arg y_init_pose_robot_b)"/>
+		<arg name="z_init_pose" value="$(arg z_init_pose_robot_b)"/>
+		<arg name="xacro_robot" value="$(arg xacro_robot_b)"/>
+		<arg name="launch_localization" value="$(arg localization_robot_b)"/>
+		<arg name="launch_navigation" value="$(arg launch_navigation)"/>
+		<arg name="launch_navigation_nomap" value="$(arg launch_navigation_nomap)"/>
+	</include>
+
+	<!--BEGIN ROBOT 3-->
+	<include if="$(arg launch_robot_c)" file="$(find summit_xl_gazebo)/launch/summit_xl_one_robot.launch">
+		<arg name="id_robot" value="$(arg id_robot_c)"/>
+		<arg name="x_init_pose" value="$(arg x_init_pose_robot_c)"/>
+		<arg name="y_init_pose" value="$(arg y_init_pose_robot_c)"/>
+		<arg name="z_init_pose" value="$(arg z_init_pose_robot_c)"/>
+		<arg name="xacro_robot" value="$(arg xacro_robot_c)"/>
+		<arg name="launch_localization" value="$(arg localization_robot_c)"/>
+		<arg name="launch_navigation" value="$(arg launch_navigation)"/>
+		<arg name="launch_navigation_nomap" value="$(arg launch_navigation_nomap)"/>
+	</include>
+
+
+	<!-- gazebo simulation and rviz visualization-->
+	<include file="$(find summit_xl_gazebo)/launch/summit_xl_multi.launch">		
+		<arg name="launch_rviz" value="$(arg launch_rviz)"/>
+		<arg name="load_map" value="$(arg load_map)"/>
+	</include>
+	
+	<!-- Run the map server if navigation is enabled-->
+	<node if="$(arg launch_navigation)" name="map_server" pkg="map_server" type="map_server" args="$(find summit_xl_navigation)/maps/$(arg load_map)"/>
+	
   
 </launch>
