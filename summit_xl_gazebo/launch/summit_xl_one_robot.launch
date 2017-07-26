@@ -6,7 +6,9 @@
 	<arg name="y_init_pose" default="0"/>
 	<arg name="z_init_pose" default="0"/>
 	<arg name="xacro_robot" default="summit_xl_multi.urdf.xacro"/>
+	<arg name="launch_localization" default="false"/>
 	<arg name="launch_navigation" default="false"/>
+	<arg name="launch_navigation_nomap" default="false"/>
   
 	<!-- BEGIN ROBOT-->
 	<group ns="$(arg id_robot)">
@@ -27,7 +29,7 @@
 		<!-- load the controllers -->
 		<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
 		   output="screen" ns="/$(arg id_robot)" args="--shutdown-time 1 
-					  summit_xl_sim_control
+					  summit_xl_control
                       joint_read_state_controller"/>
 					  
 		<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
@@ -37,22 +39,32 @@
 
 		<node pkg="twist_mux" type="twist_mux" name="twist_mux">
 			<rosparam command="load" file="$(find summit_xl_control)/config/twist_mux.yaml" />
-			<remap from="cmd_vel_out" to="summit_xl_sim_control/cmd_vel" />
+			<remap from="cmd_vel_out" to="summit_xl_control/cmd_vel" />
 		</node>
 
 		<!-- pad -->
 		<!--include file="$(find summit_xl_pad)/launch/summit_xl_pad.launch"/-->
 
+		<!-- robot_localization nodes, publishes transformation world->odom->base_footprint -->
+		<include if="$(arg launch_localization)" file="$(find summit_xl_localization)/launch/robot_localization_complete.launch">
+			<arg name="prefix" value="$(arg prefix)"/>
+		</include>/>
+
 		<!-- use static_transform_publisher to define map->odom transform    -->
 		<!-- only use if you aren´t using a localization algorithm like amcl -->
 		<!--node if="$(arg fake_map_transform)" pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)odom 100" /-->
-
-		<!-- amcl -->
+		
+		<!-- amcl and move base-->
 		<include if="$(arg launch_navigation)" file="$(find summit_xl_navigation)/launch/move_base_amcl.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
 			<arg name="x_init_pose" value="$(arg x_init_pose)"/>
 			<arg name="y_init_pose" value="$(arg y_init_pose)"/>
 			<arg name="z_init_pose" value="$(arg z_init_pose)"/>
+		</include>
+		
+		<!-- move base-->
+		<include if="$(arg launch_navigation_nomap)" file="$(find summit_xl_navigation)/launch/move_base_amcl_nomap.launch">
+			<arg name="prefix" value="$(arg prefix)"/>
 		</include>
 
 	</group>
