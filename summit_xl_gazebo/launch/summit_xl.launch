@@ -6,8 +6,7 @@
   <arg name="gui" default="true"/>
 
   <!-- summit_xl_control launch file -->
-  <!-- include file="$(find summit_xl_control)/launch/summit_xl_control_diff_drive.launch" / -->
-  <include file="$(find summit_xl_control)/launch/summit_xl_control.launch"/>
+  <include file="$(find summit_xl_control)/launch/summit_xl_control_sim.launch" />
 
   <!-- launch pad -->
   <include file="$(find summit_xl_pad)/launch/summit_xl_pad.launch" />
