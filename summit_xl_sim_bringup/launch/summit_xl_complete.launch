@@ -22,7 +22,7 @@
 	<arg name="z_init_pose_robot_a" default="0" />
 	<arg name="localization_robot_a" default="false"/>
 	<arg name="gmapping_robot_a" default="false"/>
-	<arg name="xacro_robot_a" default="summit_xl_multi.urdf.xacro"/>
+	<arg name="xacro_robot_a" default="summit_xl.urdf.xacro"/>
 	
 	<!-- robot b -->
 	<arg name="id_robot_b" default="summit_xl_b"/>
@@ -31,7 +31,7 @@
 	<arg name="z_init_pose_robot_b" default="0" />
 	<arg name="localization_robot_b" default="false"/>
 	<arg name="gmapping_robot_b" default="false"/>
-	<arg name="xacro_robot_b" default="summit_xl_multi.urdf.xacro"/>
+	<arg name="xacro_robot_b" default="summit_xl.urdf.xacro"/>
 	
 	<!-- robot c -->
 	<arg name="id_robot_c" default="summit_xl_c"/>
@@ -40,7 +40,7 @@
 	<arg name="z_init_pose_robot_c" default="0" />
 	<arg name="localization_robot_c" default="false"/>
 	<arg name="gmapping_robot_c" default="false"/>
-	<arg name="xacro_robot_c" default="summit_xl_multi.urdf.xacro"/>
+	<arg name="xacro_robot_c" default="summit_xl.urdf.xacro"/>
 	
 	
 	<!--BEGIN ROBOT 1-->
