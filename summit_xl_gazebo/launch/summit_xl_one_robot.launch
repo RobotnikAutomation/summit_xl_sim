@@ -10,11 +10,12 @@
 	<arg name="launch_navigation" default="false"/>
 	<arg name="launch_navigation_nomap" default="false"/>
 	<arg name="launch_gmapping" default="false"/>
+	<arg name="load_map" default="empty/empty.yaml"/>
   
 	<!-- BEGIN ROBOT-->
 	<group ns="$(arg id_robot)">
 	  
-		<arg name="prefix" value="$(arg id_robot)_"/>
+		<arg name="prefix" value="$(arg id_robot)_"/>		
 		  
 		<!-- Load the URDF into the ROS Parameter Server -->
 		<param name="robot_description" 
@@ -24,13 +25,12 @@
 			<remap from="/joint_states" to="joint_states" />
 		</node>
 
-
 		<!-- Spawner model into gazebo -->
 		<node name="urdf_spawner_summit_model" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
 		 args="-x $(arg x_init_pose) -y $(arg y_init_pose) -z $(arg z_init_pose) -urdf -param robot_description -model $(arg id_robot)" />
 
 		<!-- Load joint controller configurations from YAcd .ML file to parameter server -->
-		<rosparam file="$(find summit_xl_gazebo)/config/$(arg id_robot)_control.yaml" command="load"/>
+		<rosparam file="$(find summit_xl_gazebo)/config/$(arg prefix)control.yaml" command="load"/>  
 
 		<!-- load the controllers -->
 		<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
@@ -61,9 +61,10 @@
 			<arg name="x_init_pose" value="$(arg x_init_pose)"/>
 			<arg name="y_init_pose" value="$(arg y_init_pose)"/>
 			<arg name="z_init_pose" value="$(arg z_init_pose)"/>
+			<arg name="load_map" value="$(arg load_map)"/>
 		</include>
 		
-		<!-- move base-->
+		<!-- move base no map-->
 		<include if="$(arg launch_navigation_nomap)" file="$(find summit_xl_navigation)/launch/move_base_amcl_nomap.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
 		</include>
