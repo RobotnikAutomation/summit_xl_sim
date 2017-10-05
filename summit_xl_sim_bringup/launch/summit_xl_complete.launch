@@ -1,10 +1,18 @@
 <?xml version="1.0"?>
 <launch>
+  <!-- localization argument: odom, complete -->
+  <!-- odom publish odom to base transform based on the robot odometry and imu -->
+  <!-- complete publish world to odom transform and odom to base -->
+  <arg name="localization" default="odom"/>
+  <!-- world file to load inside summit_xl_gazebo/worlds folder -->
+  <arg name="world" default="summit_xl_office.world"/>
 
   <!-- start gazebo simulation -->
-  <include file="$(find summit_xl_gazebo)/launch/summit_xl.launch"/>
+  <include file="$(find summit_xl_gazebo)/launch/summit_xl.launch">
+	<arg name="world" value="$(arg world)"/>
+  </include>
 
   <!-- robot_localization nodes, publishes transformation world->odom->base_footprint -->
-  <include file="$(find summit_xl_localization)/launch/robot_localization_complete.launch"/>
+  <include file="$(find summit_xl_localization)/launch/robot_localization_$(arg localization).launch"/>
   
 </launch>
