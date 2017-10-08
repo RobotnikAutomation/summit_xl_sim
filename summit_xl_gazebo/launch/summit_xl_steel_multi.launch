@@ -5,10 +5,11 @@
   <arg name="debug" default="false"/>
   <arg name="gui" default="true"/>
   <arg name="fake_map_transform" default="false"/>
+  <arg name="world" default="summit_xl_office.world"/>
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find summit_xl_gazebo)/worlds/summit_xl.world"/>
+    <arg name="world_name" value="$(find summit_xl_gazebo)/worlds/$(arg world)"/>
     <arg name="debug" value="$(arg debug)" />
     <arg name="gui" value="$(arg gui)" />
     <arg name="paused" value="false"/>
@@ -40,6 +41,7 @@
 		<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
 			args="-urdf -model $(arg model) -param robot_description"/>
 			
+        <!-- For the steel we use the gazebo planar plugin -->
 		<!-- controller --> 	
 		<!-- include file="$(find summit_xl_robot_control)/launch/summit_xl_multi_robot_control.launch">
 			<arg name="namespace" value="$(arg namespace)"/>
@@ -72,6 +74,7 @@
 		<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
 			args="-urdf -model $(arg model) -param robot_description -y 3"/>
 		
+        <!-- For the steel we use the gazebo planar plugin -->
 		<!-- controller --> 	
 		<!-- include file="$(find summit_xl_robot_control)/launch/summit_xl_multi_robot_control.launch">
 			<arg name="namespace" value="$(arg namespace)"/>
