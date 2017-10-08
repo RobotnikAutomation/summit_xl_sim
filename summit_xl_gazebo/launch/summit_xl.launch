@@ -5,12 +5,6 @@
   <arg name="debug" default="false"/>
   <arg name="gui" default="true"/>
 
-  <!-- summit_xl_control launch file -->
-  <include file="$(find summit_xl_control)/launch/summit_xl_control.launch" />
-
-  <!-- launch pad -->
-  <include file="$(find summit_xl_pad)/launch/summit_xl_pad.launch" />
-
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find summit_xl_gazebo)/worlds/summit_xl.world"/>
@@ -28,5 +22,14 @@
   <!-- Call a python script to the run a service call to gazebo_ros to spawn a URDF robot -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
         args="-urdf -model summit_xl -param robot_description"/>
+
+  <!-- summit_xl_control launch file -->
+  <include file="$(find summit_xl_control)/launch/summit_xl_control.launch" />
+
+  <!-- launch pad -->
+  <include file="$(find summit_xl_pad)/launch/summit_xl_pad.launch" />
+
+  <!-- launch summit_xl_controller -->
+  <include file="$(find summit_xl_robot_control)/launch/summit_xl_robot_control.launch" />
 
 </launch>
