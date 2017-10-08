@@ -6,7 +6,7 @@
   <arg name="gui" default="true"/>
 
   <!-- summit_xl_control launch file -->
-  <include file="$(find summit_xl_control)/launch/summit_xl_hls_control.launch" />
+  <include file="$(find summit_xl_control)/launch/summit_xl_steel_control.launch" />
 
  
   <!-- summit_xl_robot_control will provide control for the PTZ camera and the height of the Summit-X robot -->
@@ -26,7 +26,7 @@
 
   <!-- Load the URDF into the ROS Parameter Server -->
   <param name="robot_description"
-         command="$(find xacro)/xacro.py '$(find summit_xl_description)/robots/summit_xl_hls_omni.urdf.xacro'" />
+         command="$(find xacro)/xacro.py '$(find summit_xl_description)/robots/summit_xl_steel_omni.urdf.xacro'" />
          
   <!-- Call a python script to the run a service call to gazebo_ros to spawn a URDF robot -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
