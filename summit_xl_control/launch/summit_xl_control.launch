@@ -8,12 +8,12 @@
                       joint_brw_velocity_controller
                       joint_frw_velocity_controller
                       joint_flw_velocity_controller
-                      joint_pan_position_controller
-                      joint_tilt_position_controller
                       joint_read_state_controller 
                       --shutdown-timeout 1
                       " />
-
+  <!--  joint_pan_position_controller
+        joint_tilt_position_controller -->
+ 
   <!-- Load joint controller configurations from YAML file to parameter server -->
   <rosparam file="$(find summit_xl_control)/config/summit_xl_control.yaml" command="load"/>
 
