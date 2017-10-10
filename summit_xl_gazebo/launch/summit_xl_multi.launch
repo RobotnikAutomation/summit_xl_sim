@@ -16,7 +16,8 @@
 	</include>
 	
 	<!-- launch rviz -->
-	<node if="$(arg launch_rviz)" name="rviz" pkg="rviz" type="rviz" required="true" />
+	<node if="$(arg launch_rviz)" name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find summit_xl_gazebo)/rviz/summitxl_a.rviz"/>
+
 	
 	
 </launch>

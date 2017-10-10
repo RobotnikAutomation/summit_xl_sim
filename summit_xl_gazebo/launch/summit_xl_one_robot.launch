@@ -49,7 +49,7 @@
 		<!-- robot_localization nodes, publishes transformation world->odom->base_footprint -->
 		<include if="$(arg launch_localization)" file="$(find summit_xl_localization)/launch/robot_localization_complete.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
-		</include>/>
+		</include>
 
 		<!-- use static_transform_publisher to define map->odom transform    -->
 		<!-- only use if you aren´t using a localization algorithm like amcl -->
