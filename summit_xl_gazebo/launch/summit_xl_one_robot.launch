@@ -6,11 +6,12 @@
 	<arg name="y_init_pose" default="0"/>
 	<arg name="z_init_pose" default="0"/>
 	<arg name="xacro_robot" default="summit_xl_multi.urdf.xacro"/>
-	<arg name="launch_localization" default="false"/>
-	<arg name="launch_navigation" default="false"/>
-	<arg name="launch_navigation_nomap" default="false"/>
+	<arg name="launch_robot_localization" default="false"/>
+	<arg name="launch_amcl_and_mapserver" default="false"/>
 	<arg name="launch_gmapping" default="false"/>
-	<arg name="load_map" default="empty/empty.yaml"/>
+	<arg name="launch_move_base" default="false"/>
+	<arg name="map_file" default="empty/empty.yaml"/>
+	<arg name="robot_localization_mode" default="odom"/><!-- odom, complete (including gps)-->
   
 	<!-- BEGIN ROBOT-->
 	<group ns="$(arg id_robot)">
@@ -31,6 +32,7 @@
 
 		<!-- Load joint controller configurations from YAcd .ML file to parameter server -->
 		<rosparam file="$(find summit_xl_gazebo)/config/$(arg prefix)control.yaml" command="load"/>  
+		<param if="$(arg launch_robot_localization)" name="summit_xl_control/enable_odom_tf" value="false"/>
 
 		<!-- load the controllers -->
 		<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
@@ -47,7 +49,7 @@
 		<!--include file="$(find summit_xl_pad)/launch/summit_xl_pad.launch"/-->
 
 		<!-- robot_localization nodes, publishes transformation world->odom->base_footprint -->
-		<include if="$(arg launch_localization)" file="$(find summit_xl_localization)/launch/robot_localization_complete.launch">
+		<include if="$(arg launch_robot_localization)" file="$(find summit_xl_localization)/launch/robot_localization_$(arg robot_localization_mode).launch">
 			<arg name="prefix" value="$(arg prefix)"/>
 		</include>
 
@@ -55,22 +57,26 @@
 		<!-- only use if you aren´t using a localization algorithm like amcl -->
 		<!--node if="$(arg fake_map_transform)" pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)odom 100" /-->
 		
-		<!-- amcl and move base-->
-		<include if="$(arg launch_navigation)" file="$(find summit_xl_navigation)/launch/move_base_amcl.launch">
+		<!-- amcl and map server base-->
+		<include if="$(arg launch_amcl_and_mapserver)" file="$(find summit_xl_localization)/launch/map_server.launch">
+			<arg name="prefix" value="$(arg prefix)"/>
+			<arg name="map_file" value="$(arg map_file)"/>
+		</include>
+		<include if="$(arg launch_amcl_and_mapserver)" file="$(find summit_xl_localization)/launch/amcl.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
 			<arg name="x_init_pose" value="$(arg x_init_pose)"/>
 			<arg name="y_init_pose" value="$(arg y_init_pose)"/>
 			<arg name="z_init_pose" value="$(arg z_init_pose)"/>
-			<arg name="load_map" value="$(arg load_map)"/>
 		</include>
-		
-		<!-- move base no map-->
-		<include if="$(arg launch_navigation_nomap)" file="$(find summit_xl_navigation)/launch/move_base_amcl_nomap.launch">
+
+		<!-- move base -->
+		<include if="$(arg launch_move_base)" file="$(find summit_xl_navigation)/launch/move_base.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
 		</include>
 		
+		
 		<!-- gmapping -->
-		<include if="$(arg launch_gmapping)" file="$(find summit_xl_navigation)/launch/summit_xl_gmapping.launch">
+		<include if="$(arg launch_gmapping)" file="$(find summit_xl_localization)/launch/slam_gmapping.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
 		</include>
 

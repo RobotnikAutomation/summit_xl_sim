@@ -4,11 +4,11 @@
 	<!-- roslaunch arguments --> 
 	<arg name="debug" default="false"/>
 	<arg name="launch_rviz" default="false"/>
-	<arg name="load_map" default="empty/map_empty.yaml"/>
+	<arg name="world" default="summit_xl.world"/> <!-- located in summit_xl_gazebo/worlds -->
 
 	<!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
 	<include file="$(find gazebo_ros)/launch/empty_world.launch">
-		<arg name="world_name" value="$(find summit_xl_gazebo)/worlds/summit_xl.world"/>
+		<arg name="world_name" value="$(find summit_xl_gazebo)/worlds/$(arg world)"/>
 		<arg name="debug" value="$(arg debug)" />
 		<arg name="paused" value="false"/>
 		<arg name="use_sim_time" value="true"/>
