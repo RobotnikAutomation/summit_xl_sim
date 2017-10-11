@@ -5,13 +5,11 @@
 	
 	<!--launch_navigation and launch_navigation_nomap args are exclusive
 	and they are (or not) launched for all robots-->
-	<arg name="launch_navigation" default="true"/> 
-	<arg name="launch_navigation_nomap" default="false"/> 
 	<arg name="launch_rviz" default="true"/>
-	<arg name="load_map" default="willow_garage/willow_garage.yaml"/>
 	<arg name="launch_robot_a" default="true"/>
-	<arg name="launch_robot_b" default="true"/>
+	<arg name="launch_robot_b" default="false"/>
 	<arg name="launch_robot_c" default="false"/>
+	<arg name="gazebo_world" default="summit_xl_office.world"/>
 	<arg name="debug" default="false"/>
 	
 
@@ -21,8 +19,11 @@
 	<arg name="x_init_pose_robot_a" default="0" />
 	<arg name="y_init_pose_robot_a" default="0" />
 	<arg name="z_init_pose_robot_a" default="0" />
-	<arg name="localization_robot_a" default="false"/>
+	<arg name="localization_robot_a" default="true"/>
 	<arg name="gmapping_robot_a" default="false"/>
+	<arg name="move_base_robot_a" default="false"/>
+	<arg name="amcl_and_mapserver_a" default="false"/>
+	<arg name="map_file_a" default="willow_garage/willow_garage.yaml"/>
 	<arg name="xacro_robot_a" default="summit_xl_std.urdf.xacro"/>
 	
 	<!-- robot b -->
@@ -32,6 +33,9 @@
 	<arg name="z_init_pose_robot_b" default="0" />
 	<arg name="localization_robot_b" default="false"/>
 	<arg name="gmapping_robot_b" default="false"/>
+	<arg name="move_base_robot_b" default="false"/>
+	<arg name="amcl_and_mapserver_b" default="false"/>
+	<arg name="map_file_b" default="willow_garage/willow_garage.yaml"/>
 	<arg name="xacro_robot_b" default="summit_xl_std.urdf.xacro"/>
 	
 	<!-- robot c -->
@@ -41,6 +45,9 @@
 	<arg name="z_init_pose_robot_c" default="0" />
 	<arg name="localization_robot_c" default="false"/>
 	<arg name="gmapping_robot_c" default="false"/>
+	<arg name="move_base_robot_c" default="false"/>
+	<arg name="amcl_and_mapserver_c" default="false"/>
+	<arg name="map_file_c" default="willow_garage/willow_garage.yaml"/>
 	<arg name="xacro_robot_c" default="summit_xl_std.urdf.xacro"/>
 	
 	
@@ -51,11 +58,11 @@
 		<arg name="y_init_pose" value="$(arg y_init_pose_robot_a)"/>
 		<arg name="z_init_pose" value="$(arg z_init_pose_robot_a)"/>
 		<arg name="xacro_robot" value="$(arg xacro_robot_a)"/>
-		<arg name="launch_localization" value="$(arg localization_robot_a)"/>
-		<arg name="launch_navigation" value="$(arg launch_navigation)"/>
+		<arg name="launch_robot_localization" value="$(arg localization_robot_a)"/>
+		<arg name="launch_amcl_and_mapserver" value="$(arg amcl_and_mapserver_a)"/>
 		<arg name="launch_gmapping" value="$(arg gmapping_robot_a)"/>
-		<arg name="launch_navigation_nomap" value="$(arg launch_navigation_nomap)"/>
-		<arg name="load_map" value="$(arg load_map)"/>
+		<arg name="map_file" value="$(arg map_file_a)"/>
+ 		<arg name="launch_move_base" value="$(arg move_base_robot_a)"/>
 	</include>
 	
 	<!--BEGIN ROBOT 2-->
@@ -65,11 +72,11 @@
 		<arg name="y_init_pose" value="$(arg y_init_pose_robot_b)"/>
 		<arg name="z_init_pose" value="$(arg z_init_pose_robot_b)"/>
 		<arg name="xacro_robot" value="$(arg xacro_robot_b)"/>
-		<arg name="launch_localization" value="$(arg localization_robot_b)"/>
-		<arg name="launch_navigation" value="$(arg launch_navigation)"/>
+		<arg name="launch_robot_localization" value="$(arg localization_robot_b)"/>
+		<arg name="launch_amcl_and_mapserver" value="$(arg amcl_and_mapserver_b)"/>
 		<arg name="launch_gmapping" value="$(arg gmapping_robot_b)"/>
-		<arg name="launch_navigation_nomap" value="$(arg launch_navigation_nomap)"/>
-		<arg name="load_map" value="$(arg load_map)"/>
+		<arg name="map_file" value="$(arg map_file_b)"/>
+ 		<arg name="launch_move_base" value="$(arg move_base_robot_b)"/>
 	</include>
 
 	<!--BEGIN ROBOT 3-->
@@ -79,26 +86,20 @@
 		<arg name="y_init_pose" value="$(arg y_init_pose_robot_c)"/>
 		<arg name="z_init_pose" value="$(arg z_init_pose_robot_c)"/>
 		<arg name="xacro_robot" value="$(arg xacro_robot_c)"/>
-		<arg name="launch_localization" value="$(arg localization_robot_c)"/>
-		<arg name="launch_navigation" value="$(arg launch_navigation)"/>
+		<arg name="launch_robot_localization" value="$(arg localization_robot_c)"/>
+		<arg name="launch_amcl_and_mapserver" value="$(arg amcl_and_mapserver_c)"/>
 		<arg name="launch_gmapping" value="$(arg gmapping_robot_c)"/>
-		<arg name="launch_navigation_nomap" value="$(arg launch_navigation_nomap)"/>
-		<arg name="load_map" value="$(arg load_map)"/>
-	</include>
-
-
-	<!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
-	<include file="$(find gazebo_ros)/launch/empty_world.launch">
-		<!--arg name="world_name" value="$(find summit_xl_gazebo)/worlds/summit_xl.world"/-->
-		<arg name="world_name" value="$(find summit_xl_gazebo)/worlds/summit_xl_office.world"/>
-		<arg name="debug" value="$(arg debug)" />
-		<arg name="paused" value="false"/>
-		<arg name="use_sim_time" value="true"/>
-		<arg name="headless" value="false"/>
+		<arg name="map_file" value="$(arg map_file_c)"/>
+ 		<arg name="launch_move_base" value="$(arg move_base_robot_c)"/>
 	</include>
 	
-	<!-- launch rviz -->
-	<node if="$(arg launch_rviz)" name="rviz" pkg="rviz" type="rviz" required="true" />
+	
+	<!-- gazebo simulation and rviz visualization-->
+	<include file="$(find summit_xl_gazebo)/launch/gazebo_rviz.launch">		
+		<arg name="launch_rviz" value="$(arg launch_rviz)"/>
+		<arg name="world" value="$(arg gazebo_world)"/>
+		<arg name="debug" value="$(arg debug)"/>
+	</include>
   
 </launch>	
 	
