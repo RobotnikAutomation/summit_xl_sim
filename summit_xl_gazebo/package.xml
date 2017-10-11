@@ -35,6 +35,7 @@
   <run_depend>summit_xl_robot_control</run_depend>  
   <run_depend>summit_xl_description</run_depend> 
   <run_depend>xacro</run_depend> 
+  <run_depend>hector_gazebo_plugins</run_depend> 
 
   <export>
 	  <gazebo_ros plugin_path="${prefix}/lib" gazebo_media_path="${prefix}" />
