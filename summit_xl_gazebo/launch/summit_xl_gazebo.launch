@@ -11,6 +11,7 @@
 	<arg name="launch_robot_c" default="false"/>
 	<arg name="gazebo_world" default="summit_xl_office.world"/>
 	<arg name="debug" default="false"/>
+	<arg name="ros_planar_move_plugin" default="false"/>
 	
 
 	<!--params of the different robots-->
@@ -63,6 +64,7 @@
 		<arg name="launch_gmapping" value="$(arg gmapping_robot_a)"/>
 		<arg name="map_file" value="$(arg map_file_a)"/>
  		<arg name="launch_move_base" value="$(arg move_base_robot_a)"/>
+		<arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
 	</include>
 	
 	<!--BEGIN ROBOT 2-->
@@ -77,6 +79,7 @@
 		<arg name="launch_gmapping" value="$(arg gmapping_robot_b)"/>
 		<arg name="map_file" value="$(arg map_file_b)"/>
  		<arg name="launch_move_base" value="$(arg move_base_robot_b)"/>
+		<arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
 	</include>
 
 	<!--BEGIN ROBOT 3-->
@@ -91,6 +94,7 @@
 		<arg name="launch_gmapping" value="$(arg gmapping_robot_c)"/>
 		<arg name="map_file" value="$(arg map_file_c)"/>
  		<arg name="launch_move_base" value="$(arg move_base_robot_c)"/>
+		<arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
 	</include>
 	
 	
