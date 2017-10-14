@@ -24,13 +24,15 @@
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
         args="-urdf -model summit_xl -param robot_description"/>
 
-  <!-- summit_xl_control launch file -->
-  <include file="$(find summit_xl_control)/launch/summit_xl_control.launch" />
+  <!-- summit_xl_control launch -->
+  <!-- include file="$(find summit_xl_control)/launch/summit_xl_control.launch" / -->
+  <!-- using the diff_drive ros_controller --> 
+  <include file="$(find summit_xl_control)/launch/summit_xl_control_sim.launch" />
 
   <!-- launch pad -->
   <include file="$(find summit_xl_pad)/launch/summit_xl_pad.launch" />
 
   <!-- launch summit_xl_controller -->
-  <include file="$(find summit_xl_robot_control)/launch/summit_xl_robot_control.launch" />
+  <!-- include file="$(find summit_xl_robot_control)/launch/summit_xl_robot_control.launch" / -->
 
 </launch>
