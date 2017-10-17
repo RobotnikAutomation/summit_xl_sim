@@ -24,7 +24,7 @@
   <build_depend>summit_xl_control</build_depend>  
   <build_depend>summit_xl_robot_control</build_depend>  
   <build_depend>summit_xl_description</build_depend> 
-  <build_depend>xacro</build_depend> 
+  <build_depend>xacro</build_depend>  
 
   <run_depend>roscpp</run_depend>
   <run_depend>std_srvs</run_depend>
@@ -36,6 +36,7 @@
   <run_depend>summit_xl_description</run_depend> 
   <run_depend>xacro</run_depend> 
   <run_depend>hector_gazebo_plugins</run_depend> 
+  <run_depend>gazebo_plugins</run_depend> 
 
   <export>
 	  <gazebo_ros plugin_path="${prefix}/lib" gazebo_media_path="${prefix}" />

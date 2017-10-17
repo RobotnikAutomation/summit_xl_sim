@@ -5,7 +5,7 @@
 	<arg name="x_init_pose" default="0"/>
 	<arg name="y_init_pose" default="0"/>
 	<arg name="z_init_pose" default="0"/>
-	<arg name="xacro_robot" default="summit_xl_multi.urdf.xacro"/>
+	<arg name="xacro_robot" default="summit_xl_std.urdf.xacro"/>
 	<arg name="launch_robot_localization" default="false"/>
 	<arg name="launch_amcl_and_mapserver" default="false"/>
 	<arg name="launch_gmapping" default="false"/>
