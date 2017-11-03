@@ -48,8 +48,10 @@
 		</include -->
 		
 		<!-- pad -->
-		<include file="$(find summit_xl_pad)/launch/summit_xl_pad.launch">
-			<arg name="namespace" value="$(arg namespace)"/>
+		<include file="$(find summit_xl_pad)/launch/summit_xl_pad_ps4.launch">			
+			<!-- arg name="pad_model" value="ps4"/ -->
+			<arg name="cmd_topic_vel" default="/summit_xl_a_/pad_teleop/cmd_vel"/>
+			<!-- arg name="cmd_service_set_mode" default="/summit_xl_a_/summit_xl_controller/set_mode"/ -->		 	
 		</include>
 		
 		<!-- use static_transform_publisher to define map->odom transform    -->
