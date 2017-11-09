@@ -8,6 +8,7 @@
 	<arg name="launch_rviz" default="true"/>
 	<arg name="launch_robot_a" default="true"/>
 	<arg name="gazebo_world" default="summit_xl_office.world"/>
+	<arg name="map_file_a" default="willow_garage/willow_garage.yaml"/>
 	<arg name="localization_robot_a" default="true"/>
 	<arg name="gmapping_robot_a" default="false"/>
 	<arg name="move_base_robot_a" default="false"/>
@@ -17,6 +18,7 @@
 	<include file="$(find summit_xl_gazebo)/launch/summit_xl_gazebo.launch">
 		<arg name="launch_rviz" value="$(arg launch_rviz)"/>
 		<arg name="launch_robot_a" value="$(arg launch_robot_a)"/>
+		<arg name="map_file_a" value="$(arg map_file_a)"/>
 		<arg name="gazebo_world" value="$(arg gazebo_world)"/>
 		<arg name="localization_robot_a" value="$(arg localization_robot_a)"/>
 		<arg name="gmapping_robot_a" value="$(arg gmapping_robot_a)"/>
