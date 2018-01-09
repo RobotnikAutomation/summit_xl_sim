@@ -2,18 +2,18 @@
 <launch>
 
 	<!-- arg to config the launch file-->
-	
+
 	<!--launch_navigation and launch_navigation_nomap args are exclusive
 	and they are (or not) launched for all robots-->
 	<arg name="launch_rviz" default="true"/>
 	<arg name="launch_robot_a" default="true"/>
-	<arg name="gazebo_world" default="summit_xl_office.world"/>
+	<arg name="gazebo_world" default="$(find summit_xl_gazebo)/worlds/summit_xl_office.world"/>
 	<arg name="map_file_a" default="willow_garage/willow_garage.yaml"/>
 	<arg name="localization_robot_a" default="true"/>
 	<arg name="gmapping_robot_a" default="false"/>
 	<arg name="move_base_robot_a" default="false"/>
 	<arg name="amcl_and_mapserver_a" default="false"/>
-	
+
 	<!--BEGIN ROBOT 1-->
 	<include file="$(find summit_xl_gazebo)/launch/summit_xl_gazebo.launch">
 		<arg name="launch_rviz" value="$(arg launch_rviz)"/>
@@ -25,6 +25,6 @@
 		<arg name="move_base_robot_a" value="$(arg move_base_robot_a)"/>
 		<arg name="amcl_and_mapserver_a" value="$(arg amcl_and_mapserver_a)"/>
 	</include>
-	
-	
+
+
 </launch>
