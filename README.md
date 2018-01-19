@@ -40,4 +40,4 @@ launch files that launch the complete simulation of the robot
 2) Launch Summit XL simulation with: <br>
   - roslaunch summit_xl_sim_bringup summit_xl_complete.launch
   
-3) Enjoy! You can use the topic "/summit_xl_control/cmd_vel" to control the Summit XL robot.
+3) Enjoy! You can use the topic "/robotnik_base_control/cmd_vel" to control the Summit XL robot.
