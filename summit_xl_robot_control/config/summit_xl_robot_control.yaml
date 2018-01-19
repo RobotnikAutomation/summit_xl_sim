@@ -1,9 +1,0 @@
-summit_xl_robot_control:
-     frw_vel_topic: joint_frw_velocity_controller/command
-     flw_vel_topic: joint_flw_velocity_controller/command
-     blw_vel_topic: joint_blw_velocity_controller/command
-     brw_vel_topic: joint_brw_velocity_controller/command
-     joint_front_right_wheel: joint_front_right_wheel
-     joint_front_left_wheel: joint_front_left_wheel
-     joint_back_left_wheel: joint_back_left_wheel
-     joint_back_right_wheel: joint_back_right_wheel
