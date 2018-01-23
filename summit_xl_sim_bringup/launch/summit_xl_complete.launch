@@ -7,23 +7,33 @@
 	and they are (or not) launched for all robots-->
 	<arg name="launch_rviz" default="true"/>
 	<arg name="launch_robot_a" default="true"/>
+	<arg name="launch_robot_b" default="false"/>
 	<arg name="gazebo_world" default="$(find summit_xl_gazebo)/worlds/summit_xl_office.world"/>
 	<arg name="map_file_a" default="willow_garage/willow_garage.yaml"/>
 	<arg name="localization_robot_a" default="true"/>
 	<arg name="gmapping_robot_a" default="false"/>
 	<arg name="move_base_robot_a" default="false"/>
 	<arg name="amcl_and_mapserver_a" default="false"/>
+	<arg name="gmapping_robot_b" default="false"/>
+	<arg name="localization_robot_b" default="false"/>
+	<arg name="move_base_robot_b" default="false"/>
+	<arg name="amcl_and_mapserver_b" default="false"/>
 
 	<!--BEGIN ROBOT 1-->
 	<include file="$(find summit_xl_gazebo)/launch/summit_xl_gazebo.launch">
 		<arg name="launch_rviz" value="$(arg launch_rviz)"/>
 		<arg name="launch_robot_a" value="$(arg launch_robot_a)"/>
+		<arg name="launch_robot_b" value="$(arg launch_robot_b)"/>
 		<arg name="map_file_a" value="$(arg map_file_a)"/>
 		<arg name="gazebo_world" value="$(arg gazebo_world)"/>
 		<arg name="localization_robot_a" value="$(arg localization_robot_a)"/>
 		<arg name="gmapping_robot_a" value="$(arg gmapping_robot_a)"/>
 		<arg name="move_base_robot_a" value="$(arg move_base_robot_a)"/>
 		<arg name="amcl_and_mapserver_a" value="$(arg amcl_and_mapserver_a)"/>
+		<arg name="localization_robot_b" value="$(arg localization_robot_b)"/>
+		<arg name="gmapping_robot_b" value="$(arg gmapping_robot_b)"/>
+		<arg name="move_base_robot_b" value="$(arg move_base_robot_b)"/>
+		<arg name="amcl_and_mapserver_b" value="$(arg amcl_and_mapserver_b)"/>
 	</include>
 
 
