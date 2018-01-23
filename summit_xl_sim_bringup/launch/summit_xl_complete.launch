@@ -18,6 +18,7 @@
 	<arg name="localization_robot_b" default="false"/>
 	<arg name="move_base_robot_b" default="false"/>
 	<arg name="amcl_and_mapserver_b" default="false"/>
+	<arg name="map_file_b" default="willow_garage/willow_garage.yaml"/>
 
 	<!--BEGIN ROBOT 1-->
 	<include file="$(find summit_xl_gazebo)/launch/summit_xl_gazebo.launch">
@@ -34,6 +35,7 @@
 		<arg name="gmapping_robot_b" value="$(arg gmapping_robot_b)"/>
 		<arg name="move_base_robot_b" value="$(arg move_base_robot_b)"/>
 		<arg name="amcl_and_mapserver_b" value="$(arg amcl_and_mapserver_b)"/>
+		<arg name="map_file_b" value="$(arg map_file_b)"/>
 	</include>
 
 
