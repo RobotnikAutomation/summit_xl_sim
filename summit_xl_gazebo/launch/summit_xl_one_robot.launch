@@ -31,26 +31,14 @@
 		<node name="urdf_spawner_summit_model" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
 		 args="-x $(arg x_init_pose) -y $(arg y_init_pose) -z $(arg z_init_pose) -urdf -param robot_description -model $(arg id_robot)" />
 
-		<!-- Load joint controller configurations from YAcd .ML file to parameter server -->
-		<rosparam file="$(find summit_xl_gazebo)/config/$(arg prefix)control.yaml" command="load"/>  
-		<param if="$(arg launch_robot_localization)" name="summit_xl_control/enable_odom_tf" value="false"/>
-
-		<!-- load the controllers -->
-		<node unless="$(arg ros_planar_move_plugin)" name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-		   output="screen" ns="/$(arg id_robot)" args="--shutdown-time 1 
-					  summit_xl_control
-                      joint_read_state_controller"/>
-		<node if="$(arg ros_planar_move_plugin)" name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-		   output="screen" ns="/$(arg id_robot)" args="--shutdown-time 1 
-                      joint_read_state_controller"/>
-					  
-		<node pkg="twist_mux" type="twist_mux" name="twist_mux">
-			<rosparam command="load" file="$(find summit_xl_control)/config/twist_mux.yaml" />
-			<remap from="cmd_vel_out" to="summit_xl_control/cmd_vel" />
-		</node>
-
-		<!-- pad -->
-		<!--include file="$(find summit_xl_pad)/launch/summit_xl_pad.launch"/-->
+		<!-- start summit_xl_control nodes -->  
+		<include file="$(find summit_xl_control)/launch/summit_xl_control.launch"> 
+			<arg name="prefix" value="$(arg prefix)"/>
+			<arg name="sim" value="true"/>
+			<arg if="$(arg ros_planar_move_plugin)" name="kinematics" value="steel_omni"/>
+			<arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
+			<arg name="launch_robot_localization" value="$(arg launch_robot_localization)"/>
+		</include>
 
 		<!-- robot_localization nodes, publishes transformation world->odom->base_footprint -->
 		<include if="$(arg launch_robot_localization)" file="$(find summit_xl_localization)/launch/robot_localization_$(arg robot_localization_mode).launch">
