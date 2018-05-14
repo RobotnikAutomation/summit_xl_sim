@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-	
+
 	<arg name="id_robot" default="summit_xl"/>
 	<arg name="x_init_pose" default="0"/>
 	<arg name="y_init_pose" default="0"/>
@@ -12,15 +12,15 @@
 	<arg name="launch_move_base" default="false"/>
 	<arg name="map_file" default="empty/empty.yaml"/>
 	<arg name="robot_localization_mode" default="odom"/><!-- odom, complete (including gps)-->
-	<arg name="ros_planar_move_plugin" default="false"/>	
-  
+	<arg name="ros_planar_move_plugin" default="false"/>
+
 	<!-- BEGIN ROBOT-->
 	<group ns="$(arg id_robot)">
-	  
-		<arg name="prefix" value="$(arg id_robot)_"/>		
-		  
+
+		<arg name="prefix" value="$(arg id_robot)_"/>
+
 		<!-- Load the URDF into the ROS Parameter Server -->
-		<param name="robot_description" 
+		<param name="robot_description"
 		command="$(find xacro)/xacro '$(find summit_xl_description)/robots/$(arg xacro_robot)' prefix:=$(arg prefix) ros_planar_move_plugin:=$(arg ros_planar_move_plugin) --inorder"/>
 
 		<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
@@ -31,8 +31,8 @@
 		<node name="urdf_spawner_summit_model" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
 		 args="-x $(arg x_init_pose) -y $(arg y_init_pose) -z $(arg z_init_pose) -urdf -param robot_description -model $(arg id_robot)" />
 
-		<!-- start summit_xl_control nodes -->  
-		<include file="$(find summit_xl_control)/launch/summit_xl_control.launch"> 
+		<!-- start summit_xl_control nodes -->
+		<include file="$(find summit_xl_control)/launch/summit_xl_control.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
 			<arg name="sim" value="true"/>
 			<arg if="$(arg ros_planar_move_plugin)" name="kinematics" value="steel_omni"/>
@@ -48,7 +48,7 @@
 		<!-- use static_transform_publisher to define map->odom transform    -->
 		<!-- only use if you aren´t using a localization algorithm like amcl -->
 		<!--node if="$(arg fake_map_transform)" pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)odom 100" /-->
-		
+
 		<!-- amcl and map server base-->
 		<include if="$(arg launch_amcl_and_mapserver)" file="$(find summit_xl_localization)/launch/map_server.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
@@ -56,6 +56,8 @@
 		</include>
 		<include if="$(arg launch_amcl_and_mapserver)" file="$(find summit_xl_localization)/launch/amcl.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
+			<arg if="$(arg ros_planar_move_plugin)" name="odom_model_type" value="omni"/>
+			<arg unless="$(arg ros_planar_move_plugin)" name="odom_model_type" value="diff"/>
 			<arg name="x_init_pose" value="$(arg x_init_pose)"/>
 			<arg name="y_init_pose" value="$(arg y_init_pose)"/>
 			<arg name="z_init_pose" value="$(arg z_init_pose)"/>
@@ -64,9 +66,10 @@
 		<!-- move base -->
 		<include if="$(arg launch_move_base)" file="$(find summit_xl_navigation)/launch/move_base.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
+			<arg name="omni" value="$(arg ros_planar_move_plugin)"/>
 		</include>
-		
-		
+
+
 		<!-- gmapping -->
 		<include if="$(arg launch_gmapping)" file="$(find summit_xl_localization)/launch/slam_gmapping.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
@@ -75,4 +78,3 @@
 	</group>
 
 </launch>
-
