@@ -6,6 +6,8 @@ Packages for the simulation of the Summit XL
 ![Image of Summit XL](http://www.robotnik.es/web/wp-content/uploads/2014/03/summit-xl-robots-moviles-robotnik_s01.jpg)
 
 
+![Image of Summit XL Steel](https://www.robotnik.eu/web/wp-content/uploads/2016/02/SUMMIT_XL_STEEL_101.jpg)
+
 <h1> Packages </h1>
 
 <h2>summit_xl_gazebo</h2>
