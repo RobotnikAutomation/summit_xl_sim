@@ -3,11 +3,12 @@ summit_xl_sim
 
 Packages for the simulation of the Summit XL
 
-<a href="url"><img src="http://www.robotnik.es/web/wp-content/uploads/2014/03/summit-xl-robots-moviles-robotnik_s01.jpg" align="left" height="250" width="350" ></a>
+<img src="http://www.robotnik.es/web/wp-content/uploads/2014/03/summit-xl-robots-moviles-robotnik_s01.jpg" width="350" height="250">
 
-<a href="url"><img src="https://www.robotnik.eu/web/wp-content/uploads/2016/02/SUMMIT_XL_STEEL_101.jpg" align="left" height="250" width="350" ></a>
+<img src="https://www.robotnik.eu/web/wp-content/uploads/2016/02/SUMMIT_XL_STEEL_101.jpg" width="350" height="250">
 
-<br>
+
+<br/>
 <br>
 
 <h1> Packages </h1>
