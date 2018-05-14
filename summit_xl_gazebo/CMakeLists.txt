@@ -8,6 +8,8 @@ find_package(catkin REQUIRED COMPONENTS
     std_msgs
     tf
     gazebo_ros
+    joint_state_controller
+    velocity_controllers
 )
 
 

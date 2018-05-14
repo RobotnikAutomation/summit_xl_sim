@@ -3,15 +3,20 @@
   <version>1.1.1</version>
   <description>
 		Launch files and world files to start the models in gazebo
-	</description>
-  <maintainer email="cvillar@robotnik.es">Carlos Villar</maintainer>
-
+  </description>
+  
   <license>BSD</license>
   <url type="website">http://ros.org/wiki/summit_xl_gazebo</url>
   <url type="repository">https://github.com/RobotnikAutomation/summit_xl_sim.git</url>
   <url type="bugtracker">https://github.com/RobotnikAutomation/summit_xl_sim/issues</url>
 
-  <author email="rguzman@robotnik.es">Robotnik</author>
+  <author email="rguzman@robotnik.es">Roberto Guzmán</author>
+  <maintainer email="asoriano@robotnik.es">Angel Soriano</maintainer>
+  <maintainer email="avillena@robotnik.es">Álvaro Villena</maintainer>
+  <maintainer email="dredo@robotnik.es">David Redó</maintainer>
+  <maintainer email="aarnal@robotnik.es">Alejandro Arnal</maintainer>
+  <maintainer email="mbosch@robotnik.es">Marc Bosch</maintainer>
+  <maintainer email="rnavarro@robotnik.es">Román Navarro</maintainer>
   
   
   <buildtool_depend>catkin</buildtool_depend>
@@ -26,7 +31,10 @@
   <build_depend>summit_xl_description</build_depend> 
   <build_depend>xacro</build_depend>  
   <build_depend>hector_gazebo_plugins</build_depend>
+  <build_depend>joint_state_controller</build_depend>
+  <build_depend>velocity_controllers</build_depend>
   
+
   <run_depend>roscpp</run_depend>
   <run_depend>std_srvs</run_depend>
   <run_depend>std_msgs</run_depend>
@@ -38,6 +46,8 @@
   <run_depend>xacro</run_depend> 
   <run_depend>hector_gazebo_plugins</run_depend> 
   <run_depend>gazebo_plugins</run_depend> 
+  <run_depend>joint_state_controller</run_depend> 
+  <run_depend>velocity_controllers</run_depend> 
 
   <export>
 	  <gazebo_ros plugin_path="${prefix}/lib" gazebo_media_path="${prefix}" />
