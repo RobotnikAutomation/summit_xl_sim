@@ -2,7 +2,6 @@
 Changelog for package summit_xl_sim
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-===========
 Forthcoming
 -----------
 * removed summit_xl_control pkg
