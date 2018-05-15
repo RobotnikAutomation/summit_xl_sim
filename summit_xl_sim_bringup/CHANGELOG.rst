@@ -2,8 +2,8 @@
 Changelog for package summit_xl_sim_bringup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.1.3 (2018-05-15)
+------------------
 * added three robots
 * added arguments for the third robot
 * sim_bringup: Summit Steel and planar plugin not working with robot_localization.

@@ -2,8 +2,8 @@
 Changelog for package summit_xl_sim
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.1.3 (2018-05-15)
+------------------
 * removed summit_xl_control pkg
 * solved package.xml sintax error
 * Merge branch 'kinetic-devel' into kinetic-multirobot-devel

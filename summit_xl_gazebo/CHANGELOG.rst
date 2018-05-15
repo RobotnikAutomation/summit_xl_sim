@@ -2,8 +2,8 @@
 Changelog for package summit_xl_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.1.3 (2018-05-15)
+------------------
 * updated rviz config
 * gazebo: updating deps and maintainers
 * Add parameters to change navigation and localization mode
