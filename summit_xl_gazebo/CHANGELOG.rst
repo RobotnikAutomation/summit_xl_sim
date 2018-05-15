@@ -2,6 +2,52 @@
 Changelog for package summit_xl_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* updated rviz config
+* gazebo: updating deps and maintainers
+* Add parameters to change navigation and localization mode
+* [summit_xl_gazebo] spawner of controllers moved to summit_xl_control package
+* added arg gui to launch gazebo with gui or not
+* added the build depend of hector_gazebo_plugin
+* config files of control moved to summit_xl_control pkg
+* allow to launch worlds of external pkgs
+* minor changes
+* sim: setting the omni drive configuration for SummitXL Steel
+* gazebo: adding rviz config for summit XLS
+* sim_bringup: updating launch files and deleting old ones
+* gazebo: remapping params of launch files and new one for gazebo & rviz
+* gazebo: dependency of hector_gazebo_plugins
+* gazebo: adding param enable_odom_tf to the config
+* gazebo: minor changes
+* urdf model changed to summit_xl_std
+* [summit_xl_gazebo]:map frame now is /robot_id_map
+* [summit_xl_gazebo]:some tabs in launch file
+* [summit_xl_gazebo]:added gmapping include option
+* [summit_xl_gazebo]:launch file updated to multirobot]
+* [summit_xl_gazebo]: yaml files updated with prefix
+* [summit_xl_gazebo]:rviz config updated
+* [summit_xl_gazebo]:rviz config added of office map
+* [summit_xl_gazebo]:summit_xl_multi.launch modified to 3 robots
+* added multirobot config and launch files
+* Merge branch 'kinetic-devel' into kinetic-multirobot-devel
+* Merge branch 'indigo-devel' into kinetic-devel
+* multi-robot launch modified
+* added rviz config
+* added launch for a single robot
+* added diff_drive plugin controller configuration
+* summit_xl_sim multirobot branch
+* summit_xl modified to multirobot
+* summit_xl modified to multirobot
+* gazebo: adding flag to enable/disable the fake transform from map to odom
+* gazebo: update of rviz config
+* gazebo: adding pad to multi launch
+* gazebo: adding rviz config
+* adding gazebo launch for multirobots
+* updated simulation with summit_xl_robot_control
+* summit_xl_sim: removed temp files
+* 1.0.10
+
 1.0.10 (2016-08-24)
 -------------------
 
