@@ -22,7 +22,6 @@
 
   <buildtool_depend>catkin</buildtool_depend>
   <run_depend>summit_xl_gazebo</run_depend>
-  <run_depend>summit_xl_robot_control</run_depend>
   <run_depend>summit_xl_sim_bringup</run_depend>
 
   <export>
