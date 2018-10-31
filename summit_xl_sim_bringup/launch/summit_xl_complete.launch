@@ -11,7 +11,7 @@
 	<!-- arguments robot a -->
 	<arg name="launch_robot_a" default="true"/>
 	<arg name="map_file_a" default="willow_garage/willow_garage.yaml"/>
-	<arg name="localization_robot_a" default="true"/>
+	<arg name="localization_robot_a" default="false"/>
 	<arg name="gmapping_robot_a" default="false"/>
 	<arg name="move_base_robot_a" default="false"/>
 	<arg name="amcl_and_mapserver_a" default="false"/>
