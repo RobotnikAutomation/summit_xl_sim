@@ -5,10 +5,11 @@ Packages for the simulation of the Summit XL
 
 <a href="url"><img src="https://www.roscomponents.com/273-big_default/summit-xl.jpg" align="left" height="275" width="275" ></a>
 
-<a href="url"><img src="https://www.roscomponents.com/279-big_default/summit-xl-steel.jpg" align="left" height="275" width="275" ></a>
+<a href="url"><img src="https://www.roscomponents.com/811-thickbox_default/summit-xl-steel.jpg" align="left" height="275" width="275" ></a>
 <br />
 <br />
 <br />
+
 
 <a href="url"><img src="https://www.robotnik.es/web/wp-content/uploads/2014/04/summit_xl_hl_sim.png" align="left" height="150" width="275" ></a>
 
