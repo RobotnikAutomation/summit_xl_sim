@@ -61,6 +61,7 @@ Launch files that launch the complete simulation of the robot/s
   ```
   <arg name="launch_rviz" default="true"/>
   <arg name="gazebo_world" default="$(find summit_xl_gazebo)/worlds/summit_xl_office.world"/>
+  <arg name="omni_drive" default="false"/> (only for Summit XL)
 
   ```
   Optional robot arguments:
@@ -87,4 +88,3 @@ Launch files that launch the complete simulation of the robot/s
   roslaunch summit_xl_sim_bringup summit_xl_complete.launch move_base_robot_a:=true amcl_and_mapserver_a:=true
   ```
 3. Enjoy! You can use the topic "${id_robot}/robotnik_base_control/cmd_vel" to control the Summit XL robot or send simple goals using "/${id_robot}/move_base_simple/goal"
-
