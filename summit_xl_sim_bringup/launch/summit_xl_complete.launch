@@ -7,7 +7,7 @@
 	and they are (or not) launched for all robots-->
 	<arg name="launch_rviz" default="true"/>
 	<arg name="gazebo_world" default="$(find summit_xl_gazebo)/worlds/summit_xl_office.world"/>
-	
+	<arg name="omni_drive" default="false"/>
 	<!-- arguments robot a -->
 	<arg name="launch_robot_a" default="true"/>
 	<arg name="map_file_a" default="willow_garage/willow_garage.yaml"/>
@@ -15,7 +15,7 @@
 	<arg name="gmapping_robot_a" default="false"/>
 	<arg name="move_base_robot_a" default="false"/>
 	<arg name="amcl_and_mapserver_a" default="false"/>
-	
+
 	<!-- arguments robot b -->
 	<arg name="launch_robot_b" default="false"/>
 	<arg name="map_file_b" default="willow_garage/willow_garage.yaml"/>
@@ -23,7 +23,7 @@
 	<arg name="gmapping_robot_b" default="false"/>
 	<arg name="move_base_robot_b" default="false"/>
 	<arg name="amcl_and_mapserver_b" default="false"/>
-	
+
 	<!-- arguments robot c -->
 	<arg name="launch_robot_c" default="false"/>
 	<arg name="map_file_c" default="willow_garage/willow_garage.yaml"/>
@@ -37,6 +37,7 @@
 		<!-- general args -->
 		<arg name="launch_rviz" value="$(arg launch_rviz)"/>
 		<arg name="gazebo_world" value="$(arg gazebo_world)"/>
+    <arg name="ros_planar_move_plugin" value="$(arg omni_drive)"/>
 		<!-- robot_a args -->
 		<arg name="launch_robot_a" value="$(arg launch_robot_a)"/>
 		<arg name="map_file_a" value="$(arg map_file_a)"/>
