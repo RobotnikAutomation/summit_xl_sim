@@ -10,6 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
     gazebo_ros
     joint_state_controller
     velocity_controllers
+    gazebo_ros_control
 )
 
 
