@@ -85,6 +85,7 @@ Launch files that launch the complete simulation of the robot/s
   ```
 - Example to launch simulation with 1 Summit XL robot with navigation:
   ```
-  roslaunch summit_xl_sim_bringup summit_xl_complete.launch move_base_robot_a:=true amcl_and_mapserver_a:=true
+  
+  roslaunch summit_xl_sim_bringup summit_xl_complete.launch move_base_robot_a:=true amcl_and_mapserver_a:=true localization_robot_a:=true
   ```
 3. Enjoy! You can use the topic "${id_robot}/robotnik_base_control/cmd_vel" to control the Summit XL robot or send simple goals using "/${id_robot}/move_base_simple/goal"
