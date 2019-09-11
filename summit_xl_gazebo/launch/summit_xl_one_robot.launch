@@ -11,7 +11,8 @@
 	<arg name="launch_gmapping" default="false"/>
 	<arg name="launch_move_base" default="false"/>
 	<arg name="map_file" default="empty/empty.yaml"/>
-	<arg name="robot_localization_mode" default="odom"/><!-- odom, complete (including gps)-->
+	<arg name="robot_localization_mode" default="odom"/>
+	<!-- odom, complete (including gps)-->
 	<arg name="ros_planar_move_plugin" default="false"/>
 
 	<!-- BEGIN ROBOT-->
@@ -20,16 +21,14 @@
 		<arg name="prefix" value="$(arg id_robot)_"/>
 
 		<!-- Load the URDF into the ROS Parameter Server -->
-		<param name="robot_description"
-		command="$(find xacro)/xacro '$(find summit_xl_description)/robots/$(arg xacro_robot)' prefix:=$(arg prefix) ros_planar_move_plugin:=$(arg ros_planar_move_plugin) omni_wheels:=$(arg ros_planar_move_plugin) --inorder"/>
+		<param name="robot_description" command="$(find xacro)/xacro '$(find summit_xl_description)/robots/$(arg xacro_robot)' prefix:=$(arg prefix) ros_planar_move_plugin:=$(arg ros_planar_move_plugin) omni_wheels:=$(arg ros_planar_move_plugin) --inorder"/>
 
 		<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
 			<remap from="/joint_states" to="joint_states" />
 		</node>
 
 		<!-- Spawner model into gazebo -->
-		<node name="urdf_spawner_summit_model" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-		 args="-x $(arg x_init_pose) -y $(arg y_init_pose) -z $(arg z_init_pose) -urdf -param robot_description -model $(arg id_robot)" />
+		<node name="urdf_spawner_summit_model" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-x $(arg x_init_pose) -y $(arg y_init_pose) -z $(arg z_init_pose) -urdf -param robot_description -model $(arg id_robot)" />
 
 		<!-- start summit_xl_control nodes -->
 		<include file="$(find summit_xl_control)/launch/summit_xl_control.launch">
