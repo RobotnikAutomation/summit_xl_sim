@@ -9,7 +9,7 @@
 	and they are (or not) launched for all robots-->
 	<arg name="launch_rviz" default="true"/>
 	<arg name="gazebo_world" default="$(find summit_xl_gazebo)/worlds/summit_xl_office.world"/>
-	
+
 	<!-- arguments robot a -->
 	<arg name="launch_robot_a" default="true"/>
 	<arg name="map_file_a" default="willow_garage/willow_garage.yaml"/>
@@ -18,7 +18,8 @@
 	<arg name="move_base_robot_a" default="false"/>
 	<arg name="amcl_and_mapserver_a" default="false"/>
 	<arg name="xacro_robot_a" default="summit_xls_std.urdf.xacro"/>
-	
+	<arg name="launch_pad_a" default="false"/>
+
 	<!-- arguments robot b -->
 	<arg name="launch_robot_b" default="false"/>
 	<arg name="map_file_b" default="willow_garage/willow_garage.yaml"/>
@@ -27,7 +28,8 @@
 	<arg name="move_base_robot_b" default="false"/>
 	<arg name="amcl_and_mapserver_b" default="false"/>
 	<arg name="xacro_robot_b" default="summit_xls_std.urdf.xacro"/>
-	
+	<arg name="launch_pad_b" default="false"/>
+
 	<!-- arguments robot c -->
 	<arg name="launch_robot_c" default="false"/>
 	<arg name="map_file_c" default="willow_garage/willow_garage.yaml"/>
@@ -36,6 +38,7 @@
 	<arg name="move_base_robot_c" default="false"/>
 	<arg name="amcl_and_mapserver_c" default="false"/>
 	<arg name="xacro_robot_c" default="summit_xls_std.urdf.xacro"/>
+	<arg name="launch_pad_c" default="false"/>
 
 
 	<include file="$(find summit_xl_gazebo)/launch/summit_xl_gazebo.launch">
@@ -51,6 +54,7 @@
 		<arg name="move_base_robot_a" value="$(arg move_base_robot_a)"/>
 		<arg name="amcl_and_mapserver_a" value="$(arg amcl_and_mapserver_a)"/>
 		<arg name="xacro_robot_a" value="$(arg xacro_robot_a)"/>
+		<arg name="launch_pad_a" value="$(arg launch_pad_a)"/>
 		<!-- robot_b args -->
 		<arg name="launch_robot_b" value="$(arg launch_robot_b)"/>
 		<arg name="localization_robot_b" value="$(arg localization_robot_b)"/>
@@ -59,6 +63,8 @@
 		<arg name="amcl_and_mapserver_b" value="$(arg amcl_and_mapserver_b)"/>
 		<arg name="map_file_b" value="$(arg map_file_b)"/>
 		<arg name="xacro_robot_b" value="$(arg xacro_robot_b)"/>
+		<arg name="launch_pad_b" value="$(arg launch_pad_b)"/>
+
 		<!-- robot_c args -->
 		<arg name="launch_robot_c" value="$(arg launch_robot_c)"/>
 		<arg name="localization_robot_c" value="$(arg localization_robot_c)"/>
@@ -67,6 +73,7 @@
 		<arg name="amcl_and_mapserver_c" value="$(arg amcl_and_mapserver_c)"/>
 		<arg name="map_file_c" value="$(arg map_file_c)"/>
 		<arg name="xacro_robot_c" value="$(arg xacro_robot_c)"/>
+		<arg name="launch_pad_c" value="$(arg launch_pad_c)"/>
 
 	</include>
 

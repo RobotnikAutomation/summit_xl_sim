@@ -2,7 +2,7 @@
 <launch>
 
 	<!-- arg to config the launch file-->
-	
+
 	<!--launch_navigation and launch_navigation_nomap args are exclusive
 	and they are (or not) launched for all robots-->
 	<arg name="launch_rviz" default="true"/>
@@ -12,11 +12,11 @@
 	<arg name="gazebo_world" default="$(find summit_xl_gazebo)/worlds/summit_xl_office.world"/>
 	<arg name="debug" default="false"/>
 	<arg name="ros_planar_move_plugin" default="false"/>
-	
+
 
 	<!--params of the different robots-->
 	<!-- robot a -->
-	<arg name="id_robot_a" default="summit_xl_a"/>
+	<arg name="id_robot_a" default="robot"/>
 	<arg name="x_init_pose_robot_a" default="0" />
 	<arg name="y_init_pose_robot_a" default="0" />
 	<arg name="z_init_pose_robot_a" default="0" />
@@ -26,9 +26,10 @@
 	<arg name="amcl_and_mapserver_a" default="false"/>
 	<arg name="map_file_a" default="willow_garage/willow_garage.yaml"/>
 	<arg name="xacro_robot_a" default="summit_xl_std.urdf.xacro"/>
-	
+	<arg name="launch_pad_a" default="false"/>
+
 	<!-- robot b -->
-	<arg name="id_robot_b" default="summit_xl_b"/>
+	<arg name="id_robot_b" default="robot_b"/>
 	<arg name="x_init_pose_robot_b" default="0" />
 	<arg name="y_init_pose_robot_b" default="1" />
 	<arg name="z_init_pose_robot_b" default="0" />
@@ -38,9 +39,10 @@
 	<arg name="amcl_and_mapserver_b" default="false"/>
 	<arg name="map_file_b" default="willow_garage/willow_garage.yaml"/>
 	<arg name="xacro_robot_b" default="summit_xl_std.urdf.xacro"/>
-	
+	<arg name="launch_pad_b" default="false"/>
+
 	<!-- robot c -->
-	<arg name="id_robot_c" default="summit_xl_c"/>
+	<arg name="id_robot_c" default="robot_c"/>
 	<arg name="x_init_pose_robot_c" default="0" />
 	<arg name="y_init_pose_robot_c" default="2" />
 	<arg name="z_init_pose_robot_c" default="0" />
@@ -50,8 +52,9 @@
 	<arg name="amcl_and_mapserver_c" default="false"/>
 	<arg name="map_file_c" default="willow_garage/willow_garage.yaml"/>
 	<arg name="xacro_robot_c" default="summit_xl_std.urdf.xacro"/>
-	
-	
+	<arg name="launch_pad_c" default="false"/>
+
+
 	<!--BEGIN ROBOT 1-->
 	<include if="$(arg launch_robot_a)" file="$(find summit_xl_gazebo)/launch/summit_xl_one_robot.launch">
 		<arg name="id_robot" value="$(arg id_robot_a)"/>
@@ -65,8 +68,9 @@
 		<arg name="map_file" value="$(arg map_file_a)"/>
  		<arg name="launch_move_base" value="$(arg move_base_robot_a)"/>
 		<arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
+		<arg name="launch_pad" value="$(arg launch_pad_a)"/>
 	</include>
-	
+
 	<!--BEGIN ROBOT 2-->
 	<include if="$(arg launch_robot_b)" file="$(find summit_xl_gazebo)/launch/summit_xl_one_robot.launch">
 		<arg name="id_robot" value="$(arg id_robot_b)"/>
@@ -80,6 +84,8 @@
 		<arg name="map_file" value="$(arg map_file_b)"/>
  		<arg name="launch_move_base" value="$(arg move_base_robot_b)"/>
 		<arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
+		<arg name="launch_pad" value="$(arg launch_pad_b)"/>
+
 	</include>
 
 	<!--BEGIN ROBOT 3-->
@@ -95,18 +101,16 @@
 		<arg name="map_file" value="$(arg map_file_c)"/>
  		<arg name="launch_move_base" value="$(arg move_base_robot_c)"/>
 		<arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
+		<arg name="launch_pad" value="$(arg launch_pad_c)"/>
+
 	</include>
-	
-	
+
+
 	<!-- gazebo simulation and rviz visualization-->
-	<include file="$(find summit_xl_gazebo)/launch/gazebo_rviz.launch">		
+	<include file="$(find summit_xl_gazebo)/launch/gazebo_rviz.launch">
 		<arg name="launch_rviz" value="$(arg launch_rviz)"/>
 		<arg name="world" value="$(arg gazebo_world)"/>
 		<arg name="debug" value="$(arg debug)"/>
 	</include>
-  
-</launch>	
-	
 
-
-	
+</launch>
