@@ -17,6 +17,19 @@
 	<arg name="ros_planar_move_plugin" default="false"/>
 	<arg name="launch_pad" default="false"/>
 
+	<!-- only for low level simulation -->
+	<arg name="launch_base_hw_sim" default="false"/>
+	<arg name="launch_battery_estimator" default="false"/>
+	<arg name="launch_perception" default="false"/>
+	<arg name="launch_navigation" default="false"/>
+	<arg name="launch_rlc" default="false"/>
+	<arg name="launch_rlc_rostful" default="falsefalse"/>
+	<arg name="rlc_rostful_host" default="localhost"/>
+	<arg name="rlc_rostful_port" default="8080"/>
+	<arg name="merge_lasers" default="false"/>
+	<arg name="merge_laser_topics" default="front_laser/scan rear_laser/scan"/>
+
+
 	<!-- BEGIN ROBOT-->
 	<group ns="$(arg id_robot)">
 
@@ -83,6 +96,62 @@
 
 		<!-- pad -->
 		<include  if="$(arg launch_pad)" file="$(find summit_xl_pad)/launch/summit_xl_pad.launch"/>
+
+		<!-- base_hw_sim -->
+		<include if="$(arg launch_base_hw_sim)" file="$(find robotnik_base_hw_sim)/launch/summit_xl_hw_sim.launch">
+			<arg name="prefix" value="$(arg prefix)"/>
+		</include>
+
+		<group if="$(arg launch_battery_estimator)">
+			<!-- start dock_manager node -->
+			<include file="$(find charge_manager)/launch/charge_manager.launch">
+				<arg name="docker_mode" value="manual_sw"/>
+				<arg name="inverted_contact_relay_input" value="false"/>
+				<arg name="contact_relay_input_number" value="2"/>
+				<arg name="charger_relay_output_number" value="1"/>
+			</include>
+
+			<!-- start battery_estimation node -->
+			<include file="$(find battery_estimation)/launch/table_battery.launch">
+				<arg name="battery_voltage" value="48"/>
+				<arg name="read_voltage_from_analog_input" value="true"/>
+				<arg name="voltage_analog_input_number" value="1" />
+				<arg name="current_analog_input_number" value="2" />
+			</include>
+
+		</group>
+
+		<include if="$(arg merge_lasers)" file="$(find summit_xl_bringup)/launch/merge_laser.launch">
+      <arg name="laserscan_topics" value="$(arg merge_laser_topics)"/>
+      <arg name="prefix" value="$(arg prefix)"/>
+    </include>
+
+	</group>
+
+	<include if="$(arg launch_perception)" file="$(find summit_xl_perception)/launch/perception_complete.launch">
+		<arg name="id_robot" value="$(arg id_robot)"/>
+		<arg name="run_reflector_locator" value="true"/>
+		<arg name="run_ar_locator" value="true"/>
+	</include>
+
+	<include if="$(arg launch_navigation)" file="$(find summit_xl_navigation)/launch/navigation_complete.launch">
+		<arg name="id_robot" value="$(arg id_robot)"/>
+		<arg name="has_docker" value="true"/>
+		<arg name="run_laser_docker" value="true"/>
+	</include>
+
+	<group if="$(arg launch_rlc)">
+		<!-- start dock_manager node -->
+		<include file="$(find summit_xl_robot_local_control)/launch/robot_local_control.launch">
+			<arg name="id_robot" value="$(arg id_robot)"/>
+		</include>
+
+		<!-- start battery_estimation node -->
+		<include if="$(arg launch_rlc_rostful)" file="$(find summit_xl_robot_local_control)/launch/rostful_server.launch">
+			<arg name="id_robot" value="$(arg id_robot)"/>
+			<arg name="host" value="$(arg rlc_rostful_host)"/>
+			<arg name="port" value="$(arg rlc_rostful_port)"/>
+		</include>
 
 	</group>
 
