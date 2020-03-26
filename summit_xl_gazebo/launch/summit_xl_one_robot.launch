@@ -14,6 +14,7 @@
 	<arg name="robot_localization_mode" default="odom"/>
 	<arg name="movebase_local_planner" default="teb"/>
 	<!-- odom, complete (including gps)-->
+	<arg name="omni_drive" default="false"/>
 	<arg name="ros_planar_move_plugin" default="false"/>
 	<arg name="launch_pad" default="false"/>
 
@@ -36,7 +37,7 @@
 		<arg name="prefix" value="$(arg id_robot)_"/>
 
 		<!-- Load the URDF into the ROS Parameter Server -->
-		<param name="robot_description" command="$(find xacro)/xacro '$(find summit_xl_description)/robots/$(arg xacro_robot)' prefix:=$(arg prefix) ros_planar_move_plugin:=$(arg ros_planar_move_plugin) omni_wheels:=$(arg ros_planar_move_plugin) --inorder"/>
+		<param name="robot_description" command="$(find xacro)/xacro '$(find summit_xl_description)/robots/$(arg xacro_robot)' prefix:=$(arg prefix) ros_planar_move_plugin:=$(arg ros_planar_move_plugin) omni_wheels:=$(arg omni_drive) --inorder"/>
 
 		<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
 			<remap from="/joint_states" to="joint_states" />
@@ -50,8 +51,8 @@
 			<arg name="prefix" value="$(arg prefix)"/>
 			<arg name="sim" value="true"/>
 
-			<arg if="$(arg ros_planar_move_plugin)" name="kinematics" value="omni"/>
-			<arg unless="$(arg ros_planar_move_plugin)" name="kinematics" value="skid"/>
+			<arg if="$(arg omni_drive)" name="kinematics" value="omni"/>
+			<arg unless="$(arg omni_drive)" name="kinematics" value="skid"/>
 
 			<arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
 			<arg name="launch_robot_localization" value="$(arg launch_robot_localization)"/>
