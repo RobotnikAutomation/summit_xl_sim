@@ -7,7 +7,7 @@
 	<arg name="gazebo_world" default="$(find summit_xl_gazebo)/worlds/summit_xl_office.world"/>
 	<arg name="omni_drive" default="false"/>
 	<arg if="$(arg omni_drive)" name="ros_planar_move_plugin" value="true"/>
-	<arg unless="$(arg omni_drive)" name="ros_planar_move_plugin" default="false"/>
+	<arg unless="$(arg omni_drive)" name="ros_planar_move_plugin" default="true"/>
 	<!-- arguments robot a -->
 	<arg name="launch_robot_a" default="true"/>
 	<arg name="map_file_a" default="willow_garage/willow_garage.yaml"/>
