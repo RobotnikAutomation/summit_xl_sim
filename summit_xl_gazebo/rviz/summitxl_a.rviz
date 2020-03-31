@@ -29,7 +29,7 @@ Panels:
     SyncSource: Front LaserScan A
   - Class: rviz_plugin_tutorials/Teleop
     Name: Teleop
-    Topic: /robot/robotnik_base_contsrol/cmd_vel
+    Topic: /robot/robotnik_base_control/cmd_vel
 Toolbars:
   toolButtonStyle: 2
 Visualization Manager:
