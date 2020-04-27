@@ -21,15 +21,6 @@ catkin_package(
 
 )
 
-###########
-## Build ##
-###########
-
-
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-)
-
 
 #############
 ## Install ##
@@ -37,7 +28,7 @@ include_directories(
 
 
 install(
-  DIRECTORY launch worlds
+  DIRECTORY launch worlds rviz
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
