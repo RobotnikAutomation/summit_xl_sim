@@ -18,16 +18,17 @@
 	<arg name="ros_planar_move_plugin" default="false"/>
 	<arg name="launch_pad" default="false"/>
 
-	<!-- only for low level simulation -->
-	<arg name="launch_base_hw_sim" default="false"/>
-	<arg name="launch_battery_estimator" default="false"/>
-	<arg name="launch_perception" default="false"/>
-	<arg name="launch_navigation" default="false"/>
-	<arg name="launch_rlc" default="false"/>
-	<arg name="launch_rlc_rostful" default="falsefalse"/>
+	<!-- only for advanced simulation -->
+	<arg name="launch_advanced_simulation" default="false"/> <!-- one flag activates all -->
+	<arg name="launch_base_hw_sim" default="$(arg launch_advanced_simulation)"/>
+	<arg name="launch_battery_estimator" default="$(arg launch_advanced_simulation)"/>
+	<arg name="launch_perception" default="$(arg launch_advanced_simulation)"/>
+	<arg name="launch_navigation" default="$(arg launch_advanced_simulation)"/>
+	<arg name="launch_rlc" default="$(arg launch_advanced_simulation)"/>
+	<arg name="launch_rlc_rostful" default="$(arg launch_advanced_simulation)"/>
 	<arg name="rlc_rostful_host" default="localhost"/>
 	<arg name="rlc_rostful_port" default="8080"/>
-	<arg name="merge_lasers" default="false"/>
+	<arg name="merge_lasers" default="$(arg launch_advanced_simulation)"/>
 	<arg name="merge_laser_topics" default="front_laser/scan rear_laser/scan"/>
 
 
