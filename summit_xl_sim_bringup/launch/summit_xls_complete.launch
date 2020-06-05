@@ -15,8 +15,8 @@
 	<arg name="map_file_a" default="willow_garage/willow_garage.yaml"/>
 	<arg name="localization_robot_a" default="false"/>
 	<arg name="gmapping_robot_a" default="false"/>
-	<arg name="move_base_robot_a" default="false"/>
-	<arg name="amcl_and_mapserver_a" default="false"/>
+	<arg name="move_base_robot_a" default="true"/>
+	<arg name="amcl_and_mapserver_a" default="true"/>
 	<arg name="xacro_robot_a" default="summit_xls_std.urdf.xacro"/>
 	<arg name="launch_pad_a" default="false"/>
 
