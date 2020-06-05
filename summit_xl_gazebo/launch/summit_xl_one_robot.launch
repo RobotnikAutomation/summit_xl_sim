@@ -26,6 +26,7 @@
 	<arg name="launch_navigation" default="$(arg launch_advanced_simulation)"/>
 	<arg name="launch_rlc" default="$(arg launch_advanced_simulation)"/>
 	<arg name="launch_rlc_rostful" default="$(arg launch_advanced_simulation)"/>
+	<arg name="launch_hmi" default="$(arg launch_advanced_simulation)"/>
 	<arg name="rlc_rostful_host" default="localhost"/>
 	<arg name="rlc_rostful_port" default="8080"/>
 	<arg name="merge_lasers" default="$(arg launch_advanced_simulation)"/>
@@ -156,5 +157,11 @@
 		</include>
 
 	</group>
+
+	<include if="$(arg launch_hmi)" file="$(find robotnik_hmi)/launch/robotnik_hmi.launch">
+		<arg name="id_robot" value="$(arg id_robot)"/>
+		<arg name="launch_system_monitor" value="false"/>
+	</include>
+
 
 </launch>
