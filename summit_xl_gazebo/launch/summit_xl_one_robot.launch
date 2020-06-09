@@ -76,8 +76,8 @@
 		</include>
 		<include if="$(arg launch_amcl_and_mapserver)" file="$(find summit_xl_localization)/launch/amcl.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
-			<arg if="$(arg ros_planar_move_plugin)" name="odom_model_type" value="omni"/>
-			<arg unless="$(arg ros_planar_move_plugin)" name="odom_model_type" value="diff"/>
+			<arg if="$(arg omni_drive)" name="odom_model_type" value="omni"/>
+			<arg unless="$(arg omni_drive)" name="odom_model_type" value="diff"/>
 			<arg name="x_init_pose" value="$(arg x_init_pose)"/>
 			<arg name="y_init_pose" value="$(arg y_init_pose)"/>
 			<arg name="z_init_pose" value="$(arg z_init_pose)"/>
@@ -87,8 +87,8 @@
 		<include if="$(arg launch_move_base)" file="$(find summit_xl_navigation)/launch/move_base.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
 			<arg name="local_planner" value="$(arg movebase_local_planner)"/>
-			<arg if="$(arg ros_planar_move_plugin)" name="differential_robot" value="false"/>
-			<arg unless="$(arg ros_planar_move_plugin)" name="differential_robot" value="true"/>
+			<arg if="$(arg omni_drive)" name="differential_robot" value="false"/>
+			<arg unless="$(arg omni_drive)" name="differential_robot" value="true"/>
 		</include>
 
 
