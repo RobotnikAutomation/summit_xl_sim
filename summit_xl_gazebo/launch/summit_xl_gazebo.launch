@@ -14,6 +14,7 @@
 	<arg name="omni_drive" default="false"/>
 	<arg name="ros_planar_move_plugin" default="false"/>
 	<arg name="launch_advanced_simulation" default="false"/>
+	<arg name="use_gpu_for_simulation" default="false"/>
 
 	<!--params of the different robots-->
 	<!-- robot a -->
@@ -72,6 +73,7 @@
 		<arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
 		<arg name="launch_pad" value="$(arg launch_pad_a)"/>
 		<arg name="launch_advanced_simulation" value="$(arg launch_advanced_simulation)"/>
+		<arg name="use_gpu_for_simulation" value="$(arg use_gpu_for_simulation)"/>
 	</include>
 
 	<!--BEGIN ROBOT 2-->
@@ -90,6 +92,7 @@
 		<arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
 		<arg name="launch_pad" value="$(arg launch_pad_b)"/>
     <arg name="launch_advanced_simulation" value="$(arg launch_advanced_simulation)"/>
+    <arg name="use_gpu_for_simulation" value="$(arg use_gpu_for_simulation)"/>
 	</include>
 
 	<!--BEGIN ROBOT 3-->
@@ -108,6 +111,7 @@
 		<arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
 		<arg name="launch_pad" value="$(arg launch_pad_c)"/>
     <arg name="launch_advanced_simulation" value="$(arg launch_base_hw_sim)"/>
+    <arg name="use_gpu_for_simulation" value="$(arg use_gpu_for_simulation)"/>
 	</include>
 
 

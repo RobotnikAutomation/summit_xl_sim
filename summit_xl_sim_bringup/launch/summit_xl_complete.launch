@@ -8,6 +8,9 @@
 	<arg name="omni_drive" default="false"/>
 	<arg if="$(arg omni_drive)" name="ros_planar_move_plugin" value="true"/>
 	<arg unless="$(arg omni_drive)" name="ros_planar_move_plugin" default="true"/>
+	<arg name="launch_advanced_simulation" default="false"/> <!-- Just for internal use -->
+	<arg name="use_gpu_for_simulation" default="false"/>
+
 	<!-- arguments robot a -->
 	<arg name="launch_robot_a" default="true"/>
 	<arg name="map_file_a" default="willow_garage/willow_garage.yaml"/>
@@ -41,6 +44,8 @@
 		<arg name="gazebo_world" value="$(arg gazebo_world)"/>
 		<arg name="omni_drive" value="$(arg omni_drive)"/>
 		<arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
+		<arg name="launch_advanced_simulation" value="$(arg launch_advanced_simulation)"/>
+		<arg name="use_gpu_for_simulation" value="$(arg use_gpu_for_simulation)"/>
 		<!-- robot_a args -->
 		<arg name="launch_robot_a" value="$(arg launch_robot_a)"/>
 		<arg name="map_file_a" value="$(arg map_file_a)"/>

@@ -3,25 +3,9 @@ summit_xl_sim
 
 Packages for the simulation of the Summit XL
 
-<a href="url"><img src="https://www.roscomponents.com/273-big_default/summit-xl.jpg" align="left" height="275" width="275" ></a>
+<a href="url"><img src="https://www.roscomponents.com/1213-medium_default_2x/summit-xl.jpg" align="left" height="275" ></a>
 
-<a href="url"><img src="https://www.roscomponents.com/811-thickbox_default/summit-xl-steel.jpg" align="left" height="275" width="275" ></a>
-<br />
-<br />
-<br />
-
-
-<a href="url"><img src="https://www.robotnik.es/web/wp-content/uploads/2014/04/summit_xl_hl_sim.png" align="left" height="150" width="275" ></a>
-
-
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-
+<a href="url"><img src="https://www.roscomponents.com/275-medium_default_2x/summit-xl.jpg" align="left" height="275" ></a>
 
 <h1> Packages </h1>
 
@@ -62,7 +46,7 @@ Launch files that launch the complete simulation of the robot/s
   <arg name="launch_rviz" default="true"/>
   <arg name="gazebo_world" default="$(find summit_xl_gazebo)/worlds/summit_xl_office.world"/>
   <arg name="omni_drive" default="false"/> (only for Summit XL)
-
+  <arg name="use_gpu_for_simulation" default="false"/>
   ```
   Optional robot arguments:
   ```
@@ -85,7 +69,7 @@ Launch files that launch the complete simulation of the robot/s
   ```
 - Example to launch simulation with 1 Summit XL robot with navigation:
   ```
-  
+
   roslaunch summit_xl_sim_bringup summit_xl_complete.launch move_base_robot_a:=true amcl_and_mapserver_a:=true localization_robot_a:=true
   ```
 3. Enjoy! You can use the topic "${id_robot}/robotnik_base_control/cmd_vel" to control the Summit XL robot or send simple goals using "/${id_robot}/move_base_simple/goal"

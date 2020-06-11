@@ -17,6 +17,7 @@
 	<arg name="omni_drive" default="false"/>
 	<arg name="ros_planar_move_plugin" default="false"/>
 	<arg name="launch_pad" default="false"/>
+	<arg name="use_gpu_for_simulation" default="false"/><!-- use_gpu_for_simulation -->
 
 	<!-- only for advanced simulation -->
 	<arg name="launch_advanced_simulation" default="false"/> <!-- one flag activates all -->
@@ -39,7 +40,7 @@
 		<arg name="prefix" value="$(arg id_robot)_"/>
 
 		<!-- Load the URDF into the ROS Parameter Server -->
-		<param name="robot_description" command="$(find xacro)/xacro '$(find summit_xl_description)/robots/$(arg xacro_robot)' prefix:=$(arg prefix) ros_planar_move_plugin:=$(arg ros_planar_move_plugin) omni_wheels:=$(arg omni_drive) --inorder"/>
+		<param name="robot_description" command="$(find xacro)/xacro '$(find summit_xl_description)/robots/$(arg xacro_robot)' prefix:=$(arg prefix) ros_planar_move_plugin:=$(arg ros_planar_move_plugin) omni_wheels:=$(arg omni_drive) gpu:=$(arg use_gpu_for_simulation) --inorder"/>
 
 		<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
 			<remap from="/joint_states" to="joint_states" />
