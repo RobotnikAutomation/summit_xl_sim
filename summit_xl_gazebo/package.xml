@@ -4,7 +4,7 @@
   <description>
 		Launch files and world files to start the models in gazebo
   </description>
-  
+
   <license>BSD</license>
   <url type="website">http://ros.org/wiki/summit_xl_gazebo</url>
   <url type="repository">https://github.com/RobotnikAutomation/summit_xl_sim.git</url>
@@ -17,8 +17,8 @@
   <maintainer email="aarnal@robotnik.es">Alejandro Arnal</maintainer>
   <maintainer email="mbosch@robotnik.es">Marc Bosch</maintainer>
   <maintainer email="rnavarro@robotnik.es">Román Navarro</maintainer>
-  
-  
+
+
   <buildtool_depend>catkin</buildtool_depend>
 
   <build_depend>roscpp</build_depend>
@@ -26,10 +26,10 @@
   <build_depend>std_msgs</build_depend>
   <build_depend>tf</build_depend>
   <build_depend>gazebo_ros</build_depend>
-  <build_depend>summit_xl_control</build_depend>  
-  <build_depend>summit_xl_robot_control</build_depend>  
-  <build_depend>summit_xl_description</build_depend> 
-  <build_depend>xacro</build_depend>  
+  <build_depend>summit_xl_control</build_depend>
+  <build_depend>summit_xl_robot_control</build_depend>
+  <build_depend>summit_xl_description</build_depend>
+  <build_depend>xacro</build_depend>
   <build_depend>hector_gazebo_plugins</build_depend>
   <build_depend>joint_state_controller</build_depend>
   <build_depend>velocity_controllers</build_depend>
@@ -40,18 +40,19 @@
   <run_depend>std_msgs</run_depend>
   <run_depend>tf</run_depend>
   <run_depend>gazebo_ros</run_depend>
-  <run_depend>summit_xl_control</run_depend>  
-  <run_depend>summit_xl_robot_control</run_depend>  
-  <run_depend>summit_xl_description</run_depend> 
-  <run_depend>xacro</run_depend> 
-  <run_depend>hector_gazebo_plugins</run_depend> 
-  <run_depend>gazebo_plugins</run_depend> 
-  <run_depend>joint_state_controller</run_depend> 
-  <run_depend>velocity_controllers</run_depend> 
-  <run_depend>gazebo_ros_control</run_depend> 
+  <run_depend>summit_xl_control</run_depend>
+  <run_depend>summit_xl_robot_control</run_depend>
+  <run_depend>summit_xl_description</run_depend>
+  <run_depend>xacro</run_depend>
+  <run_depend>hector_gazebo_plugins</run_depend>
+  <run_depend>gazebo_plugins</run_depend>
+  <run_depend>joint_state_controller</run_depend>
+  <run_depend>velocity_controllers</run_depend>
+  <run_depend>gazebo_ros_control</run_depend>
+  <run_depend>ros_control</run_depend> 
 
   <export>
 	  <gazebo_ros plugin_path="${prefix}/lib" gazebo_media_path="${prefix}" />
   </export>
-  
+
 </package>
