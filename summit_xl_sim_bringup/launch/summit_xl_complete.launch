@@ -23,7 +23,7 @@
 	<!-- arguments robot b -->
 	<arg name="launch_robot_b" default="false"/>
 	<arg name="map_file_b" default="willow_garage/willow_garage.yaml"/>
-	<arg name="localization_robot_b" default="true"/>
+	<arg name="localization_robot_b" default="false"/>
 	<arg name="gmapping_robot_b" default="false"/>
 	<arg name="move_base_robot_b" default="false"/>
 	<arg name="amcl_and_mapserver_b" default="false"/>
@@ -32,7 +32,7 @@
 	<!-- arguments robot c -->
 	<arg name="launch_robot_c" default="false"/>
 	<arg name="map_file_c" default="willow_garage/willow_garage.yaml"/>
-	<arg name="localization_robot_c" default="true"/>
+	<arg name="localization_robot_c" default="false"/>
 	<arg name="gmapping_robot_c" default="false"/>
 	<arg name="move_base_robot_c" default="false"/>
 	<arg name="amcl_and_mapserver_c" default="false"/>

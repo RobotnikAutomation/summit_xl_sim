@@ -54,7 +54,7 @@ Launch files that launch the complete simulation of the robot/s
   <arg name="id_robot_a" default="summit_xl_a"/>
   <arg name="launch_robot_a" default="true"/>
   <arg name="map_file_a" default="willow_garage/willow_garage.yaml"/>
-  <arg name="localization_robot_a" default="true"/>
+  <arg name="localization_robot_a" default="false"/>
   <arg name="gmapping_robot_a" default="false"/>
   <arg name="move_base_robot_a" default="false"/>
   <arg name="amcl_and_mapserver_a" default="false"/>
@@ -70,6 +70,6 @@ Launch files that launch the complete simulation of the robot/s
 - Example to launch simulation with 1 Summit XL robot with navigation:
   ```
 
-  roslaunch summit_xl_sim_bringup summit_xl_complete.launch move_base_robot_a:=true amcl_and_mapserver_a:=true localization_robot_a:=true
+  roslaunch summit_xl_sim_bringup summit_xl_complete.launch move_base_robot_a:=true amcl_and_mapserver_a:=true
   ```
 3. Enjoy! You can use the topic "${id_robot}/robotnik_base_control/cmd_vel" to control the Summit XL robot or send simple goals using "/${id_robot}/move_base_simple/goal"
