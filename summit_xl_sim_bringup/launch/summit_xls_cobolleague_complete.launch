@@ -8,7 +8,7 @@
 
 	<!--launch_navigation and launch_navigation_nomap args are exclusive
 	and they are (or not) launched for all robots-->
-	<arg name="launch_rviz" default="true"/>
+	<arg name="launch_rviz" default="false"/>
 	<arg name="gazebo_world" default="$(find summit_xl_gazebo)/worlds/empty.world"/>
 	<arg name="launch_advanced_simulation" default="false"/> <!-- Just for internal use -->
 	<arg name="use_gpu_for_simulation" default="false"/>
@@ -22,7 +22,7 @@
 	<arg name="move_base_robot_a" default="false"/>
 	<arg name="amcl_and_mapserver_a" default="false"/>
 	<arg name="xacro_robot_a" default="summit_xls_cobolleague.urdf.xacro"/>
-	<arg name="launch_pad_a" default="false"/>
+	<arg name="launch_pad_a" default="true"/>
 
 	<include file="$(find summit_xl_gazebo)/launch/summit_xl_gazebo.launch">
 		<!-- general args -->

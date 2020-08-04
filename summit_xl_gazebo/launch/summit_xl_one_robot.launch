@@ -99,7 +99,10 @@
 		</include>
 
 		<!-- pad -->
-		<include  if="$(arg launch_pad)" file="$(find summit_xl_pad)/launch/summit_xl_pad.launch"/>
+		<include  if="$(arg launch_pad)" file="$(find summit_xl_pad)/launch/summit_xl_pad.launch">
+			<!-- arg name="joy_dev" value="/dev/input/js0"/ -->
+			<arg name="cmd_topic_vel" value="/robot/pad_teleop/cmd_vel"/>
+		</include>	
 
 		<!-- base_hw_sim -->
 		<include if="$(arg launch_base_hw_sim)" file="$(find robotnik_base_hw_sim)/launch/summit_xl_hw_sim.launch">
