@@ -29,6 +29,7 @@
 	<arg name="map_file_a" default="willow_garage/willow_garage.yaml"/>
 	<arg name="xacro_robot_a" default="summit_xl_std.urdf.xacro"/>
 	<arg name="launch_pad_a" default="false"/>
+	<arg name="has_pantilt_camera_a" default="false"/>
 
 	<!-- robot b -->
 	<arg name="id_robot_b" default="robot_b"/>
@@ -42,6 +43,7 @@
 	<arg name="map_file_b" default="willow_garage/willow_garage.yaml"/>
 	<arg name="xacro_robot_b" default="summit_xl_std.urdf.xacro"/>
 	<arg name="launch_pad_b" default="false"/>
+	<arg name="has_pantilt_camera_b" default="false"/>
 
 	<!-- robot c -->
 	<arg name="id_robot_c" default="robot_c"/>
@@ -55,6 +57,7 @@
 	<arg name="map_file_c" default="willow_garage/willow_garage.yaml"/>
 	<arg name="xacro_robot_c" default="summit_xl_std.urdf.xacro"/>
 	<arg name="launch_pad_c" default="false"/>
+	<arg name="has_pantilt_camera_c" default="false"/>
 
 
 	<!--BEGIN ROBOT 1-->
@@ -74,6 +77,7 @@
 		<arg name="launch_pad" value="$(arg launch_pad_a)"/>
 		<arg name="launch_advanced_simulation" value="$(arg launch_advanced_simulation)"/>
 		<arg name="use_gpu_for_simulation" value="$(arg use_gpu_for_simulation)"/>
+		<arg name="has_pantilt_camera" default="$(arg has_pantilt_camera_a)"/>
 	</include>
 
 	<!--BEGIN ROBOT 2-->
@@ -93,6 +97,7 @@
 		<arg name="launch_pad" value="$(arg launch_pad_b)"/>
     <arg name="launch_advanced_simulation" value="$(arg launch_advanced_simulation)"/>
     <arg name="use_gpu_for_simulation" value="$(arg use_gpu_for_simulation)"/>
+		<arg name="has_pantilt_camera" default="$(arg has_pantilt_camera_b)"/>
 	</include>
 
 	<!--BEGIN ROBOT 3-->
@@ -112,6 +117,7 @@
 		<arg name="launch_pad" value="$(arg launch_pad_c)"/>
     <arg name="launch_advanced_simulation" value="$(arg launch_base_hw_sim)"/>
     <arg name="use_gpu_for_simulation" value="$(arg use_gpu_for_simulation)"/>
+		<arg name="has_pantilt_camera" default="$(arg has_pantilt_camera_c)"/>
 	</include>
 
 

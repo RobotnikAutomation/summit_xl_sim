@@ -18,6 +18,7 @@
 	<arg name="ros_planar_move_plugin" default="false"/>
 	<arg name="launch_pad" default="false"/>
 	<arg name="use_gpu_for_simulation" default="false"/><!-- use_gpu_for_simulation -->
+	<arg name="has_pantilt_camera" default="false"/>
 
 	<!-- only for advanced simulation -->
 	<arg name="launch_advanced_simulation" default="false"/> <!-- one flag activates all -->
@@ -59,6 +60,7 @@
 
 			<arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
 			<arg name="launch_robot_localization" value="$(arg launch_robot_localization)"/>
+			<arg name="launch_pantilt_camera_controller" value="$(arg has_pantilt_camera)"/>
 		</include>
 
 		<!-- robot_localization nodes, publishes transformation world->odom->base_footprint -->

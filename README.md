@@ -48,16 +48,20 @@ Launch files that launch the complete simulation of the robot/s
   <arg name="omni_drive" default="false"/> (only for Summit XL)
   <arg name="use_gpu_for_simulation" default="false"/>
   ```
+  By default the Gazebo plugin [Planar Move](http://gazebosim.org/tutorials?tut=ros_gzplugins) to ignore the physics of the wheels + the skid steering kinematics. In case you want to disable this plugin, set the following arguments:
+  ```
+  roslaunch summit_xl_sim_bringup summit_xl_complete.launch ros_planar_move_plugin:=false omni_drive:=false
+  ```
+
   Optional robot arguments:
   ```
   <!--arguments for each robot (example for robot A)-->
-  <arg name="id_robot_a" default="summit_xl_a"/>
+  <arg name="id_robot_a" default="robot"/>
   <arg name="launch_robot_a" default="true"/>
   <arg name="map_file_a" default="willow_garage/willow_garage.yaml"/>
   <arg name="localization_robot_a" default="false"/>
   <arg name="gmapping_robot_a" default="false"/>
-  <arg name="move_base_robot_a" default="false"/>
-  <arg name="amcl_and_mapserver_a" default="false"/>
+  <arg name="amcl_and_mapserver_a" default="true"/>
   <arg name="x_init_pose_robot_a" default="0" />
   <arg name="y_init_pose_robot_a" default="0" />
   <arg name="z_init_pose_robot_a" default="0" />
