@@ -14,7 +14,6 @@
 	<!-- arguments robot a -->
 	<arg name="launch_robot_a" default="true"/>
 	<arg name="map_file_a" default="willow_garage/willow_garage.yaml"/>
-	<arg name="localization_robot_a" default="false"/>
 	<arg name="gmapping_robot_a" default="false"/>
 	<arg name="move_base_robot_a" default="true"/>
 	<arg name="amcl_and_mapserver_a" default="true"/>
@@ -24,7 +23,6 @@
 	<!-- arguments robot b -->
 	<arg name="launch_robot_b" default="false"/>
 	<arg name="map_file_b" default="willow_garage/willow_garage.yaml"/>
-	<arg name="localization_robot_b" default="false"/>
 	<arg name="gmapping_robot_b" default="false"/>
 	<arg name="move_base_robot_b" default="false"/>
 	<arg name="amcl_and_mapserver_b" default="false"/>
@@ -34,7 +32,6 @@
 	<!-- arguments robot c -->
 	<arg name="launch_robot_c" default="false"/>
 	<arg name="map_file_c" default="willow_garage/willow_garage.yaml"/>
-	<arg name="localization_robot_c" default="false"/>
 	<arg name="gmapping_robot_c" default="false"/>
 	<arg name="move_base_robot_c" default="false"/>
 	<arg name="amcl_and_mapserver_c" default="false"/>
@@ -52,7 +49,6 @@
 		<!-- robot_a args -->
 		<arg name="launch_robot_a" value="$(arg launch_robot_a)"/>
 		<arg name="map_file_a" value="$(arg map_file_a)"/>
-		<arg name="localization_robot_a" value="$(arg localization_robot_a)"/>
 		<arg name="gmapping_robot_a" value="$(arg gmapping_robot_a)"/>
 		<arg name="move_base_robot_a" value="$(arg move_base_robot_a)"/>
 		<arg name="amcl_and_mapserver_a" value="$(arg amcl_and_mapserver_a)"/>
@@ -60,7 +56,6 @@
 		<arg name="has_pantilt_camera_a" default="$(arg has_pantilt_camera_a)"/>
 		<!-- robot_b args -->
 		<arg name="launch_robot_b" value="$(arg launch_robot_b)"/>
-		<arg name="localization_robot_b" value="$(arg localization_robot_b)"/>
 		<arg name="gmapping_robot_b" value="$(arg gmapping_robot_b)"/>
 		<arg name="move_base_robot_b" value="$(arg move_base_robot_b)"/>
 		<arg name="amcl_and_mapserver_b" value="$(arg amcl_and_mapserver_b)"/>
@@ -69,7 +64,6 @@
 		<arg name="has_pantilt_camera_b" default="$(arg has_pantilt_camera_b)"/>
 		<!-- robot_c args -->
 		<arg name="launch_robot_c" value="$(arg launch_robot_c)"/>
-		<arg name="localization_robot_c" value="$(arg localization_robot_c)"/>
 		<arg name="gmapping_robot_c" value="$(arg gmapping_robot_c)"/>
 		<arg name="move_base_robot_c" value="$(arg move_base_robot_c)"/>
 		<arg name="amcl_and_mapserver_c" value="$(arg amcl_and_mapserver_c)"/>
