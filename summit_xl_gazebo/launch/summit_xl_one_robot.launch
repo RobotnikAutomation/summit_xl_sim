@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <launch>
 
-    <arg name="id_robot" default="summit_xl"/>
+    <arg name="id_robot" default="robot"/>
+    <arg name="prefix" default="$(arg id_robot)_"/>
     <arg name="x_init_pose" default="0"/>
     <arg name="y_init_pose" default="0"/>
     <arg name="z_init_pose" default="0"/>
@@ -21,6 +22,8 @@
     <!-- arm robot -->
     <arg name="launch_arm" default="false"/>
     <arg name="launch_moveit_movegroup" default="false"/>
+    <arg name="kinova_arm" default="j2s7s300"/>
+    <arg name="arm_prefix" default="$(arg prefix)$(arg kinova_arm)"/>
 
     <!-- only for advanced simulation -->
     <arg name="launch_advanced_simulation" default="false"/> <!-- one flag activates all -->
@@ -40,8 +43,6 @@
     <!-- BEGIN ROBOT-->
     <group ns="$(arg id_robot)">
 
-        <arg name="prefix" value="$(arg id_robot)_"/>
-
         <!-- Load the URDF into the ROS Parameter Server -->
         <param name="robot_description" command="$(find xacro)/xacro '$(find summit_xl_description)/robots/$(arg xacro_robot)' prefix:=$(arg prefix) ros_planar_move_plugin:=$(arg ros_planar_move_plugin) omni_wheels:=$(arg omni_drive) gpu:=$(arg use_gpu_for_simulation) --inorder"/>
 
@@ -54,6 +55,16 @@
           args="-x $(arg x_init_pose)
                 -y $(arg y_init_pose)
                 -z $(arg z_init_pose)
+                -J $(arg arm_prefix)_joint_1 0.0
+                -J $(arg arm_prefix)_joint_2 2.9
+                -J $(arg arm_prefix)_joint_3 0.0
+                -J $(arg arm_prefix)_joint_4 1.3
+                -J $(arg arm_prefix)_joint_5 -2.07
+                -J $(arg arm_prefix)_joint_6 1.4
+                -J $(arg arm_prefix)_joint_7 0.0
+                -J $(arg arm_prefix)_joint_finger_1 1.0
+                -J $(arg arm_prefix)_joint_finger_2 1.0
+                -J $(arg arm_prefix)_joint_finger_3 1.0
                 -urdf
                 -param robot_description
                 -model $(arg id_robot)" />
@@ -70,6 +81,9 @@
             <arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
             <arg name="sim_arm_control" value="$(arg launch_arm)"/>
             <arg name="launch_pantilt_camera_controller" value="$(arg has_pantilt_camera)"/>
+
+            <arg name="kinova_arm" value="$(arg kinova_arm)"/>
+            <arg name="arm_prefix" value="$(arg arm_prefix)"/>
         </include>
 
         <!-- pad -->
