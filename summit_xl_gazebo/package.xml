@@ -49,7 +49,8 @@
   <run_depend>joint_state_controller</run_depend>
   <run_depend>velocity_controllers</run_depend>
   <run_depend>gazebo_ros_control</run_depend>
-  <run_depend>ros_control</run_depend> 
+  <run_depend>ros_control</run_depend>
+  <run_depend>ros_controllers</run_depend> 
 
   <export>
 	  <gazebo_ros plugin_path="${prefix}/lib" gazebo_media_path="${prefix}" />
