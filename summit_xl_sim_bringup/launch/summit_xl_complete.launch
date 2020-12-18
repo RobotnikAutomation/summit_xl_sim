@@ -2,12 +2,14 @@
 <launch>
 
 	<!-- arg to config the launch file-->
+	<!-- GPS default position of Robotnik at Fuente del Jarro-->
 
 	<arg name="launch_rviz" default="true"/>
 	<arg name="gazebo_world" default="$(find summit_xl_gazebo)/worlds/summit_xl_office.world"/>
 	<arg name="omni_drive" default="false"/>
 	<arg if="$(arg omni_drive)" name="ros_planar_move_plugin" value="true"/>
 	<arg unless="$(arg omni_drive)" name="ros_planar_move_plugin" default="true"/>
+
 	<!-- arguments robot a -->
 	<arg name="launch_robot_a" default="true"/>
 	<arg name="map_file_a" default="willow_garage/willow_garage.yaml"/>
@@ -16,6 +18,8 @@
 	<arg name="move_base_robot_a" default="false"/>
 	<arg name="amcl_and_mapserver_a" default="false"/>
 	<arg name="launch_pad_a" default="false"/>
+	<arg name="gps_latitude_robot_a" default="39.5080331"/>
+	<arg name="gps_longitude_robot_a" default="-0.4619816"/>
 
 	<!-- arguments robot b -->
 	<arg name="launch_robot_b" default="false"/>
@@ -25,6 +29,8 @@
 	<arg name="move_base_robot_b" default="false"/>
 	<arg name="amcl_and_mapserver_b" default="false"/>
 	<arg name="launch_pad_b" default="false"/>
+	<arg name="gps_latitude_robot_b" default="39.5080331"/>
+	<arg name="gps_longitude_robot_b" default="-0.4619816"/>
 
 	<!-- arguments robot c -->
 	<arg name="launch_robot_c" default="false"/>
@@ -34,6 +40,8 @@
 	<arg name="move_base_robot_c" default="false"/>
 	<arg name="amcl_and_mapserver_c" default="false"/>
 	<arg name="launch_pad_c" default="false"/>
+	<arg name="gps_latitude_robot_c" default="39.5080331"/>
+	<arg name="gps_longitude_robot_c" default="-0.4619816"/>
 
 	<include file="$(find summit_xl_gazebo)/launch/summit_xl_gazebo.launch">
 		<!-- general args -->
@@ -49,6 +57,8 @@
 		<arg name="move_base_robot_a" value="$(arg move_base_robot_a)"/>
 		<arg name="amcl_and_mapserver_a" value="$(arg amcl_and_mapserver_a)"/>
 		<arg name="launch_pad_a" value="$(arg launch_pad_a)"/>
+		<arg name="gps_latitude_robot_a" value="$(arg gps_latitude_robot_a)"/>
+		<arg name="gps_longitude_robot_a" value="$(arg gps_longitude_robot_a)"/>
 		<!-- robot_b args -->
 		<arg name="launch_robot_b" value="$(arg launch_robot_b)"/>
 		<arg name="localization_robot_b" value="$(arg localization_robot_b)"/>
@@ -57,6 +67,8 @@
 		<arg name="amcl_and_mapserver_b" value="$(arg amcl_and_mapserver_b)"/>
 		<arg name="map_file_b" value="$(arg map_file_b)"/>
 		<arg name="launch_pad_b" value="$(arg launch_pad_b)"/>
+		<arg name="gps_latitude_robot_b" value="$(arg gps_latitude_robot_b)"/>
+		<arg name="gps_longitude_robot_b" value="$(arg gps_longitude_robot_b)"/>
 		<!-- robot_c args -->
 		<arg name="launch_robot_c" value="$(arg launch_robot_c)"/>
 		<arg name="localization_robot_c" value="$(arg localization_robot_c)"/>
@@ -65,6 +77,8 @@
 		<arg name="amcl_and_mapserver_c" value="$(arg amcl_and_mapserver_c)"/>
 		<arg name="map_file_c" value="$(arg map_file_c)"/>
 		<arg name="launch_pad_c" value="$(arg launch_pad_c)"/>
+		<arg name="gps_latitude_robot_c" value="$(arg gps_latitude_robot_c)"/>
+		<arg name="gps_longitude_robot_c" value="$(arg gps_longitude_robot_c)"/>
 	</include>
 
 
