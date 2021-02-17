@@ -146,9 +146,39 @@
             <arg name="prefix" value="$(arg prefix)"/>
         </include>
 
+        <!-- joint trajectory action server -->
+        <group if="$(arg launch_arm)">
+            <param name="/$(arg arm_prefix)_driver/robot_type" value="$(arg kinova_arm)" />
+            <node name="$(arg kinova_arm)_joint_trajectory_action_server" pkg="kinova_driver" type="joint_trajectory_action_server" output="screen" respawn="false" args="$(arg arm_prefix)">
+                <!-- publications to the arm control -->
+                <remap from="/$(arg arm_prefix)_driver/trajectory_controller/command" to="effort_joint_trajectory_controller/command" />
+                <remap from="/$(arg arm_prefix)_driver/trajectory_controller/state" to="effort_joint_trajectory_controller/state" />
+                <!-- subscriptions to the move_group -->
+                <remap from="/$(arg arm_prefix)/follow_joint_trajectory/cancel" to="$(arg kinova_arm)_arm_controller/follow_joint_trajectory/cancel" />
+                <remap from="/$(arg arm_prefix)/follow_joint_trajectory/feedback" to="$(arg kinova_arm)_arm_controller/follow_joint_trajectory/feedback" />
+                <remap from="/$(arg arm_prefix)/follow_joint_trajectory/goal" to="$(arg kinova_arm)_arm_controller/follow_joint_trajectory/goal" />
+                <remap from="/$(arg arm_prefix)/follow_joint_trajectory/result" to="$(arg kinova_arm)_arm_controller/follow_joint_trajectory/result" />
+                <remap from="/$(arg arm_prefix)/follow_joint_trajectory/status" to="$(arg kinova_arm)_arm_controller/follow_joint_trajectory/status" />
+            </node>
+
+            <node name="$(arg kinova_arm)_gripper_command_action_server" pkg="kinova_driver" type="gripper_command_action_server" output="screen" respawn="false" args="$(arg arm_prefix)">
+                <!-- publications to the gripper control -->
+                <remap from="/$(arg arm_prefix)_driver/fingers_action/finger_positions/cancel" to="$(arg kinova_arm)_controller/fingers_action/finger_positions/cancel" />
+                <remap from="/$(arg arm_prefix)_driver/fingers_action/finger_positions/feedback" to="$(arg kinova_arm)_controller/fingers_action/finger_positions/feedback" />
+                <remap from="/$(arg arm_prefix)_driver/fingers_action/finger_positions/goal" to="$(arg kinova_arm)_controller/fingers_action/finger_positions/goal" />
+                <remap from="/$(arg arm_prefix)_driver/fingers_action/finger_positions/result" to="$(arg kinova_arm)_controller/fingers_action/finger_positions/result" />
+                <remap from="/$(arg arm_prefix)_driver/fingers_action/finger_positions/status" to="$(arg kinova_arm)_controller/fingers_action/finger_positions/status" />
+                <remap from="/$(arg arm_prefix)_driver/out/finger_position" to="$(arg kinova_arm)_controller/out/finger_position" />
+                <!-- subscriptions to the move_group -->
+                <remap from="/$(arg arm_prefix)_gripper/gripper_command/feedback" to="$(arg kinova_arm)_gripper_controller/gripper_command/feedback" />
+                <remap from="/$(arg arm_prefix)_gripper/gripper_command/result" to="$(arg kinova_arm)_gripper_controller/gripper_command/result" />
+                <remap from="/$(arg arm_prefix)_gripper/gripper_command/status" to="$(arg kinova_arm)_gripper_controller/gripper_command/status" />
+                <remap from="/$(arg arm_prefix)_gripper/gripper_command/cancel" to="$(arg kinova_arm)_gripper_controller/gripper_command/cancel" />
+                <remap from="/$(arg arm_prefix)_gripper/gripper_command/goal" to="$(arg kinova_arm)_gripper_controller/gripper_command/goal" />
+            </node>
+        </group>
         <!-- MoveGroup Moveit! -->
-        <include if="$(arg launch_moveit_movegroup)" file="$(find summit_xl_j2s7s300_moveit_config)/launch/summit_xl_j2s7s300_moveit_config.launch">
-                <!--arg name="sim" value="true"/-->
+        <include if="$(arg launch_moveit_movegroup)" file="$(find summit_xl_$(arg kinova_arm)_moveit_config)/launch/summit_xl_$(arg kinova_arm)_moveit_config.launch">
         </include>
 
     </group>
