@@ -10,12 +10,12 @@ repositories:
   src/robotnik_sensors:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_sensors.git
-    version: melodic-master
+    version: melodic-devel
   src/summit_xl_common:
     type: git
     url: https://github.com/RobotnikAutomation/summit_xl_common.git
-    version: melodic-master
+    version: melodic-devel
   src/summit_xl_sim:
     type: git
     url: https://github.com/RobotnikAutomation/summit_xl_sim.git
-    version: melodic-master
+    version: melodic-devel
