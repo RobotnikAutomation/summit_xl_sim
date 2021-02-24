@@ -48,7 +48,7 @@ catkin build
 source devel/setup.bash
 ```
 
-Note: The package catkin-tools is need to compile with catkin build:
+**Note if catkin build doesn't work:** The package catkin-tools is need to compile with catkin build:
 ```bash
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-latest.list'
 wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
