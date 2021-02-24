@@ -3,9 +3,13 @@ summit_xl_sim
 
 Packages for the simulation of the Summit XL
 
-<a href="url"><img src="https://www.roscomponents.com/1213-medium_default_2x/summit-xl.jpg" align="left" height="275" ></a>
+<p align="center">
+  <img src="https://github.com/RobotnikAutomation/summit_xl_sim/blob/melodic-master/doc/summit_xl.jpeg" height="275" />
+  <img src="https://github.com/RobotnikAutomation/summit_xl_sim/blob/melodic-master/doc/summit_xl_steel.jpeg" height="275" />
+  <img src="https://github.com/RobotnikAutomation/summit_xl_sim/blob/melodic-master/doc/summit_xl_gazebo.png" height="275" />
+  <img src="https://github.com/RobotnikAutomation/summit_xl_sim/blob/melodic-master/doc/summit_xl_steel_gazebo.png" height="275" />
 
-<a href="url"><img src="https://www.roscomponents.com/275-medium_default_2x/summit-xl.jpg" align="left" height="275" ></a>
+</p>
 
 <h1> Packages </h1>
 
@@ -17,21 +21,43 @@ Launch files and world files to start the models in gazebo
 
 Launch files that launch the complete simulation of the robot/s
 
-
-
 <h1>Simulating Summit XL</h1>
 
+This simulation has been tested using Gazebo 9 version.
+
 1. Install the following dependencies:
-  - summit_xl_common [link](https://github.com/RobotnikAutomation/summit_xl_common)
-  - robotnik_msgs [link](https://github.com/RobotnikAutomation/robotnik_msgs)
-  - robotnik_sensors [link](https://github.com/RobotnikAutomation/robotnik_sensors)
 
-    In the workspace install the packages dependencies:
-    ```
-    rosdep install --from-paths src --ignore-src -r -y
-    ```  
+ To facilitate the installation you can use the vcstool:
 
-2. Launch Summit XL simulation (1 robot by default, up to 3 robots): <br>
+```bash
+sudo apt-get install -y python3-vcstool
+```
+
+2. Create a workspace and clone the repository:
+
+```bash
+mkdir catkin_ws
+cd catkin_ws
+vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/summit_xl_sim/melodic-master/doc/summit_xl_sim.repos
+rosdep install --from-paths src --ignore-src -y
+```
+
+3. Compile:
+
+```bash
+catkin build
+source devel/setup.bash
+```
+
+Note: The package catkin-tools is need to compile with catkin build:
+```bash
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-latest.list'
+wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install python-catkin-tools
+```
+
+4. Launch Summit XL simulation (1 robot by default, up to 3 robots): <br>
 - Summit XL: <br>
   ```
   roslaunch summit_xl_sim_bringup summit_xl_complete.launch
