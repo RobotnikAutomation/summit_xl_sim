@@ -17,6 +17,7 @@
 	<arg name="map_file_a" default="willow_garage/willow_garage.yaml"/>
 	<arg name="gmapping_robot_a" default="false"/>
 	<arg name="move_base_robot_a" default="true"/>
+	<arg name="ekf_localization_robot_a" default="false"/>
 	<arg name="amcl_and_mapserver_a" default="true"/>
 	<arg name="launch_pad_a" default="false"/>
 	<arg name="gps_latitude_robot_a" default="39.5080331"/>
@@ -28,6 +29,7 @@
 	<arg name="map_file_b" default="willow_garage/willow_garage.yaml"/>
 	<arg name="gmapping_robot_b" default="false"/>
 	<arg name="move_base_robot_b" default="false"/>
+	<arg name="ekf_localization_robot_b" default="false"/>
 	<arg name="amcl_and_mapserver_b" default="false"/>
 	<arg name="launch_pad_b" default="false"/>
 	<arg name="gps_latitude_robot_b" default="39.5080331"/>
@@ -39,6 +41,7 @@
 	<arg name="map_file_c" default="willow_garage/willow_garage.yaml"/>
 	<arg name="gmapping_robot_c" default="false"/>
 	<arg name="move_base_robot_c" default="false"/>
+	<arg name="ekf_localization_robot_c" default="false"/>
 	<arg name="amcl_and_mapserver_c" default="false"/>
 	<arg name="launch_pad_c" default="false"/>
 	<arg name="gps_latitude_robot_c" default="39.5080331"/>
@@ -58,6 +61,7 @@
 		<arg name="map_file_a" value="$(arg map_file_a)"/>
 		<arg name="gmapping_robot_a" value="$(arg gmapping_robot_a)"/>
 		<arg name="move_base_robot_a" value="$(arg move_base_robot_a)"/>
+		<arg name="ekf_localization_robot_a" value="$(arg ekf_localization_robot_a)"/>
 		<arg name="amcl_and_mapserver_a" value="$(arg amcl_and_mapserver_a)"/>
 		<arg name="launch_pad_a" value="$(arg launch_pad_a)"/>
 		<arg name="gps_latitude_robot_a" value="$(arg gps_latitude_robot_a)"/>
@@ -67,6 +71,7 @@
 		<arg name="launch_robot_b" value="$(arg launch_robot_b)"/>
 		<arg name="gmapping_robot_b" value="$(arg gmapping_robot_b)"/>
 		<arg name="move_base_robot_b" value="$(arg move_base_robot_b)"/>
+		<arg name="ekf_localization_robot_b" value="$(arg ekf_localization_robot_b)"/>
 		<arg name="amcl_and_mapserver_b" value="$(arg amcl_and_mapserver_b)"/>
 		<arg name="map_file_b" value="$(arg map_file_b)"/>
 		<arg name="launch_pad_b" value="$(arg launch_pad_b)"/>
@@ -77,6 +82,7 @@
 		<arg name="launch_robot_c" value="$(arg launch_robot_c)"/>
 		<arg name="gmapping_robot_c" value="$(arg gmapping_robot_c)"/>
 		<arg name="move_base_robot_c" value="$(arg move_base_robot_c)"/>
+		<arg name="ekf_localization_robot_c" value="$(arg ekf_localization_robot_c)"/>
 		<arg name="amcl_and_mapserver_c" value="$(arg amcl_and_mapserver_c)"/>
 		<arg name="map_file_c" value="$(arg map_file_c)"/>
 		<arg name="launch_pad_c" value="$(arg launch_pad_c)"/>
