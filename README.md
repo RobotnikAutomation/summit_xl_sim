@@ -1,4 +1,4 @@
-summit_xl_sim
+<h1>summit_xl_sim</h1>
 =============
 
 Packages for the simulation of the Summit XL
@@ -11,13 +11,13 @@ Packages for the simulation of the Summit XL
 
 </p>
 
-<h1> Packages </h1>
+This packages contains: 
 
-<h2>summit_xl_gazebo</h2>
+<h1>summit_xl_gazebo</h1>
 
 Launch files and world files to start the models in gazebo
 
-<h2>summit_xl_sim_bringup</h2>
+<h1>summit_xl_sim_bringup</h1>
 
 Launch files that launch the complete simulation of the robot/s
 
@@ -25,7 +25,7 @@ Launch files that launch the complete simulation of the robot/s
 
 This simulation has been tested using Gazebo 9 version.
 
-1. Install the following dependencies:
+<h2>1. Install the following dependencies:</h2>
 
  To facilitate the installation you can use the vcstool:
 
@@ -33,7 +33,7 @@ This simulation has been tested using Gazebo 9 version.
 sudo apt-get install -y python3-vcstool
 ```
 
-2. Create a workspace and clone the repository:
+<h2>2. Create a workspace and clone the repository:</h2>
 
 ```bash
 mkdir catkin_ws
@@ -42,7 +42,7 @@ vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/summit_x
 rosdep install --from-paths src --ignore-src -y
 ```
 
-3. Compile:
+<h2>3. Compile:</h2>
 
 ```bash
 catkin build
@@ -57,17 +57,18 @@ sudo apt-get update
 sudo apt-get install python-catkin-tools
 ```
 
-4. Launch Summit XL simulation (1 robot by default, up to 3 robots): <br>
-- Summit XL: <br>
+<h2>4. Launch Summit XL simulation (1 robot by default, up to 3 robots): </h2>
+
+<h3> Summit XL:</h3>
   ```
   roslaunch summit_xl_sim_bringup summit_xl_complete.launch
   ```
 
-- or Summit XL Steel: <br>
+<h3> or Summit XL Steel: </h3>
   ```
   roslaunch summit_xl_sim_bringup summit_xls_complete.launch
   ```
-  Optional general arguments:
+<h3>  Optional general arguments: </h3>
   ```
   <arg name="launch_rviz" default="true"/>
   <arg name="gazebo_world" default="$(find summit_xl_gazebo)/worlds/summit_xl_office.world"/>
@@ -79,7 +80,7 @@ sudo apt-get install python-catkin-tools
   roslaunch summit_xl_sim_bringup summit_xl_complete.launch ros_planar_move_plugin:=false omni_drive:=false
   ```
 
-  Optional robot arguments:
+ <h3> Optional robot arguments: </h3>
   ```
   <!--arguments for each robot (example for robot A)-->
   <arg name="id_robot_a" default="robot"/>
@@ -102,4 +103,5 @@ sudo apt-get install python-catkin-tools
 
   roslaunch summit_xl_sim_bringup summit_xl_complete.launch move_base_robot_a:=true amcl_and_mapserver_a:=true
   ```
-3. Enjoy! You can use the topic "${id_robot}/robotnik_base_control/cmd_vel" to control the Summit XL robot or send simple goals using "/${id_robot}/move_base_simple/goal"
+
+Enjoy! You can use the topic "${id_robot}/robotnik_base_control/cmd_vel" to control the Summit XL robot or send simple goals using "/${id_robot}/move_base_simple/goal"
