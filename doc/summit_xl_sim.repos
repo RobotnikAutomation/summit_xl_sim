@@ -1,0 +1,21 @@
+repositories:
+  src/costmap_prohibition_layer:
+    type: git
+    url: git@github.com:RobotnikAutomation/costmap_prohibition_layer.git
+    version: kinetic-devel
+  src/robotnik_msgs:
+    type: git
+    url: git@github.com:RobotnikAutomation/robotnik_msgs.git
+    version: master
+  src/robotnik_sensors:
+    type: git
+    url: git@github.com:RobotnikAutomation/robotnik_sensors.git
+    version: melodic-devel
+  src/summit_xl_common:
+    type: git
+    url: git@github.com:RobotnikAutomation/summit_xl_common.git
+    version: melodic-devel
+  src/summit_xl_sim:
+    type: git
+    url: git@github.com:RobotnikAutomation/summit_xl_sim.git
+    version: melodic-devel
