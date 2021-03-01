@@ -203,13 +203,13 @@
         <arg name="run_laser_docker" value="true"/>
     </include>
 
-    <group if="$(arg launch_rlc)">
-        <!-- start dock_manager node -->
+<!--     <group if="$(arg launch_rlc)">
+        <!-- start dock_manager node -- >
         <include file="$(find summit_xl_robot_local_control)/launch/robot_local_control.launch">
             <arg name="id_robot" value="$(arg id_robot)"/>
         </include>
 
-        <!-- start battery_estimation node -->
+        <!-- start battery_estimation node -- >
         <include if="$(arg launch_rlc_rostful)" file="$(find summit_xl_robot_local_control)/launch/rostful_server.launch">
             <arg name="id_robot" value="$(arg id_robot)"/>
             <arg name="host" value="$(arg rlc_rostful_host)"/>
@@ -217,7 +217,7 @@
         </include>
 
     </group>
-
+ -->
     <include if="$(arg launch_hmi)" file="$(find robotnik_hmi)/launch/robotnik_hmi.launch">
         <arg name="id_robot" value="$(arg id_robot)"/>
         <arg name="launch_system_monitor" value="false"/>
