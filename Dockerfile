@@ -70,3 +70,10 @@ RUN true \
 RUN true \
 	&& . /opt/ros/melodic/setup.sh \
 	&& catkin_make
+
+ENV NVIDIA_VISIBLE_DEVICES \
+    ${NVIDIA_VISIBLE_DEVICES:-all}
+ENV NVIDIA_DRIVER_CAPABILITIES \
+    ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
+
+
