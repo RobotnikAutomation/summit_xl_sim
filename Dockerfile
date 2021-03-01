@@ -42,6 +42,10 @@ RUN apt-get update \
 USER $user_name
 
 RUN mkdir -p $ck_src_dir
+RUN true \
+	&& echo "PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[00m\]@\[\033[01;31m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> ~/.bashrc \
+	&& echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc \
+	&& echo "source $ck_dir/devel/setup.bash" >> ~/.bashrc
 WORKDIR $ck_dir
 
 WORKDIR $ck_dir
