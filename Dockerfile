@@ -66,3 +66,7 @@ RUN true \
 	&& sudo apt-get clean -q -y \
 	&& sudo apt-get autoremove -q -y \
 	&& sudo rm -rf /var/lib/apt/lists/*
+
+RUN true \
+	&& . /opt/ros/melodic/setup.sh \
+	&& catkin_make
