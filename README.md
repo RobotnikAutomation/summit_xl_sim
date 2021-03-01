@@ -3,10 +3,10 @@
 Packages for the simulation of the Summit XL
 
 <p align="center">
-  <img src="https://github.com/RobotnikAutomation/summit_xl_sim/blob/melodic-master/doc/summit_xl.jpeg" height="275" />
-  <img src="https://github.com/RobotnikAutomation/summit_xl_sim/blob/melodic-master/doc/summit_xl_steel.jpeg" height="275" />
-  <img src="https://github.com/RobotnikAutomation/summit_xl_sim/blob/melodic-master/doc/summit_xl_gazebo.png" height="275" />
-  <img src="https://github.com/RobotnikAutomation/summit_xl_sim/blob/melodic-master/doc/summit_xl_steel_gazebo.png" height="275" />
+  <img src="doc/summit_xl.jpeg" height="275" />
+  <img src="doc/summit_xl_steel.jpeg" height="275" />
+  <img src="doc/summit_xl_gazebo.png" height="275" />
+  <img src="doc/summit_xl_steel_gazebo.png" height="275" />
 
 </p>
 
