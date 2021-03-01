@@ -5,16 +5,21 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: "bash -c 'while true ;do sleep 60 ;done'"
+    # command: "bash -c 'while true ;do sleep 60 ;done'"
+    command: "bash -c 'source /opt/ros/melodic/setup.bash &&
+        source /home/ros/catkin_ws/devel/setup.bash &&
+        roslaunch summit_xl_sim_bringup summit_xl_complete.launch'"
     environment:
       ROS_MASTER_URI: "http://localhost:11311"
       GAZEBO_MASTER_URI: "http://localhost:11345"
       DISPLAY: $DISPLAY
       QT_X11_NO_MITSHM: 1
+      NVIDIA_VISIBLE_DEVICES: 0
     volumes:
       - type: bind
         source: /tmp/.X11-unix
         target: /tmp/.X11-unix
+      - /dev/dri:/dev/dri
     deploy:
       resources:
         reservations:
