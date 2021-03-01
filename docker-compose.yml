@@ -1,0 +1,23 @@
+---
+version: "3.7"
+services:
+  summit_xl_sim:
+    image: .
+    # command: "bash -c 'while true ;do sleep 60 ;done'"
+    command: "sleep 5000"
+    environment:
+      ROS_MASTER_URI: "http://localhost:11311"
+      GAZEBO_MASTER_URI: "http://localhost:11345"
+    #   DISPLAY: $DISPLAY
+    #   QT_X11_NO_MITSHM: 1
+    # volumes:
+    #   - type: bind
+    #     source: /tmp/.X11-unix
+    #     target: /tmp/.X11-unix
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu, utility]
