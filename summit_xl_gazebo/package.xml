@@ -53,6 +53,7 @@
   <run_depend>gazebo_ros_control</run_depend>
   <run_depend>ros_control</run_depend>
   <run_depend>ros_controllers</run_depend>
+  <run_depend>imu_complementary_filter</run_depend>
 
   <export>
 
