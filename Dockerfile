@@ -58,7 +58,7 @@ RUN true \
 	&& vcs import --input /tmp/summit_xl_sim_devel.repos \
 	&& true
 
-RUN  true \
+RUN true \
 	&& rosdep update \
 	&& echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections \
 	&& sudo apt-get update \
