@@ -190,13 +190,13 @@
         </include>
 
     </group>
-
+<!--
     <include if="$(arg launch_perception)" file="$(find summit_xl_perception)/launch/perception_complete.launch">
         <arg name="id_robot" value="$(arg id_robot)"/>
         <arg name="run_reflector_locator" value="true"/>
         <arg name="run_ar_locator" value="true"/>
     </include>
-
+ -->
     <include if="$(arg launch_navigation)" file="$(find summit_xl_navigation)/launch/navigation_complete.launch">
         <arg name="id_robot" value="$(arg id_robot)"/>
         <arg name="has_docker" value="true"/>
