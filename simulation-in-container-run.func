@@ -115,13 +115,19 @@ function delete_running_docker_instance() {
 }
 
 function allow_screen() {
-    xhost + local:root
-    return $?
+    if ! xhost + local:root &>/dev/null; then
+        print_error "${str_x11_enable_server_access}"
+        return 1
+    fi
+    return 0
 }
 
 function disable_screen() {
-    xhost - local:root
-    return $?
+    if ! xhost - local:root &>/dev/null; then
+        print_error "${str_x11_disable_server_access}"
+        return 1
+    fi
+    return 0
 }
 
 function run_simulation() {

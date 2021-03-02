@@ -47,6 +47,8 @@ err_str_cuda='Nvidia CUDA not found'
 err_str_nvidia_docker='Nvidia docker not found'
 err_str_build_image_failed='Could not build container image'
 err_str_destroy_running_sim='Simulation ${instance_name} could not be destroyed'
+str_x11_enable_server_access='Could not allowing X11 access'
+str_x11_disable_server_access='Could not restrict X11 access'
 
 
 tool_list=(\
