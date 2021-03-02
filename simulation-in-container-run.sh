@@ -136,13 +136,14 @@ function simulation_flow() {
 }
 
 function simulation_main() {
-    if ! simulation_flow; then
-        return 1
+    local return_value=1
+    if simulation_flow; then
+        return_value=0
     fi
     if ! disable_screen; then
-        return 1
+        return_value=1
     fi
-    return 0
+    return "${return_value}"
 }
 
 simulation_main "$@"
