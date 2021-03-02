@@ -125,6 +125,7 @@ function disable_screen() {
 }
 
 function run_simulation() {
+    print_info "${nfo_running_simulation}"
     docker run --gpus all --rm \
         --env="DISPLAY=$DISPLAY" \
         --env="QT_X11_NO_MITSHM=1" \

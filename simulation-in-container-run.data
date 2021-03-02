@@ -38,6 +38,7 @@ nfo_str_nvidia_docker='Checking Nvidia Docker'
 nfo_str_tool_building='Building image ${image_complete_name}'
 nfo_str_check_already_running='Checking if the simulation is already running on the system'
 nfo_str_already_running='There is a simulation already running on the system, destroying it'
+nfo_running_simulation='Running simulation'
 
 #Error Strings
 err_str_required_tool_not_found='Required tool not found: ${tool}'
