@@ -28,7 +28,7 @@ function tools_check() {
 }
 
 function build_image() {
-    docker container rm --force summit_xl_sim
+    docker build -t summit_xl_sim .
     return $?
 }
 
