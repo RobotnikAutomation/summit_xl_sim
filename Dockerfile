@@ -48,11 +48,11 @@ RUN true \
 	&& echo "source $ck_dir/devel/setup.bash" >> ~/.bashrc
 WORKDIR $ck_dir
 
-WORKDIR $ck_dir
-
 COPY --chown=$user_name \
 	repos/summit_xl_sim_devel.repos \
 	/tmp
+
+ARG fresh_download_of_git_repos=no
 
 RUN true \
 	&& vcs import --input /tmp/summit_xl_sim_devel.repos \
