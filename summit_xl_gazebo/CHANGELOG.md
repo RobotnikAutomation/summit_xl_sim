@@ -1,5 +1,11 @@
 # Changelog for package summit\_xl\_gazebo
 
+## Melodic devel (2021-03-01)
+- Removed the summit_xl_robot_local_control launch node `summit_xl_one_robot.launch`
+- Removed the summit_xl_perception launch node `summit_xl_one_robot.launch`
+- Removed dependancy on `summit_xl_robot_control`
+- Added run dependancy of `imu_complementary_filter`
+
 ## 1.1.3 (2018-05-15)
 
 -   updated rviz config
