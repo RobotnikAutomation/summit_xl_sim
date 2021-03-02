@@ -51,7 +51,31 @@ function run_simulation() {
     return 0
 }
 
+function simulation_flow() {
+    if ! build_image; then
+        return 1
+    fi
+    if ! allow_screen; then
+        return 1
+    fi
+    if check_docker_instance_already_running; then
+        if ! delete_running_docker_instance; then
+            return 1
+        fi
+    fi
+    if ! run_simulation; then
+        return 1
+    fi
+    return 0
+}
+
 function simulation_main() {
+    if ! simulation_flow; then
+        return 1
+    fi
+    if ! disable_screen; then
+        return 1
+    fi
     return 0
 }
 
