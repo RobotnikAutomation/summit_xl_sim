@@ -28,6 +28,15 @@ nfo_str_tool_checking='Checking tools'
 #Error Strings
 err_str_required_tool_not_found='Required tool not found: ${tool}'
 
+tool_list=(\
+    docker \
+    readlink \
+    dirname \
+    xhost \
+    nvidia_smi \
+)
+
+
 # FUNCTIONS
 ###########
 
