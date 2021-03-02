@@ -85,18 +85,33 @@ function test_nvidia_docker() {
 }
 
 function build_image() {
-    docker build -t summit_xl_sim .
-    return $?
+    eval "image_complete_name=${image_complete_name}"
+    print_info "${nfo_str_tool_building}"
+    if ! docker build -t "${image_complete_name}" .; then
+        print_error "${suc_str_image_build}"
+        return 1
+    fi
+    print_success "${suc_str_image_build}"
+    return 0
 }
 
 function check_docker_instance_already_running() {
-    docker container ls -a | sed '1d' | awk '{print $2}' | grep -q ^summit_xl_sim$
-    return $?
+    print_info "${nfo_str_check_already_running}"
+    if ! docker container ls -a | sed '1d' | awk '{print $2}' | grep -q ^${instance_name}$; then
+        return 1
+    fi
+    print_success "${suc_str_already_running}"
+    return 0
 }
 
 function delete_running_docker_instance() {
-    docker container rm --force summit_xl_sim
-    return $?
+    print_info "${nfo_str_already_running}"
+    if ! docker container rm --force "${instance_name}"; then
+        print_error "${err_str_destroy_running_sim}"
+        return 1
+    fi
+    print_success "${suc_str_destroy_running_sim}"
+    return 0
 }
 
 function allow_screen() {
@@ -119,8 +134,8 @@ function run_simulation() {
         --env ROS_MASTER_URI="http://localhost:11311" \
         --env GAZEBO_MASTER_URI="http://localhost:11345" \
         --env NVIDIA_VISIBLE_DEVICES=0 \
-        --name summit_xl_sim \
-        summit_xl_sim:latest \
+        --name "${instance_name}" \
+        "${image_complete_name}" \
         bash -c "source /opt/ros/melodic/setup.bash &&
             source /home/ros/catkin_ws/devel/setup.bash &&
             roslaunch summit_xl_sim_bringup summit_xl_complete.launch"
