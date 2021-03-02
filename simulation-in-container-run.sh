@@ -2,7 +2,9 @@
 docker build -t summit_xl_sim .
 xhost + local:root
 echo "roslaunch summit_xl_sim_bringup summit_xl_complete.launch"
-docker container rm --force summit_xl_sim
+if docker container ls -a | sed '1d' | awk '{print $2}' | grep -q ^summit_xl_sim$; then
+    docker container rm --force summit_xl_sim
+fi
 docker run --gpus all --rm \
     --env="DISPLAY=$DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
