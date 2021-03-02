@@ -91,4 +91,9 @@ ENV NVIDIA_VISIBLE_DEVICES \
 ENV NVIDIA_DRIVER_CAPABILITIES \
     ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
 
+ENV ROS_BU_PKG "summit_xl_sim_bringup"
+ENV ROS_BU_LAUNCH "summit_xl_complete.launch"
+ENV CATKIN_WS $ck_dir
+ENV RBK_CATKIN_PATH $ck_dir
 
+CMD bash -c "/ros_entrypoint.sh roslaunch ${ROS_BU_PKG} ${ROS_BU_LAUNCH}"
