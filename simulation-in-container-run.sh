@@ -117,7 +117,14 @@ function run_simulation() {
     return $?
 }
 
+function exec_environment_check() {
+    return 0
+}
+
 function simulation_flow() {
+    if ! exec_environment_check; then
+        return 1
+    fi
     if ! build_image; then
         return 1
     fi
