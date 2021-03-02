@@ -46,19 +46,20 @@ RUN true \
 	&& echo "PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[00m\]@\[\033[01;31m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> ~/.bashrc \
 	&& echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc \
 	&& echo "source $ck_dir/devel/setup.bash" >> ~/.bashrc
+
 WORKDIR $ck_dir
 
 COPY --chown=$user_name \
-	repos/summit_xl_sim_devel.repos \
-	/tmp
+	. \
+	$ck_src_dir/
 
+ARG repo_file=summit_xl_sim_devel_docker.repos
+ARG repo_file_list_to_use=/$ck_src_dir/repos/$repo_file
 ARG fresh_download_of_git_repos=no
 
 RUN true \
-	&& vcs import --input /tmp/summit_xl_sim_devel.repos \
-	&& true
-
-RUN true \
+	&& vcs import --input $repo_file_list_to_use \
+	&& rm -rf ck_src_dir/repos \
 	&& rosdep update \
 	&& echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections \
 	&& sudo apt-get update \
