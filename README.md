@@ -7,7 +7,6 @@ Packages for the simulation of the Summit XL
   <img src="doc/summit_xl_steel.jpeg" height="275" />
   <img src="doc/summit_xl_gazebo.png" height="275" />
   <img src="doc/summit_xl_steel_gazebo.png" height="275" />
-
 </p>
 
 This packages contains: 
@@ -37,7 +36,8 @@ sudo apt-get install -y python3-vcstool
 ```bash
 mkdir catkin_ws
 cd catkin_ws
-vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/summit_xl_sim/melodic-master/doc/summit_xl_sim.repos
+vcs import --input \
+  https://raw.githubusercontent.com/RobotnikAutomation/summit_xl_sim/melodic-master/doc/summit_xl_sim.repos
 rosdep install --from-paths src --ignore-src -y
 ```
 
@@ -82,35 +82,41 @@ roslaunch summit_xl_sim_bringup summit_xls_complete.launch
 By default the Gazebo plugin [Planar Move](http://gazebosim.org/tutorials?tut=ros_gzplugins) to ignore the physics of the wheels + the skid steering kinematics. In case you want to disable this plugin, set the following arguments:
 
 ```bash
-roslaunch summit_xl_sim_bringup summit_xl_complete.launch ros_planar_move_plugin:=false omni_drive:=false
+roslaunch summit_xl_sim_bringup summit_xl_complete.launch \
+  ros_planar_move_plugin:=false \
+  omni_drive:=false
 ```
 
 ### Optional robot arguments:
 
-  ```
-  <!--arguments for each robot (example for robot A)-->
-  <arg name="id_robot_a" default="robot"/>
-  <arg name="launch_robot_a" default="true"/>
-  <arg name="map_file_a" default="willow_garage/willow_garage.yaml"/>
-  <arg name="localization_robot_a" default="false"/>
-  <arg name="gmapping_robot_a" default="false"/>
-  <arg name="amcl_and_mapserver_a" default="true"/>
-  <arg name="x_init_pose_robot_a" default="0" />
-  <arg name="y_init_pose_robot_a" default="0" />
-  <arg name="z_init_pose_robot_a" default="0" />
-  <arg name="xacro_robot_a" default="summit_xl_std.urdf.xacro"/>
-  ```
+```xml
+<!--arguments for each robot (example for robot A)-->
+<arg name="id_robot_a" default="robot"/>
+<arg name="launch_robot_a" default="true"/>
+<arg name="map_file_a" default="willow_garage/willow_garage.yaml"/>
+<arg name="localization_robot_a" default="false"/>
+<arg name="gmapping_robot_a" default="false"/>
+<arg name="amcl_and_mapserver_a" default="true"/>
+<arg name="x_init_pose_robot_a" default="0" />
+<arg name="y_init_pose_robot_a" default="0" />
+<arg name="z_init_pose_robot_a" default="0" />
+<arg name="xacro_robot_a" default="summit_xl_std.urdf.xacro"/>
+```
 
 - Example to launch simulation with 3 Summit XL robots:
   
 ```bash
-roslaunch summit_xl_sim_bringup summit_xl_complete.launch launch_robot_b:=true launch_robot_c:=true
+roslaunch summit_xl_sim_bringup summit_xl_complete.launch \
+  launch_robot_b:=true \
+  launch_robot_c:=true
 ```
 
 - Example to launch simulation with 1 Summit XL robot with navigation:
 
 ```bash
-roslaunch summit_xl_sim_bringup summit_xl_complete.launch move_base_robot_a:=true amcl_and_mapserver_a:=true
+roslaunch summit_xl_sim_bringup summit_xl_complete.launch \
+  move_base_robot_a:=true \
+  amcl_and_mapserver_a:=true
 ```
 
-Enjoy! You can use the topic "${id_robot}/robotnik_base_control/cmd_vel" to control the Summit XL robot or send simple goals using "/${id_robot}/move_base_simple/goal"
+Enjoy! You can use the topic `${id_robot}/robotnik_base_control/cmd_vel` to control the Summit XL robot or send simple goals using `/${id_robot}/move_base_simple/goal`
