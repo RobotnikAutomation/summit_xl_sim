@@ -1,4 +1,12 @@
 #!/bin/bash
+#
+# Description:   Summit XL simulation on docker
+#                bring-up script
+#
+# Company:       Robotnik Automation S.L.L.
+# Creation Year: 2021
+# Author:        Guillem Gari  <ggari@robotnik.es>
+
 docker build -t summit_xl_sim .
 xhost + local:root
 echo "roslaunch summit_xl_sim_bringup summit_xl_complete.launch"
