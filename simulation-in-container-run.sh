@@ -40,6 +40,18 @@ function load_files() {
 }
 
 function exec_environment_check() {
+    if ! tools_check "${tool_list[@]}"; then
+        return 1
+    fi
+    if ! check_if_there_is_display; then
+        return 1
+    fi
+    if ! get_nvidia_cuda; then
+        return 1
+    fi
+    if ! test_nvidia_docker; then
+        return 1
+    fi
     return 0
 }
 
