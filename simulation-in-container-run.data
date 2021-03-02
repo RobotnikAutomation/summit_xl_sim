@@ -19,14 +19,25 @@ nfo_colour="${light_purple_colour}"
 suc_colour="${green_colour}"
 no_colour='\033[0m'
 
+cuda_version=none
+
 #Success String
 suc_str_tool_check_success='All required tools are available'
+suc_str_display='Display found'
+suc_str_cuda='Nvidia CUDA version ${cuda_version}'
+suc_str_nvidia_docker='Nvidia docker operative'
 
 #Info Strings
 nfo_str_tool_checking='Checking tools'
+nfo_str_display='Checking display'
+nfo_str_cuda='Checking Nvidia CUDA'
+nfo_str_nvidia_docker='Checking Nvidia Docker'
 
 #Error Strings
 err_str_required_tool_not_found='Required tool not found: ${tool}'
+err_str_display='Display not found, a graphical interface is required'
+err_str_cuda='Nvidia CUDA not found'
+err_str_nvidia_docker='Nvidia docker not found'
 
 tool_list=(\
     docker \
