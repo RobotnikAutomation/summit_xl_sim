@@ -7,23 +7,70 @@
 # Creation Year: 2021
 # Author:        Guillem Gari  <ggari@robotnik.es>
 
+# VARIABLES
+###########
+
+#Colour
+red_colour='\033[0;31m'
+green_colour='\033[0;32m'
+light_purple_colour='\033[1;35m'
+err_colour="${red_colour}"
+nfo_colour="${light_purple_colour}"
+suc_colour="${green_colour}"
+no_colour='\033[0m'
+
+#Success String
+suc_str_tool_check_success='All required tools are available'
+
+#Info Strings
+nfo_str_tool_checking='Checking tools'
+
+#Error Strings
+err_str_required_tool_not_found='Required tool not found: ${tool}'
+
+# FUNCTIONS
+###########
+
 function print_error() {
-    return 0
+    local message="${1}"
+    eval "echo -e "'"'"${err_colour}ERROR]${no_colour}:   ${message}"'"'" 2>&1"
 }
 
 function print_info() {
-    return 0
+    local message="${1}"
+    eval "echo -e "'"'"${nfo_colour}[INFO]${no_colour}:    ${message}"'"'""
 }
 
 function print_success() {
+    local message="${1}"
+    eval "echo -e "'"'"${suc_colour}[SUCCESS]${no_colour}: ${message}"'"'""
+}
+
+function set_path() {
+    host_source_path="$(dirname "$(readlink -f "${0}")")"
+    build_path="${host_source_path}"
     return 0
 }
 
 function tool_check() {
-    return 0
+    local binary="${1}"
+    if [[ -z "${binary}" ]];then
+        return 1
+    fi
+    eval "${tool_check_cmd}"
+    return $?
 }
 
 function tools_check() {
+    local tools=("${@}")
+    print_info "${nfo_str_tool_checking}"
+    for tool in "${tools[@]}"; do
+        if ! tool_check "${tool}"; then
+            print_error "${err_str_required_tool_not_found}"
+            return 1
+        fi
+    done
+    print_success "${suc_str_tool_check_success}"
     return 0
 }
 
