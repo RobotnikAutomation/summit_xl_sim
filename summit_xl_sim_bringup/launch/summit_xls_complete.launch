@@ -12,7 +12,7 @@
 	<arg name="launch_rviz" default="true"/>
 	<arg name="gazebo_world" default="$(find summit_xl_gazebo)/worlds/summit_xl_office.world"/>
 	<arg name="launch_advanced_simulation" default="false"/> <!-- Just for internal use -->
-	<arg name="use_gpu_for_simulation" default="false"/>
+	<arg name="use_gpu_for_simulation" default="$(optenv USE_GPU_FOR_SIMULATION false)"/>
 
 
 	<!-- arguments robot a -->

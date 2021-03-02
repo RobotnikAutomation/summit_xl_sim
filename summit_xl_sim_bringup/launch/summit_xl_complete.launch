@@ -10,7 +10,7 @@
 	<arg if="$(arg omni_drive)" name="ros_planar_move_plugin" value="true"/>
 	<arg unless="$(arg omni_drive)" name="ros_planar_move_plugin" default="true"/>
 	<arg name="launch_advanced_simulation" default="false"/> <!-- Just for internal use -->
-	<arg name="use_gpu_for_simulation" default="false"/>
+	<arg name="use_gpu_for_simulation" default="$(optenv USE_GPU_FOR_SIMULATION false)"/>
 
 	<!-- arguments robot a -->
 	<arg name="launch_robot_a" default="true"/>
