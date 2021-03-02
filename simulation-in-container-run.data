@@ -65,3 +65,8 @@ image_name_org="robotnik"
 image_name="summit_xl_sim"
 image_version="latest"
 image_complete_name='${image_name_org}/${image_name}:${image_version}'
+
+ros_bringup_package="summit_xl_sim_bringup"
+ros_launch_file="summit_xl_complete.launch"
+ros_master_uri="http://localhost:11311"
+gazebo_master_uri="http://localhost:11345"

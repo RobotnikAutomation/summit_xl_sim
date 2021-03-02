@@ -138,13 +138,12 @@ function run_simulation() {
         --device=/dev/dri \
         --group-add video \
         --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
-        --env ROS_MASTER_URI="http://localhost:11311" \
-        --env GAZEBO_MASTER_URI="http://localhost:11345" \
+        --env ROS_MASTER_URI="${ros_master_uri}" \
+        --env GAZEBO_MASTER_URI="${gazebo_master_uri}" \
+        --env ROS_BU_PKG="${ros_bringup_package}" \
+        --env ROS_BU_LAUNCH="${ros_launch_file}" \
         --env NVIDIA_VISIBLE_DEVICES=0 \
         --name "${instance_name}" \
-        "${image_complete_name}" \
-        bash -c "source /opt/ros/melodic/setup.bash &&
-            source /home/ros/catkin_ws/devel/setup.bash &&
-            roslaunch summit_xl_sim_bringup summit_xl_complete.launch"
+        "${image_complete_name}"
     return $?
 }
