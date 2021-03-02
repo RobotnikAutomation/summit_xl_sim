@@ -1,41 +1,11 @@
 #!/bin/bash
 #
 # Description:   Summit XL simulation on docker
-#                bring-up script
+#                bring-up script functions
 #
 # Company:       Robotnik Automation S.L.L.
 # Creation Year: 2021
 # Author:        Guillem Gari  <ggari@robotnik.es>
-
-# VARIABLES
-###########
-
-#Colour
-red_colour='\033[0;31m'
-green_colour='\033[0;32m'
-light_purple_colour='\033[1;35m'
-err_colour="${red_colour}"
-nfo_colour="${light_purple_colour}"
-suc_colour="${green_colour}"
-no_colour='\033[0m'
-
-#Success String
-suc_str_tool_check_success='All required tools are available'
-
-#Info Strings
-nfo_str_tool_checking='Checking tools'
-
-#Error Strings
-err_str_required_tool_not_found='Required tool not found: ${tool}'
-
-tool_list=(\
-    docker \
-    readlink \
-    dirname \
-    xhost \
-    nvidia_smi \
-)
-
 
 # FUNCTIONS
 ###########
