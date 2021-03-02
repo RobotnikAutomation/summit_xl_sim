@@ -7,6 +7,26 @@
 # Creation Year: 2021
 # Author:        Guillem Gari  <ggari@robotnik.es>
 
+function print_error() {
+    return 0
+}
+
+function print_info() {
+    return 0
+}
+
+function print_success() {
+    return 0
+}
+
+function tool_check() {
+    return 0
+}
+
+function tools_check() {
+    return 0
+}
+
 function build_image() {
     return 0
 }
