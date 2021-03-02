@@ -39,6 +39,8 @@ RUN apt-get update \
 	&& apt-get autoremove -q -y \
 	&& rm -rf /var/lib/apt/lists/*
 
+COPY ros_entrypoint.sh /
+
 USER $user_name
 
 RUN mkdir -p $ck_src_dir
@@ -50,16 +52,28 @@ RUN true \
 WORKDIR $ck_dir
 
 COPY --chown=$user_name \
-	. \
-	$ck_src_dir/
+	summit_xl_gazebo \
+	$ck_src_dir/summit_xl_gazebo
+
+COPY --chown=$user_name \
+	summit_xl_sim \
+	$ck_src_dir/summit_xl_sim
+
+COPY --chown=$user_name \
+	summit_xl_sim_bringup \
+	$ck_src_dir/summit_xl_sim_bringup
 
 ARG repo_file=summit_xl_sim_devel_docker.repos
-ARG repo_file_list_to_use=/$ck_src_dir/repos/$repo_file
+
+COPY --chown=$user_name \
+	repos/$repo_file \
+	/tmp/
+
+ARG repo_file_list_to_use=/tmp/$repo_file
 ARG fresh_download_of_git_repos=no
 
 RUN true \
 	&& vcs import --input $repo_file_list_to_use \
-	&& rm -rf ck_src_dir/repos \
 	&& rosdep update \
 	&& echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections \
 	&& sudo apt-get update \
