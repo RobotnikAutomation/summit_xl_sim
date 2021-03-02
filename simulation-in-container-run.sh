@@ -43,11 +43,13 @@ function delete_running_docker_instance() {
 }
 
 function allow_screen() {
-    return 0
+    xhost + local:root
+    return $?
 }
 
 function disable_screen() {
-    return 0
+    xhost - local:root
+    return $?
 }
 
 function run_simulation() {
