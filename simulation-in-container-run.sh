@@ -7,6 +7,34 @@
 # Creation Year: 2021
 # Author:        Guillem Gari  <ggari@robotnik.es>
 
+function build_image() {
+    return 0
+}
+
+function check_docker_instance_already_running() {
+    return 0
+}
+
+function delete_running_docker_instance() {
+    return 0
+}
+
+function allow_screen() {
+    return 0
+}
+
+function disable_screen() {
+    return 0
+}
+
+function run_simulation() {
+    return 0
+}
+
+function simulation_main() {
+    return 0
+}
+
 docker build -t summit_xl_sim .
 xhost + local:root
 echo "roslaunch summit_xl_sim_bringup summit_xl_complete.launch"
