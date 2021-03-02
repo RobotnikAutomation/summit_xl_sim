@@ -7,6 +7,38 @@
 # Creation Year: 2021
 # Author:        Guillem Gari  <ggari@robotnik.es>
 
+function load_file() {
+    local file="${1}"
+    if ! test -r "${file}"; then
+        echo "File not present: ${file}. Aborting" 2>&1
+        return 1
+    fi
+    if ! source "${file}"; then
+        echo "Could not load: ${file}. Aborting" 2>&1
+        return 1
+    fi
+    return 0
+}
+
+function load_files() {
+    previous_exec_path="$PWD"
+    host_source_path="$(dirname "$(readlink -f "${0}")")"
+    data_file="${0%.sh}"
+    data_file="${data_file}.data"
+    data_file="${host_source_path}/${data_file}"
+    if ! load_file "${data_file}"; then
+        return 1
+    fi
+    func_file="${0%.sh}"
+    func_file="${func_file}.func"
+    func_file="${host_source_path}/${func_file}"
+    if ! load_file "${func_file}"; then
+        return 1
+    fi
+    cd "$host_source_path"
+    return 0
+}
+
 # VARIABLES
 ###########
 
