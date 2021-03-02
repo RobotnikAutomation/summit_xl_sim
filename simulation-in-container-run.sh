@@ -185,12 +185,16 @@ function simulation_flow() {
 
 function simulation_main() {
     local return_value=1
-    if simulation_flow; then
-        return_value=0
+    if ! load_files; then
+        cd "${previous_exec_path}"
+        return 1
     fi
+    simulation_flow
+    return_value=$?
     if ! disable_screen; then
         return_value=1
     fi
+    cd "${previous_exec_path}"
     return "${return_value}"
 }
 
