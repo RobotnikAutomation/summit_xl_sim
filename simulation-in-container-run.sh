@@ -10,11 +10,11 @@
 function load_file() {
     local file="${1}"
     if ! test -r "${file}"; then
-        echo "File not present: ${file}. Aborting" 2>&1
+        echo "File not present: ${file} : Aborting" 2>&1
         return 1
     fi
     if ! source "${file}"; then
-        echo "Could not load: ${file}. Aborting" 2>&1
+        echo "Could not load: ${file} : Aborting" 2>&1
         return 1
     fi
     return 0
