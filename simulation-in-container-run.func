@@ -74,6 +74,10 @@ function get_nvidia_cuda() {
     return 0
 }
 
+function find nvidia_docker_image() {
+    return 0
+}
+
 function test_nvidia_docker() {
     print_info "${nfo_str_nvidia_docker}"
     if ! docker run --rm --gpus all nvidia/cuda:${cuda_version}-base nvidia-smi; then
