@@ -88,14 +88,13 @@ RUN true \
 	&& catkin_make
 
 ARG gazebo_model_path=$user_home/.gazebo/
+ARG gazebo_models_url=https://github.com/osrf/gazebo_models.git
 RUN true \
 	&& mkdir -p $gazebo_model_path/models \
 	&& chown -R $user_name: $gazebo_model_path \
+	&& git clone --depth 1 $gazebo_models_url $gazebo_model_path/models \
+	&& rm -rf $gazebo_model_path/models/.git \
 	&& true
-
-COPY --chown=$user_name \
-	docker/gazebo-models \
-	$gazebo_model_path
 
 COPY --chown=$user_name \
 	docker/ignition/ \
