@@ -96,9 +96,13 @@ RUN true \
 	&& rm -rf $gazebo_model_path/models/.git \
 	&& true
 
-COPY --chown=$user_name \
-	docker/ignition/ \
-	$user_home
+ARG ign_version=4_4.0.0
+ARG ign_cfg_url=https://raw.githubusercontent.com/ignitionrobotics/ign-fuel-tools/ignition-fuel-tools$ign_version/conf/config.yaml
+ARG ign_cfg_dir=$user_home/.ignition/fuel
+ARG ign_cfg_file=config.yaml
+ARG ign_cfg_path=$ign_cfg_dir/$ign_cfg_file
+RUN mkdir -p $ign_cfg_dir \
+	&& wget $ign_cfg_url -O $ign_cfg_path
 
 ENV NVIDIA_VISIBLE_DEVICES \
     ${NVIDIA_VISIBLE_DEVICES:-all}
