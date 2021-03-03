@@ -156,6 +156,8 @@ function run_simulation() {
         --env="QT_X11_NO_MITSHM=1" \
         --device=/dev/dri \
         --group-add video \
+        --device=/dev/snd:/dev/snd \
+        --group-add audio \
         --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
         --env ROS_MASTER_URI="${ros_master_uri}" \
         --env GAZEBO_MASTER_URI="${gazebo_master_uri}" \
