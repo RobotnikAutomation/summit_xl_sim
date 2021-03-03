@@ -101,9 +101,6 @@ COPY --chown=$user_name \
 	docker/ignition/ \
 	$user_home
 
-RUN true \
-	&& sed -i 's/api.ignitionfuel.org/fuel.ignitionrobotics.org/' ~/.ignition/fuel/config.yaml
-
 ENV NVIDIA_VISIBLE_DEVICES \
     ${NVIDIA_VISIBLE_DEVICES:-all}
 ENV NVIDIA_DRIVER_CAPABILITIES \

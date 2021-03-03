@@ -3,7 +3,7 @@
 servers:
   -
     name: osrf
-    url: https://fuel.ignitionfuel.org
+    url: https://fuel.ignitionrobotics.org
 
   # -
     # name: another_server
