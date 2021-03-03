@@ -39,7 +39,7 @@ RUN apt-get update \
 	&& apt-get autoremove -q -y \
 	&& rm -rf /var/lib/apt/lists/*
 
-COPY ros_entrypoint.sh /
+COPY docker/ros_entrypoint.sh /
 
 USER $user_name
 
