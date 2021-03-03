@@ -11,19 +11,21 @@ Packages for the simulation of the Summit XL
 
 This packages contains: 
 
-# summit_xl_gazebo
+## summit_xl_gazebo
 
 Launch files and world files to start the models in gazebo
 
-# summit_xl_sim_bringup
+## summit_xl_sim_bringup
 
 Launch files that launch the complete simulation of the robot/s
 
-# Simulating Summit XL
+## Simulating Summit XL
 
 This simulation has been tested using Gazebo 9 version.
 
-## 1. Install the following dependencies:
+## Installation and run instruccions
+
+### 1. Install the following dependencies:
 
  To facilitate the installation you can use the vcstool:
 
@@ -31,7 +33,7 @@ This simulation has been tested using Gazebo 9 version.
 sudo apt-get install -y python3-vcstool
 ```
 
-## 2. Create a workspace and clone the repository:
+### 2. Create a workspace and clone the repository:
 
 ```bash
 mkdir catkin_ws
@@ -41,7 +43,7 @@ vcs import --input \
 rosdep install --from-paths src --ignore-src -y
 ```
 
-## 3. Compile:
+### 3. Compile:
 
 ```bash
 catkin build
@@ -56,21 +58,21 @@ sudo apt-get update
 sudo apt-get install python-catkin-tools
 ```
 
-## 4. Launch Summit XL simulation (1 robot by default, up to 3 robots):
+### 4. Launch Summit XL simulation (1 robot by default, up to 3 robots):
 
-### Summit XL:
+#### Summit XL:
 
 ```bash
 roslaunch summit_xl_sim_bringup summit_xl_complete.launch
 ```
 
-### or Summit XL Steel:
+#### or Summit XL Steel:
 
 ```bash
 roslaunch summit_xl_sim_bringup summit_xls_complete.launch
 ```
 
-### Optional general arguments:
+#### Optional general arguments:
 
 ```xml
 <arg name="launch_rviz" default="true"/>
@@ -87,7 +89,7 @@ roslaunch summit_xl_sim_bringup summit_xl_complete.launch \
   omni_drive:=false
 ```
 
-### Optional robot arguments:
+#### Optional robot arguments:
 
 ```xml
 <!--arguments for each robot (example for robot A)-->
