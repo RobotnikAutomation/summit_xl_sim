@@ -88,12 +88,21 @@ RUN true \
 	&& catkin_make
 
 ARG gazebo_model_path=$user_home/.gazebo/
-RUN mkdir -p $gazebo_model_path/models \
-	&& chown -R $user_name: $gazebo_model_path
+RUN true \
+	&& mkdir -p $gazebo_model_path/models \
+	&& chown -R $user_name: $gazebo_model_path \
+	&& true
 
 COPY --chown=$user_name \
 	docker/gazebo-models \
 	$gazebo_model_path
+
+COPY --chown=$user_name \
+	docker/ignition/ \
+	$user_home
+
+RUN true \
+	&& sed -i 's/api.ignitionfuel.org/fuel.ignitionrobotics.org/' ~/.ignition/fuel/config.yaml
 
 ENV NVIDIA_VISIBLE_DEVICES \
     ${NVIDIA_VISIBLE_DEVICES:-all}
