@@ -34,7 +34,7 @@ suc_str_destroy_running_sim='Simulation destroyed'
 nfo_str_tool_checking='Checking tools'
 nfo_str_display='Checking display'
 nfo_str_cuda='Checking Nvidia CUDA'
-nfo_str_nvidia_docker='Checking Nvidia Docker'
+nfo_str_nvidia_docker='Checking Nvidia Docker with image ${nvidia_docker_image}'
 nfo_str_tool_building='Building image ${image_complete_name}'
 nfo_str_check_already_running='Checking if the simulation is already running on the system'
 nfo_str_already_running='There is a simulation already running on the system, destroying it'
@@ -49,6 +49,7 @@ err_str_build_image_failed='Could not build container image'
 err_str_destroy_running_sim='Simulation ${instance_name} could not be destroyed'
 str_x11_enable_server_access='Could not allowing X11 access'
 str_x11_disable_server_access='Could not restrict X11 access'
+str_nvidia_docker_img_not_found='Couldn find a suitable testing image of nvidia docker'
 
 
 tool_list=(\
@@ -57,6 +58,7 @@ tool_list=(\
     dirname \
     xhost \
     nvidia_smi \
+    wget \
 )
 
 instance_name=summit_xl_sim_instance
@@ -70,3 +72,8 @@ ros_bringup_package="summit_xl_sim_bringup"
 ros_launch_file="summit_xl_complete.launch"
 ros_master_uri="http://localhost:11311"
 gazebo_master_uri="http://localhost:11345"
+
+base_url_registry="https://registry.hub.docker.com/v1/repositories"
+nvidia_repo="nvidia/cuda"
+nvidia_repo="${base_url_registry}/${nvidia_repo}/tags"
+nvidia_docker_image=""
