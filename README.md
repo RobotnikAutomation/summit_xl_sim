@@ -122,3 +122,21 @@ roslaunch summit_xl_sim_bringup summit_xl_complete.launch \
 ```
 
 Enjoy! You can use the topic `${id_robot}/robotnik_base_control/cmd_vel` to control the Summit XL robot or send simple goals using `/${id_robot}/move_base_simple/goal`
+
+## Docker usage
+
+### Installation of required files
+- docker
+- nvidia-docker
+- nvidia-drivers
+
+### Usage
+
+```bash
+git clone https://github.com/RobotnikAutomation/summit_xl_sim.git
+cd summit_xl_sim
+./simulation-in-container-run.sh
+```
+
+#### Notes
+- This is docker requires a graphical interface
