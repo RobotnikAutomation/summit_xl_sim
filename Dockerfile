@@ -84,7 +84,16 @@ RUN true \
 
 RUN true \
 	&& . /opt/ros/melodic/setup.sh \
+	&& export ROS_PARALLEL_JOBS=-j$(nproc --all) \
 	&& catkin_make
+
+ARG gazebo_model_path=$user_home/.gazebo/
+RUN mkdir -p $gazebo_model_path/models \
+	&& chown -R $user_name: $gazebo_model_path
+
+COPY --chown=$user_name \
+	docker/gazebo-models \
+	$gazebo_model_path
 
 ENV NVIDIA_VISIBLE_DEVICES \
     ${NVIDIA_VISIBLE_DEVICES:-all}
