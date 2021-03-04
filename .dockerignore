@@ -2,8 +2,8 @@
 .git/
 CHANGELOG.md
 doc/
-docker-compose.yml
-Dockerfile
+docker/docker-compose.yml
+docker/Dockerfile
 LICENSE
 README.md
-simulation-in-container-run.*
+docker/simulation-in-container-run.*
