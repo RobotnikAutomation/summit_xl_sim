@@ -135,8 +135,18 @@ Enjoy! You can use the topic `${id_robot}/robotnik_base_control/cmd_vel` to cont
 ```bash
 git clone https://github.com/RobotnikAutomation/summit_xl_sim.git
 cd summit_xl_sim
-./simulation-in-container-run.sh
+docker/simulation-in-container-run.sh
 ```
 
 #### Notes
 - This is docker requires a graphical interface
+- if you want to enter on the container use the following command in another terminal
+```bash
+docker container exec -it summit_xl_sim_instance bash
+```
+- In order to exit you have to 2 optiosn
+  # Close gazebo and rviz and wait a bit
+  # execute in another terminal:
+```bash
+docker container rm --force summit_xl_sim_instance
+```
