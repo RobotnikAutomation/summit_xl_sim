@@ -77,6 +77,39 @@ function simulation_flow() {
     return 0
 }
 
+function parse_arguments() {
+    local key=""
+    while [[ $# -gt 0 ]]; do
+        key="${1}"
+        case "${key}" in
+            --robot|-r)
+                selected_robot="${2}"
+                shift
+                ;;
+            --launch|-l)
+                selected_launch_file="${2}"
+                shift
+                ;;
+            --package|-p)
+                selected_package="${2}"
+                shift
+                ;;
+            --help|-h)
+                help
+                exit 0
+                ;;
+            *)
+                echo "Unkwon Command"
+                help
+                exit 1
+                ;;
+
+        esac
+        shift
+    done
+    return 0
+}
+
 function help() {
 cat << EOF
 Simulation of summit using docker
