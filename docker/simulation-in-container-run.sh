@@ -22,14 +22,15 @@ function load_file() {
 
 function load_files() {
     previous_exec_path="$PWD"
+    executable="$(basename "${0}")"
     host_source_path="$(dirname "$(readlink -f "${0}")")"
-    data_file="${0%.sh}"
+    data_file="${executable%.sh}"
     data_file="${data_file}.data"
     data_file="${host_source_path}/${data_file}"
     if ! load_file "${data_file}"; then
         return 1
     fi
-    func_file="${0%.sh}"
+    func_file="${executable%.sh}"
     func_file="${func_file}.func"
     func_file="${host_source_path}/${func_file}"
     if ! load_file "${func_file}"; then
