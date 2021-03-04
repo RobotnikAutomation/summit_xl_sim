@@ -91,7 +91,7 @@ function find_nvidia_docker_image() {
 
 function test_nvidia_docker() {
     if ! find_nvidia_docker_image; then
-        print_error "${str_nvidia_docker_img_not_found}"
+        print_error "${err_str_nvidia_docker_img_not_found}"
         return 1
     fi
     print_info "${nfo_str_nvidia_docker}"
@@ -135,7 +135,7 @@ function delete_running_docker_instance() {
 
 function allow_screen() {
     if ! xhost + local:root &>/dev/null; then
-        print_error "${str_x11_enable_server_access}"
+        print_error "${err_str_x11_enable_server_access}"
         return 1
     fi
     return 0
@@ -143,14 +143,14 @@ function allow_screen() {
 
 function disable_screen() {
     if ! xhost - local:root &>/dev/null; then
-        print_error "${str_x11_disable_server_access}"
+        print_error "${err_str_x11_disable_server_access}"
         return 1
     fi
     return 0
 }
 
 function run_simulation() {
-    print_info "${nfo_running_simulation}"
+    print_info "${nfo_str_running_simulation}"
     docker run --gpus all --rm \
         --env="DISPLAY=$DISPLAY" \
         --env="QT_X11_NO_MITSHM=1" \
