@@ -41,6 +41,9 @@ function load_files() {
 }
 
 function exec_environment_check() {
+    if ! select_simulation; then
+        return 1
+    fi
     if ! tools_check "${tool_list[@]}"; then
         return 1
     fi
@@ -128,8 +131,10 @@ Optional arguments:
 EOF
     return 0
 }
+
 function simulation_main() {
     local return_value=1
+    if ! parse_arguments "${@}"; then
         return 1
     fi
     simulation_flow
