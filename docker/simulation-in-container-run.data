@@ -69,8 +69,6 @@ image_name="summit_xl_sim"
 image_version="latest"
 image_complete_name='${image_name_org}/${image_name}:${image_version}'
 
-ros_bringup_package="summit_xl_sim_bringup"
-ros_launch_file="summit_xl_complete.launch"
 ros_master_uri="http://localhost:11311"
 gazebo_master_uri="http://localhost:11345"
 
@@ -78,3 +76,18 @@ base_url_registry="https://registry.hub.docker.com/v1/repositories"
 nvidia_repo="nvidia/cuda"
 nvidia_repo="${base_url_registry}/${nvidia_repo}/tags"
 nvidia_docker_image=""
+
+default_robot='summit_xl'
+selected_robot="${default_robot}"
+
+declare -A ros_bringup_package_array
+declare -A ros_launch_file_array
+
+ros_bringup_package_array[summit_xl]="summit_xl_sim_bringup"
+ros_launch_file_array[summit_xl]="summit_xl_complete.launch"
+
+ros_bringup_package_array[summit_xls]="summit_xl_sim_bringup"
+ros_launch_file_array[summit_xls]="summit_xls_complete.launch"
+
+ros_bringup_package_array[summit_xl_gen]="summit_xl_sim_bringup"
+ros_launch_file_array[summit_xl_gen]="summit_xl_gen_complete.launch"
