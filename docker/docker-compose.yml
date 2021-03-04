@@ -3,18 +3,16 @@ version: "3.7"
 services:
   base:
     build:
-      context: .
-      dockerfile: Dockerfile
-    # command: "bash -c 'while true ;do sleep 60 ;done'"
-    command: "bash -c 'source /opt/ros/melodic/setup.bash &&
-        source /home/ros/catkin_ws/devel/setup.bash &&
-        roslaunch summit_xl_sim_bringup summit_xl_complete.launch'"
+      context: ..
+      dockerfile: docker/Dockerfile
+    command: "bash"
     environment:
       ROS_MASTER_URI: "http://localhost:11311"
       GAZEBO_MASTER_URI: "http://localhost:11345"
       DISPLAY: $DISPLAY
       QT_X11_NO_MITSHM: 1
-      NVIDIA_VISIBLE_DEVICES: 0
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIE: all
     volumes:
       - type: bind
         source: /tmp/.X11-unix
@@ -25,5 +23,5 @@ services:
         reservations:
           devices:
             - driver: nvidia
-              count: 1
+              count: all
               capabilities: [gpu, utility]
