@@ -136,6 +136,42 @@ Enjoy! You can use the topic `${id_robot}/robotnik_base_control/cmd_vel` to cont
 git clone https://github.com/RobotnikAutomation/summit_xl_sim.git
 cd summit_xl_sim
 docker/simulation-in-container-run.sh
+
+```
+
+#### Selecting the robot model
+
+You can select the robot, the launch file of package using the optional arguments on launch
+By default the selected robot is `summit_xl`
+
+```bash
+docker/simulation-in-container-run.sh --help
+```
+
+```
+Simulation of summit xl using docker
+
+Usage:
+./simulation-in-container-run.sh [OPTIONS]
+
+Optional arguments:
+ --robot -r ROBOT       Select robot to simulate
+                        Valid robots:
+                            summit_xl summit_xl_gen summit_xls
+                        default: summit_xl
+
+ --launch -l            Select launch file
+                        default: summit_xl_complete.launch
+
+ --package -p           Select ros package
+                        default: summit_xl_sim_bringup
+
+ -h, --help             Shows this help
+```
+
+**Summit XLS**
+```bash
+docker/simulation-in-container-run.sh --robot summit_xls
 ```
 
 #### Manual Build
