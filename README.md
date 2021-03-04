@@ -141,6 +141,7 @@ docker/simulation-in-container-run.sh
 #### Manual Build
 
 If you wish to build manually the image without the use of the script use one the following commands:
+
 **Optiona A**
 ```bash
 cd docker
@@ -159,8 +160,8 @@ docker build -f docker/Dockerfile .
 docker container exec -it summit_xl_sim_instance bash
 ```
 - In order to exit you have to 2 optiosn
-  # Close gazebo and rviz and wait a bit
-  # execute in another terminal:
+1. Close gazebo and rviz and wait a bit
+ 2. execute in another terminal:
 ```bash
 docker container rm --force summit_xl_sim_instance
 ```
