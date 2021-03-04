@@ -126,8 +126,8 @@ Enjoy! You can use the topic `${id_robot}/robotnik_base_control/cmd_vel` to cont
 ## Docker usage
 
 ### Installation of required files
-- docker
-- nvidia-docker
+- [docker](https://docs.docker.com/engine/install/ubuntu/)
+- [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
 - nvidia-drivers
 
 ### Usage
