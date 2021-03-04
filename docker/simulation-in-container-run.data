@@ -38,7 +38,7 @@ nfo_str_nvidia_docker='Checking Nvidia Docker with image ${nvidia_docker_image}'
 nfo_str_tool_building='Building image ${image_complete_name}'
 nfo_str_check_already_running='Checking if the simulation is already running on the system'
 nfo_str_already_running='There is a simulation already running on the system, destroying it'
-nfo_running_simulation='Running simulation'
+nfo_str_running_simulation='Running simulation for ${selected_robot}'
 
 #Error Strings
 err_str_required_tool_not_found='Required tool not found: ${tool}'
@@ -47,9 +47,10 @@ err_str_cuda='Nvidia CUDA not found'
 err_str_nvidia_docker='Nvidia docker not found'
 err_str_build_image_failed='Could not build container image'
 err_str_destroy_running_sim='Simulation ${instance_name} could not be destroyed'
-str_x11_enable_server_access='Could not allowing X11 access'
-str_x11_disable_server_access='Could not restrict X11 access'
-str_nvidia_docker_img_not_found='Couldn find a suitable testing image of nvidia docker'
+err_str_x11_enable_server_access='Could not allowing X11 access'
+err_str_x11_disable_server_access='Could not restrict X11 access'
+err_str_nvidia_docker_img_not_found='Couldn find a suitable testing image of nvidia docker'
+err_str_unrecognized_robot='robot not recognized: ${selected_robot}'
 
 
 tool_list=(\
