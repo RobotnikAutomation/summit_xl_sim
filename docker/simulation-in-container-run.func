@@ -149,6 +149,25 @@ function disable_screen() {
     return 0
 }
 
+function select_simulation() {
+    if ! [[ -n "${ros_bringup_package_array[${selected_robot}]}" ]]; then
+        print_error "${err_str_unrecognized_robot}"
+        return 1
+    fi
+    ros_bringup_package="${ros_bringup_package_array[${selected_robot}]}"
+    ros_launch_file="${ros_launch_file_array[${selected_robot}]}"
+
+    if [[ -n "${selected_launch_file}" ]]; then
+        ros_launch_file="${selected_launch_file}"
+    fi
+
+    if [[ -n "${selected_package}" ]]; then
+        ros_bringup_package="${selected_package}"
+    fi
+
+    return 0
+}
+
 function run_simulation() {
     print_info "${nfo_str_running_simulation}"
     docker run --gpus all --rm \
