@@ -125,6 +125,8 @@ Enjoy! You can use the topic `${id_robot}/robotnik_base_control/cmd_vel` to cont
 
 ## Docker usage
 
+In order to run this simulation you will need nvidia graphical accelation
+
 ### Installation of required files
 - [docker](https://docs.docker.com/engine/install/ubuntu/)
 - [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
@@ -195,9 +197,9 @@ docker build -f docker/Dockerfile .
 ```bash
 docker container exec -it summit_xl_sim_instance bash
 ```
-- In order to exit you have to 2 optiosn
-1. Close gazebo and rviz and wait a bit
- 2. execute in another terminal:
+- In order to exit you have to 2 options
+1. Close `gazebo` and `rviz` and wait a bit
+2. execute in another terminal:
 ```bash
 docker container rm --force summit_xl_sim_instance
 ```
