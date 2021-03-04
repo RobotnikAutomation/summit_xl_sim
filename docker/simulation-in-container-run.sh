@@ -77,6 +77,24 @@ function simulation_flow() {
     return 0
 }
 
+function help() {
+cat << EOF
+Simulation of summit using docker
+
+Usage:
+${0} [OPTIONS]
+
+Optional arguments:
+ --robot -r ROBOT       Select robot to simulate
+                        Valid robots:
+                            ${!ros_bringup_package_array[@]}
+                        default: ${default_robot}
+
+ -h, --help             Shows this help
+
+EOF
+    return 0
+}
 function simulation_main() {
     local return_value=1
         return 1
