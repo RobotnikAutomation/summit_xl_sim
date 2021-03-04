@@ -115,7 +115,7 @@ function parse_arguments() {
 
 function help() {
 cat << EOF
-Simulation of summit using docker
+Simulation of summit xl using docker
 
 Usage:
 ${0} [OPTIONS]
@@ -125,6 +125,12 @@ Optional arguments:
                         Valid robots:
                             ${!ros_bringup_package_array[@]}
                         default: ${default_robot}
+
+ --launch -l            Select launch file
+                        default: ${ros_launch_file_array[${default_robot}]}
+
+ --package -p           Select ros package
+                        default: ${ros_bringup_package_array[${default_robot}]}
 
  -h, --help             Shows this help
 
