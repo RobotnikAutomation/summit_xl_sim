@@ -138,7 +138,21 @@ cd summit_xl_sim
 docker/simulation-in-container-run.sh
 ```
 
+#### Manual Build
+
+If you wish to build manually the image without the use of the script use one the following commands:
+**Optiona A**
+```bash
+cd docker
+docker build -f Dockerfile ..
+```
+**Option B**
+```bash
+docker build -f docker/Dockerfile .
+```
+
 #### Notes
+
 - This is docker requires a graphical interface
 - if you want to enter on the container use the following command in another terminal
 ```bash
