@@ -13,10 +13,10 @@ function load_file() {
         echo "File not present: ${file} : Aborting" 2>&1
         return 1
     fi
-    if ! source "${file}"; then
-        echo "Could not load: ${file} : Aborting" 2>&1
-        return 1
-    fi
+    # if ! source "${file}"; then
+    #     echo "Could not load: ${file} : Aborting" 2>&1
+    #     return 1
+    # fi
     return 0
 }
 
@@ -79,8 +79,6 @@ function simulation_flow() {
 
 function simulation_main() {
     local return_value=1
-    if ! load_files; then
-        cd "${previous_exec_path}"
         return 1
     fi
     simulation_flow
@@ -91,6 +89,21 @@ function simulation_main() {
     cd "${previous_exec_path}"
     return "${return_value}"
 }
+
+if ! load_files; then
+    cd "${previous_exec_path}"
+    exit 1
+fi
+
+if ! source "${data_file}"; then
+    echo "Could not load: ${data_file} : Aborting" 2>&1
+    exit 1
+fi
+
+if ! source "${func_file}"; then
+    echo "Could not load: ${func_file} : Aborting" 2>&1
+    exit 1
+fi
 
 simulation_main "$@"
 exit $?
