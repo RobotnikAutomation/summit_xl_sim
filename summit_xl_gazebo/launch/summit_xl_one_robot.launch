@@ -77,6 +77,9 @@
                 -J $(arg arm_prefix)_joint_finger_1 1.0
                 -J $(arg arm_prefix)_joint_finger_2 1.0
                 -J $(arg arm_prefix)_joint_finger_3 1.0
+                -J $(arg arm_prefix)_joint_finger_tip_1 1.0
+                -J $(arg arm_prefix)_joint_finger_tip_2 1.0
+                -J $(arg arm_prefix)_joint_finger_tip_3 1.0
                 -wait
                 -urdf
                 -param robot_description
