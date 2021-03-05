@@ -74,9 +74,9 @@
                 -J $(arg arm_prefix)_joint_5 -2.07
                 -J $(arg arm_prefix)_joint_6 1.4
                 -J $(arg arm_prefix)_joint_7 0.0
-                -J $(arg arm_prefix)_joint_finger_1 1.0
-                -J $(arg arm_prefix)_joint_finger_2 1.0
-                -J $(arg arm_prefix)_joint_finger_3 1.0
+                -J $(arg arm_prefix)_joint_finger_1 0.0
+                -J $(arg arm_prefix)_joint_finger_2 0.0
+                -J $(arg arm_prefix)_joint_finger_3 0.0
                 -J $(arg arm_prefix)_joint_finger_tip_1 1.0
                 -J $(arg arm_prefix)_joint_finger_tip_2 1.0
                 -J $(arg arm_prefix)_joint_finger_tip_3 1.0
