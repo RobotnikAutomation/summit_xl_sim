@@ -39,6 +39,45 @@ RUN apt-get update \
 	&& apt-get autoremove -q -y \
 	&& rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update \
+	&& apt-get install -q -y \
+		ros-melodic-global-planner \
+		ros-melodic-moveit-fake-controller-manager \
+		ros-melodic-hector-gazebo-plugins \
+		ros-melodic-moveit-planners-ompl \
+		ros-melodic-teb-local-planner \
+		ros-melodic-mavros-msgs \
+		ros-melodic-ros-control \
+		ros-melodic-imu-complementary-filter \
+		ros-melodic-pr2-moveit-config \
+		ros-melodic-moveit-ros-planning-interface \
+		ros-melodic-velocity-controllers \
+		ros-melodic-pr2-moveit-plugins \
+		ros-melodic-moveit-ros-visualization \
+		ros-melodic-move-base \
+		ros-melodic-geometric-shapes \
+		ros-melodic-eband-local-planner \
+		ros-melodic-map-server \
+		ros-melodic-moveit-kinematics \
+		ros-melodic-costmap-2d \
+		ros-melodic-twist-mux \
+		ros-melodic-moveit-ros-perception \
+		ros-melodic-moveit-ros-move-group \
+		ros-melodic-gmapping \
+		ros-melodic-moveit-setup-assistant \
+		ros-melodic-moveit-core \
+		ros-melodic-pr2-arm-kinematics \
+		ros-melodic-robot-localization \
+		ros-melodic-amcl \
+		ros-melodic-joy \
+		ros-melodic-geographic-msgs \
+		ros-melodic-ros-controllers \
+		ros-melodic-effort-controllers \
+	&& apt-get clean -q -y \
+	&& apt-get autoremove -q -y \
+	&& rm -rf /var/lib/apt/lists/*
+
+
 COPY docker/ros_entrypoint.sh /
 
 USER $user_name
