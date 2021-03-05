@@ -11,6 +11,10 @@ repositories:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_sensors.git
     version: melodic-master
+  src/kinova-ros:
+    type: git
+    url: https://github.com/robotnikautomation/kinova-ros.git
+    version: master
   src/summit_xl_common:
     type: git
     url: https://github.com/RobotnikAutomation/summit_xl_common.git
