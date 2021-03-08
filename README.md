@@ -137,6 +137,7 @@ In order to run this simulation you will need nvidia graphical accelation
 ```bash
 git clone https://github.com/RobotnikAutomation/summit_xl_sim.git
 cd summit_xl_sim
+git checkout melodic-devel
 docker/simulation-in-container-run.sh
 
 ```
