@@ -62,6 +62,8 @@ tool_list=(\
     wget \
 )
 
+robot_name="SUMMIT XL"
+
 instance_name=summit_xl_sim_instance
 
 image_name_org="robotnik"

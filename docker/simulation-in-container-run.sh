@@ -115,7 +115,9 @@ function parse_arguments() {
 
 function help() {
 cat << EOF
-Simulation of summit xl using docker
+ROBOTNIK AUTOMATION S.L.L. 2021
+
+Simulation of ${robot_name} using docker
 
 Usage:
 ${0} [OPTIONS]
