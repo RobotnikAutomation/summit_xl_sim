@@ -151,10 +151,12 @@ docker/simulation-in-container-run.sh --help
 ```
 
 ```
-Simulation of summit xl using docker
+ROBOTNIK AUTOMATION S.L.L. 2021
+
+Simulation of SUMMIT XL using docker
 
 Usage:
-./simulation-in-container-run.sh [OPTIONS]
+docker/simulation-in-container-run.sh [OPTIONS]
 
 Optional arguments:
  --robot -r ROBOT       Select robot to simulate
@@ -169,6 +171,12 @@ Optional arguments:
                         default: summit_xl_sim_bringup
 
  -h, --help             Shows this help
+
+```
+
+**Summit XL GEN**
+```bash
+docker/simulation-in-container-run.sh --robot summit_xl_gen
 ```
 
 **Summit XLS**
