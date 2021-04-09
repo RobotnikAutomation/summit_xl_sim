@@ -23,6 +23,7 @@
     <arg name="launch_arm" default="false"/>
     <arg name="launch_moveit_movegroup" default="false"/>
     <arg name="kinova_arm" default="j2s7s300"/>
+    <arg name="kinova_arm_is7dof" default="true"/>
     <arg name="arm_prefix" default="$(arg prefix)$(arg kinova_arm)"/>
 
     <!-- only for advanced simulation -->
@@ -67,7 +68,8 @@
                 -J $(arg arm_prefix)_joint_finger_3 1.0
                 -urdf
                 -param robot_description
-                -model $(arg id_robot)" />
+                -model $(arg id_robot)
+                -unpause" />
 
         <!-- start summit_xl_control nodes -->
         <include file="$(find summit_xl_control)/launch/summit_xl_control.launch">
@@ -83,6 +85,7 @@
             <arg name="launch_pantilt_camera_controller" value="$(arg has_pantilt_camera)"/>
 
             <arg name="kinova_arm" value="$(arg kinova_arm)"/>
+            <arg name="is7dof" value="$(arg kinova_arm_is7dof)"/>
             <arg name="arm_prefix" value="$(arg arm_prefix)"/>
         </include>
 

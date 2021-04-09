@@ -32,6 +32,8 @@
     <arg name="has_pantilt_camera_a" default="false"/>
     <!-- arm robot a -->
     <arg name="launch_arm_a" default="false"/>
+    <arg name="kinova_arm_a" default="j2s7s300"/>
+    <arg name="kinova_arm_a_is7dof" default="true"/>
     <arg name="moveit_movegroup_a" default="false"/>
 
     <!-- robot b -->
@@ -48,6 +50,8 @@
     <arg name="has_pantilt_camera_b" default="false"/>
     <!-- arm robot b -->
     <arg name="launch_arm_b" default="false"/>
+    <arg name="kinova_arm_b" default="j2s7s300"/>
+    <arg name="kinova_arm_b_is7dof" default="true"/>
     <arg name="moveit_movegroup_b" default="false"/>
 
     <!-- robot c -->
@@ -64,6 +68,8 @@
     <arg name="has_pantilt_camera_c" default="false"/>
     <!-- arm robot c -->
     <arg name="launch_arm_c" default="false"/>
+    <arg name="kinova_arm_c" default="j2s7s300"/>
+    <arg name="kinova_arm_c_is7dof" default="true"/>
     <arg name="moveit_movegroup_c" default="false"/>
 
 
@@ -86,6 +92,8 @@
         <arg name="has_pantilt_camera" default="$(arg has_pantilt_camera_a)"/>
         <!-- robot_a arm args -->
         <arg name="launch_arm" value="$(arg launch_arm_a)"/>
+        <arg name="kinova_arm" value="$(arg kinova_arm_a)"/>
+        <arg name="kinova_arm_is7dof" value="$(arg kinova_arm_a_is7dof)"/>
         <arg name="launch_moveit_movegroup" value="$(arg moveit_movegroup_a)"/>
     </include>
 

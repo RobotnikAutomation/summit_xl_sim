@@ -24,6 +24,8 @@
 	<arg name="has_pantilt_camera_a" default="false"/>
 	<!-- arm robot a -->
     <arg name="launch_arm_a" default="true"/>
+    <arg name="kinova_arm_a" default="j2s7s300"/>
+    <arg name="kinova_arm_a_is7dof" default="true"/>
     <arg name="moveit_movegroup_a" default="false"/>
 
 	<!-- arguments robot b -->
@@ -38,6 +40,8 @@
 	<arg name="has_pantilt_camera_b" default="true"/>
 	<!-- arm robot b -->
     <arg name="launch_arm_b" default="true"/>
+    <arg name="kinova_arm_b" default="j2s7s300"/>
+    <arg name="kinova_arm_b_is7dof" default="true"/>
     <arg name="moveit_movegroup_b" default="false"/>
 
 	<!-- arguments robot c -->
@@ -52,6 +56,8 @@
 	<arg name="has_pantilt_camera_c" default="true"/>
 	<!-- arm robot c -->
     <arg name="launch_arm_c" default="true"/>
+    <arg name="kinova_arm_c" default="j2s7s300"/>
+    <arg name="kinova_arm_c_is7dof" default="true"/>
     <arg name="moveit_movegroup_c" default="false"/>
 
 	<include file="$(find summit_xl_gazebo)/launch/summit_xl_gazebo.launch">
@@ -75,6 +81,8 @@
 		<arg name="has_pantilt_camera_a" default="$(arg has_pantilt_camera_a)"/>
 		<!-- robot_a arm args -->
         <arg name="launch_arm_a" value="$(arg launch_arm_a)"/>
+        <arg name="kinova_arm_a" value="$(arg kinova_arm_a)"/>
+        <arg name="kinova_arm_a_is7dof" value="$(arg kinova_arm_a_is7dof)"/>
         <arg name="moveit_movegroup_a" value="$(arg moveit_movegroup_a)"/>
 		<!-- robot_b args -->
 		<arg name="id_robot_b" value="$(arg id_robot_b)"/>
@@ -88,6 +96,8 @@
 		<arg name="has_pantilt_camera_b" default="$(arg has_pantilt_camera_b)"/>
 		<!-- robot_b arm args -->
         <arg name="launch_arm_b" value="$(arg launch_arm_b)"/>
+        <arg name="kinova_arm_b" value="$(arg kinova_arm_b)"/>
+        <arg name="kinova_arm_b_is7dof" value="$(arg kinova_arm_b_is7dof)"/>
         <arg name="moveit_movegroup_b" value="$(arg moveit_movegroup_b)"/>
 		<!-- robot_c args -->
 		<arg name="id_robot_c" value="$(arg id_robot_c)"/>
@@ -101,6 +111,8 @@
 		<arg name="has_pantilt_camera_c" default="$(arg has_pantilt_camera_c)"/>
 		<!-- robot_c arm args -->
         <arg name="launch_arm_c" value="$(arg launch_arm_c)"/>
+        <arg name="kinova_arm_c" value="$(arg kinova_arm_c)"/>
+        <arg name="kinova_arm_c_is7dof" value="$(arg kinova_arm_c_is7dof)"/>
         <arg name="moveit_movegroup_c" value="$(arg moveit_movegroup_c)"/>
 	</include>
 
