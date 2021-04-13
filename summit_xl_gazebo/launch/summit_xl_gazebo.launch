@@ -12,7 +12,7 @@
     <arg name="default_xacro" default="summit_xl_std.urdf.xacro"/>
     <arg name="gazebo_world" default="$(find summit_xl_gazebo)/worlds/summit_xl_office.world"/>
     <arg name="debug" default="false"/>
-    <arg name="omni_drive" default="false"/>
+    <arg name="diff_drive" default="true"/>
     <arg name="ros_planar_move_plugin" default="false"/>
     <arg name="launch_advanced_simulation" default="false"/>
     <arg name="use_gpu_for_simulation" default="false"/>
@@ -88,7 +88,7 @@
         <arg name="map_file" value="$(arg map_file_a)"/>
         <arg name="launch_move_base" value="$(arg move_base_robot_a)"/>
         <arg name="movebase_local_planner" value="$(arg movebase_local_planner_a)"/>
-        <arg name="omni_drive" value="$(arg omni_drive)"/>
+        <arg name="diff_drive" value="$(arg diff_drive)"/>
         <arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
         <arg name="launch_pad" value="$(arg launch_pad_a)"/>
         <arg name="launch_advanced_simulation" value="$(arg launch_advanced_simulation)"/>
@@ -113,7 +113,7 @@
         <arg name="map_file" value="$(arg map_file_b)"/>
         <arg name="launch_move_base" value="$(arg move_base_robot_b)"/>
         <arg name="movebase_local_planner" value="$(arg movebase_local_planner_b)"/>
-        <arg name="omni_drive" value="$(arg omni_drive)"/>
+        <arg name="diff_drive" value="$(arg diff_drive)"/>
         <arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
         <arg name="launch_pad" value="$(arg launch_pad_b)"/>
         <arg name="launch_advanced_simulation" value="$(arg launch_advanced_simulation)"/>
@@ -136,7 +136,7 @@
         <arg name="map_file" value="$(arg map_file_c)"/>
         <arg name="launch_move_base" value="$(arg move_base_robot_c)"/>
         <arg name="movebase_local_planner" value="$(arg movebase_local_planner_c)"/>
-        <arg name="omni_drive" value="$(arg omni_drive)"/>
+        <arg name="diff_drive" value="$(arg diff_drive)"/>
         <arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
         <arg name="launch_pad" value="$(arg launch_pad_c)"/>
         <arg name="launch_advanced_simulation" value="$(arg launch_base_hw_sim)"/>

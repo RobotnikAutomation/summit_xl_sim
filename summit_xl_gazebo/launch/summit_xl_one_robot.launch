@@ -14,7 +14,9 @@
     <arg name="robot_localization_mode" default="odom"/>
     <arg name="movebase_local_planner" default="teb"/>
     <!-- odom, complete (including gps)-->
-    <arg name="omni_drive" default="false"/>
+    <arg name="diff_drive" default="true"/>
+    <arg if="$(arg diff_drive)" name="omni_drive" value="false"/>
+    <arg unless="$(arg diff_drive)" name="omni_drive" value="true"/>
     <arg name="ros_planar_move_plugin" default="false"/>
     <arg name="launch_pad" default="false"/>
     <arg name="use_gpu_for_simulation" default="false"/><!-- use_gpu_for_simulation -->
@@ -134,8 +136,7 @@
         <include if="$(arg launch_move_base)" file="$(find summit_xl_navigation)/launch/move_base.launch">
             <arg name="prefix" value="$(arg prefix)"/>
             <arg name="local_planner" value="$(arg movebase_local_planner)"/>
-            <arg if="$(arg omni_drive)" name="differential_robot" value="false"/>
-            <arg unless="$(arg omni_drive)" name="differential_robot" value="true"/>
+            <arg name="differential_robot" value="$(arg diff_drive)"/>
         </include>
 
         <!-- gmapping -->
