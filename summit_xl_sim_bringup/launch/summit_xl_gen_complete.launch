@@ -64,7 +64,7 @@
 		<!-- general args -->
 		<arg name="launch_rviz" value="$(arg launch_rviz)"/>
 		<arg name="gazebo_world" value="$(arg gazebo_world)"/>
-		<arg name="omni_drive" value="$(arg omni_drive)"/>
+		<arg name="diff_drive" value="$(arg diff_drive)"/>
 		<arg name="default_xacro" value="$(arg default_xacro)"/>
 		<arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
 		<arg name="launch_advanced_simulation" value="$(arg launch_advanced_simulation)"/>

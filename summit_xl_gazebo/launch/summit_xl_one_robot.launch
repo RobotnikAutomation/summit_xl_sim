@@ -182,7 +182,9 @@
             </node>
         </group>
         <!-- MoveGroup Moveit! -->
-        <include if="$(arg launch_moveit_movegroup)" file="$(find summit_xl_$(arg kinova_arm)_moveit_config)/launch/summit_xl_$(arg kinova_arm)_moveit_config.launch">
+        <arg name="moveit_package" value="summit_xl_$(arg kinova_arm)_moveit_config"/>
+        <arg name="moveit_launch_file" value="launch/summit_xl_$(arg kinova_arm)_moveit_config.launch"/>
+        <include if="$(arg launch_moveit_movegroup)" file="$(eval find(moveit_package)+'/'+moveit_launch_file)">
         </include>
 
     </group>
