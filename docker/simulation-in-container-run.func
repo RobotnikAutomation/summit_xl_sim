@@ -177,6 +177,8 @@ function run_simulation() {
         --group-add video \
         --device=/dev/snd:/dev/snd \
         --group-add audio \
+        --net=host \
+        --privileged \
         --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
         --env ROS_MASTER_URI="${ros_master_uri}" \
         --env GAZEBO_MASTER_URI="${gazebo_master_uri}" \

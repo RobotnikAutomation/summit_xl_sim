@@ -97,6 +97,16 @@ function parse_arguments() {
                 selected_package="${2}"
                 shift
                 ;;
+            --ros-port|-u)
+                ros_master_port="${2}"
+                ros_master_uri="http://localhost:${ros_master_port}"
+                shift
+                ;;
+            --gazebo-port|-g)
+                gazebo_master_port="${2}"
+                gazebo_master_uri="http://localhost:${gazebo_master_port}"
+                shift
+                ;;
             --help|-h)
                 help
                 exit 0
@@ -133,6 +143,12 @@ Optional arguments:
 
  --package -p           Select ros package
                         default: ${ros_bringup_package_array[${default_robot}]}
+
+ --ros-port -u PORT     Host ros port
+                        default: ${gazebo_master_port}
+
+ --gazebo-port -g PORT  Host ros port
+                        default: ${gazebo_master_port}
 
  -h, --help             Shows this help
 

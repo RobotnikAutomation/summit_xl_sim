@@ -71,8 +71,10 @@ image_name="summit_xl_sim"
 image_version="latest"
 image_complete_name='${image_name_org}/${image_name}:${image_version}'
 
-ros_master_uri="http://localhost:11311"
-gazebo_master_uri="http://localhost:11345"
+ros_master_port="11311"
+ros_master_uri="http://localhost:${ros_master_port}"
+gazebo_master_port="11345"
+gazebo_master_uri="http://localhost:${gazebo_master_port}"
 
 base_url_registry="https://registry.hub.docker.com/v1/repositories"
 nvidia_repo="nvidia/cuda"
