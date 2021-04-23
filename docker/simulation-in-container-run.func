@@ -74,19 +74,49 @@ function get_nvidia_cuda() {
     return 0
 }
 
-function find_nvidia_docker_image() {
+function find_nvidia_docker_local_image() {
+    find_nvidia_docker_local_image_cmd="\
+        docker image ls -q --filter=reference="${nvidia_repo}:${cuda_version}*base" | \
+        grep -q -E '^[0-9a-f]*$' \
+    "
+    if ! eval "${find_nvidia_docker_local_image_cmd}"; then
+        return 1
+    fi
+
     nvidia_docker_image="$(\
-    wget -q "${nvidia_repo}" -O -  | \
+        docker image ls --filter=reference="${nvidia_repo}:${cuda_version}*base" --format "{{.Repository}}:{{.Tag}}"
+    )"
+    if [[ -z "${nvidia_docker_image}" ]]; then
+        return 1
+    fi
+    return 0
+}
+
+function find_nvidia_docker_remote_image() {
+    nvidia_docker_image_tag="$(\
+    wget -q "${nvidia_repo_full}" -O -  | \
     sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | \
     tr '}' '\n'  | \
     awk -F: '{print $3}' | \
     grep ${cuda_version}.*base$ | \
     tail -n1 \
     )"
-    if [[ -z "${nvidia_docker_image}" ]]; then
+    if [[ -z "${nvidia_docker_image_tag}" ]]; then
         return 1
     fi
+    nvidia_docker_image="${nvidia_repo}:${nvidia_docker_image_tag}"
     return 0
+}
+
+function find_nvidia_docker_image() {
+    set -x
+    if find_nvidia_docker_local_image; then
+        return 0
+    fi
+    if find_nvidia_docker_remote_image; then
+        return 0
+    fi
+    return 1
 }
 
 function test_nvidia_docker() {
@@ -95,7 +125,7 @@ function test_nvidia_docker() {
         return 1
     fi
     print_info "${nfo_str_nvidia_docker}"
-    if ! docker run --rm --gpus all nvidia/cuda:"${nvidia_docker_image}" nvidia-smi; then
+    if ! docker run --rm --gpus all "${nvidia_docker_image}" nvidia-smi; then
         print_error "${err_str_nvidia_docker}"
         return 1
     fi
