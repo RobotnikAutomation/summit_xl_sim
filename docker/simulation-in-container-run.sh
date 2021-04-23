@@ -145,7 +145,7 @@ Optional arguments:
                         default: ${ros_bringup_package_array[${default_robot}]}
 
  --ros-port -u PORT     Host ros port
-                        default: ${gazebo_master_port}
+                        default: ${ros_master_port}
 
  --gazebo-port -g PORT  Host ros port
                         default: ${gazebo_master_port}
