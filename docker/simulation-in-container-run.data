@@ -78,7 +78,7 @@ gazebo_master_uri="http://localhost:${gazebo_master_port}"
 
 base_url_registry="https://registry.hub.docker.com/v1/repositories"
 nvidia_repo="nvidia/cuda"
-nvidia_repo="${base_url_registry}/${nvidia_repo}/tags"
+nvidia_repo_full="${base_url_registry}/${nvidia_repo}/tags"
 nvidia_docker_image=""
 
 default_robot='summit_xl'
