@@ -109,7 +109,6 @@ function find_nvidia_docker_remote_image() {
 }
 
 function find_nvidia_docker_image() {
-    set -x
     if find_nvidia_docker_local_image; then
         return 0
     fi
