@@ -72,7 +72,7 @@
 		<arg name="move_base_robot_a" value="$(arg move_base_robot_a)"/>
 		<arg name="amcl_and_mapserver_a" value="$(arg amcl_and_mapserver_a)"/>
 		<arg name="launch_pad_a" value="$(arg launch_pad_a)"/>
-		<arg name="has_pantilt_camera_a" default="$(arg has_pantilt_camera_a)"/>
+		<arg name="has_pantilt_camera_a" value="$(arg has_pantilt_camera_a)"/>
 		<!-- robot_a arm args -->
         <arg name="launch_arm_a" value="$(arg launch_arm_a)"/>
         <arg name="moveit_movegroup_a" value="$(arg moveit_movegroup_a)"/>
@@ -85,7 +85,7 @@
 		<arg name="amcl_and_mapserver_b" value="$(arg amcl_and_mapserver_b)"/>
 		<arg name="map_file_b" value="$(arg map_file_b)"/>
 		<arg name="launch_pad_b" value="$(arg launch_pad_b)"/>
-		<arg name="has_pantilt_camera_b" default="$(arg has_pantilt_camera_b)"/>
+		<arg name="has_pantilt_camera_b" value="$(arg has_pantilt_camera_b)"/>
 		<!-- robot_b arm args -->
         <arg name="launch_arm_b" value="$(arg launch_arm_b)"/>
         <arg name="moveit_movegroup_b" value="$(arg moveit_movegroup_b)"/>
@@ -98,7 +98,7 @@
 		<arg name="amcl_and_mapserver_c" value="$(arg amcl_and_mapserver_c)"/>
 		<arg name="map_file_c" value="$(arg map_file_c)"/>
 		<arg name="launch_pad_c" value="$(arg launch_pad_c)"/>
-		<arg name="has_pantilt_camera_c" default="$(arg has_pantilt_camera_c)"/>
+		<arg name="has_pantilt_camera_c" value="$(arg has_pantilt_camera_c)"/>
 		<!-- robot_c arm args -->
         <arg name="launch_arm_c" value="$(arg launch_arm_c)"/>
         <arg name="moveit_movegroup_c" value="$(arg moveit_movegroup_c)"/>
