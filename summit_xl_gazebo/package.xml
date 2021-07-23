@@ -27,6 +27,8 @@
   <build_depend>tf</build_depend>
   <build_depend>gazebo_ros</build_depend>
   <build_depend>summit_xl_control</build_depend>
+  <build_depend>summit_xl_description</build_depend> 
+
   <build_depend>summit_xl_description</build_depend>
   <!-- <build_depend>summit_xl_robot_control</build_depend> -->
   <!-- <build_depend>summit_xl_description</build_depend> -->
@@ -45,6 +47,7 @@
   <run_depend>summit_xl_description</run_depend>
   <run_depend>gazebo_plugins</run_depend>
   <!-- <run_depend>summit_xl_robot_control</run_depend> -->
+
   <run_depend>xacro</run_depend>
   <run_depend>hector_gazebo_plugins</run_depend>
   <run_depend>gazebo_plugins</run_depend>
@@ -56,7 +59,8 @@
   <run_depend>imu_complementary_filter</run_depend>
 
   <export>
-
+    <gazebo_ros gazebo_model_path="${prefix}/models"/>
+    <gazebo_ros gazebo_media_path="${prefix}/worlds"/>
   </export>
 
 </package>
