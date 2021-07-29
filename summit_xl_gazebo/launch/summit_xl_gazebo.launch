@@ -12,6 +12,7 @@
     <arg name="default_xacro_package" default="summit_xl_description"/>
     <arg name="default_xacro" default="summit_xl_std.urdf.xacro"/>
     <arg name="gazebo_world" default="$(find summit_xl_gazebo)/worlds/summit_xl_office.world"/>
+	<arg name="gazebo_gui" default="true"/>
     <arg name="map_file" default="willow_garage/willow_garage.yaml"/>
     <arg name="debug" default="false"/>
     <arg name="omni_drive" default="false"/>
@@ -38,9 +39,11 @@
 	<arg name="gps_latitude_robot_a" default="39.5080331"/>
 	<arg name="gps_longitude_robot_a" default="-0.4619816"/>
     <arg name="has_pantilt_camera_a" default="false"/>
-    <!-- arm robot a -->
+	<!-- arm robot a -->
     <arg name="launch_arm_a" default="false"/>
-    <arg name="moveit_movegroup_a" default="false"/>
+	<arg name="arm_manufacturer_a" default="trossen"/>
+	<arg name="arm_model_a" default="vx300s"/>
+    <arg name="launch_moveit_a" default="false"/>
 
 	<!-- robot b -->
 	<arg name="id_robot_b" default="robot_b"/>
@@ -59,9 +62,11 @@
 	<arg name="gps_latitude_robot_b" default="39.5080331"/>
 	<arg name="gps_longitude_robot_b" default="-0.4619816"/>
     <arg name="has_pantilt_camera_b" default="false"/>
-    <!-- arm robot b -->
+	<!-- arm robot b -->
     <arg name="launch_arm_b" default="false"/>
-    <arg name="moveit_movegroup_b" default="false"/>
+	<arg name="arm_manufacturer_b" default="trossen"/>
+	<arg name="arm_model_b" default="vx300s"/>
+    <arg name="launch_moveit_b" default="false"/>
 
 	<!-- robot c -->
 	<arg name="id_robot_c" default="robot_c"/>
@@ -80,9 +85,11 @@
 	<arg name="gps_latitude_robot_c" default="39.5080331"/>
 	<arg name="gps_longitude_robot_c" default="-0.4619816"/>
     <arg name="has_pantilt_camera_c" default="false"/>
-    <!-- arm robot c -->
+	<!-- arm robot c -->
     <arg name="launch_arm_c" default="false"/>
-    <arg name="moveit_movegroup_c" default="false"/>
+	<arg name="arm_manufacturer_c" default="trossen"/>
+	<arg name="arm_model_c" default="vx300s"/>
+    <arg name="launch_moveit_c" default="false"/>
 
 	<!--BEGIN ROBOT 1-->
 	<include if="$(arg launch_robot_a)" file="$(find summit_xl_gazebo)/launch/summit_xl_one_robot.launch">
@@ -108,7 +115,9 @@
 		<arg name="gps_longitude" value="$(arg gps_longitude_robot_a)"/>
         <!-- robot_a arm args -->
         <arg name="launch_arm" value="$(arg launch_arm_a)"/>
-        <arg name="launch_moveit_movegroup" value="$(arg moveit_movegroup_a)"/>
+		<arg name="arm_manufacturer" value="$(arg arm_manufacturer_a)"/>
+		<arg name="arm_model" value="$(arg arm_model_a)"/>
+		<arg name="launch_moveit" value="$(arg launch_moveit_a)"/>
 	</include>
 
 	<!--BEGIN ROBOT 2-->
@@ -135,7 +144,9 @@
 		<arg name="gps_longitude" value="$(arg gps_longitude_robot_b)"/>
         <!-- robot_b arm args -->
         <arg name="launch_arm" value="$(arg launch_arm_b)"/>
-        <arg name="launch_moveit_movegroup" value="$(arg moveit_movegroup_b)"/>
+		<arg name="arm_manufacturer" value="$(arg arm_manufacturer_b)"/>
+		<arg name="arm_model" value="$(arg arm_model_b)"/>
+		<arg name="launch_moveit" value="$(arg launch_moveit_b)"/>
     
 	</include>
 
@@ -163,7 +174,9 @@
 		<arg name="gps_longitude" value="$(arg gps_longitude_robot_c)"/>
         <!-- robot_c arm args -->
         <arg name="launch_arm" value="$(arg launch_arm_c)"/>
-        <arg name="launch_moveit_movegroup" value="$(arg moveit_movegroup_c)"/>
+		<arg name="arm_manufacturer" value="$(arg arm_manufacturer_c)"/>
+		<arg name="arm_model" value="$(arg arm_model_c)"/>
+		<arg name="launch_moveit" value="$(arg launch_moveit_c)"/>
 	</include>
 
 
@@ -172,6 +185,7 @@
         <arg name="launch_rviz" value="$(arg launch_rviz)"/>
         <arg name="world" value="$(arg gazebo_world)"/>
         <arg name="debug" value="$(arg debug)"/>
+		<arg name="gazebo_gui" value="$(arg gazebo_gui)"/>
     </include>
 
 </launch>

@@ -66,6 +66,25 @@ sudo apt-get install python-catkin-tools
 roslaunch summit_xl_sim_bringup summit_xl_complete.launch
 ```
 
+#### Summit XL with Trossen Arm
+
+```bash
+roslaunch summit_xl_sim_bringup summit_xl_complete.launch default_xacro:=summit_xl_tix_std.urdf.xacro launch_arm_a:=true arm_manufacturer_a:=trossen arm_model_a:=vx300s
+```
+
+Launch moveit to plan trajectories:
+
+```bash
+ROS_NAMESPACE=robot roslaunch summit_xl_vx300s_moveit_config demo.launch
+```
+
+
+#### Summit XL with Kinova Arm
+
+```bash
+roslaunch summit_xl_sim_bringup summit_xl_complete.launch default_xacro:=summit_xl_gen_std.urdf.xacro launch_arm_a:=true arm_manufacturer_a:=kinova arm_model_a:=j2s7s300
+```
+
 #### or Summit XL Steel:
 
 ```bash

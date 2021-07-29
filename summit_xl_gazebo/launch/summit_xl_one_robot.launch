@@ -24,9 +24,10 @@
     <arg name="has_pantilt_camera" default="false"/>
     <!-- arm robot -->
     <arg name="launch_arm" default="false"/>
-    <arg name="launch_moveit_movegroup" default="false"/>
-    <arg name="kinova_arm" default="j2s7s300"/>
-    <arg name="arm_prefix" default="$(arg prefix)$(arg kinova_arm)"/>
+    <arg name="arm_manufacturer" default="trossen"/>
+	<arg name="arm_model" default="vx300s"/>
+    <arg name="launch_moveit" default="false"/>
+    <arg name="arm_prefix" default="$(arg prefix)$(arg arm_model)"/>
 
     <!-- only for advanced simulation -->
     <arg name="launch_advanced_simulation" default="false"/> <!-- one flag activates all -->
@@ -97,7 +98,8 @@
             <arg name="sim_arm_control" value="$(arg launch_arm)"/>
             <arg name="launch_pantilt_camera_controller" value="$(arg has_pantilt_camera)"/>
 
-            <arg name="kinova_arm" value="$(arg kinova_arm)"/>
+            <arg name="arm_manufacturer" value="$(arg arm_manufacturer)"/>
+            <arg name="arm_model" value="$(arg arm_model)"/>
             <arg name="arm_prefix" value="$(arg arm_prefix)"/>
             <arg name="odom_broadcast_tf" unless="$(arg launch_robot_ekf_localization)" value="true"/>
             <arg name="odom_broadcast_tf" if="$(arg launch_robot_ekf_localization)" value="false"/>
@@ -188,7 +190,7 @@
         </include>
 
         <!-- MoveGroup Moveit! -->
-        <include if="$(arg launch_moveit_movegroup)" file="$(find summit_xl_j2s7s300_moveit_config)/launch/summit_xl_j2s7s300_moveit_config.launch">
+        <include if="$(arg launch_moveit)" file="$(find summit_xl_j2s7s300_moveit_config)/launch/summit_xl_j2s7s300_moveit_config.launch">
                 <!--arg name="sim" value="true"/-->
         </include>
 
