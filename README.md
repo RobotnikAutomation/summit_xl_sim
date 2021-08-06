@@ -47,7 +47,7 @@ vcs import --input \
   https://raw.githubusercontent.com/RobotnikAutomation/summit_xl_sim/melodic-devel/doc/summit_xl_sim.repos
 rosdep install --from-paths src --ignore-src --skip-keys="summit_xl_robot_control" -y
 ```
-For the stable version:
+For the stable version (some latest features may be not available):
 
 ```bash
 vcs import --input \
