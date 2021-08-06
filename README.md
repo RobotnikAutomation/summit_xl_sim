@@ -38,9 +38,21 @@ sudo apt-get install -y python3-vcstool
 ```bash
 mkdir catkin_ws
 cd catkin_ws
+```
+
+For the latest version:
+
+```bash
+vcs import --input \
+  https://raw.githubusercontent.com/RobotnikAutomation/summit_xl_sim/melodic-devel/doc/summit_xl_sim.repos
+rosdep install --from-paths src --ignore-src --skip-keys="summit_xl_robot_control" -y
+```
+For the stable version:
+
+```bash
 vcs import --input \
   https://raw.githubusercontent.com/RobotnikAutomation/summit_xl_sim/melodic-master/doc/summit_xl_sim.repos
-rosdep install --from-paths src --ignore-src -y
+rosdep install --from-paths src --ignore-src --skip-keys="summit_xl_robot_control" -y
 ```
 
 ### 3. Compile:

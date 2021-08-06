@@ -23,3 +23,19 @@ repositories:
     type: git
     url: https://github.com/RobotnikAutomation/summit_xl_sim.git
     version: melodic-devel
+  src/robotnik_pad:
+    type: git
+    url: https://github.com/RobotnikAutomation/robotnik_pad.git
+    version: master
+  src/trossen/interbotix_ros_manipulators:
+    type: git
+    url: https://github.com/RobotnikAutomation/interbotix_ros_manipulators.git
+    version: melodic
+  src/trossen/interbotix_ros_toolboxes:
+    type: git
+    url: https://github.com/RobotnikAutomation/interbotix_ros_toolboxes.git
+    version: main
+  src/trossen/interbotix_ros_core:
+    type: git
+    url: https://github.com/RobotnikAutomation/interbotix_ros_core.git
+    version: main

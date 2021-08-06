@@ -115,8 +115,10 @@
 		<!-- only use if you aren´t using a localization algorithm like amcl -->
 		<!--node if="$(arg fake_map_transform)" pkg="tf" type="static_transform_publisher" name="static_map_broadcaster" args="0 0 0 0 0 0 map $(arg namespace)odom 100" /-->
 
-        <!-- pad -->
-        <include  if="$(arg launch_pad)" file="$(find summit_xl_pad)/launch/summit_xl_pad.launch"/>
+        <!-- start summit_xl_pad nodes -->
+        <include if="$(arg launch_pad)" file="$(find robotnik_pad)/launch/robotnik_pad.launch">
+        <arg name="pad_model" value="$(arg pad_model)"/>
+        </include>
 
         <!-- base_hw_sim -->
         <include if="$(arg launch_base_hw_sim)" file="$(find robotnik_base_hw_sim)/launch/summit_xl_hw_sim.launch">
