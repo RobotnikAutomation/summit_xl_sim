@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- What simulator to use -->
+  <arg name="config_package" default="$(optenv RVIZ_PACKAGE summit_xl_gazebo)"/>
+  
+  <!-- Rviz arguments -->
+  <arg name="rviz_config_file" default="rviz/summitxl_a.rviz"/>
+  <arg name="rviz_config_path" default="$(eval find(config_package) + '/' + rviz_config_file)"/>
+
+  <!-- Run rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(arg rviz_config_path)"/>
+
+</launch>

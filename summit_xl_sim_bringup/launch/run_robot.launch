@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- What simulator to use -->
+    <arg name="simulation_package" default="$(optenv SIMULATION_CONFIG_PACKAGE summit_xl_gazebo)"/>
+    <arg name="config_package" default="$(optenv CONFIG_PACKAGE summit_xl_gazebo)"/>
+    <arg name="pad_package" default="$(optenv PAD_PACKAGE robotnik_pad)"/>
+    <arg name="sim" default="$(optenv SIM_CONTROLLER true)"/>
+
+    <!-- arg to config the launch file-->
+    <arg name="robot_model" default="$(optenv ROBOT_MODEL summit_xl)"/> 
+    <arg name="robot_xacro" default="$(optenv ROBOT_XACRO summit_xl_xl_std.urdf.xacro)"/>
+    <arg name="gpu" default="false"/>
+
+    <!-- Robot configuration -->
+    <arg name="robot_id" default="$(optenv ROBOT_ID robot)"/>
+    <arg name="prefix" default="$(arg robot_id)_"/>
+    <arg name="x_init_pose" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_X 0)"/>
+    <arg name="y_init_pose" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_Y 0)"/>
+    <arg name="z_init_pose" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_Z 0)"/>
+    <arg name="a_init_pose" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_A 0)"/>
+    <arg name="launch_base_hw_sim" default="false"/>
+    <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS skid)"/>
+    <arg name="ros_planar_move_plugin" default="true" />
+
+    <!-- Arm configuration-->
+    <arg name="launch_arm" default="$(optenv ROBOT_HAS_ARM false)"/>
+    <arg name="arm_manufacturer" default="$(optenv ROBOT_ARM_MODEL trossen)"/>
+    <arg name="arm_model" default="$(optenv ROBOT_ARM_MANUFACTURER vx300s)"/>
+    <arg name="launch_moveit" default="false"/>
+
+    <!-- Pad configuratin -->
+    <arg name="pad_model" default="ps4"/>
+    <arg name="pad_config_file" default="config/robotnik_pad_plugins_$(arg pad_model).yaml"/>
+    <arg name="pad_config_path" default="$(eval find(pad_package) + '/' + pad_config_file)"/>
+
+    <!-- Launch robot (simulation specific software) -->
+    <group ns="$(arg robot_id)">
+        <!-- spawn robot in simulator -->
+        <include file="$(eval find(simulation_package) + '/launch/spawn_robot.launch')">
+        <arg name="robot_id" value="$(arg robot_id)"/>
+        <arg name="x_init_pose" value="$(arg x_init_pose)"/> 
+        <arg name="y_init_pose" value="$(arg y_init_pose)"/>
+        <arg name="z_init_pose" value="$(arg z_init_pose)"/>
+        <arg name="a_init_pose" value="$(arg a_init_pose)"/>
+        </include>
+    </group>
+
+    <!-- Launch robot (simulation independent software) -->
+    <group ns="$(arg robot_id)">
+
+        <!-- Load the URDF into the ROS Parameter Server -->
+        <include file="$(find summit_xl_description)/launch/summit_xl_state_robot.launch" >
+            <arg name="prefix" value="$(arg prefix)" />
+            <arg name="robot_xacro" value="$(arg robot_xacro)" />
+            <arg name="use_gpu_for_simulation" value="$(arg gpu)"/>
+            <arg name="kinematics" value="$(arg kinematics)"/>
+	        <arg name="ros_planar_move_plugin" default="$(arg ros_planar_move_plugin)"/>
+        </include>
+
+        <!-- Start control nodes -->
+        <include file="$(find summit_xl_control)/launch/summit_xl_control.launch">
+            <arg name="id_robot" value="$(arg robot_id)"/>
+            <arg name="sim" value="true"/>
+            <arg name="kinematics" value="$(arg kinematics)"/>
+            <arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
+            <arg name="sim_arm_control" value="$(arg launch_arm)"/>
+            <arg name="arm_manufacturer" value="$(arg arm_manufacturer)"/>
+            <arg name="arm_model" value="$(arg arm_model)"/>
+        </include>
+
+
+        <include file="$(find robotnik_pad)/launch/robotnik_pad.launch">
+            <arg name="pad_config" value="$(arg pad_config_path)" />
+        </include>
+
+        <!-- base_hw_sim -->
+        <include if="$(arg launch_base_hw_sim)" file="$(find robotnik_base_hw_sim)/launch/summit_xl_hw_sim.launch">
+            <arg name="prefix" value="$(arg prefix)"/>
+        </include>
+
+    </group>
+    
+</launch>

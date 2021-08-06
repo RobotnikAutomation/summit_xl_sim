@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+
+ <!-- Simulation arguments -->
+ <arg name="world_name" default="$(find summit_xl_gazebo)/worlds/summit_xl_office.world"/>
+ <arg name="debug" default="false"/>
+ <arg name="paused" default="false"/>
+ <arg name="headless" default="false"/>
+ <arg name="gui" default="true"/>
+
+ <!-- Launch gazebo -->
+ <include file="$(find gazebo_ros)/launch/empty_world.launch">
+   <arg name="world_name" value="$(arg world_name)"/>
+   <arg name="debug" value="$(arg debug)" />
+   <arg name="paused" value="$(arg paused)" />
+   <arg name="headless" value="$(arg headless)"/>
+   <arg name="gui" value="$(arg gui)"/>
+ </include>
+
+</launch>

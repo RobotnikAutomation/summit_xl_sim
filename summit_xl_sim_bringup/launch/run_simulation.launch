@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<launch>
+
+ <!-- What simulator to use -->
+ <arg name="simulation_package" default="$(optenv SIMULATION_CONFIG_PACKAGE summit_xl_gazebo)"/>
+ <arg name="config_package" default="$(optenv CONFIG_PACKAGE summit_xl_gazebo)"/>
+ 
+ <!-- Simulation arguments -->
+ <arg name="world" default="worlds/summit_xl_office.world" /> <!-- relative path to config_package -->
+ <arg name="world_file" default="$(eval find(config_package) + '/' + world)"/> <!-- absolute path -->
+ <arg name="debug" default="false"/>
+ <arg name="paused" default="false"/>
+ <arg name="headless" default="false"/>
+ <arg name="gui" default="true"/>
+
+ <!-- Launch gazebo -->
+ <include file="$(eval find(simulation_package) + '/launch/spawn_simulation.launch')">
+   <arg name="world_name" value="$(arg world_file)"/>
+   <arg name="debug" value="$(arg debug)" />
+   <arg name="paused" value="$(arg paused)" />
+   <arg name="headless" value="$(arg headless)"/>
+   <arg name="gui" value="$(arg gui)"/>
+   <arg name="use_sim_time" value="true"/>
+ </include>
+
+</launch>

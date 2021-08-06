@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- arg to config the launch file-->
+    <arg name="robot_id" default="$(optenv ROBOT_ID robot)"/>
+    <arg name="prefix" default="$(arg robot_id)_"/>
+
+    <!-- Robot configuration -->
+    <arg name="x_init_pose" default="0"/>
+    <arg name="y_init_pose" default="0"/>
+    <arg name="z_init_pose" default="0"/>
+    <arg name="a_init_pose" default="0"/>
+
+    <!-- Spawn model into gazebo -->
+    <node name="urdf_spawner_robot_model" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-x $(arg x_init_pose) -y $(arg y_init_pose) -z $(arg z_init_pose) -Y $(arg a_init_pose)  -urdf -param robot_description -model $(arg robot_id)" />
+
+</launch>
