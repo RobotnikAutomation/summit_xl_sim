@@ -95,8 +95,10 @@ ROS_NAMESPACE=robot roslaunch summit_xl_vx300s_moveit_config demo.launch
 #### Summit XL with Kinova Arm
 
 ```bash
-roslaunch summit_xl_sim_bringup summit_xl_complete.launch default_xacro:=summit_xl_gen_std.urdf.xacro launch_arm_a:=true arm_manufacturer_a:=kinova arm_model_a:=j2s7s300
+roslaunch summit_xl_sim_bringup summit_xl_complete.launch default_xacro:=summit_xl_gen_std.urdf.xacro launch_arm_a:=true arm_manufacturer_a:=kinova arm_model_a:=j2s7s300 amcl_and_mapserver_a:=false move_base_robot_a:=false
 ```
+
+**Note:** in this configuration the robot has not laser, therefore the amcl is turned off. When Rviz is opened, change robot_map to robot_odom in ```fixed_frame```  in order to visualize the robot.
 
 #### or Summit XL Steel:
 
