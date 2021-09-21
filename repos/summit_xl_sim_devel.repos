@@ -27,6 +27,10 @@ repositories:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_pad.git
     version: master
+  src/rcomponent:
+    type: git
+    url: https://github.com/RobotnikAutomation/rcomponent.git
+    version: master
   src/trossen/interbotix_ros_manipulators:
     type: git
     url: https://github.com/RobotnikAutomation/interbotix_ros_manipulators.git
