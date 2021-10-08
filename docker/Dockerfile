@@ -15,6 +15,8 @@ RUN useradd -m -d $user_home -s $user_shell -u $user_uid $user_name \
 
 ENV DEBIAN_FRONTEND noninteractive
 
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F42ED6FBAB17C654
+
 RUN apt-get update \
 	&& apt-get install -q -y \
 		wget \
