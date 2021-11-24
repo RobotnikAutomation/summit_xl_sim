@@ -5,10 +5,6 @@
     default="robot"
   />
   <arg
-    name="launch_system_monitor"
-    default="true"
-  />
-  <arg
     name="odom_topic"
     default="$(arg id_robot)/robotnik_base_control/odom"
   />
@@ -36,12 +32,4 @@
     type="throttle"
     args="messages $(arg odom_topic) 2.0"
   />
-  <group
-    if="$(arg launch_system_monitor)"
-    ns="$(arg id_robot)"
-  >
-    <!-- system monitor-->
-    <include file="$(find system_monitor)/launch/system_monitor.launch"/>
-  </group>
-
 </launch>
