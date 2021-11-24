@@ -75,6 +75,11 @@ RUN apt-get update \
 		ros-melodic-geographic-msgs \
 		ros-melodic-ros-controllers \
 		ros-melodic-effort-controllers \
+		ros-melodic-topic-tools \
+		ros-melodic-tf2-web-republisher \
+		ros-melodic-rosbridge-server \
+		ros-melodic-moveit-simple-controller-manager \
+		ros-melodic-joint-state-publisher-gui \
 	&& apt-get clean -q -y \
 	&& apt-get autoremove -q -y \
 	&& rm -rf /var/lib/apt/lists/*
