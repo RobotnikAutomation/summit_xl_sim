@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<launch>
+  <arg
+    name="id_robot"
+    default="robot"
+  />
+  <arg
+    name="launch_system_monitor"
+    default="true"
+  />
+  <arg
+    name="odom_topic"
+    default="$(arg id_robot)/robotnik_base_control/odom"
+  />
+
+  <!-- inits rosbridge server -->
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
+    <arg
+      name="address"
+      value=""
+    />
+  </include>
+
+  <!-- inits tf2_web_republisher node -->
+  <node
+    name="tf2_web_republisher"
+    pkg="tf2_web_republisher"
+    type="tf2_web_republisher"
+    output="screen"
+  />
+
+  <!-- republish the odometry messages with lower frequency -->
+  <node
+    name="throttle_odom"
+    pkg="topic_tools"
+    type="throttle"
+    args="messages $(arg odom_topic) 2.0"
+  />
+  <group
+    if="$(arg launch_system_monitor)"
+    ns="$(arg id_robot)"
+  >
+    <!-- system monitor-->
+    <include file="$(find system_monitor)/launch/system_monitor.launch"/>
+  </group>
+
+</launch>
