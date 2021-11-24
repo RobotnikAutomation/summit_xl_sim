@@ -13,6 +13,8 @@
 	<arg unless="$(arg omni_drive)" name="ros_planar_move_plugin" default="true"/>
 	<arg name="launch_advanced_simulation" default="false"/> <!-- Just for internal use -->
 	<arg name="use_gpu_for_simulation" default="$(optenv USE_GPU_FOR_SIMULATION false)"/>
+	<arg name="launch_rosbridge" default="$(optenv LAUNCH_ROSBRIDGE false)" />
+	<arg name="rosbridge_port" default="$(optenv ROSBRIDGE_PORT 9090)" />
 
 	<!-- arguments robot a -->
 	<arg name="id_robot_a" default="robot"/>
@@ -136,6 +138,9 @@
 		<arg name="arm_model_c" value="$(arg arm_model_c)"/>
 		<arg name="launch_moveit_c" value="$(arg launch_moveit_c)"/>
 	</include>
-
+	<include if="$(arg launch_rosbridge)" file="$(find summit_xl_sim_bringup)/launch/rosbridge.launch">
+		<arg name="port" value="$(arg rosbridge_port)"/>
+		<arg name="id_robot" value="$(arg id_robot_a)"/>
+	</include>
 
 </launch>
