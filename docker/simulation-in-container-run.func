@@ -215,6 +215,7 @@ function run_simulation() {
         --env ROS_BU_LAUNCH="${ros_launch_file}" \
         --env NVIDIA_VISIBLE_DEVICES=0 \
         --name "${instance_name}" \
+        -p 9090:9090 \
         "${image_complete_name}"
     return $?
 }
