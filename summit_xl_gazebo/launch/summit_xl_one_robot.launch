@@ -3,6 +3,7 @@
 
     <arg name="id_robot" default="robot"/>
     <arg name="prefix" default="$(arg id_robot)_"/>
+    <arg name="pad_model" default="$(optenv ROBOT_PAD_MODEL ps4)"/>
     <arg name="x_init_pose" default="0"/>
     <arg name="y_init_pose" default="0"/>
     <arg name="z_init_pose" default="0"/>
