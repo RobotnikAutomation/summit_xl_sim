@@ -47,3 +47,11 @@ repositories:
     type: git
     url: https://github.com/RobotnikAutomation/teleop_panel.git
     version: master
+  src/robotnik_gazebo_plugins:
+    type: git
+    url: https://github.com/RobotnikAutomation/robotnik_gazebo_plugins.git
+    version: hr-component
+  src/robotnik_elevator_interface:
+    type: git
+    url: https://github.com/RobotnikAutomation/robotnik_elevator_interface.git
+    version: master
