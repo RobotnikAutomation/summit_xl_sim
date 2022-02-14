@@ -43,3 +43,7 @@ repositories:
     type: git
     url: https://github.com/RobotnikAutomation/interbotix_ros_core.git
     version: main
+  src/teleop_panel:
+    type: git
+    url: https://github.com/RobotnikAutomation/teleop_panel.git
+    version: master
