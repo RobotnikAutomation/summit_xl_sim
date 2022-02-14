@@ -20,6 +20,7 @@
     <!-- odom, complete (including gps)-->
     <arg name="omni_drive" default="false"/>
     <arg name="ros_planar_move_plugin" default="false"/>
+    <arg name="ros_planar_move_plugin_force_based" default="false"/>
     <arg name="launch_pad" default="false"/>
     <arg name="use_gpu_for_simulation" default="false"/><!-- use_gpu_for_simulation -->
     <arg name="has_pantilt_camera" default="false"/>
@@ -54,6 +55,7 @@
         <param name="robot_description" command="$(find xacro)/xacro '$(arg xacro_robot_path)'
                 prefix:=$(arg prefix)
                 ros_planar_move_plugin:=$(arg ros_planar_move_plugin)
+                ros_planar_move_plugin_force_based:=$(arg ros_planar_move_plugin_force_based)
                 omni_wheels:=$(arg omni_drive)
                 gpu:=$(arg use_gpu_for_simulation)
                 gps_latitude:='$(arg gps_latitude)'
