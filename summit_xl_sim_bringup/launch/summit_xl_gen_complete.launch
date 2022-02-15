@@ -9,6 +9,7 @@
 	<arg name="default_xacro" default="summit_xl_gen_std.urdf.xacro"/>
 	<arg if="$(arg omni_drive)" name="ros_planar_move_plugin" value="true"/>
 	<arg unless="$(arg omni_drive)" name="ros_planar_move_plugin" default="true"/>
+	<arg name="ros_planar_move_plugin_force_based" default="false"/>
 	<arg name="launch_advanced_simulation" default="false"/> <!-- Just for internal use -->
 	<arg name="use_gpu_for_simulation" default="$(optenv USE_GPU_FOR_SIMULATION false)"/>
 
@@ -24,7 +25,9 @@
 	<arg name="has_pantilt_camera_a" default="false"/>
 	<!-- arm robot a -->
     <arg name="launch_arm_a" default="true"/>
-    <arg name="moveit_movegroup_a" default="false"/>
+	<arg name="arm_manufacturer_a" default="kinova"/>
+	<arg name="arm_model_a" default="j2s7s300"/>
+    <arg name="launch_moveit_a" default="false"/>
 
 	<!-- arguments robot b -->
 	<arg name="id_robot_b" default="robot_b"/>
@@ -38,7 +41,9 @@
 	<arg name="has_pantilt_camera_b" default="true"/>
 	<!-- arm robot b -->
     <arg name="launch_arm_b" default="true"/>
-    <arg name="moveit_movegroup_b" default="false"/>
+	<arg name="arm_manufacturer_b" default="kinova"/>
+	<arg name="arm_model_b" default="j2s7s300"/>
+    <arg name="launch_moveit_b" default="false"/>
 
 	<!-- arguments robot c -->
 	<arg name="id_robot_c" default="robot_c"/>
@@ -52,7 +57,9 @@
 	<arg name="has_pantilt_camera_c" default="true"/>
 	<!-- arm robot c -->
     <arg name="launch_arm_c" default="true"/>
-    <arg name="moveit_movegroup_c" default="false"/>
+	<arg name="arm_manufacturer_c" default="kinova"/>
+	<arg name="arm_model_c" default="j2s7s300"/>
+    <arg name="launch_moveit_c" default="false"/>
 
 	<include file="$(find summit_xl_gazebo)/launch/summit_xl_gazebo.launch">
 		<!-- general args -->
@@ -61,6 +68,7 @@
 		<arg name="omni_drive" value="$(arg omni_drive)"/>
 		<arg name="default_xacro" value="$(arg default_xacro)"/>
 		<arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
+		<arg name="ros_planar_move_plugin_force_based" value="$(arg ros_planar_move_plugin_force_based)" />
 		<arg name="launch_advanced_simulation" value="$(arg launch_advanced_simulation)"/>
 		<arg name="use_gpu_for_simulation" value="$(arg use_gpu_for_simulation)"/>
 		<!-- robot_a args -->
@@ -74,8 +82,10 @@
 		<arg name="launch_pad_a" value="$(arg launch_pad_a)"/>
 		<arg name="has_pantilt_camera_a" value="$(arg has_pantilt_camera_a)"/>
 		<!-- robot_a arm args -->
-        <arg name="launch_arm_a" value="$(arg launch_arm_a)"/>
-        <arg name="moveit_movegroup_a" value="$(arg moveit_movegroup_a)"/>
+		<arg name="launch_arm_a" value="$(arg launch_arm_a)"/>
+		<arg name="arm_manufacturer_a" value="$(arg arm_manufacturer_a)"/>
+		<arg name="arm_model_a" value="$(arg arm_model_a)"/>
+		<arg name="launch_moveit_a" value="$(arg launch_moveit_a)"/>
 		<!-- robot_b args -->
 		<arg name="id_robot_b" value="$(arg id_robot_b)"/>
 		<arg name="launch_robot_b" value="$(arg launch_robot_b)"/>
@@ -87,8 +97,10 @@
 		<arg name="launch_pad_b" value="$(arg launch_pad_b)"/>
 		<arg name="has_pantilt_camera_b" value="$(arg has_pantilt_camera_b)"/>
 		<!-- robot_b arm args -->
-        <arg name="launch_arm_b" value="$(arg launch_arm_b)"/>
-        <arg name="moveit_movegroup_b" value="$(arg moveit_movegroup_b)"/>
+		<arg name="launch_arm_b" value="$(arg launch_arm_b)"/>
+		<arg name="arm_manufacturer_b" value="$(arg arm_manufacturer_b)"/>
+		<arg name="arm_model_b" value="$(arg arm_model_b)"/>
+		<arg name="launch_moveit_b" value="$(arg launch_moveit_b)"/>
 		<!-- robot_c args -->
 		<arg name="id_robot_c" value="$(arg id_robot_c)"/>
 		<arg name="launch_robot_c" value="$(arg launch_robot_c)"/>
@@ -100,8 +112,10 @@
 		<arg name="launch_pad_c" value="$(arg launch_pad_c)"/>
 		<arg name="has_pantilt_camera_c" value="$(arg has_pantilt_camera_c)"/>
 		<!-- robot_c arm args -->
-        <arg name="launch_arm_c" value="$(arg launch_arm_c)"/>
-        <arg name="moveit_movegroup_c" value="$(arg moveit_movegroup_c)"/>
+		<arg name="launch_arm_c" value="$(arg launch_arm_c)"/>
+		<arg name="arm_manufacturer_c" value="$(arg arm_manufacturer_c)"/>
+		<arg name="arm_model_c" value="$(arg arm_model_c)"/>
+		<arg name="launch_moveit_c" value="$(arg launch_moveit_c)"/>
 	</include>
 
 
