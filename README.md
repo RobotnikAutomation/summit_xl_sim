@@ -49,7 +49,7 @@ vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/summit_x
 **Install the ROS dependencies**
 
 ```bash
-rosdep install --from-paths src --ignore-src --skip-keys="summit_xl_robot_control marker_mapping robotnik_locator robotnik_pose_filter" -y
+rosdep install --from-paths src --ignore-src --skip-keys="summit_xl_robot_control marker_mapping robotnik_locator robotnik_pose_filter robotnik_gazebo_elevator" -y
 ```
 <!--
 For the stable version (some latest features may be not available):
