@@ -43,7 +43,7 @@ cd catkin_ws
 Install the latest version of the simulation:
 
 ```bash
-vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/summit_xl_sim/melodic-devel/repos/summit_xl_sim_devel.repos
+vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/summit_xl_sim/noetic-devel/repos/summit_xl_sim_devel.repos
 ```
 
 **Install the ROS dependencies**
@@ -56,7 +56,7 @@ For the stable version (some latest features may be not available):
 
 ```bash
 vcs import --input \
-  https://raw.githubusercontent.com/RobotnikAutomation/summit_xl_sim/melodic-master/doc/summit_xl_sim.repos
+  https://raw.githubusercontent.com/RobotnikAutomation/summit_xl_sim/noetic-master/doc/summit_xl_sim.repos
 rosdep install --from-paths src --ignore-src --skip-keys="summit_xl_robot_control" -y
 ``` -->
 
@@ -175,7 +175,7 @@ In order to run this simulation you will need nvidia graphical accelation
 ```bash
 git clone https://github.com/RobotnikAutomation/summit_xl_sim.git
 cd summit_xl_sim
-git checkout melodic-devel
+git checkout noetic-devel
 export ROS_BU_PKG="summit_xl_sim_bringup"
 export ROS_BU_LAUNCH="summit_xl_complete.launch"
 cd docker
