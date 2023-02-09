@@ -49,7 +49,7 @@ vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/summit_x
 **Install the ROS dependencies**
 
 ```bash
-rosdep install --from-paths src --ignore-src --skip-keys="summit_xl_robot_control marker_mapping robotnik_locator robotnik_pose_filter robotnik_gazebo_elevator" -y
+rosdep install --from-paths src --ignore-src --skip-keys="summit_xl_robot_control marker_mapping robotnik_locator robotnik_pose_filter robotnik_gazebo_elevator" -y -r
 ```
 <!--
 For the stable version (some latest features may be not available):
@@ -176,7 +176,10 @@ In order to run this simulation you will need nvidia graphical accelation
 git clone https://github.com/RobotnikAutomation/summit_xl_sim.git
 cd summit_xl_sim
 git checkout melodic-devel
-docker/simulation-in-container-run.sh
+export ROS_BU_PKG="summit_xl_sim_bringup"
+export ROS_BU_LAUNCH="summit_xl_complete.launch"
+cd docker
+docker compose up
 
 ```
 
