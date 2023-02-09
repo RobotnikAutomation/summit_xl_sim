@@ -23,6 +23,8 @@ RUN apt-get update \
 		apt-utils \
 		# dialog \
 		sudo \
+		python3-vcstool \
+		git \
 	&& apt-get clean -q -y \
 	&& apt-get autoremove -q -y \
 	&& rm -rf /var/lib/apt/lists/* \
@@ -30,13 +32,6 @@ RUN apt-get update \
 
 RUN apt-get update \
 	&& apt upgrade -y \
-	&& apt-get clean -q -y \
-	&& apt-get autoremove -q -y \
-	&& rm -rf /var/lib/apt/lists/*
-
-RUN apt-get update \
-	&& apt-get install -q -y \
-		python3-vcstool \
 	&& apt-get clean -q -y \
 	&& apt-get autoremove -q -y \
 	&& rm -rf /var/lib/apt/lists/*
@@ -63,7 +58,7 @@ RUN true \
 	&& echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc \
 	&& echo "source $ck_dir/devel/setup.bash" >> ~/.bashrc
 
-ARG gazebo_model_path=$user_home/.gazebo/
+ARG gazebo_model_path=$user_home/.gazebo
 ARG gazebo_models_url=https://github.com/osrf/gazebo_models.git
 RUN true \
 	&& mkdir -p $gazebo_model_path/models \
