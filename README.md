@@ -203,46 +203,66 @@ By default the selected robot is `summit_xl`
 **Summit XL GEN**
 
 ```bash
-docker/simulation-in-container-run.sh --robot summit_xl_gen
+export ROS_BU_PKG="summit_xl_sim_bringup"
+export ROS_BU_LAUNCH="summit_xl_gen_complete.launch"
+docker compose up
 ```
 
 **Summit XLS**
 
 ```bash
-docker/simulation-in-container-run.sh --robot summit_xls
+export ROS_BU_PKG="summit_xl_sim_bringup"
+export ROS_BU_LAUNCH="summit_xls_complete.launch"
+docker compose up
 ```
 
 #### Manual Build
 
-If you wish to build manually the image without the use of the script use one the following commands:
-
-**Optiona A**
+If you wish to build the image without launching the simulation use the following commands:
 
 ```bash
 cd docker
-docker build -f Dockerfile ..
-```
-
-**Option B**
-
-```bash
-docker build -f docker/Dockerfile .
+docker compose build
 ```
 
 #### Notes
 
-- This is docker requires a graphical interface
-- The ros master uri is accesible outside the container, so in the host any ros command should work
-- You could also run a roscore previous to launch the simulation in order to have some processes on the host running
-- if you want to enter on the container use the following command in another terminal
-  
-  ```bash
-  docker container exec -it summit_xl_sim_instance bash
-  ```
+This is docker requires a graphical interface
+
 - In order to exit you have to 2 options
+
+- The `ROS_MASTER_URI` is accessible outside the container, so in the host any ros command should work
+
+- You could also run a `roscore` previous to launch the simulation in order to have some processes on the host running
+
+- if you want to enter on the container use the following command in another terminal
 1. Close `gazebo` and `rviz` and wait a bit
+
 2. execute in another terminal:
    
    ```bash
    docker container rm --force summit_xl_sim_instance
+   ```
+
+#### Notes
+
+- This is docker requires a graphical interface
+
+- The `ROS_MASTER_URI` is accessible outside the container, so in the host any ros command should work
+
+- You could also run a `roscore` previous to launch the simulation in order to have some processes on the host running
+
+- if you want to enter on the container use the following command in another terminal
+  
+  ```bash
+  docker container exec -it docker-base-1 bash
+  ```
+
+- In order to exit you have to 2 options
+1. Close `gazebo` and `rviz` and wait a bit
+
+2. execute in another terminal in the same folder than the `docker-compose.yml`:
+   
+   ```bash
+   docker compose down
    ```
