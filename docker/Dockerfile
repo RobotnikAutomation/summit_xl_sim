@@ -37,48 +37,16 @@ RUN apt-get update \
 	&& rm -rf /var/lib/apt/lists/*
 
 
+COPY docker/ros-requirements.txt /tmp
+
 RUN apt-get update \
 	&& apt-get install -q -y \
-		ros-noetic-global-planner \
-		ros-noetic-moveit-fake-controller-manager \
-		ros-noetic-hector-gazebo-plugins \
-		ros-noetic-moveit-planners-ompl \
-		ros-noetic-teb-local-planner \
-		ros-noetic-mavros-msgs \
-		ros-noetic-ros-control \
-		ros-noetic-imu-complementary-filter \
-		#ros-noetic-pr2-moveit-config \
-		ros-noetic-moveit-ros-planning-interface \
-		ros-noetic-velocity-controllers \
-		#ros-noetic-pr2-moveit-plugins \
-		ros-noetic-moveit-ros-visualization \
-		ros-noetic-move-base \
-		ros-noetic-geometric-shapes \
-		#ros-noetic-eband-local-planner \
-		ros-noetic-map-server \
-		ros-noetic-moveit-kinematics \
-		ros-noetic-costmap-2d \
-		ros-noetic-twist-mux \
-		ros-noetic-moveit-ros-perception \
-		ros-noetic-moveit-ros-move-group \
-		ros-noetic-gmapping \
-		ros-noetic-moveit-setup-assistant \
-		ros-noetic-moveit-core \
-		ros-noetic-pr2-arm-kinematics \
-		ros-noetic-robot-localization \
-		ros-noetic-amcl \
-		ros-noetic-joy \
-		ros-noetic-geographic-msgs \
-		ros-noetic-ros-controllers \
-		ros-noetic-effort-controllers \
-		ros-noetic-topic-tools \
-		ros-noetic-tf2-web-republisher \
-		ros-noetic-rosbridge-server \
-		ros-noetic-moveit-simple-controller-manager \
-		ros-noetic-joint-state-publisher-gui \
+	--no-install-recommends \
+		$(eval "echo $(cat /tmp/ros-requirements.txt | xargs)") \
 	&& apt-get clean -q -y \
 	&& apt-get autoremove -q -y \
-	&& rm -rf /var/lib/apt/lists/*
+	&& rm -rf /var/lib/apt/lists/* \
+	&& rm /tmp/ros-requirements.txt
 
 
 COPY docker/ros_entrypoint.sh /
