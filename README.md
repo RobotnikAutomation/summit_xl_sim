@@ -200,40 +200,6 @@ docker compose up
 You can select the robot, the launch file of package using the optional arguments on launch
 By default the selected robot is `summit_xl`
 
-```bash
-docker/simulation-in-container-run.sh --help
-```
-
-```
-ROBOTNIK AUTOMATION S.L.L. 2021
-
-Simulation of SUMMIT XL using docker
-
-Usage:
-docker/simulation-in-container-run.sh [OPTIONS]
-
-Optional arguments:
- --robot -r ROBOT       Select robot to simulate
-                        Valid robots:
-                            summit_xl summit_xl_gen summit_xls
-                        default: summit_xl
-
- --launch -l            Select launch file
-                        default: summit_xl_complete.launch
-
- --package -p           Select ros package
-                        default: summit_xl_sim_bringup
-
- --ros-port -u PORT     Host ros port
-                        default: 11345
-
- --gazebo-port -g PORT  Host ros port
-                        default: 11345
-
- -h, --help             Shows this help
-
-```
-
 **Summit XL GEN**
 
 ```bash
