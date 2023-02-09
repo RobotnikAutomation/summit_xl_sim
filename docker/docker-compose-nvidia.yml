@@ -10,6 +10,7 @@ services:
     stdin_open: true
     tty: true
     privileged: true
+    stop_signal: SIGINT
     environment:
       ROS_MASTER_URI: "http://localhost:11311"
       GAZEBO_MASTER_URI: "http://localhost:11345"
@@ -27,19 +28,6 @@ services:
         target: /tmp/.X11-unix
     devices:
       - "/dev/dri"
-    ports:
-      - target: 9090
-        published: 9090
-        protocol: tcp
-        mode: host
-      - target: 11311
-        published: 11311
-        protocol: tcp
-        mode: host
-      - target: 11345
-        published: 11345
-        protocol: tcp
-        mode: host
     deploy:
       resources:
         reservations:
