@@ -164,12 +164,22 @@ Enjoy! You can use the topic `${id_robot}/robotnik_base_control/cmd_vel` to cont
 
 ## Docker usage
 
-In order to run this simulation you will need nvidia graphical accelation
-
 ### Installation of required files
-- [docker](https://docs.docker.com/engine/install/ubuntu/)
-- [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
+
+#### Intel GPU
+
+- [docker engine](https://docs.docker.com/engine/install/ubuntu/)
+- [docker compose plugin](https://docs.docker.com/compose/install/linux/)
+
+#### Nvidia GPU
+
+- [docker engine](https://docs.docker.com/engine/install/ubuntu/)
+
+- [docker compose plugin](https://docs.docker.com/compose/install/linux/)
+
 - nvidia-drivers
+
+- [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
 
 ### Usage
 
@@ -179,9 +189,10 @@ cd summit_xl_sim
 git checkout melodic-devel
 export ROS_BU_PKG="summit_xl_sim_bringup"
 export ROS_BU_LAUNCH="summit_xl_complete.launch"
-cd docker
+nvidia-smi &>/dev/null \
+&& ln -sf docker-compose-nvidia.yml docker-compose.yml \
+|| ln -sf docker-compose-intel.yml docker-compose.yml
 docker compose up
-
 ```
 
 #### Selecting the robot model
