@@ -51,6 +51,7 @@ vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/summit_x
 ```bash
 rosdep install --from-paths src --ignore-src --skip-keys="summit_xl_robot_control marker_mapping robotnik_locator robotnik_pose_filter robotnik_gazebo_elevator" -y -r
 ```
+
 <!--
 For the stable version (some latest features may be not available):
 
@@ -68,6 +69,7 @@ source devel/setup.bash
 ```
 
 **ONLY: if catkin build doesn't work:** The package catkin-tools is need to compile with catkin build:
+
 ```bash
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-latest.list'
 wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
@@ -94,7 +96,6 @@ Launch moveit to plan trajectories:
 ```bash
 ROS_NAMESPACE=robot roslaunch summit_xl_vx300s_moveit_config demo.launch
 ```
-
 
 #### Summit XL with Kinova Arm
 
@@ -144,7 +145,7 @@ roslaunch summit_xl_sim_bringup summit_xl_complete.launch \
 ```
 
 - Example to launch simulation with 3 Summit XL robots:
-  
+
 ```bash
 roslaunch summit_xl_sim_bringup summit_xl_complete.launch \
   launch_robot_b:=true \
@@ -223,11 +224,13 @@ Optional arguments:
 ```
 
 **Summit XL GEN**
+
 ```bash
 docker/simulation-in-container-run.sh --robot summit_xl_gen
 ```
 
 **Summit XLS**
+
 ```bash
 docker/simulation-in-container-run.sh --robot summit_xls
 ```
@@ -237,11 +240,14 @@ docker/simulation-in-container-run.sh --robot summit_xls
 If you wish to build manually the image without the use of the script use one the following commands:
 
 **Optiona A**
+
 ```bash
 cd docker
 docker build -f Dockerfile ..
 ```
+
 **Option B**
+
 ```bash
 docker build -f docker/Dockerfile .
 ```
@@ -252,12 +258,14 @@ docker build -f docker/Dockerfile .
 - The ros master uri is accesible outside the container, so in the host any ros command should work
 - You could also run a roscore previous to launch the simulation in order to have some processes on the host running
 - if you want to enter on the container use the following command in another terminal
-```bash
-docker container exec -it summit_xl_sim_instance bash
-```
+  
+  ```bash
+  docker container exec -it summit_xl_sim_instance bash
+  ```
 - In order to exit you have to 2 options
 1. Close `gazebo` and `rviz` and wait a bit
 2. execute in another terminal:
-```bash
-docker container rm --force summit_xl_sim_instance
-```
+   
+   ```bash
+   docker container rm --force summit_xl_sim_instance
+   ```
