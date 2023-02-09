@@ -2,6 +2,7 @@
 version: "3.7"
 services:
   base:
+    image: robotnik/summit-xl-sim:melodic-devel
     build:
       context: ..
       dockerfile: docker/Dockerfile
