@@ -2,7 +2,7 @@ FROM osrf/ros:noetic-desktop-full
 MAINTAINER Nuria Diaz <ndiaz@robontik.es>
 
 # Non Root user
-ARG user_name=ros
+ARG user_name=robot
 ARG user_uid=1000
 ARG user_home=/home/$user_name
 ARG user_shell=/bin/bash
@@ -23,10 +23,12 @@ RUN apt-get update \
 		apt-utils \
 		# dialog \
 		sudo \
+		python3-vcstool \
+		git \
 	&& apt-get clean -q -y \
 	&& apt-get autoremove -q -y \
 	&& rm -rf /var/lib/apt/lists/* \
-	&& echo '%ros ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+	&& echo '%robot ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 RUN apt-get update \
 	&& apt upgrade -y \
@@ -34,57 +36,17 @@ RUN apt-get update \
 	&& apt-get autoremove -q -y \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update \
-	&& apt-get install -q -y \
-		python3-vcstool \
-	&& apt-get install -q -y \
-		git \
-	&& apt-get clean -q -y \
-	&& apt-get autoremove -q -y \
-	&& rm -rf /var/lib/apt/lists/*
+
+COPY docker/ros-requirements.txt /tmp
 
 RUN apt-get update \
 	&& apt-get install -q -y \
-		ros-noetic-global-planner \
-		ros-noetic-moveit-fake-controller-manager \
-		ros-noetic-hector-gazebo-plugins \
-		ros-noetic-moveit-planners-ompl \
-		ros-noetic-teb-local-planner \
-		ros-noetic-mavros-msgs \
-		ros-noetic-ros-control \
-		ros-noetic-imu-complementary-filter \
-		#ros-noetic-pr2-moveit-config \
-		ros-noetic-moveit-ros-planning-interface \
-		ros-noetic-velocity-controllers \
-		#ros-noetic-pr2-moveit-plugins \
-		ros-noetic-moveit-ros-visualization \
-		ros-noetic-move-base \
-		ros-noetic-geometric-shapes \
-		#ros-noetic-eband-local-planner \
-		ros-noetic-map-server \
-		ros-noetic-moveit-kinematics \
-		ros-noetic-costmap-2d \
-		ros-noetic-twist-mux \
-		ros-noetic-moveit-ros-perception \
-		ros-noetic-moveit-ros-move-group \
-		ros-noetic-gmapping \
-		ros-noetic-moveit-setup-assistant \
-		ros-noetic-moveit-core \
-		ros-noetic-pr2-arm-kinematics \
-		ros-noetic-robot-localization \
-		ros-noetic-amcl \
-		ros-noetic-joy \
-		ros-noetic-geographic-msgs \
-		ros-noetic-ros-controllers \
-		ros-noetic-effort-controllers \
-		ros-noetic-topic-tools \
-		ros-noetic-tf2-web-republisher \
-		ros-noetic-rosbridge-server \
-		ros-noetic-moveit-simple-controller-manager \
-		ros-noetic-joint-state-publisher-gui \
+	--no-install-recommends \
+		$(eval "echo $(cat /tmp/ros-requirements.txt | xargs)") \
 	&& apt-get clean -q -y \
 	&& apt-get autoremove -q -y \
-	&& rm -rf /var/lib/apt/lists/*
+	&& rm -rf /var/lib/apt/lists/* \
+	&& rm /tmp/ros-requirements.txt
 
 
 COPY docker/ros_entrypoint.sh /
@@ -97,7 +59,7 @@ RUN true \
 	&& echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc \
 	&& echo "source $ck_dir/devel/setup.bash" >> ~/.bashrc
 
-ARG gazebo_model_path=$user_home/.gazebo/
+ARG gazebo_model_path=$user_home/.gazebo
 ARG gazebo_models_url=https://github.com/osrf/gazebo_models.git
 RUN true \
 	&& mkdir -p $gazebo_model_path/models \

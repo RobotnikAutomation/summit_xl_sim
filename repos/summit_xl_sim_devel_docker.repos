@@ -19,3 +19,7 @@ repositories:
     type: git
     url: https://github.com/RobotnikAutomation/summit_xl_common.git
     version: melodic-devel
+  src/teleop_panel:
+    type: git
+    url: https://github.com/RobotnikAutomation/teleop_panel
+    version: master
