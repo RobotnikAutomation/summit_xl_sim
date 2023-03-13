@@ -2,7 +2,7 @@ FROM osrf/ros:melodic-desktop-full
 MAINTAINER Guillem Gari <ggari@robontik.es>
 
 # Non Root user
-ARG user_name=ros
+ARG user_name=robot
 ARG user_uid=1000
 ARG user_home=/home/$user_name
 ARG user_shell=/bin/bash
@@ -23,10 +23,12 @@ RUN apt-get update \
 		apt-utils \
 		# dialog \
 		sudo \
+		python3-vcstool \
+		git \
 	&& apt-get clean -q -y \
 	&& apt-get autoremove -q -y \
 	&& rm -rf /var/lib/apt/lists/* \
-	&& echo '%ros ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+	&& echo '%robot ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 RUN apt-get update \
 	&& apt upgrade -y \
@@ -34,55 +36,16 @@ RUN apt-get update \
 	&& apt-get autoremove -q -y \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update \
-	&& apt-get install -q -y \
-		python3-vcstool \
-	&& apt-get clean -q -y \
-	&& apt-get autoremove -q -y \
-	&& rm -rf /var/lib/apt/lists/*
+COPY docker/ros-requirements.txt /tmp
 
 RUN apt-get update \
 	&& apt-get install -q -y \
-		ros-melodic-global-planner \
-		ros-melodic-moveit-fake-controller-manager \
-		ros-melodic-hector-gazebo-plugins \
-		ros-melodic-moveit-planners-ompl \
-		ros-melodic-teb-local-planner \
-		ros-melodic-mavros-msgs \
-		ros-melodic-ros-control \
-		ros-melodic-imu-complementary-filter \
-		ros-melodic-pr2-moveit-config \
-		ros-melodic-moveit-ros-planning-interface \
-		ros-melodic-velocity-controllers \
-		ros-melodic-pr2-moveit-plugins \
-		ros-melodic-moveit-ros-visualization \
-		ros-melodic-move-base \
-		ros-melodic-geometric-shapes \
-		ros-melodic-eband-local-planner \
-		ros-melodic-map-server \
-		ros-melodic-moveit-kinematics \
-		ros-melodic-costmap-2d \
-		ros-melodic-twist-mux \
-		ros-melodic-moveit-ros-perception \
-		ros-melodic-moveit-ros-move-group \
-		ros-melodic-gmapping \
-		ros-melodic-moveit-setup-assistant \
-		ros-melodic-moveit-core \
-		ros-melodic-pr2-arm-kinematics \
-		ros-melodic-robot-localization \
-		ros-melodic-amcl \
-		ros-melodic-joy \
-		ros-melodic-geographic-msgs \
-		ros-melodic-ros-controllers \
-		ros-melodic-effort-controllers \
-		ros-melodic-topic-tools \
-		ros-melodic-tf2-web-republisher \
-		ros-melodic-rosbridge-server \
-		ros-melodic-moveit-simple-controller-manager \
-		ros-melodic-joint-state-publisher-gui \
+	--no-install-recommends \
+		$(eval "echo $(cat /tmp/ros-requirements.txt | xargs)") \
 	&& apt-get clean -q -y \
 	&& apt-get autoremove -q -y \
-	&& rm -rf /var/lib/apt/lists/*
+	&& rm -rf /var/lib/apt/lists/* \
+	&& rm /tmp/ros-requirements.txt
 
 
 COPY docker/ros_entrypoint.sh /
@@ -95,7 +58,7 @@ RUN true \
 	&& echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc \
 	&& echo "source $ck_dir/devel/setup.bash" >> ~/.bashrc
 
-ARG gazebo_model_path=$user_home/.gazebo/
+ARG gazebo_model_path=$user_home/.gazebo
 ARG gazebo_models_url=https://github.com/osrf/gazebo_models.git
 RUN true \
 	&& mkdir -p $gazebo_model_path/models \

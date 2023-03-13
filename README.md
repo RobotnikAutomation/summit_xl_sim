@@ -51,6 +51,7 @@ vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/summit_x
 ```bash
 rosdep install --from-paths src --ignore-src --skip-keys="summit_xl_robot_control marker_mapping robotnik_locator robotnik_pose_filter robotnik_gazebo_elevator" -y -r
 ```
+
 <!--
 For the stable version (some latest features may be not available):
 
@@ -68,6 +69,7 @@ source devel/setup.bash
 ```
 
 **ONLY: if catkin build doesn't work:** The package catkin-tools is need to compile with catkin build:
+
 ```bash
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-latest.list'
 wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
@@ -94,7 +96,6 @@ Launch moveit to plan trajectories:
 ```bash
 ROS_NAMESPACE=robot roslaunch summit_xl_vx300s_moveit_config demo.launch
 ```
-
 
 #### Summit XL with Kinova Arm
 
@@ -144,7 +145,7 @@ roslaunch summit_xl_sim_bringup summit_xl_complete.launch \
 ```
 
 - Example to launch simulation with 3 Summit XL robots:
-  
+
 ```bash
 roslaunch summit_xl_sim_bringup summit_xl_complete.launch \
   launch_robot_b:=true \
@@ -163,12 +164,22 @@ Enjoy! You can use the topic `${id_robot}/robotnik_base_control/cmd_vel` to cont
 
 ## Docker usage
 
-In order to run this simulation you will need nvidia graphical accelation
-
 ### Installation of required files
-- [docker](https://docs.docker.com/engine/install/ubuntu/)
-- [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
+
+#### Intel GPU
+
+- [docker engine](https://docs.docker.com/engine/install/ubuntu/)
+- [docker compose plugin](https://docs.docker.com/compose/install/linux/)
+
+#### Nvidia GPU
+
+- [docker engine](https://docs.docker.com/engine/install/ubuntu/)
+
+- [docker compose plugin](https://docs.docker.com/compose/install/linux/)
+
 - nvidia-drivers
+
+- [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
 
 ### Usage
 
@@ -178,9 +189,10 @@ cd summit_xl_sim
 git checkout melodic-devel
 export ROS_BU_PKG="summit_xl_sim_bringup"
 export ROS_BU_LAUNCH="summit_xl_complete.launch"
-cd docker
+nvidia-smi &>/dev/null \
+&& ln -sf docker-compose-nvidia.yml docker-compose.yml \
+|| ln -sf docker-compose-intel.yml docker-compose.yml
 docker compose up
-
 ```
 
 #### Selecting the robot model
@@ -188,76 +200,69 @@ docker compose up
 You can select the robot, the launch file of package using the optional arguments on launch
 By default the selected robot is `summit_xl`
 
-```bash
-docker/simulation-in-container-run.sh --help
-```
-
-```
-ROBOTNIK AUTOMATION S.L.L. 2021
-
-Simulation of SUMMIT XL using docker
-
-Usage:
-docker/simulation-in-container-run.sh [OPTIONS]
-
-Optional arguments:
- --robot -r ROBOT       Select robot to simulate
-                        Valid robots:
-                            summit_xl summit_xl_gen summit_xls
-                        default: summit_xl
-
- --launch -l            Select launch file
-                        default: summit_xl_complete.launch
-
- --package -p           Select ros package
-                        default: summit_xl_sim_bringup
-
- --ros-port -u PORT     Host ros port
-                        default: 11345
-
- --gazebo-port -g PORT  Host ros port
-                        default: 11345
-
- -h, --help             Shows this help
-
-```
-
 **Summit XL GEN**
+
 ```bash
-docker/simulation-in-container-run.sh --robot summit_xl_gen
+export ROS_BU_PKG="summit_xl_sim_bringup"
+export ROS_BU_LAUNCH="summit_xl_gen_complete.launch"
+docker compose up
 ```
 
 **Summit XLS**
+
 ```bash
-docker/simulation-in-container-run.sh --robot summit_xls
+export ROS_BU_PKG="summit_xl_sim_bringup"
+export ROS_BU_LAUNCH="summit_xls_complete.launch"
+docker compose up
 ```
 
 #### Manual Build
 
-If you wish to build manually the image without the use of the script use one the following commands:
+If you wish to build the image without launching the simulation use the following commands:
 
-**Optiona A**
 ```bash
 cd docker
-docker build -f Dockerfile ..
-```
-**Option B**
-```bash
-docker build -f docker/Dockerfile .
+docker compose build
 ```
 
 #### Notes
 
-- This is docker requires a graphical interface
-- The ros master uri is accesible outside the container, so in the host any ros command should work
-- You could also run a roscore previous to launch the simulation in order to have some processes on the host running
+This is docker requires a graphical interface
+
+- In order to exit you have to 2 options
+
+- The `ROS_MASTER_URI` is accessible outside the container, so in the host any ros command should work
+
+- You could also run a `roscore` previous to launch the simulation in order to have some processes on the host running
+
 - if you want to enter on the container use the following command in another terminal
-```bash
-docker container exec -it summit_xl_sim_instance bash
-```
+1. Close `gazebo` and `rviz` and wait a bit
+
+2. execute in another terminal:
+   
+   ```bash
+   docker container rm --force summit_xl_sim_instance
+   ```
+
+#### Notes
+
+- This is docker requires a graphical interface
+
+- The `ROS_MASTER_URI` is accessible outside the container, so in the host any ros command should work
+
+- You could also run a `roscore` previous to launch the simulation in order to have some processes on the host running
+
+- if you want to enter on the container use the following command in another terminal
+  
+  ```bash
+  docker container exec -it docker-base-1 bash
+  ```
+
 - In order to exit you have to 2 options
 1. Close `gazebo` and `rviz` and wait a bit
-2. execute in another terminal:
-```bash
-docker container rm --force summit_xl_sim_instance
-```
+
+2. execute in another terminal in the same folder than the `docker-compose.yml`:
+   
+   ```bash
+   docker compose down
+   ```
