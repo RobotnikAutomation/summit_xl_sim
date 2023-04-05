@@ -6,7 +6,9 @@
 	<arg name="launch_rviz" default="true"/>
 	<arg name="gazebo_world" default="$(find summit_xl_gazebo)/worlds/summit_xl_office.world"/>
 	<arg name="omni_drive" default="false"/>
-	<arg name="default_xacro" default="summit_xl_gen_std.urdf.xacro"/>
+	<arg name="default_xacro" default="$(optenv ROBOT_XACRO summit_xl_gen_std.urdf.xacro)"/>
+	<arg name="use_custom_xacro_path" default="$(optenv ROBOT_USE_CUSTOM_XACRO_PATH false)"/>
+	<arg name="custom_xacro_path" default="$(optenv ROBOT_CUSTOM_XACRO_PATH /home/robot/)"/>
 	<arg if="$(arg omni_drive)" name="ros_planar_move_plugin" value="true"/>
 	<arg unless="$(arg omni_drive)" name="ros_planar_move_plugin" default="true"/>
 	<arg name="ros_planar_move_plugin_force_based" default="false"/>
@@ -17,6 +19,8 @@
 	<arg name="id_robot_a" default="robot"/>
 	<arg name="launch_robot_a" default="true"/>
 	<arg name="xacro_robot_a" default="$(arg default_xacro)"/>
+	<arg name="use_custom_xacro_path_robot_a" default="$(arg use_custom_xacro_path)"/>
+	<arg name="custom_xacro_path_robot_a" default="$(arg custom_xacro_path)"/>
 	<arg name="map_file_a" default="willow_garage/willow_garage.yaml"/>
 	<arg name="gmapping_robot_a" default="false"/>
 	<arg name="move_base_robot_a" default="false"/>
@@ -33,6 +37,8 @@
 	<arg name="id_robot_b" default="robot_b"/>
 	<arg name="launch_robot_b" default="false"/>
 	<arg name="xacro_robot_b" default="$(arg default_xacro)"/>
+	<arg name="use_custom_xacro_path_robot_b" default="$(arg use_custom_xacro_path)"/>
+	<arg name="custom_xacro_path_robot_b" default="$(arg custom_xacro_path)"/>
 	<arg name="map_file_b" default="willow_garage/willow_garage.yaml"/>
 	<arg name="gmapping_robot_b" default="false"/>
 	<arg name="move_base_robot_b" default="false"/>
@@ -49,6 +55,8 @@
 	<arg name="id_robot_c" default="robot_c"/>
 	<arg name="launch_robot_c" default="false"/>
 	<arg name="xacro_robot_c" default="$(arg default_xacro)"/>
+	<arg name="use_custom_xacro_path_robot_c" default="$(arg use_custom_xacro_path)"/>
+	<arg name="custom_xacro_path_robot_c" default="$(arg custom_xacro_path)"/>
 	<arg name="map_file_c" default="willow_garage/willow_garage.yaml"/>
 	<arg name="gmapping_robot_c" default="false"/>
 	<arg name="move_base_robot_c" default="false"/>
@@ -75,6 +83,8 @@
 		<arg name="id_robot_a" value="$(arg id_robot_a)"/>
 		<arg name="launch_robot_a" value="$(arg launch_robot_a)"/>
 		<arg name="xacro_robot_a" value="$(arg xacro_robot_a)"/>
+		<arg name="use_custom_xacro_path_robot_a" value="$(arg use_custom_xacro_path_robot_a)"/>
+		<arg name="custom_xacro_path_robot_a" value="$(arg custom_xacro_path_robot_a)"/>
 		<arg name="map_file_a" value="$(arg map_file_a)"/>
 		<arg name="gmapping_robot_a" value="$(arg gmapping_robot_a)"/>
 		<arg name="move_base_robot_a" value="$(arg move_base_robot_a)"/>
@@ -90,6 +100,8 @@
 		<arg name="id_robot_b" value="$(arg id_robot_b)"/>
 		<arg name="launch_robot_b" value="$(arg launch_robot_b)"/>
 		<arg name="xacro_robot_b" value="$(arg xacro_robot_b)"/>
+		<arg name="use_custom_xacro_path_robot_b" value="$(arg use_custom_xacro_path_robot_b)"/>
+		<arg name="custom_xacro_path_robot_b" value="$(arg custom_xacro_path_robot_b)"/>
 		<arg name="gmapping_robot_b" value="$(arg gmapping_robot_b)"/>
 		<arg name="move_base_robot_b" value="$(arg move_base_robot_b)"/>
 		<arg name="amcl_and_mapserver_b" value="$(arg amcl_and_mapserver_b)"/>
@@ -105,6 +117,8 @@
 		<arg name="id_robot_c" value="$(arg id_robot_c)"/>
 		<arg name="launch_robot_c" value="$(arg launch_robot_c)"/>
 		<arg name="xacro_robot_c" value="$(arg xacro_robot_c)"/>
+		<arg name="use_custom_xacro_path_robot_c" value="$(arg use_custom_xacro_path_robot_c)"/>
+		<arg name="custom_xacro_path_robot_c" value="$(arg custom_xacro_path_robot_c)"/>
 		<arg name="gmapping_robot_c" value="$(arg gmapping_robot_c)"/>
 		<arg name="move_base_robot_c" value="$(arg move_base_robot_c)"/>
 		<arg name="amcl_and_mapserver_c" value="$(arg amcl_and_mapserver_c)"/>

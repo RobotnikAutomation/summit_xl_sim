@@ -16,7 +16,9 @@
 	<arg name="use_gpu_for_simulation" default="$(optenv USE_GPU_FOR_SIMULATION false)"/>
 
 	<!-- common arguments -->
-	<arg name="default_xacro_package" default="$(optenv ROBOT_XACRO_PACKAGE summit_xl_description)"/>
+	<arg name="default_xacro" default="$(optenv ROBOT_XACRO summit_xls_std.urdf.xacro)"/>
+	<arg name="use_custom_xacro_path" default="$(optenv ROBOT_USE_CUSTOM_XACRO_PATH false)"/>
+	<arg name="custom_xacro_path" default="$(optenv ROBOT_CUSTOM_XACRO_PATH /home/robot/)"/>
 
 	<!-- arguments robot a -->
 	<arg name="launch_robot_a" default="true"/>
@@ -24,8 +26,9 @@
 	<arg name="gmapping_robot_a" default="false"/>
 	<arg name="move_base_robot_a" default="true"/>
 	<arg name="amcl_and_mapserver_a" default="true"/>
-	<arg name="xacro_robot_a" default="$(optenv ROBOT_XACRO summit_xls_std.urdf.xacro)"/>
-	<arg name="launch_pad_a" default="false"/>
+	<arg name="xacro_robot_a" default="$(arg default_xacro)"/>
+	<arg name="use_custom_xacro_path_robot_a" default="$(arg use_custom_xacro_path)"/>
+	<arg name="custom_xacro_path_robot_a" default="$(arg custom_xacro_path)"/>	<arg name="launch_pad_a" default="false"/>
 	<arg name="has_pantilt_camera_a" default="false"/>
 
 	<!-- arguments robot b -->
@@ -34,7 +37,9 @@
 	<arg name="gmapping_robot_b" default="false"/>
 	<arg name="move_base_robot_b" default="false"/>
 	<arg name="amcl_and_mapserver_b" default="false"/>
-	<arg name="xacro_robot_b" default="summit_xls_std.urdf.xacro"/>
+	<arg name="xacro_robot_b" default="$(arg default_xacro)"/>
+	<arg name="use_custom_xacro_path_robot_b" default="$(arg use_custom_xacro_path)"/>
+	<arg name="custom_xacro_path_robot_b" default="$(arg custom_xacro_path)"/>
 	<arg name="launch_pad_b" default="false"/>
 	<arg name="has_pantilt_camera_b" default="false"/>
 
@@ -44,7 +49,9 @@
 	<arg name="gmapping_robot_c" default="false"/>
 	<arg name="move_base_robot_c" default="false"/>
 	<arg name="amcl_and_mapserver_c" default="false"/>
-	<arg name="xacro_robot_c" default="summit_xls_std.urdf.xacro"/>
+	<arg name="xacro_robot_c" default="$(arg default_xacro)"/>
+	<arg name="use_custom_xacro_path_robot_c" default="$(arg use_custom_xacro_path)"/>
+	<arg name="custom_xacro_path_robot_c" default="$(arg custom_xacro_path)"/>
 	<arg name="launch_pad_c" default="false"/>
 	<arg name="has_pantilt_camera_c" default="false"/>
 
@@ -57,7 +64,6 @@
 		<arg name="ros_planar_move_plugin_force_based" value="$(arg ros_planar_move_plugin_force_based)" />
 		<arg name="launch_advanced_simulation" value="$(arg launch_advanced_simulation)"/>
 		<arg name="use_gpu_for_simulation" value="$(arg use_gpu_for_simulation)"/>
-		<arg name="default_xacro_package" value="$(arg default_xacro_package)"/>
 		<!-- robot_a args -->
 		<arg name="launch_robot_a" value="$(arg launch_robot_a)"/>
 		<arg name="map_file_a" value="$(arg map_file_a)"/>
@@ -65,6 +71,8 @@
 		<arg name="move_base_robot_a" value="$(arg move_base_robot_a)"/>
 		<arg name="amcl_and_mapserver_a" value="$(arg amcl_and_mapserver_a)"/>
 		<arg name="xacro_robot_a" value="$(arg xacro_robot_a)"/>
+		<arg name="use_custom_xacro_path_robot_a" value="$(arg use_custom_xacro_path_robot_a)"/>
+		<arg name="custom_xacro_path_robot_a" value="$(arg custom_xacro_path_robot_a)"/>
 		<arg name="launch_pad_a" value="$(arg launch_pad_a)"/>
 		<arg name="has_pantilt_camera_a" value="$(arg has_pantilt_camera_a)"/>
 		<!-- robot_b args -->
@@ -74,6 +82,8 @@
 		<arg name="amcl_and_mapserver_b" value="$(arg amcl_and_mapserver_b)"/>
 		<arg name="map_file_b" value="$(arg map_file_b)"/>
 		<arg name="xacro_robot_b" value="$(arg xacro_robot_b)"/>
+		<arg name="use_custom_xacro_path_robot_b" value="$(arg use_custom_xacro_path_robot_b)"/>
+		<arg name="custom_xacro_path_robot_b" value="$(arg custom_xacro_path_robot_b)"/>
 		<arg name="launch_pad_b" value="$(arg launch_pad_b)"/>
 		<arg name="has_pantilt_camera_b" value="$(arg has_pantilt_camera_b)"/>
 
@@ -84,6 +94,8 @@
 		<arg name="amcl_and_mapserver_c" value="$(arg amcl_and_mapserver_c)"/>
 		<arg name="map_file_c" value="$(arg map_file_c)"/>
 		<arg name="xacro_robot_c" value="$(arg xacro_robot_c)"/>
+		<arg name="use_custom_xacro_path_robot_c" value="$(arg use_custom_xacro_path_robot_c)"/>
+		<arg name="custom_xacro_path_robot_c" value="$(arg custom_xacro_path_robot_c)"/>
 		<arg name="launch_pad_c" value="$(arg launch_pad_c)"/>
 		<arg name="has_pantilt_camera_c" value="$(arg has_pantilt_camera_c)"/>
 

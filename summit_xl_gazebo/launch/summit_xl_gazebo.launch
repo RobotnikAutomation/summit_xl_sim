@@ -9,8 +9,6 @@
     <arg name="launch_robot_a" default="true"/>
     <arg name="launch_robot_b" default="false"/>
     <arg name="launch_robot_c" default="false"/>
-    <arg name="default_xacro_package" default="summit_xl_description"/>
-    <arg name="default_xacro" default="summit_xl_std.urdf.xacro"/>
     <arg name="gazebo_world" default="$(find summit_xl_gazebo)/worlds/summit_xl_office.world"/>
 	<arg name="gazebo_gui" default="true"/>
     <arg name="map_file" default="willow_garage/willow_garage.yaml"/>
@@ -34,8 +32,9 @@
 	<arg name="move_base_robot_a" default="false"/>
 	<arg name="amcl_and_mapserver_a" default="false"/>
 	<arg name="map_file_a" default="$(arg map_file)"/>
-	<arg name="xacro_robot_package_a" default="$(arg default_xacro_package)"/>
-	<arg name="xacro_robot_a" default="$(arg default_xacro)"/>
+	<arg name="xacro_robot_a" default="summit_xl_std.urdf.xacro"/>
+	<arg name="use_custom_xacro_path_robot_a" default="false"/>
+	<arg name="custom_xacro_path_robot_a" default="/home/robot/"/>
 	<arg name="launch_pad_a" default="false"/>
 	<arg name="gps_latitude_robot_a" default="39.5080331"/>
 	<arg name="gps_longitude_robot_a" default="-0.4619816"/>
@@ -57,8 +56,9 @@
 	<arg name="move_base_robot_b" default="false"/>
 	<arg name="amcl_and_mapserver_b" default="false"/>
 	<arg name="map_file_b" default="$(arg map_file)"/>
-	<arg name="xacro_robot_package_b" default="$(arg default_xacro_package)"/>
-	<arg name="xacro_robot_b" default="$(arg default_xacro)"/>
+	<arg name="xacro_robot_b" default="summit_xl_std.urdf.xacro"/>
+	<arg name="use_custom_xacro_path_robot_b" default="false"/>
+	<arg name="custom_xacro_path_robot_b" default="/home/robot/"/>
 	<arg name="launch_pad_b" default="false"/>
 	<arg name="gps_latitude_robot_b" default="39.5080331"/>
 	<arg name="gps_longitude_robot_b" default="-0.4619816"/>
@@ -80,8 +80,9 @@
 	<arg name="move_base_robot_c" default="false"/>
 	<arg name="amcl_and_mapserver_c" default="false"/>
 	<arg name="map_file_c" default="$(arg map_file)"/>
-	<arg name="xacro_robot_package_c" default="$(arg default_xacro_package)"/>
-	<arg name="xacro_robot_c" default="$(arg default_xacro)"/>
+	<arg name="xacro_robot_c" default="summit_xl_std.urdf.xacro"/>
+	<arg name="use_custom_xacro_path_robot_c" default="false"/>
+	<arg name="custom_xacro_path_robot_c" default="/home/robot/"/>
 	<arg name="launch_pad_c" default="false"/>
 	<arg name="gps_latitude_robot_c" default="39.5080331"/>
 	<arg name="gps_longitude_robot_c" default="-0.4619816"/>
@@ -98,8 +99,9 @@
 		<arg name="x_init_pose" value="$(arg x_init_pose_robot_a)"/>
 		<arg name="y_init_pose" value="$(arg y_init_pose_robot_a)"/>
 		<arg name="z_init_pose" value="$(arg z_init_pose_robot_a)"/>
-		<arg name="xacro_robot_package" value="$(arg xacro_robot_package_a)"/>
 		<arg name="xacro_robot" value="$(arg xacro_robot_a)"/>
+		<arg name="use_custom_xacro_path_robot" value="$(arg use_custom_xacro_path_robot_a)"/>
+		<arg name="custom_xacro_path_robot" value="$(arg custom_xacro_path_robot_a)"/>
         <arg name="launch_robot_ekf_localization" value="$(arg ekf_localization_robot_a)"/>
         <arg name="robot_ekf_localization_mode" value="$(arg ekf_localization_mode_a)"/>
 		<arg name="launch_amcl_and_mapserver" value="$(arg amcl_and_mapserver_a)"/>
@@ -128,8 +130,9 @@
 		<arg name="x_init_pose" value="$(arg x_init_pose_robot_b)"/>
 		<arg name="y_init_pose" value="$(arg y_init_pose_robot_b)"/>
 		<arg name="z_init_pose" value="$(arg z_init_pose_robot_b)"/>
-		<arg name="xacro_robot_package" value="$(arg xacro_robot_package_b)"/>
 		<arg name="xacro_robot" value="$(arg xacro_robot_b)"/>
+		<arg name="use_custom_xacro_path_robot" value="$(arg use_custom_xacro_path_robot_b)"/>
+		<arg name="custom_xacro_path_robot" value="$(arg custom_xacro_path_robot_b)"/>
         <arg name="launch_robot_ekf_localization" value="$(arg ekf_localization_robot_b)"/>
         <arg name="robot_ekf_localization_mode" value="$(arg ekf_localization_mode_b)"/>
 		<arg name="launch_amcl_and_mapserver" value="$(arg amcl_and_mapserver_b)"/>
@@ -159,8 +162,9 @@
 		<arg name="x_init_pose" value="$(arg x_init_pose_robot_c)"/>
 		<arg name="y_init_pose" value="$(arg y_init_pose_robot_c)"/>
 		<arg name="z_init_pose" value="$(arg z_init_pose_robot_c)"/>
-		<arg name="xacro_robot_package" value="$(arg xacro_robot_package_c)"/>
 		<arg name="xacro_robot" value="$(arg xacro_robot_c)"/>
+		<arg name="use_custom_xacro_path_robot" value="$(arg use_custom_xacro_path_robot_c)"/>
+		<arg name="custom_xacro_path_robot" value="$(arg custom_xacro_path_robot_c)"/>
         <arg name="launch_robot_ekf_localization" value="$(arg ekf_localization_robot_c)"/>
         <arg name="robot_ekf_localization_mode" value="$(arg ekf_localization_mode_c)"/>
 		<arg name="launch_amcl_and_mapserver" value="$(arg amcl_and_mapserver_c)"/>
