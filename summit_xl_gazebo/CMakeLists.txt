@@ -1,35 +1,12 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.5)
 project(summit_xl_gazebo)
 
-
-find_package(catkin REQUIRED COMPONENTS 
-    roscpp
-    std_srvs
-    std_msgs
-    tf
-    gazebo_ros
-    joint_state_controller
-    velocity_controllers
-    gazebo_ros_control
-)
-
-
-###################################
-## catkin specific configuration ##
-###################################
-catkin_package(
-
-)
-
-
-#############
-## Install ##
-#############
-
+find_package(ament_cmake REQUIRED)
 
 install(
-  DIRECTORY launch worlds rviz
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+  DIRECTORY launch worlds config
+  DESTINATION share/${PROJECT_NAME}
 )
 
-
+ament_export_dependencies(${THIS_PACKAGE_INCLUDE_DEPENDS})
+ament_package()
