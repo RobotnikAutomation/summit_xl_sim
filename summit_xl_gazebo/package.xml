@@ -1,16 +1,14 @@
-<package>
+<?xml version="1.0"?>
+<?xml-model
+    href="http://download.ros.org/schema/package_format3.xsd"
+    schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
   <name>summit_xl_gazebo</name>
   <version>1.1.3</version>
   <description>
-		Launch files and world files to start the models in gazebo
+		Launch files and world files to start the models in gazebo.
   </description>
 
-  <license>BSD</license>
-  <url type="website">http://ros.org/wiki/summit_xl_gazebo</url>
-  <url type="repository">https://github.com/RobotnikAutomation/summit_xl_sim.git</url>
-  <url type="bugtracker">https://github.com/RobotnikAutomation/summit_xl_sim/issues</url>
-
-  <author email="rguzman@robotnik.es">Roberto Guzmán</author>
   <maintainer email="asoriano@robotnik.es">Angel Soriano</maintainer>
   <maintainer email="avillena@robotnik.es">Álvaro Villena</maintainer>
   <maintainer email="dredo@robotnik.es">David Redó</maintainer>
@@ -18,49 +16,28 @@
   <maintainer email="mbosch@robotnik.es">Marc Bosch</maintainer>
   <maintainer email="rnavarro@robotnik.es">Román Navarro</maintainer>
 
+  <license>BSD</license>
 
-  <buildtool_depend>catkin</buildtool_depend>
+  <url type="website">http://ros.org/wiki/summit_xl_gazebo</url>
+  <url type="repository">https://github.com/RobotnikAutomation/summit_xl_sim.git</url>
+  <url type="bugtracker">https://github.com/RobotnikAutomation/summit_xl_sim/issues</url>
 
-  <build_depend>roscpp</build_depend>
-  <build_depend>std_srvs</build_depend>
-  <build_depend>std_msgs</build_depend>
-  <build_depend>tf</build_depend>
-  <build_depend>gazebo_ros</build_depend>
-  <build_depend>summit_xl_control</build_depend>
-  <build_depend>summit_xl_description</build_depend> 
+  <author email="rguzman@robotnik.es">Roberto Guzmán</author>
 
-  <build_depend>summit_xl_description</build_depend>
-  <!-- <build_depend>summit_xl_robot_control</build_depend> -->
-  <!-- <build_depend>summit_xl_description</build_depend> -->
-  <build_depend>xacro</build_depend>
-  <build_depend>hector_gazebo_plugins</build_depend>
-  <build_depend>joint_state_controller</build_depend>
-  <build_depend>velocity_controllers</build_depend>
-  <build_depend>gazebo_ros_control</build_depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <run_depend>roscpp</run_depend>
-  <run_depend>std_srvs</run_depend>
-  <run_depend>std_msgs</run_depend>
-  <run_depend>tf</run_depend>
-  <run_depend>gazebo_ros</run_depend>
-  <run_depend>summit_xl_control</run_depend>
-  <run_depend>summit_xl_description</run_depend>
-  <run_depend>gazebo_plugins</run_depend>
-  <!-- <run_depend>summit_xl_robot_control</run_depend> -->
-
-  <run_depend>xacro</run_depend>
-  <run_depend>hector_gazebo_plugins</run_depend>
-  <run_depend>gazebo_plugins</run_depend>
-  <run_depend>joint_state_controller</run_depend>
-  <run_depend>velocity_controllers</run_depend>
-  <run_depend>gazebo_ros_control</run_depend>
-  <run_depend>ros_control</run_depend>
-  <run_depend>ros_controllers</run_depend>
-  <run_depend>imu_complementary_filter</run_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>gazebo_ros_control</exec_depend>
+  <exec_depend>rb1_base_control</exec_depend>
+  <exec_depend>rb1_base_description</exec_depend>
+  <exec_depend>rb1_base_pad</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>std_srvs</exec_depend>
+  <exec_depend>tf</exec_depend>
+  <exec_depend>diff_drive_controller</exec_depend>
+  <exec_depend>rviz</exec_depend>
 
   <export>
-    <gazebo_ros gazebo_model_path="${prefix}/models"/>
-    <gazebo_ros gazebo_media_path="${prefix}/worlds"/>
+    <build_type>ament_cmake</build_type>
   </export>
-
 </package>
