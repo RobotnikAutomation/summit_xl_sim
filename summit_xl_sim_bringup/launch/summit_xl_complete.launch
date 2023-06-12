@@ -16,11 +16,14 @@
 	<arg name="use_gpu_for_simulation" default="$(optenv USE_GPU_FOR_SIMULATION false)"/>
 	<arg name="launch_rosbridge" default="$(optenv LAUNCH_ROSBRIDGE false)" />
 	<arg name="rosbridge_port" default="$(optenv ROSBRIDGE_PORT 9090)" />
+    <arg name="default_xacro_package" default="summit_xl_description"/>
 
 	<!-- arguments robot a -->
 	<arg name="id_robot_a" default="robot"/>
 	<arg name="launch_robot_a" default="true"/>
+	<arg name="xacro_robot_package_a" default="$(arg default_xacro_package)"/>
 	<arg name="xacro_robot_a" default="$(arg default_xacro)"/>
+
 	<arg name="map_file_a" default="willow_garage/willow_garage.yaml"/>
 	<arg name="gmapping_robot_a" default="false"/>
 	<arg name="move_base_robot_a" default="true"/>
@@ -39,6 +42,7 @@
 	<!-- arguments robot b -->
 	<arg name="id_robot_b" default="robot_b"/>
 	<arg name="launch_robot_b" default="false"/>
+	<arg name="xacro_robot_package_b" default="$(arg default_xacro_package)"/>
 	<arg name="xacro_robot_b" default="$(arg default_xacro)"/>
 	<arg name="map_file_b" default="willow_garage/willow_garage.yaml"/>
 	<arg name="gmapping_robot_b" default="false"/>
@@ -58,6 +62,7 @@
 	<!-- arguments robot c -->
 	<arg name="id_robot_c" default="robot_c"/>
 	<arg name="launch_robot_c" default="false"/>
+	<arg name="xacro_robot_package_c" default="$(arg default_xacro_package)"/>
 	<arg name="xacro_robot_c" default="$(arg default_xacro)"/>
 	<arg name="map_file_c" default="willow_garage/willow_garage.yaml"/>
 	<arg name="gmapping_robot_c" default="false"/>
@@ -88,6 +93,7 @@
 		<!-- robot_a args -->
 		<arg name="id_robot_a" value="$(arg id_robot_a)"/>
 		<arg name="launch_robot_a" value="$(arg launch_robot_a)"/>
+		<arg name="xacro_robot_package_a" value="$(arg xacro_robot_package_a)"/>
 		<arg name="xacro_robot_a" value="$(arg xacro_robot_a)"/>
 		<arg name="map_file_a" value="$(arg map_file_a)"/>
 		<arg name="gmapping_robot_a" value="$(arg gmapping_robot_a)"/>
@@ -106,6 +112,7 @@
 		<!-- robot_b args -->
 		<arg name="id_robot_b" value="$(arg id_robot_b)"/>
 		<arg name="launch_robot_b" value="$(arg launch_robot_b)"/>
+		<arg name="xacro_robot_package_b" value="$(arg xacro_robot_package_b)"/>
 		<arg name="xacro_robot_b" value="$(arg xacro_robot_b)"/>
 		<arg name="gmapping_robot_b" value="$(arg gmapping_robot_b)"/>
 		<arg name="move_base_robot_b" value="$(arg move_base_robot_b)"/>
@@ -124,6 +131,7 @@
 		<!-- robot_c args -->
 		<arg name="id_robot_c" value="$(arg id_robot_c)"/>
 		<arg name="launch_robot_c" value="$(arg launch_robot_c)"/>
+		<arg name="xacro_robot_package_c" value="$(arg xacro_robot_package_c)"/>
 		<arg name="xacro_robot_c" value="$(arg xacro_robot_c)"/>
 		<arg name="gmapping_robot_c" value="$(arg gmapping_robot_c)"/>
 		<arg name="move_base_robot_c" value="$(arg move_base_robot_c)"/>
