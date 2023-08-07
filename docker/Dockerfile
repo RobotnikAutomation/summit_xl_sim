@@ -92,7 +92,7 @@ ARG fresh_download_of_git_repos=no
 
 RUN true \
 	&& vcs import --input $repo_file_list_to_use \
-	&& rosdep update \
+	&& rosdep update --include-eol-distros \
 	&& echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections \
 	&& sudo apt-get update \
 	&& rosdep install --from-paths src --ignore-src -y \
