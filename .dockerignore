@@ -1,0 +1,9 @@
+.dockerignore
+.git/
+CHANGELOG.md
+doc/
+docker/docker-compose.yml
+docker/Dockerfile
+LICENSE
+README.md
+docker/simulation-in-container-run.*

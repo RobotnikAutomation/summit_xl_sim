@@ -1,0 +1,57 @@
+repositories:
+  src/costmap_prohibition_layer:
+    type: git
+    url: https://github.com/RobotnikAutomation/costmap_prohibition_layer.git
+    version: kinetic-devel
+  src/robotnik_msgs:
+    type: git
+    url: https://github.com/RobotnikAutomation/robotnik_msgs.git
+    version: master
+  src/robotnik_sensors:
+    type: git
+    url: https://github.com/RobotnikAutomation/robotnik_sensors.git
+    version: melodic-devel
+  src/kinova-ros:
+    type: git
+    url: https://github.com/robotnikautomation/kinova-ros.git
+    version: master
+  src/summit_xl_common:
+    type: git
+    url: https://github.com/RobotnikAutomation/summit_xl_common.git
+    version: melodic-devel
+  src/summit_xl_sim:
+    type: git
+    url: https://github.com/RobotnikAutomation/summit_xl_sim.git
+    version: melodic-devel
+  src/robotnik_pad:
+    type: git
+    url: https://github.com/RobotnikAutomation/robotnik_pad.git
+    version: master
+  src/rcomponent:
+    type: git
+    url: https://github.com/RobotnikAutomation/rcomponent.git
+    version: master
+  src/trossen/interbotix_ros_manipulators:
+    type: git
+    url: https://github.com/RobotnikAutomation/interbotix_ros_manipulators.git
+    version: melodic
+  src/trossen/interbotix_ros_toolboxes:
+    type: git
+    url: https://github.com/RobotnikAutomation/interbotix_ros_toolboxes.git
+    version: main
+  src/trossen/interbotix_ros_core:
+    type: git
+    url: https://github.com/RobotnikAutomation/interbotix_ros_core.git
+    version: main
+  src/teleop_panel:
+    type: git
+    url: https://github.com/RobotnikAutomation/teleop_panel.git
+    version: master
+  src/robotnik_gazebo_plugins:
+    type: git
+    url: https://github.com/RobotnikAutomation/robotnik_gazebo_plugins.git
+    version: hr-component
+  src/robotnik_elevator_interface:
+    type: git
+    url: https://github.com/RobotnikAutomation/robotnik_elevator_interface.git
+    version: master

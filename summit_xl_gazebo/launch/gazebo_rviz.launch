@@ -3,6 +3,7 @@
 
 	<!-- roslaunch arguments -->
 	<arg name="debug" default="false"/>
+	<arg name="gazebo_gui" default="true"/>
 	<arg name="launch_rviz" default="false"/>
 	<arg name="world" default="$(find summit_xl_gazebo)/worlds/summit_xl.world"/>
 	<!-- located in summit_xl_gazebo/worlds -->
@@ -14,7 +15,7 @@
 		<arg name="paused" value="false"/>
 		<arg name="use_sim_time" value="true"/>
 		<arg name="headless" value="false"/>
-		<arg name="gui" value="true"/>
+		<arg name="gui" value="$(arg gazebo_gui)"/>
 	</include>
 
 	<!-- launch rviz -->
