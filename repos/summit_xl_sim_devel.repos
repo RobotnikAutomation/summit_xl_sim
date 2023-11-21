@@ -18,11 +18,11 @@ repositories:
   src/summit_xl_common:
     type: git
     url: https://github.com/RobotnikAutomation/summit_xl_common.git
-    version: melodic-devel
+    version: noetic-devel
   src/summit_xl_sim:
     type: git
     url: https://github.com/RobotnikAutomation/summit_xl_sim.git
-    version: melodic-devel
+    version: noetic-devel
   src/robotnik_pad:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_pad.git
